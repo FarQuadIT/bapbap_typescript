@@ -1,0 +1,86 @@
+Кадр 2
+Временная метка: 0:00:30
+Номер кадра: 1800
+Скриншот: frame_001800_30.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:00:22] чтобы нам каждый раз не залазить в папку и искать наш навскрипт, NPC, айтем, обилки,
+[0:00:29] чтобы нам по 10 лет все это не искать, здесь нам пригодится Sublime Text.
+[0:00:33] Нажимаем File, Opal Folder и открываем нашу кастомку.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_heroes_custom.txt`. Это файл конфигурации для кастомизации героев в игре Dota 2.
+
+### Детали:
+
+1. **Редактор:**
+   - **Название:** Sublime Text
+   - **Открытые вкладки:** `npc_heroes_custom.txt`, `items.txt`, `npc_items_custom.txt`, `addoninfo.txt`, `npc_abilities_custom.txt`, `addon_english.txt`, и другие.
+
+2. **Код/Текст:**
+   - **Формат:** Конфигурационный файл в формате Key-Value.
+   - **Содержимое:**
+     ```plaintext
+     "DOTAHeroes"
+     {
+         //-------------------------------------------------------------------------------------------------------------
+         // Hero: Templar Assassin
+         //-------------------------------------------------------------------------------------------------------------
+         "npc_dota_hero_alchemist"
+         {
+             "Ability" " " // Ability 1
+             "VisionNighttimeRange" "9999" // Range of vision at night time.
+         }
+         "npc_dota_hero_axe"
+         {
+             "Ability1" "axe_berserkers_call"
+             "Ability2" "axe_battle_hunger"
+             "Ability3" "axe_counter_helix"
+             "Ability4" "generic_hidden"
+             "Ability5" "generic_hidden"
+             "Ability6" "generic_hidden"
+             "Ability7" "special_bonus_unique_axe_2"
+             "Ability8" "special_bonus_unique_axe_3"
+             "Ability9" "special_bonus_unique_axe_4"
+             "Ability10" "special_bonus_unique_axe_5"
+             "Ability11" "special_bonus_unique_axe_6"
+             "Ability12" "special_bonus_unique_axe_7"
+             "Ability13" "special_bonus_unique_axe"
+             "Ability14" "special_bonus_unique_axe_8"
+             "Ability15" "special_bonus_unique_axe_9"
+             "Ability16" "special_bonus_unique_axe_10"
+             "ArmorPhysical" "0"
+             "AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
+             "AttackDamageMin" "6000"
+             "AttackDamageMax" "6000"
+             "AttackRange" "128"
+             "AttackRate" "1.700000"
+             "AttackAnimationPoint" "0.400000"
+             "AttackAcquisitionRange" "600"
+             "AttackRangeBuffer" "250"
+             "AttributePrimary" "DOTA_ATTRIBUTE_AGILITY"
+             "AttributeBaseStrength" "25"
+             "AttributeStrengthGain" "2.5"
+             "AttributeBaseIntelligence" "18"
+             "AttributeIntelligenceGain" "1.6"
+             "AttributeBaseAgility" "20"
+             "AttributeAgilityGain" "2.2"
+             "StatusHealth" "200"
+             "StatusHealthRegen" "2.5"
+             "MovementSpeed" "315"
+         }
+     }
+     ```
+
+3. **Описание кода:**
+   - **Назначение:** Конфигурация героев для кастомной игры в Dota 2.
+   - **Структура:** 
+     - Определены герои `npc_dota_hero_alchemist` и `npc_dota_hero_axe`.
+     - Указаны способности, параметры атаки, атрибуты и другие характеристики героев.
+
+4. **Связь с аудио:**
+   - В аудио говорится о необходимости использования Sublime Text для удобного доступа к файлам конфигурации, чтобы не искать их вручную в папках. На экране как раз открыт один из таких файлов, что иллюстрирует сказанное в аудио.

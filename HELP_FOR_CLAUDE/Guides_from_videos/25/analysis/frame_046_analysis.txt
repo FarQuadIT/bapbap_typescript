@@ -1,0 +1,81 @@
+Кадр 46
+Временная метка: 0:11:30
+Номер кадра: 41400
+Скриншот: frame_041400_690.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:22] Зафармил зомби и с него выпал предмет
+[0:11:24] Чтобы его другой кто-то не украл
+[0:11:26] Но он сможет украсть
+[0:11:28] Просто у него он будет серый
+[0:11:30] Мы ставим nil нам еще на это похуй
+[0:11:32] Cacher нам тоже не нужен
+[0:11:34] Просто оставляем значение nil
+[0:11:36] И не паримся
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `item_drop_manager.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+require("tables/item_drop")
+
+if ItemDropManager == nil then
+    ItemDropManager = class({})
+end
+
+function ItemDropManager:Init()
+    ListenGameEvent("entity_killed", Dynamic_Wrap(self, 'EntityKilled'), self)
+end
+
+function ItemDropManager:EntityKilled(event)
+    local killedUnit = EntIndexToHScript(event.entindex_killed)
+
+    local items = ITEM_DROP[killedUnit:GetUnitName()]
+
+    if not items then return end
+
+    local randomNumber = RandomFloat(0, 0.99)
+    local cumulativeProbability = 0
+    local dropItem
+
+    for _, item in ipairs(items) do
+        cumulativeProbability = cumulativeProbability + item.chance
+        if randomNumber < cumulativeProbability then
+            dropItem = item
+            break
+        end
+    end
+
+    if not dropItem then return end
+
+    local newItem = CreateItem(dropItem.item, nil, nil)
+end
+```
+
+### Описание кода:
+- **Импорт**: Подключается модуль `tables/item_drop`.
+- **Класс**: Определяется класс `ItemDropManager`.
+- **Инициализация**: Метод `Init` регистрирует обработчик события `entity_killed`.
+- **Обработка события**: Метод `EntityKilled` обрабатывает событие убийства сущности.
+  - Получает убитую сущность.
+  - Извлекает список возможных предметов для выпадения.
+  - Генерирует случайное число и определяет, какой предмет выпадет, основываясь на вероятностях.
+  - Создает новый предмет, если он был определен.
+
+### Важные детали:
+- Используется функция `RandomFloat` для генерации случайного числа.
+- Вероятность выпадения предметов рассчитывается через `cumulativeProbability`.
+- Создание предмета происходит через `CreateItem`.
+
+### Связь с аудио:
+- В аудио говорится о выпадении предмета с зомби и о том, что его могут украсть, но он будет "серым". Это соответствует коду, где определяется выпадение предмета и его создание с параметрами `nil`, что может означать отсутствие владельца, что делает предмет доступным для всех.
+
+### Интерфейс редактора:
+- Слева видна структура папок проекта, включая скрипты и другие игровые ресурсы.
+- Открыто несколько вкладок с файлами, но активна вкладка `item_drop_manager.lua`.
+- Внизу экрана видны иконки других приложений, таких как Visual Studio Code и браузер.

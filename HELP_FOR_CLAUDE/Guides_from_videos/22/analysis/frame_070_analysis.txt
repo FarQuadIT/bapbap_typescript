@@ -1,0 +1,97 @@
+Кадр 70
+Временная метка: 0:17:30
+Номер кадра: 63000
+Скриншот: frame_063000_1050.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:20] он принимает только строку и число.
+[0:17:22] Но boolean тоже принимает, просто
+[0:17:24] конвертирует его в 0 и 1. Это, пожалуйста,
+[0:17:26] имейте в виду. Ну и
+[0:17:28] как домашнее задание вам, сделайте
+[0:17:30] реализацию лича.
+[0:17:32] Я вам рассказал примерно, как это делается
+[0:17:34] с помощью extraData и с помощью
+[0:17:36] create tracking projectile.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text с открытым файлом `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local derction = point - casterPoint
+    derction = derction:Normalized()
+    local speed = 600
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        vVelocity = derction * speed,
+        fDistance = 2000,
+        UnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+        UnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+        UnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
+        bProvidesVision = true,
+        iVisionTeamNumber = caster:GetTeamNumber(),
+        iVisionRadius = 500,
+        ExtraData = {
+            counter = 1,
+            name = "asdas",
+            boolean = true,
+        }
+    })
+end
+
+function wave_terorist:OnProjectileHit_ExtraData(target, _, extraData)
+    local caster = self:GetCaster()
+
+    if not target then
+        caster:Heal(9999, self)
+    end
+
+    ApplyDamage({
+        victim = target,
+        attacker = caster,
+        ability = self,
+        damage = 100,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+    })
+end
+```
+
+### Описание кода:
+
+1. **Класс и функции**:
+   - `wave_terorist = class({})`: Определение класса `wave_terorist`.
+   - `OnSpellStart`: Функция, вызываемая при начале использования способности. Создает линейный снаряд.
+   - `OnProjectileHit_ExtraData`: Функция, вызываемая при попадании снаряда. Наносит урон цели или лечит кастера, если цели нет.
+
+2. **Переменные и параметры**:
+   - `caster`, `point`, `casterPoint`: Определяют кастера и его позицию.
+   - `derction`, `speed`: Направление и скорость снаряда.
+   - `ProjectileManager:CreateLinearProjectile`: Создает линейный снаряд с заданными параметрами.
+   - `ExtraData`: Дополнительные данные, передаваемые снарядом.
+
+3. **Важные детали**:
+   - Используется `ProjectileManager` для управления снарядами.
+   - `ExtraData` содержит строку, число и булево значение, что связано с аудио-контекстом.
+
+### Связь с аудио:
+
+Аудио объясняет, что функция принимает строку и число, а также конвертирует булево значение в 0 и 1. Это соответствует `ExtraData`, где передаются `counter`, `name` и `boolean`. Также упоминается реализация с использованием `extraData` и `create tracking projectile`, что видно в коде.

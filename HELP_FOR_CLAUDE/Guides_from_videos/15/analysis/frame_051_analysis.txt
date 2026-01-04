@@ -1,0 +1,66 @@
+Кадр 51
+Временная метка: 0:12:45
+Номер кадра: 45900
+Скриншот: frame_045900_765.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:35] Очень тупо поступил я
+[0:12:37] Однако очень важным условием
+[0:12:39] Чтобы у нас работало
+[0:12:41] Вот это вот
+[0:12:43] бейс класс у нас должен быть NPC Dota Creature, проверяйте его перед тем как, ну уже проверяйте
+[0:12:51] соответственно работает ли у вас что я вам сказал или нет. Все, теперь давайте проверять. Итак,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_units_custom.txt`. Это файл конфигурации для игры Dota 2, содержащий описание параметров для нейтрального юнита "kobold boss".
+
+### Детали экрана:
+
+1. **Программа**: Sublime Text (UNREGISTERED).
+2. **Файл**: `npc_units_custom.txt` в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\`.
+3. **Код**:
+   - **Язык**: Конфигурационный файл (формат похож на JSON, но без строгого синтаксиса).
+   - **Содержимое**:
+     ```plaintext
+     "BaseClass" "npc_dota_creature" // Base class for the unit
+     "Model" "models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl" // Model.
+     "SoundSet" "n_creep_Melee"
+     "Level" "10"
+     "ModelScale" "1.9"
+     "UseNeutralCreepBehavior" "1"
+     
+     // Abilities
+     "Ability1" "slark_pounce" // Ability 1
+     "Ability2" "" // Ability 2
+     "Ability3" "" // Ability 3
+     "Ability4" "" // Ability 4
+     
+     // Armor
+     "ArmorPhysical" "10" // Physical protection.
+     
+     // Attack
+     "AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
+     "AttackDamageMin" "100" // Damage range min.
+     "AttackDamageMax" "150" // Damage range max.
+     "AttackRate" "2" // Speed of attack.
+     "BaseAttackSpeed" "100"
+     "AttackAnimationPoint" "0.38" // Normalized time in animation cycle to attack.
+     "AttackAcquisitionRange" "300" // Range within a target can be acquired.
+     "AttackRange" "100" // Range within a target can be attacked.
+     "ProjectileModel" "" // Particle system model for projectile.
+     "ProjectileSpeed" "0" // Speed of projectile.
+     ```
+
+4. **Связь с аудио**:
+   - В аудио говорится о важности проверки базового класса юнита, который должен быть `npc_dota_creature`. Это соответствует строке `"BaseClass" "npc_dota_creature"` в коде.
+   - Упоминается необходимость проверки работоспособности настроек, что связано с конфигурацией юнита в файле.
+
+5. **Интерфейс**:
+   - **Панели**: Слева видна панель с деревом файлов, где выделен файл `npc_units_custom.txt`.
+   - **Поиск**: Внизу экрана активна строка поиска с введённым текстом "Ability1".
+
+Этот кадр демонстрирует процесс настройки параметров юнита в Dota 2, что важно для модификации и тестирования игровых элементов.

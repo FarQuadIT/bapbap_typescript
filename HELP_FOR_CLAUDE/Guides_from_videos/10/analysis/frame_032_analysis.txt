@@ -1,0 +1,72 @@
+Кадр 32
+Временная метка: 0:08:00
+Номер кадра: 28800
+Скриншот: frame_028800_480.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:51] И у каждого...
+[0:07:52] У каждой такой таблицы есть свои функции.
+[0:07:56] В данном случае мы получаем Target существо, то есть Cobalt.
+[0:08:00] Это обычный, ну, крип.
+[0:08:02] А какие есть функции у крипов?
+[0:08:05] А вот на то, что BaseNPC.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = {}
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = {}
+
+function modifier_ursa_copy:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if props.target == props.attacker then
+        props.target
+    end
+end
+
+modifier_ursa_copy_debuff = {}
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+```
+
+### Описание кода:
+- **Импорт модификаторов**: Используются функции `LinkLuaModifier` для подключения модификаторов `modifier_ursa_copy` и `modifier_ursa_copy_debuff`.
+- **Функция `GetIntrinsicModifierName`**: Возвращает имя модификатора `modifier_ursa_copy`.
+- **Модификатор `modifier_ursa_copy`**:
+  - **`IsHidden`**: Возвращает `false`, что означает, что модификатор видим.
+  - **`DeclareFunctions`**: Объявляет функции, которые модификатор будет использовать, в данном случае `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+  - **`OnAttackLanded`**: Проверяет, если цель атаки совпадает с атакующим, и выполняет действие (в коде не указано, какое именно).
+- **Модификатор `modifier_ursa_copy_debuff`**:
+  - **`IsHidden`**: Возвращает `false`, что также делает модификатор видимым.
+
+### Важные детали:
+- **Путь к файлу**: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities\ursa_copy.lua`
+- **Структура папок**: Видны папки `abilities`, `maps`, `materials`, `particles`, `scripts`, `sounds`, `npc`, и `utils`.
+
+### Связь с аудио:
+- В аудио говорится о функциях таблиц и о том, как они применяются к существам, таким как крип. Код на экране показывает реализацию модификаторов, которые могут быть связаны с поведением таких существ в игре.

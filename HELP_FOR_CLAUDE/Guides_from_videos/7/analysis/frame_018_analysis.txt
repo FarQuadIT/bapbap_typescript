@@ -1,0 +1,88 @@
+Кадр 18
+Временная метка: 0:04:30
+Номер кадра: 16200
+Скриншот: frame_016200_270.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:22] Пусть будет bosses.
+[0:04:25] Потому что здесь несколько боссов.
+[0:04:27] Bosses point.
+[0:04:29] Окей.
+[0:04:30] И как нам обратиться вот тут вот?
+[0:04:32] Мы будем в чувака про старт его спаунить.
+[0:04:35] Как нам это сделать?
+[0:04:37] У нас есть такая глобальная переменная, как entities.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 0)
+GameRules:GetGameModeEntity():SetCustomHeroMaxLevel(25) -- установка кастомной системы уровней
+GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true)
+ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+ListenToGameEvent("dota_player_gained_level", Dynamic_Wrap(self, 'ChupakabraStateChange'), self)
+
+function ChupakabraStateChange(data)
+    if next(data) and DATA.GAME_STATE == GAME_IN_PROGRESS then
+        -- код
+    end
+end
+
+function ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+    -- код
+end
+
+function divideGoldPlayers(gold)
+    for index, player in pairs(PlayerResource:GetPlayerCount()) do
+        if PlayerResource:IsValidPlayer(index) then
+            local hero = PlayerResource:GetSelectedHeroEntity(index)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function createDrop(teamname, pos)
+    local dropRadius = RandomFloat(50, 100)
+    local item = CreateItem("item_bag_of_gold", nil, nil)
+    item:SetPurchaseTime(0)
+    item:SetCurrentCharges(RandomInt(50, 100))
+    CreateItemOnPositionSync(pos, item)
+    item:LaunchLootInitialHeight(false, 0, 150, 0.5, pos + RandomVector(dropRadius))
+end
+
+function ChupakabraMode:ChupakabraModeStart()
+    print("Start")
+end
+```
+
+### Описание кода:
+
+- **Импорты и настройки:** 
+  - Устанавливается максимальный уровень героев и используется кастомная система уровней.
+  - События `entity_killed` и `dota_player_gained_level` обрабатываются функциями `ChupakabraKilled` и `ChupakabraStateChange`.
+
+- **Функции:**
+  - `ChupakabraStateChange(data)`: Проверяет состояние игры и выполняет действия, если игра в процессе.
+  - `ChupakabraKilled(data)`: Обрабатывает событие убийства сущности.
+  - `divideGoldPlayers(gold)`: Разделяет золото между игроками и отображает сообщение.
+  - `createDrop(teamname, pos)`: Создает предмет на позиции с определенным радиусом выпадения.
+  - `ChupakabraMode:ChupakabraModeStart()`: Начинает режим и выводит сообщение "Start".
+
+### Связь с аудио:
+
+- В аудио говорится о "bosses" и "entities", что может быть связано с функцией `ChupakabraKilled`, обрабатывающей убийства, и глобальной переменной `entities`, упомянутой в аудио.
+- Упоминание о "старт его спаунить" может относиться к функции `ChupakabraMode:ChupakabraModeStart()`, которая запускает режим.
+
+### Важные детали:
+
+- Используются функции для обработки игровых событий.
+- Код содержит комментарии на русском языке, поясняющие некоторые действия.
+- Файл расположен в директории, связанной с модификацией Dota 2.

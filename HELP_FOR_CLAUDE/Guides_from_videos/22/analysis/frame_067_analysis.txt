@@ -1,0 +1,93 @@
+Кадр 67
+Временная метка: 0:16:45
+Номер кадра: 60300
+Скриншот: frame_060300_1005.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:36] И давайте сейчас покажу
+[0:16:38] на примере, deep print table сделаю,
+[0:16:40] extraData и введу здесь
+[0:16:42] counter, по приколу введу
+[0:16:44] name, что понятно, что с
+[0:16:46] строкой он тоже выводит. Попробую ввести
+[0:16:48] boolean,
+[0:16:50] сделаю true, посмотрим,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+    local drection = point - casterPoint
+    local speed = 600
+
+    drection = drection:Normalized()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        vVelocity = drection * speed,
+        bProvidesVision = true,
+        iVisionTeamNumber = caster:GetTeamNumber(),
+        iVisionRadius = 500,
+        ExtraData = {
+            counter = 0,
+            name = ""
+        }
+    })
+end
+
+function wave_terorist:OnProjectileHit_ExtraData(target, _, extraData)
+    local caster = self:GetCaster()
+    DeepPrintTable(extraData)
+    if not target then
+        caster:Heal(9999, self)
+        return
+    end
+
+    ApplyDamage({
+        victim = target,
+        attacker = caster,
+        damage = 100,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+    })
+
+    target:AddNewModifier(caster, self, "modifier_stunned", {duration = 1})
+end
+```
+
+### Описание кода:
+
+1. **Класс и функции:**
+   - `wave_terorist = class({})`: Создание класса `wave_terorist`.
+   - `OnSpellStart`: Функция, вызываемая при начале заклинания. Она создает линейный снаряд с определенными параметрами.
+   - `OnProjectileHit_ExtraData`: Функция, вызываемая при попадании снаряда. Она выводит дополнительные данные и применяет урон и оглушение.
+
+2. **Переменные и параметры:**
+   - `caster`, `point`, `casterPoint`: Определяют позицию и направление заклинания.
+   - `drection`, `speed`: Направление и скорость снаряда.
+   - `ExtraData`: Дополнительные данные, передаваемые снарядом, включая `counter` и `name`.
+
+3. **Важные детали:**
+   - Используется функция `DeepPrintTable` для вывода содержимого `extraData`.
+   - Применяется урон и эффект оглушения к цели.
+
+### Связь с аудио:
+
+- В аудио говорится о добавлении `extraData` с полями `counter` и `name`, что соответствует коду, где эти поля инициализируются в `ExtraData`.
+- Упоминается ввод булевого значения, но в коде это не отражено. Возможно, это планируется добавить позже.

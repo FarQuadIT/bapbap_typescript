@@ -1,0 +1,91 @@
+Кадр 62
+Временная метка: 0:15:30
+Номер кадра: 55800
+Скриншот: frame_055800_930.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:22] Окей, еще остались кобальты.
+[0:15:24] Да, у нас это как бы глобальные функции,
+[0:15:26] на самом деле их лучше вывести в какой-нибудь utils,
+[0:15:29] потому что, ну, что они будут тут делать?
+[0:15:31] Окей, ну, опять же, для теста, типа,
+[0:15:33] вы там сами уже можете как-то организовать
+[0:15:36] свои файлы.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+HeroExpTable = {}
+expTable = {0}
+
+for i=2, #expTable do
+    HeroExpTable[i-1] = expTable[i] - expTable[i-1]
+end
+
+function chupakabramode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(10.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetUseCustomHeroXPValues(true) -- Установка кастомной системы уровней
+    GameRules:SetHeroRespawnEnabled(false)
+    GameRules:SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    GameRules:GetGameModeEntity():SetThink("GlobalThink", self, "GlobalThink", 2)
+end
+
+function chupakabramode:EvaluateGameState()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        -- Check if template addon script is running.
+        if GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+            return nil
+        end
+        return 1
+    end
+end
+
+local kobold_count = 0
+
+function chupakabramode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        CreateItemOnPositionSync(killed_unit:GetAbsOrigin() + RandomVector(RandomFloat(50, 200)), nil)
+    end
+
+    if kobold_count >= 10 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+
+    if killed_unit:IsRealHero() then
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+```
+
+### Описание кода:
+
+- **HeroExpTable** и **expTable**: Инициализация таблиц опыта для героев.
+- **InitGameMode**: Функция, устанавливающая начальные параметры игры, такие как стартовое золото, время выбора героя, время до начала игры и т.д. Также устанавливаются кастомные значения атрибутов.
+- **EvaluateGameState**: Функция, проверяющая состояние игры.
+- **ChupakabraKilled**: Обработчик события убийства сущности. Увеличивает счетчик убитых кобольдов и создает предмет на месте их смерти. Если убито 10 кобольдов, команда GOODGUYS выигрывает. Если убит герой, выигрывает команда BADGUYS.
+
+### Важные детали:
+
+- **Импорты и библиотеки**: Не указаны, так как Lua обычно не требует явных импортов.
+- **Переменные и функции**: Основные функции и переменные связаны с настройкой правил игры и обработкой событий.
+
+### Связь с аудио:
+
+В аудио говорится о глобальных функциях, которые лучше вынести в отдельный файл `utils`. Это соответствует коду, где функции, такие как `InitGameMode` и `ChupakabraKilled`, могут быть вынесены для улучшения структуры кода.

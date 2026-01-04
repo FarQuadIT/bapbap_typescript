@@ -1,0 +1,81 @@
+Кадр 29
+Временная метка: 0:07:15
+Номер кадра: 26100
+Скриншот: frame_026100_435.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:58] Если self.getParent has ability, то тогда.
+[0:07:10] И здесь просто ну любое условие пишите.
+[0:07:13] Можете даже опять тип условно пусть наносит урон.
+[0:07:17] Только тогда, когда у него есть талант.
+[0:07:19] Как бы и все.
+[0:07:20] Очень просто, очень простая схема того, как можно использовать таланты прямо в код.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+        local modif = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+        modif:IncrementStackCount()
+        if self:GetParent():HasAbility("special_bonus_unique_ursa_duration") then
+            ApplyDamage({
+                victim = props.target,
+                attacker = props.attacker,
+                damage = modif:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+                damage_type = DAMAGE_TYPE_PHYSICAL,
+                ability = self:GetAbility()
+            })
+        end
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+
+- **Импорты и модификаторы**: Используются функции `LinkLuaModifier` для связывания модификаторов с их скриптами.
+- **Функции и классы**:
+  - `ursa_copy:GetIntrinsicModifierName()`: Возвращает имя модификатора `modifier_ursa_copy`.
+  - `modifier_ursa_copy`: Класс, содержащий методы для обработки событий.
+  - `modifier_ursa_copy:OnAttackLanded(props)`: Обрабатывает событие, когда атака попадает в цель. Если атакующий имеет определённую способность, наносится дополнительный урон.
+  - `modifier_ursa_copy_debuff`: Класс, определяющий дебафф, который не скрыт и является дебаффом.
+
+### Связь с аудио:
+
+Аудио объясняет, как использовать условие для проверки наличия способности у объекта `self.getParent`. Это соответствует коду, где проверяется наличие способности `special_bonus_unique_ursa_duration` перед нанесением урона.

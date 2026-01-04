@@ -1,0 +1,70 @@
+Кадр 31
+Временная метка: 0:07:45
+Номер кадра: 27900
+Скриншот: frame_027900_465.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:36] Модификатор закончится, эффект тоже закончится.
+[0:07:39] И он будет все это время следовать за игроком.
+[0:07:41] Для этого есть очень простая функция.
+[0:07:43] Просто напишем getEffectName.
+[0:07:46] И вот.
+[0:07:47] И здесь мы должны вернуть название этого эффекта.
+[0:07:51] Название эффектов мы можем получить вот тут.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с кодом на языке Lua. Файл находится по пути, связанному с игрой Dota 2, что указывает на создание или модификацию скриптов для этой игры.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    local heal = self:GetSpecialValueFor("heal")
+    EmitSoundOn("DOTA_Item.Mekansm.Activate", caster)
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, caster, heal, nil)
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:IsHidden()
+    return false
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("heal")
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает Lua-модификатор с именем `"modifier_healing_spell"` с файлом `"abilities/healing_spell"`.
+- **healing_spell**: Класс, представляющий заклинание.
+  - **OnSpellStart**: Функция, вызываемая при активации заклинания. Она:
+    - Получает кастера заклинания.
+    - Извлекает значение исцеления.
+    - Проигрывает звук активации.
+    - Отображает сообщение о лечении.
+    - Добавляет модификатор к кастеру на определенную длительность.
+- **modifier_healing_spell**: Класс, представляющий модификатор.
+  - **IsHidden**: Возвращает `false`, что означает, что модификатор видим.
+  - **DeclareFunctions**: Объявляет функции, которые модификатор будет использовать.
+  - **GetModifierConstantHealthRegen**: Возвращает значение постоянного восстановления здоровья, основанное на значении из способности.
+
+### Важные детали:
+- **Импорты и функции**: Используются стандартные функции Lua для работы с модификаторами и заклинаниями в Dota 2.
+- **Переменные**: `caster`, `heal` — локальные переменные для хранения информации о кастере и значении исцеления.
+
+### Связь с аудио:
+- В аудио говорится о функции `getEffectName`, но в коде она не упоминается. Возможно, это часть другого фрагмента кода или объяснение, как получить название эффекта, что связано с функцией `GetSpecialValueFor`, используемой для получения значений параметров заклинания.

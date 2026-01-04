@@ -1,0 +1,69 @@
+Кадр 30
+Временная метка: 0:07:30
+Номер кадра: 27000
+Скриншот: frame_027000_450.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:23] И в целом он больше ничего не будет делать.
+[0:07:26] Хотя нет, вру, вру, вру, вру.
+[0:07:29] А, нет, да, он больше ничего не будет делать.
+[0:07:32] Просто я думал, как реализовать получше.
+[0:07:34] Лучше все написать тут.
+[0:07:35] То есть это просто как такая болванка будет у нас.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = {}
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = {}
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+        -- действие при атаке
+    end
+end
+
+modifier_ursa_copy_debuff = {}
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает модификаторы с Lua-файлом, указывая путь к ним.
+- **ursa_copy**: Определяет способность или объект, возвращающий имя модификатора.
+- **modifier_ursa_copy**: Модификатор, который скрыт и реагирует на событие `ON_ATTACK_LANDED`.
+- **modifier_ursa_copy_debuff**: Модификатор, который не скрыт.
+
+### Важные детали:
+- **Импорты**: Используются `LinkLuaModifier` для связывания модификаторов.
+- **Функции**: `GetIntrinsicModifierName`, `IsHidden`, `DeclareFunctions`, `OnAttackLanded`.
+- **Переменные**: `ursa_copy`, `modifier_ursa_copy`, `modifier_ursa_copy_debuff`.
+
+### Связь с аудио:
+В аудио говорится о том, что код является "болванкой", и обсуждается, как его лучше реализовать. Это соответствует видимому на экране коду, который содержит базовую структуру модификаторов без детальной реализации логики.

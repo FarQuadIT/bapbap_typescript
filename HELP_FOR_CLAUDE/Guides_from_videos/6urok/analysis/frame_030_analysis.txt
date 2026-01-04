@@ -1,0 +1,93 @@
+Кадр 30
+Временная метка: 0:07:30
+Номер кадра: 27000
+Скриншот: frame_027000_450.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:22] Чувак, который сдох.
+[0:07:24] И давайте, хотя выводить его, наверное, нет смысла,
+[0:07:27] но по приколу давайте выведем,
+[0:07:29] что нам это даст.
+[0:07:33] И, кстати, вот в чем прикол,
+[0:07:36] для чего мы оборачивали listenToGameEvent в dynamicWrap,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+#### 1. Код
+- **Язык программирования**: Lua
+- **Видимый код**:
+  ```lua
+  if ChupakabraMode == nil then
+      ChupakabraMode = class({})
+  end
+
+  HeroExpTable = { 0, 200, 500, 900, 1400, 2000 }
+  expTable = { 0, 200, 500, 900, 1400, 2000 }
+
+  function ChupakabraMode:InitGameMode()
+      GameRules:SetStartingGold(1500)
+      GameRules:SetHeroRespawnEnabled(true)
+      GameRules:SetUseUniversalShopMode(true)
+      GameRules:SetSameHeroSelectionEnabled(true)
+      GameRules:SetHeroSelectionTime(0.0)
+      GameRules:SetPreGameTime(0.0)
+      GameRules:SetPostGameTime(0.0)
+      GameRules:SetTreeRegrowTime(60.0)
+      GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+      GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+      GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+      GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+      GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+      GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+      GameRules:SetCustomGameAllowHeroPickMusic(false)
+      GameRules:SetUseCustomHeroXPValues(true) -- установка кастомной системы уровней
+      GameRules:SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+      GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true)
+      GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+      GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+  end
+
+  ListenToGameEvent("entity_killed", dynamic_wrap(self, 'ChupakabraKilled'), self)
+  GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+
+  -- Evaluate the state of the game
+  function ChupakabraMode:OnThink()
+      if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+          print("Template addon script is running.")
+      elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+          return nil
+      end
+      return 1
+  end
+
+  function ChupakabraMode:ChupakabraKilled(data)
+      print(data)
+      DeepPrintTable(data)
+
+      local killed_unit = EntIndexToHScript(data.entindex_killed)
+      print(killed_unit)
+  end
+  ```
+- **Описание кода**:
+  - **Класс `ChupakabraMode`**: Инициализирует игровой режим с различными настройками, такими как начальное золото, время возрождения героев, использование универсального магазина и т.д.
+  - **Функция `InitGameMode`**: Устанавливает правила игры, включая максимальное количество игроков в командах, время выбора героев и другие параметры.
+  - **Событие `entity_killed`**: Обрабатывает событие убийства сущности, вызывая функцию `ChupakabraKilled`.
+  - **Функция `OnThink`**: Оценивает состояние игры и выводит сообщение, если игра в процессе.
+  - **Функция `ChupakabraKilled`**: Выводит данные об убитой сущности.
+
+#### 2. Редактор
+- **Название программы**: Sublime Text
+- **Активные инструменты и настройки**:
+  - Открыт файл `chupakabra_mode.lua`.
+  - Видна структура папок слева, включая `maps`, `particles`, `resource`, `scripts`, `vscripts`.
+  - Внизу экрана указано, что используется Lua, размер табуляции 4.
+
+#### 5. Связь с аудио
+- **Соотношение с аудио**:
+  - В аудио упоминается "чувак, который сдох", что соответствует обработке события `entity_killed` в коде.
+  - Упоминание `dynamicWrap` в аудио связано с использованием `dynamic_wrap` в коде для оборачивания события.

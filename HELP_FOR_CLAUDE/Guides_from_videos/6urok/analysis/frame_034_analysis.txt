@@ -1,0 +1,88 @@
+Кадр 34
+Временная метка: 0:08:30
+Номер кадра: 30600
+Скриншот: frame_030600_510.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:22] Так, теперь насчет skilledUnit'ов.
+[0:08:24] Видим, что вот тут выводится какая-то таблица.
+[0:08:27] Мы опять же можем ее тогда задиппринтить.
+[0:08:30] Давайте уже уберем.
+[0:08:32] Ладно, это оставим.
+[0:08:34] Ладно, это оставим.
+[0:08:36] script.reloads.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_chupakabra", "modifiers/modifier_chupakabra.lua", LUA_MODIFIER_MOTION_NONE)
+
+if chupakabramode == nil then
+    chupakabramode = class({})
+end
+
+HeroExpTable = {0, 200, 500, 900, 1400, 2000}
+expTable = {0, 100, 200, 300, 400, 500, 600}
+
+for i=2, #expTable do
+    HeroExpTable[i] = HeroExpTable[i-1] + expTable[i-1]
+end
+
+function chupakabramode:InitGameMode()
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(0.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+function chupakabramode:ChupakabraKilled(data)
+    print(data)
+    DeepPrintTable(data)
+
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+    DeepPrintTable(killed_unit)
+end
+```
+
+### Описание кода:
+
+1. **Импорт модификатора**: Используется `LinkLuaModifier` для подключения модификатора `modifier_chupakabra`.
+
+2. **Определение класса**: Проверяется, существует ли `chupakabramode`, если нет, то создается новый класс.
+
+3. **Таблицы опыта**: Определяются таблицы опыта `HeroExpTable` и `expTable`, которые используются для настройки уровней героев.
+
+4. **Инициализация игрового режима**: 
+   - Устанавливаются различные временные параметры игры, такие как время выбора героя и время подготовки.
+   - Настраиваются максимальные игроки для каждой команды.
+   - Устанавливаются пользовательские уровни героев и атрибуты.
+
+5. **Обработчик событий**: 
+   - Подписка на событие `entity_killed`, которое вызывает функцию `ChupakabraKilled`.
+   - Функция `ChupakabraKilled` выводит данные об убитом юните.
+
+### Связь с аудио:
+
+- В аудио упоминается вывод таблицы и использование `DeepPrintTable`, что соответствует коду, где выводятся данные об убитом юните.
+- Также упоминается необходимость "задиппринтить" таблицу, что в коде реализовано через `DeepPrintTable(data)` и `DeepPrintTable(killed_unit)`.

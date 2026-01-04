@@ -1,0 +1,55 @@
+Кадр 25
+Временная метка: 0:06:15
+Номер кадра: 22500
+Скриншот: frame_022500_375.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:04] Поэтому давайте просто в Chupacabra StateChange.
+[0:06:09] Возьмем определенную стадию игры.
+[0:06:11] А именно, когда у нас.
+[0:06:15] NewState будет равно DotaGameRules.
+[0:06:18] CustomGameSetup.
+[0:06:19] То есть, при выборе команды.
+[0:06:20] Отлично.
+[0:06:21] Отлично.
+[0:06:21] И сюда как раз.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+I'm unable to analyze or describe the content of the image you provided. However, I can help you with general guidance on how to analyze a screenshot from a video tutorial or screen recording.
+
+### General Steps for Analyzing a Screenshot:
+
+1. **Identify the Context:**
+   - Determine if the screenshot is from a code editor, game editor, GUI, or documentation.
+
+2. **Code Analysis:**
+   - **Language:** Identify the programming language (e.g., Lua, Python).
+   - **Code Content:** Reproduce visible code snippets.
+   - **Functionality:** Explain what the code does.
+   - **Details:** Note important elements like imports, functions, classes, and variables.
+
+3. **Editor Analysis:**
+   - **Program Name:** Identify the software (e.g., Sublime Text, Unity).
+   - **Open Files:** List files or assets open in the editor.
+   - **Active Tools:** Note any active tools or modes.
+   - **Settings:** Describe visible settings or configurations.
+
+4. **Interface/GUI Analysis:**
+   - **Application Name:** Identify the application.
+   - **Windows/Tabs:** List open windows or tabs.
+   - **Settings:** Describe visible settings or options.
+   - **User Actions:** Note what the user is doing.
+
+5. **Documentation/Text Analysis:**
+   - **Text Content:** Reproduce visible text.
+   - **Formatting:** Note any important formatting.
+
+6. **Audio-Visual Connection:**
+   - **Relation to Audio:** Explain how the visual content relates to the audio context.
+   - **Explanations:** Identify parts of the audio that explain the visual content.
+
+If you have specific questions or need further assistance, feel free to ask!

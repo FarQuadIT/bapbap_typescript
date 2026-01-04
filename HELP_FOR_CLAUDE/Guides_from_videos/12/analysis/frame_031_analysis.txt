@@ -1,0 +1,57 @@
+Кадр 31
+Временная метка: 0:07:45
+Номер кадра: 27900
+Скриншот: frame_027900_465.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:37] Во-первых, пропишем давайте функцию onCreate у модификатора нашего.
+[0:07:42] Что это за функция?
+[0:07:43] Эта функция срабатывает тогда, когда этот модификатор на ком-либо появляется.
+[0:07:48] То есть, если мы вот нажали skill, модификатор накинулся на таргета, все, эта функция сработала.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier( "modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE )
+
+strong_poison = class({})
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {duration = 8})
+end
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return { MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT }
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+
+function modifier_strong_poison:OnCreate()
+end
+```
+
+### Описание кода:
+- **Импорт модификатора**: `LinkLuaModifier` связывает Lua-модификатор с именем `modifier_strong_poison` с файлом `abilities/strong_poison`.
+- **Класс `strong_poison`**: Определяет способность, которая при активации (`OnSpellStart`) применяет модификатор `modifier_strong_poison` к цели на 8 секунд.
+- **Функции модификатора**:
+  - `IsHidden`: Возвращает `false`, что означает, что модификатор видим.
+  - `DeclareFunctions`: Указывает, что модификатор изменяет скорость передвижения.
+  - `GetModifierMoveSpeedBonus_Constant`: Уменьшает скорость передвижения на 150 единиц.
+  - `OnCreate`: Пустая функция, которая будет вызываться при создании модификатора.
+
+### Связь с аудио:
+Аудио объясняет, что функция `OnCreate` срабатывает, когда модификатор применяется к цели. На экране видно, что эта функция уже добавлена в код, но пока не содержит логики. Это соответствует объяснению в аудио о том, что функция должна быть прописана для выполнения действий при применении модификатора.

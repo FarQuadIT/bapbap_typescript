@@ -1,0 +1,76 @@
+Кадр 54
+Временная метка: 0:13:30
+Номер кадра: 48600
+Скриншот: frame_048600_810.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:20] Есть еще куча всяких таких функций глобальных,
+[0:13:22] которые могут использоваться в любом месте кода.
+[0:13:25] То есть независимо от...
+[0:13:27] Ну, у нас мы раньше рассматривали, что у нас цепочка вот такая вот получается.
+[0:13:31] Тут независимо от того...
+[0:13:33] То есть не нужно какую-то выстраивать цепочку.
+[0:13:34] То есть мы просто что делаем?
+[0:13:36] Пишем здесь Apply Damage.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с расширением `.lua`. Это указывает на то, что используется язык программирования Lua. 
+
+### Видимый код:
+```lua
+LinkLuaModifier( "modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+        local modif = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+        modif:IncrementStackCount()
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает Lua-модификаторы с их именами и файлами.
+- **ursa_copy**: Класс способности, который возвращает имя модификатора `modifier_ursa_copy`.
+- **modifier_ursa_copy**: Модификатор, который скрыт и реагирует на событие `ON_ATTACK_LANDED`.
+- **OnAttackLanded**: При атаке добавляет модификатор `modifier_ursa_copy_debuff` к цели и увеличивает счетчик стаков.
+- **modifier_ursa_copy_debuff**: Модификатор, который не скрыт и является дебаффом.
+
+### Важные детали:
+- **Импорты**: Используются функции `LinkLuaModifier` для связывания модификаторов.
+- **Функции и классы**: Определены классы и функции для работы с модификаторами и событиями.
+
+### Связь с аудио:
+В аудио говорится о глобальных функциях, которые могут использоваться в любом месте кода. Код на экране демонстрирует использование таких функций, как `LinkLuaModifier`, которые могут быть вызваны в любом месте для связывания модификаторов с их реализацией. Это соответствует упоминанию в аудио о возможности использования функций без необходимости выстраивания цепочки.

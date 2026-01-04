@@ -1,0 +1,72 @@
+Кадр 71
+Временная метка: 0:17:45
+Номер кадра: 63900
+Скриншот: frame_063900_1065.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:35] Копируем itemMotusOrb.
+[0:17:37] И вставляем вот так вот.
+[0:17:40] DotaToolTipAbility.
+[0:17:42] ItemMotusOrb.
+[0:17:43] Пишем здесь MotusBobus.
+[0:17:47] Смотрим на название.
+[0:17:49] Опять ни хуя не работает.
+[0:17:51] Пиздец.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `addon_english.txt`. Это файл локализации для игры Dota 2, содержащий текстовые строки на английском языке.
+
+### Детали экрана:
+
+1. **Программа:**
+   - Sublime Text (UNREGISTERED).
+
+2. **Открытые файлы:**
+   - `addon_english.txt`
+   - `npc_heroes_custom.txt`
+   - `npc_items_custom.txt`
+   - `npc_units_custom.txt`
+   - `addon_russian.txt`
+   - `items.txt`
+   - `update.txt`
+   - `Новый текстовый документ.txt`
+
+3. **Структура папок:**
+   - `maps`
+   - `materials`
+   - `particles`
+   - `resource`
+   - `scripts`
+   - `vscripts`
+   - `addoninfo.txt`
+   - `tools_asset_info.bin`
+   - `tools_thumbnail_cache.bin`
+
+4. **Содержимое файла `addon_english.txt`:**
+   ```plaintext
+   "lang"
+   {
+       "Language"        "English"
+       "Tokens"
+       {
+           "addon_game_name"            "CHUPAKABRA"
+           "DOTA_Tooltip_ability_cockx_counter_helix"        "Cockx helix"
+           "DOTA_Tooltip_ability_cockx_counter_helix_Description"    "крутись <font color='#ffffff'> как дикий </font>"
+           "DOTA_Tooltip_ability_cockx_counter_helix_damage"    "урон"
+           "DOTA_Tooltip_ability_cockx_counter_helix_radius"    "РАДИУС"
+           "DOTA_Tooltip_ability_item_motus_orb"    ""
+       }
+   }
+   ```
+
+5. **Связь с аудио:**
+   - В аудио говорится о копировании и вставке `itemMotusOrb`, а также о том, что это не работает. На экране видно, что строка `"DOTA_Tooltip_ability_item_motus_orb"` присутствует, но значение пустое, что может быть причиной проблемы, о которой упоминается в аудио.
+
+### Анализ:
+- **Код:** Это не программный код, а файл локализации, используемый для отображения текстов в игре.
+- **Язык:** Формат файла локализации для Dota 2.
+- **Действия пользователя:** Пользователь, вероятно, редактирует файл локализации, пытаясь исправить или добавить текстовые строки для предметов или способностей в игре.

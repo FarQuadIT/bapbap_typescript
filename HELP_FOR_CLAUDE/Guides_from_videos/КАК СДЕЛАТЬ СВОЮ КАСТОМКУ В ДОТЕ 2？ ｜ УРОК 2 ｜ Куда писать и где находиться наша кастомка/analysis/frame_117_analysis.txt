@@ -1,0 +1,59 @@
+Кадр 117
+Временная метка: 0:13:39
+Номер кадра: 49140
+Скриншот: frame_049140_819.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:34] Axe cooling blade.
+[0:13:36] Ну я не правильно написал.
+[0:13:38] Да.
+[0:13:40] Окей.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities.txt`. Это файл конфигурации, вероятно, связанный с игрой или модом, где описываются способности персонажей.
+
+### Детали экрана:
+
+1. **Редактор:**
+   - **Название:** Sublime Text (UNREGISTERED)
+   - **Открытые вкладки:** `npc_abilities.txt`, `npc_items_custom.txt`, `npc_units_custom.txt`, `addoninfo.txt`, `heroList.txt`, `addon_english.txt`.
+
+2. **Код/Текст:**
+   - **Язык:** Это не код в традиционном смысле, а скорее конфигурационный файл в текстовом формате.
+   - **Содержимое:**
+     ```plaintext
+     // Ability: Special Bonus
+     "special_bonus_unique_beastmaster_g"
+     {
+         // General
+         "ID"        "1000"                          // unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+         "AbilityType"       "DOTA_ABILITY_TYPE_ATTRIBUTES"
+         "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         "BaseClass"         "special_bonus_base"
+     }
+     // Ability: Special Bonus
+     "special_bonus_unique_beastmaster_wild_axe_cooldown"
+     {
+         // General
+         "ID"        "1001"                          // unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+         "AbilityType"       "DOTA_ABILITY_TYPE_ATTRIBUTES"
+         "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         "BaseClass"         "special_bonus_base"
+     }
+     ```
+
+3. **Описание:**
+   - Файл содержит описание способностей, включая уникальные идентификаторы, типы способностей и их поведение.
+   - Пример способности: `special_bonus_unique_beastmaster_wild_axe_cooldown` с ID `1001`.
+
+4. **Связь с аудио:**
+   - В аудио говорится о "Axe cooling blade" и упоминается ошибка в написании. Это соответствует строке `special_bonus_unique_beastmaster_wild_axe_cooldown`, где, возможно, была допущена ошибка в названии способности.
+
+5. **Интерфейс:**
+   - Видна строка поиска внизу с текстом `axe_g`, что может указывать на поиск по файлу для исправления ошибки.
+
+Этот кадр демонстрирует процесс редактирования конфигурационного файла, связанного с игровыми способностями, и исправление ошибок в их описании.

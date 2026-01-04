@@ -1,0 +1,94 @@
+Кадр 30
+Временная метка: 0:07:30
+Номер кадра: 27000
+Скриншот: frame_027000_450.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:19] Все потому, что они сейчас используют один и тот же ID.
+[0:07:26] То есть ID 5009, ID 5009.
+[0:07:29] Поэтому все нахрен ломается.
+[0:07:31] И вот на самом деле что угодно вообще может произойти.
+[0:07:34] Лучше такого вообще не допускать.
+[0:07:36] Вместо ID лучше писать именно на втором клоне.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Этот файл, вероятно, относится к модификации для игры Dota 2, так как путь к файлу указывает на директорию с игрой.
+
+### Детали экрана:
+
+1. **Редактор**: Sublime Text (не зарегистрированная версия).
+2. **Открытые файлы**:
+   - `npc_abilities_custom.txt`
+   - `npc_heroes_custom.txt`
+   - `update.txt`
+   - `Новый текстовый документ.txt`
+   - `npc_items_custom.txt`
+
+3. **Структура папок**:
+   - `chupakabra`
+   - `maps`
+   - `materials`
+   - `particles`
+   - `resource`
+   - `scripts`
+     - `npc`
+       - `npc_abilities_custom.txt`
+       - `npc_heroes_custom.txt`
+       - `npc_units_custom.txt`
+   - `sound`
+   - `vscript`
+   - `addoninfo.txt`
+   - `tools_asset_info.bin`
+   - `tools_thumbnail_cache.bin`
+
+4. **Содержимое файла `npc_abilities_custom.txt`**:
+   - Это JSON-подобная структура, описывающая способности персонажей.
+   - Пример записи:
+     ```plaintext
+     "axe_counter_helix"
+     {
+         // General
+         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         "AbilityUnitTargetType" "DAMAGE_TYPE_PURE"
+         "SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
+         "AbilitySound" "Hero_Axe.CounterHelix"
+         "AbilityTextureName" "axe/duub"
+         "MaxLevel" "7"
+         "RequiredLevel" "1"
+         "LevelsBetweenUpgrades" "1"
+         "HasShardUpgrade" "0"
+         // Special
+         "AbilityValues"
+         {
+             "damage"
+             {
+                 "value" "100 200 300 400 500 600 700"
+                 "special_bonus_unique_axe_3" "300"
+             }
+             "radius" "300"
+             "trigger_attacks" "0"
+             "AbilityCooldown"
+             {
+                 "value" "0.3"
+                 "special_bonus_shard" "0"
+             }
+             "shard_debuff_duration" "+6.0"
+             "shard_damage_reduction" "+15"
+             "shard_max_stacks" "6"
+         }
+         "AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_3"
+     }
+     ```
+
+### Связь с аудио:
+
+- В аудио говорится о проблеме с использованием одного и того же ID, что может вызывать ошибки. На экране видно, что в файле описываются способности с уникальными идентификаторами. Вероятно, обсуждается необходимость изменения ID для предотвращения конфликтов.
+- Упоминается необходимость изменения ID на втором клоне, что может относиться к необходимости создания уникальных идентификаторов для каждой способности или объекта в игре.
+
+### Заключение:
+
+Экран демонстрирует редактирование конфигурационного файла для модификации игры, где важно следить за уникальностью идентификаторов, чтобы избежать ошибок, как обсуждается в аудио.

@@ -1,0 +1,90 @@
+Кадр 44
+Временная метка: 0:11:00
+Номер кадра: 39600
+Скриншот: frame_039600_660.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:51] Убиваем кобальта, и игра завершается в пользу Dair.
+[0:10:55] Блять.
+[0:10:57] Мы все проебали.
+[0:10:59] Да, DotaTeamBadGuys.
+[0:11:01] И также можно настроить, типа, если...
+[0:11:03] Не знаю, если умирает isRealHero,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан код в редакторе Sublime Text. Вот подробное описание:
+
+### 1. Код:
+- **Язык программирования:** Lua
+- **Файл:** `chupakabra_mode.lua`
+- **Путь:** `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\chupakabra_mode.lua`
+
+#### Видимый код:
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+HeroExpTable = { 0, 200, 500, 900, 1500, 2500, 4000 }
+expTable = {}
+
+for i = 2, #expTable do
+    HeroExpTable[i] = HeroExpTable[i-1] + expTable[i-1]
+end
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(10.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(10.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 4)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 5)
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel( true ) -- устанавливаю кастомную систему уровней
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels( HeroExpTable )
+    GameRules:GetGameModeEntity():SetBuybackEnabled(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", dynamic_wrncr(self, "ChupakabraKilled"), self)
+    GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+end
+
+-- Evaluate the state of the game
+if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+    print("[TemplateAddon] Template addon script is running.")
+elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+    return nil
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+end
+```
+
+#### Описание кода:
+- **Класс `ChupakabraMode`:** Создается класс для настройки игрового режима.
+- **Функция `InitGameMode`:** Настраивает параметры игры, такие как начальное золото, время выбора героя, максимальное количество игроков в командах и т.д.
+- **Функция `ChupakabraKilled`:** Определяет, что если убитый юнит — это "npc_dota_neutral_kobold", то победителем становится команда "DOTA_TEAM_GOODGUYS".
+
+### 2. Редактор:
+- **Название программы:** Sublime Text
+- **Открытые файлы и папки:** В левой панели видна структура папок и файлов, включая `chupakabra_mode.lua`.
+
+### 5. Связь с аудио:
+- **Аудио контекст:** В аудио говорится о завершении игры в пользу Dair после убийства кобальта. Это соответствует функции `ChupakabraKilled`, где победителем становится команда "DOTA_TEAM_GOODGUYS" при убийстве "npc_dota_neutral_kobold".

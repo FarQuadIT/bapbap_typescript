@@ -1,0 +1,62 @@
+Кадр 77
+Временная метка: 0:19:15
+Номер кадра: 69300
+Скриншот: frame_069300_1155.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:19:07] Пишем вот это вот.
+[0:19:08] И SetCustomAttribute.Deriv.StateValue.
+[0:19:12] Я думаю, по названию этого дота атрибута Guilty Armor понятно, что это делает.
+[0:19:17] То есть мы в данном случае сейчас делаем на один...
+[0:19:21] Сколько дается армора на одну агилку?
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+```lua
+ChupakabraMode = class({})
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(false)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(0.0)
+    GameRules:SetPostGameTime(0.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 5 )
+
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.050)
+
+    GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+end
+
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        --print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+- **Класс `ChupakabraMode`:** Создается класс для настройки режима игры.
+- **Функция `InitGameMode`:** Инициализирует параметры игры, такие как время выбора героя, время подготовки и максимальное количество игроков в командах.
+- **Настройка атрибута:** Устанавливается значение для `DOTA_ATTRIBUTE_AGILITY_ARMOR`, что соответствует изменению брони, получаемой за единицу ловкости.
+- **Функция `OnThink`:** Проверяет состояние игры и выполняет действия в зависимости от этого состояния.
+
+### Важные детали:
+- **Импорты:** Не видны, но предполагается, что используются стандартные библиотеки Dota 2.
+- **Переменные и функции:** Используются функции `GameRules` и `GameModeEntity` для настройки правил игры.
+
+### Связь с аудио:
+- В аудио говорится о настройке атрибута `Guilty Armor`, что соответствует строке `SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.050)`. Это объясняет, как изменяется броня за единицу ловкости в игре.

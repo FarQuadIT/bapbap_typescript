@@ -1,0 +1,79 @@
+Кадр 11
+Временная метка: 0:02:45
+Номер кадра: 9900
+Скриншот: frame_009900_165.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:38] Entity killed.
+[0:02:39] Все, мы должны просто вставить сюда.
+[0:02:41] Вторым аргументом мы должны, по идее,
+[0:02:42] передать функцию,
+[0:02:43] но не спешим просто так передавать функцию.
+[0:02:47] Давайте, ну, как бы,
+[0:02:49] окей, давайте сейчас просто напишу функцию.
+[0:02:51] Можете ее назвать как угодно,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. Файл называется `chupakabra_mode.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts`.
+
+### Видимый код:
+
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+HeroExpTable = {0, 200, 500, 900, 1400, 2000, 2600, 3400, 4400, 5400, 6000, 8200, 9000, 10400, 11900, 13500, 15200, 17000, 18900, 20900, 23000, 25200, 27500, 29900, 32400, 35000}
+expTable = {0, 200, 500, 900, 1400, 2000, 2600, 3400, 4400, 5400, 6000, 8200, 9000, 10400, 11900, 13500, 15200, 17000, 18900, 20900, 23000, 25200, 27500, 29900, 32400, 35000}
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(0.0)
+    GameRules:SetPostGameTime(0.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetCustomGameEndDelay(0)
+    GameRules:SetCustomVictoryMessageDuration(0)
+    GameRules:SetStartingLevel(1)
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true) -- установка кастомной системы уровней
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel(#HeroExpTable)
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+    GameRules:GetGameModeEntity():SetUnseenFogOfWarEnabled(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+end
+
+ListenToGameEvent("entity_killed", handle_2, handle_2)
+GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+
+-- Evaluate the state of the game
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        -- Do something when the game is running.
+    elseif GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME then
+        -- Do something when the game is over.
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`**: Создается класс для настройки игрового режима.
+- **Таблицы опыта**: `HeroExpTable` и `expTable` содержат значения опыта, необходимые для достижения каждого уровня.
+- **Функция `InitGameMode`**: Настраивает параметры игры, такие как начальное золото, время выбора героя, использование универсального магазина и другие параметры.
+- **Событие `entity_killed`**: Подписка на событие убийства сущности.
+- **Функция `OnThink`**: Проверяет состояние игры и выполняет действия в зависимости от текущего состояния.
+
+### Связь с аудио:
+
+- В аудио говорится о передаче функции в качестве аргумента, что соответствует строке `ListenToGameEvent("entity_killed", handle_2, handle_2)`, где функция передается в событие.
+- Также упоминается написание функции, что связано с функцией `OnThink`, которая определяет логику в зависимости от состояния игры.

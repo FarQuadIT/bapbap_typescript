@@ -1,0 +1,92 @@
+Кадр 39
+Временная метка: 0:09:45
+Номер кадра: 35100
+Скриншот: frame_035100_585.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:33] Теперь, когда мы поняли, что это работает, давайте попробуем вместо print попробовать наносить урон.
+[0:09:41] А урон мы из прошлых уроков уже могли наносить.
+[0:09:44] Мы это разбирали в наших способностях в RSACOP.
+[0:09:49] Давайте просто копируем отсюда.
+[0:09:51] Apply Damage.
+[0:09:52] Я говорил Apply Damage.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text. Открыт файл с кодом на языке программирования Lua, расположенный по пути: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities\ursa_copy.lua`.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier( "modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if IsServer() then
+        if props.target and not props.target:IsOther() then
+            props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+            ApplyDamage({
+                victim = props.target,
+                attacker = self:GetParent(),
+                damage = self:GetParent():GetAttackDamage() * self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+                damage_type = DAMAGE_TYPE_PHYSICAL,
+                ability = self:GetAbility()
+            })
+        end
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+
+- **Импорты**: Используются функции `LinkLuaModifier` для подключения модификаторов `modifier_ursa_copy` и `modifier_ursa_copy_debuff`.
+- **Классы и функции**:
+  - `ursa_copy`: Основной класс способности, возвращает имя модификатора `modifier_ursa_copy`.
+  - `modifier_ursa_copy`: Модификатор, который скрыт и обрабатывает событие `OnAttackLanded`.
+  - `OnAttackLanded`: При попадании атаки добавляет дебафф `modifier_ursa_copy_debuff` и наносит физический урон, основанный на уроне атаки и специальном значении способности.
+  - `modifier_ursa_copy_debuff`: Дебафф, который не скрыт и является отрицательным эффектом.
+
+### Связь с аудио:
+
+- В аудио говорится о нанесении урона вместо использования `print`. Это соответствует коду, где используется функция `ApplyDamage` для нанесения урона цели.
+- Упоминается, что урон уже разбирался в прошлых уроках, что подтверждается использованием `ApplyDamage` в коде.
+- Код соответствует объяснению в аудио о копировании и применении урона через модификаторы.
+
+### Важные детали:
+
+- **Функции**: `ApplyDamage` используется для нанесения урона.
+- **Переменные**: `props.target`, `self:GetParent()`, `self:GetAbility()`.
+- **Типы урона**: `DAMAGE_TYPE_PHYSICAL`.
+
+Редактор показывает вкладки с другими файлами, такими как `modifier_viper_poison_attack_lua.lua`, `healing_spell.lua`, что может указывать на работу с другими способностями или эффектами в игре.

@@ -1,0 +1,77 @@
+Кадр 61
+Временная метка: 0:15:15
+Номер кадра: 54900
+Скриншот: frame_054900_915.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:07] Угу, потому что attempt to call global.
+[0:15:10] Все понятно.
+[0:15:14] Мы назначили просто...
+[0:15:16] Блядь, ну, сука, ну, нахуй ты всех перебил, ебан.
+[0:15:20] Пиздец.
+[0:15:22] Окей, еще остались кобальты.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+- **Язык программирования:** Lua
+- **Файл:** `chupakabra_mode.lua`
+- **Путь:** `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\chupakabra_mode.lua`
+
+### Видимый код:
+```lua
+local kobald_count = 0
+
+function chupakabramode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobald_count = kobald_count + 1
+        CreateItemOnPositionSync(killed_unit:GetAbsOrigin() + RandomVector(RandomFloat(50, 200)))
+    end
+
+    if kobald_count >= 100 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+
+function GiveGoldPlayers(gold)
+    for index = 0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = player:GetAssignedHero()
+            hero:ModifyGold(gold, false, DOTA_ModifyGold_Unspecified)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDropItem(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    local drop = CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLoot(false, 300, 0.75, pos + RandomVector(RandomFloat(50, 350)))
+end
+```
+
+### Описание кода:
+- **Переменные и функции:**
+  - `kobald_count`: Счетчик убитых юнитов типа "kobold".
+  - `ChupakabraKilled(data)`: Функция, вызываемая при убийстве юнита. Увеличивает счетчик `kobald_count` и создает предмет на месте смерти юнита.
+  - `GiveGoldPlayers(gold)`: Функция, раздающая золото всем игрокам.
+  - `CreateDropItem(itemname, pos)`: Функция, создающая предмет на заданной позиции и запускающая его в воздух.
+
+### Связь с аудио:
+- В аудио упоминается "attempt to call global", что может быть связано с ошибкой в коде, например, вызовом несуществующей функции или переменной.
+- Упоминание "кобальты" в аудио соответствует переменной `kobald_count` в коде, что указывает на обсуждение логики, связанной с убийством юнитов "kobold".
+
+### Важные детали:
+- Код содержит функции для обработки игровых событий, таких как убийство юнитов и раздача золота.
+- Используются функции Dota 2 API, такие как `EntIndexToHScript`, `CreateItemOnPositionSync`, и `ModifyGold`.
+
+Это описание может быть полезно для создания документации или анализа кода в контексте разработки модификаций для Dota 2.

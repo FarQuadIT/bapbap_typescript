@@ -1,0 +1,69 @@
+Кадр 24
+Временная метка: 0:06:00
+Номер кадра: 21600
+Скриншот: frame_021600_360.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:51] Для этого давайте перейдем в asa.scripts и создадим новый луа-файлик.
+[0:05:55] Назовем его chupa-cabra.
+[0:06:00] Можно по идее просто... вообще как угодно его можно назвать, но чтобы было понятно.
+[0:06:05] chupa-cabra.
+[0:06:07] Ну, пусть будет mod.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `addon_game_mode.lua`. Это файл на языке программирования Lua. В левой части экрана видна структура папок проекта, а в правой части — окно проводника Windows, открытое в папке `vscripts`.
+
+### Код:
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+function Precache(context)
+    -- Precache things we know we'll use. Possible file types include:
+    -- "model", "soundfile", "particle", "particle_folder", "unit", "unit_folder"
+    PrecacheResource("model", "models/heroes/viper/viper.vmdl", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_viper.vsndevts", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_viper/viper.vpcf", context)
+    PrecacheResource("particle_folder", "particles/folder", context)
+end
+
+-- Create the game mode when we activate
+function Activate()
+    ChupakabraMode:InitGameMode()
+end
+
+function ChupakabraMode:InitGameMode()
+    print("Template addon is loaded.")
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+- **Класс `ChupakabraMode`**: Создается, если он еще не определен.
+- **Функция `Precache`**: Предварительно загружает ресурсы, такие как модели, звуки и частицы, которые будут использоваться в игре.
+- **Функция `Activate`**: Инициализирует игровой режим, вызывая `InitGameMode`.
+- **Функция `InitGameMode`**: Выводит сообщение в консоль и устанавливает функцию `OnThink` для периодического выполнения.
+- **Функция `OnThink`**: Проверяет состояние игры и выводит сообщение, если игра в процессе. Возвращает `nil`, если игра завершена.
+
+### Интерфейс/GUI:
+- **Программа**: Sublime Text
+- **Открытые окна**: Окно редактирования кода и окно проводника Windows
+- **Структура папок**: Видны папки `maps`, `materials`, `particles`, `resource`, `scripts`, `sound`, `npc`, `vscripts`.
+
+### Связь с аудио:
+- В аудио говорится о создании нового Lua-файла и его названии. На экране видно, что файл `addon_game_mode.lua` уже существует и открыт для редактирования. Это соответствует обсуждению в аудио о работе с Lua-файлами.

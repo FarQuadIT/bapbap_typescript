@@ -1,0 +1,83 @@
+Кадр 55
+Временная метка: 0:13:45
+Номер кадра: 49500
+Скриншот: frame_049500_825.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:36] И вот, типа, мы, что, когда умирает кобальт, получается,
+[0:13:39] мы выдаем всей команде,
+[0:13:41] всем игрокам, даже не всей команде,
+[0:13:43] выдаем 50 голды.
+[0:13:45] Давайте посмотрим.
+[0:13:47] Так, смотрим.
+[0:13:49] Нам дали 50 голды,
+[0:13:51] и еще 5 голды сверху за кобальта.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+1. **КОД:**
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+     GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+     GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+     GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+     GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+     GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+     GameRules:SetUseCustomHeroXPValues( true ) -- Установка кастомного системы уровня
+     GameRules:GetGameModeEntity():SetUseCustomHeroLevels( HeroXPTable )
+     GameRules:SetHeroRespawnEnabled(true)
+     GameRules:SetPreGameTime(60)
+     GameRules:SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.14)
+     GameRules:SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0)
+
+     ListenToGameEvent("entity_killed", Dynamic_Wrap(ChupakabraKilled), self)
+     GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+
+     function ChupakabraKilled(data)
+         local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+         if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+             kobold_count = kobold_count + 1
+         end
+
+         if kobold_count >= 100 then
+             GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+         end
+
+         if killed_unit:IsRealHero() then
+             GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+         end
+     end
+
+     function GiveGoldToPlayers(gold)
+         for index = 0, PlayerResource:GetPlayerCount() - 1 do
+             if PlayerResource:IsValidPlayer(index) then
+                 local player = PlayerResource:GetPlayer(index)
+                 if player then
+                     local hero = player:GetAssignedHero()
+                     hero:ModifyGold(gold, true, DOTA_ModifyGold_Unspecified)
+                     SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+                 end
+             end
+         end
+     end
+     ```
+   - **Описание кода:**
+     - Код настраивает параметры игры, такие как максимальное количество игроков в командах и использование кастомных значений опыта.
+     - Функция `ChupakabraKilled` обрабатывает событие убийства сущности. Если убит "kobold", увеличивается счетчик. Если счетчик достигает 100, команда "GOODGUYS" побеждает. Если убит реальный герой, побеждает команда "BADGUYS".
+     - Функция `GiveGoldToPlayers` распределяет указанное количество золота между всеми игроками.
+
+   - **Важные детали:**
+     - Импорты и функции: `GameRules`, `ListenToGameEvent`, `Dynamic_Wrap`.
+     - Переменные: `kobold_count`, `killed_unit`.
+
+2. **СВЯЗЬ С АУДИО:**
+   - В аудио говорится о выдаче 50 золота всем игрокам при смерти "кобальта". Это соответствует функции `GiveGoldToPlayers`, которая распределяет золото между игроками.
+   - Упоминание о "5 голды сверху за кобальта" может быть связано с логикой, которая не полностью видна в текущем кадре, но предполагается, что это часть механики игры.

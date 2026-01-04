@@ -1,0 +1,66 @@
+Кадр 30
+Временная метка: 0:07:30
+Номер кадра: 27000
+Скриншот: frame_027000_450.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:21] Я в этом почти на 100% уверен.
+[0:07:23] Поэтому давайте еще сразу сверху напишем функционал,
+[0:07:26] который будет наносить урон каждые 0,5 секунд.
+[0:07:28] Звучит сложно.
+[0:07:30] Но давайте разбираться.
+[0:07:32] Во-первых, нам нужно использовать функцию, которая...
+[0:07:37] Во-первых, пропишем давайте функцию onCreate у модификатора нашего.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE)
+
+strong_poison = class({})
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT
+    }
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+```
+
+### Описание кода:
+- **Импорт модификатора:** `LinkLuaModifier` связывает Lua-модификатор с именем `modifier_strong_poison`.
+- **Класс `strong_poison`:** Определяет способность, которая при активации применяет модификатор `modifier_strong_poison` к цели.
+- **Функция `OnSpellStart`:** Вызывается при активации способности, добавляет модификатор к цели.
+- **Класс `modifier_strong_poison`:** Определяет поведение модификатора.
+  - **`IsHidden`:** Возвращает `false`, что означает, что модификатор видим.
+  - **`DeclareFunctions`:** Определяет, что модификатор изменяет скорость передвижения.
+  - **`GetModifierMoveSpeedBonus_Constant`:** Уменьшает скорость передвижения на 150 единиц.
+
+### Важные детали:
+- **Путь к файлу:** `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities\strong_poison.lua`
+- **Открытые вкладки:** Несколько файлов Lua, включая `modifier_viper_poison_attack_lua.lua`, `healing_spell.lua`, `axe_cutting_blade_lua.lua`.
+
+### Связь с аудио:
+- В аудио говорится о создании функции, которая наносит урон каждые 0,5 секунд. На экране показан код, который добавляет модификатор, влияющий на скорость, но не наносит урон. Возможно, это часть более сложной системы, обсуждаемой в аудио.

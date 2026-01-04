@@ -1,0 +1,71 @@
+Кадр 79
+Временная метка: 0:19:45
+Номер кадра: 71100
+Скриншот: frame_071100_1185.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:19:33] Каких-нибудь, типа, игр, как Mountain Defense, Roshan Defense, наверное.
+[0:19:39] Ну, чтобы чуваки с ловкостью не имели там у себя запредельного количества брони.
+[0:19:44] Либо наоборот, если мы хотим ловкачей сделать, не знаю, за каждую ловкость будем давать по 10 армора.
+[0:19:49] Мы вообще ебнулись там.
+[0:19:51] И есть...
+[0:19:52] Вот, если мы щас загуглим...
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для настройки игрового режима в Dota 2.
+
+### Видимый код:
+
+```lua
+ChupakabraMode = class({})
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(0.0)
+    GameRules:SetPostGameTime(0.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 5 )
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR,0.0)
+
+    GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+end
+
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        -- Do some stuff here
+        print( "Template addon script is running." )
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`**: Создается класс для настройки игрового режима.
+- **Функция `InitGameMode`**: Инициализирует параметры игры, такие как начальное золото, время выбора героя, и другие настройки.
+- **Функция `OnThink`**: Выполняется периодически для проверки состояния игры. Если игра в процессе, выводится сообщение в консоль.
+- **Настройки**: Устанавливаются параметры для команд, такие как максимальное количество игроков и атрибуты героев.
+
+### Важные детали:
+
+- **Импорты и зависимости**: Не видны в данном фрагменте.
+- **Переменные и функции**: Используются функции `GameRules` для настройки параметров игры.
+
+### Связь с аудио:
+
+- В аудио обсуждается настройка атрибутов ловкости и брони, что отражено в коде строкой `GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR,0.0)`.
+- Упоминается идея изменения брони в зависимости от ловкости, что связано с настройками в коде.
+
+Этот код и аудио вместе объясняют, как можно настраивать параметры игры в Dota 2, чтобы изменить баланс и механику игры.

@@ -1,0 +1,8 @@
+// Battle Royale - Limited Hero Pool
+// Only these 3 heroes will be available for selection
+"CustomHeroList"
+{
+	"npc_dota_hero_axe"				"1"
+	"npc_dota_hero_drow_ranger"		"1"
+	"npc_dota_hero_phantom_assassin"	"1"
+}

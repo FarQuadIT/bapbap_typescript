@@ -1,0 +1,105 @@
+Кадр 50
+Временная метка: 0:12:30
+Номер кадра: 45000
+Скриншот: frame_045000_750.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:18] Идем в отдельную переменную, потому что у нас он используется аж целых два раза.
+[0:12:23] И заменим вот тут вот просто.
+[0:12:26] И строчку вот тут вот.
+[0:12:29] Все. Теперь еще раз тестим.
+[0:12:32] И давайте в этот раз пробуем.
+[0:12:35] И если мы смотрим, то у нас появилось значение 1.
+[0:12:37] Однако, у нас обновляется не в реальном времени.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     function ChupakabraMode:OnChoseAbility(data)
+         local player = PlayerResource:GetPlayer(data.player)
+         local hero = player:GetAssignedHero()
+
+         hero:AddAbility(data.ability)
+     end
+
+     function ChupakabraMode:ChupakabraStateChange(data)
+         local newState = GameRules:State_Get()
+         if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+             self:ChupakabraModeStart()
+         elseif newState == DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
+             EmitAnnouncerSound("announcer_dlc_bristleback_bristleback_hiss_01")
+         end
+     end
+
+     function ChupakabraMode:DamageFilter(data)
+         return true
+     end
+
+     function ChupakabraMode:OrderFilter(data)
+         local type = data.order_type
+         local playerId = data.issuer_player_id_const
+
+         if type == DOTA_UNIT_ORDER_PICKUP_ITEM then
+             local target = EntIndexToHScript(data.entindex_target)
+             if target:GetContainedItem():GetCost() > 500 then
+                 CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "ShowError", {message = "Не трогай, а то сожрет"})
+                 return false
+             end
+         end
+
+         return true
+     end
+
+     function ChupakabraMode:ChupakabraKilled(data)
+         local killed_unit = EntIndexToHScript(data.entindex_killed)
+         local attacker = EntIndexToHScript(data.entindex_attacker)
+
+         if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+             local playerId = tostring(attacker:GetPlayerOwnerID())
+             local bossKilled = customNetTables:GetTableValue("boss_kill", playerId)
+             bossKilled.boss_killed = bossKilled.boss_killed + 1
+             customNetTables:SetTableValue("boss_kill", playerId, bossKilled)
+
+             EmitSoundOnHero("Hero_Abaddon.AphoticShield.Destroy", attacker)
+             AddRandomAbilityForName()
+         end
+
+         if killed_unit:GetUnitName() == "npc_dota_neutral_centaur_outrunner_boss" then
+             local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+             CreateUnitByName("npc_dota_neutral_fel_beast_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+         end
+     end
+     ```
+
+   - **Описание кода:**
+     - Код реализует функциональность для режима игры "ChupakabraMode" в Dota 2.
+     - **Функции:**
+       - `OnChoseAbility`: Добавляет способность герою игрока.
+       - `ChupakabraStateChange`: Обрабатывает изменения состояния игры, начиная режим или воспроизводя звук.
+       - `DamageFilter`: Возвращает `true`, позволяя всем повреждениям проходить.
+       - `OrderFilter`: Фильтрует команды игроков, запрещая подбирать дорогие предметы.
+       - `ChupakabraKilled`: Обрабатывает события убийства определенных юнитов, обновляя счетчик убийств и создавая новых юнитов.
+
+   - **Важные детали:**
+     - Используются функции и методы Dota 2 API, такие как `PlayerResource:GetPlayer`, `EntIndexToHScript`, и `CustomGameEventManager:Send_ServerToPlayer`.
+     - Присутствуют проверки состояния игры и фильтрация действий игроков.
+
+2. **РЕДАКТОР:**
+
+   - **Название программы:** Sublime Text
+   - **Что открыто в редакторе:** Файл `chupakabra_mode.lua` из папки `vscripts` для Dota 2.
+   - **Активные инструменты:** Нет явных активных инструментов, стандартный редактор кода.
+   - **Настройки:** Видна структура папок проекта в боковой панели.
+   - **Панели/вкладки:** Открыты вкладки с файлами `black_cube.emm` и `custom_net_tables.txt`.
+
+5. **СВЯЗЬ С АУДИО:**
+
+   - В аудио говорится о замене и тестировании кода, что соответствует изменениям в коде на экране.
+   - Упоминается использование переменной дважды, что может относиться к оптимизации кода, видимой на экране.

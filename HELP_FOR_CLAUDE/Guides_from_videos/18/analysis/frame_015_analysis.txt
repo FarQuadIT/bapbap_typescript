@@ -1,0 +1,69 @@
+Кадр 15
+Временная метка: 0:03:45
+Номер кадра: 13500
+Скриншот: frame_013500_225.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:03:35] Давайте сейчас добавлю
+[0:03:37] Где у нас
+[0:03:39] Ну Gold Hall у нас тут нету
+[0:03:41] Давайте
+[0:03:43] Ну как переименовывать обилки я думаю вы знаете
+[0:03:46] Распинаться тут долго не буду
+[0:03:49] Добавим по быстренькому описание нашему скилу
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+#### 1. Интерфейс/GUI:
+- **Название приложения**: Sublime Text (UNREGISTERED).
+- **Открытые файлы**: 
+  - `addon_english.txt`
+  - `npc_abilities_custom.txt`
+  - `underlords.kv`
+  - `npc_heroes_custom.txt`
+
+#### 2. Содержимое файла `addon_english.txt`:
+- **Формат**: JSON.
+- **Содержимое**:
+  ```json
+  {
+      "lang" {
+          "Language" "English"
+          "Tokens" {
+              "dota_ability_variable_jopa" "к весу жопы" // $health
+              "addon_game_name" "CHUPAKEBRA"
+              "DOTA_GoodGuys" "ем"
+              "DOTA_BadGuys" "ем"
+              "DOTA_Custom1" "соски"
+              "DOTA_Custom2" "каждый"
+              "DOTA_Custom3" "день"
+              "DOTA_Custom4" "соски"
+              "DOTA_Custom5" "спасите меня"
+              "DOTA_Tooltip_ability_cockx_counter_helix" "Соски helix"
+              "DOTA_Tooltip_ability_cockx_counter_helix_Description" "Я кручусь <font color='#ffffff'> как джагернаут </font>"
+              "DOTA_Tooltip_ability_cockx_counter_helix_damage" "УРОН:"
+              "DOTA_Tooltip_ability_cockx_counter_helix_radius" "РАДИУС:"
+              "DOTA_Tooltip_ability_cockx_counter_helix_Lore" "asdasdassd"
+              "DOTA_Tooltip_ability_item_motus_orb" "Motus bobus dsaads"
+              "DOTA_Tooltip_ability_item_motus_orb_Description" "<h1>Ментивана: Поуук</h1> фывафывафывафывафывафыва \n\n<h1>DAFFDSA:"
+              "DOTA_Tooltip_ability_item_motus_orb_Lore" "asdasdassd"
+              "DOTA_Tooltip_ability_item_desol_custom_str_bonus" "+$jopa"
+              "DOTA_Tooltip_ability_special_bonus_unique_ursa_duration" "+{s:bonus_duration} сек. к Ursa Copy"
+          }
+      }
+  }
+  ```
+
+#### 3. Связь с аудио:
+- **Контекст**: В аудио говорится о добавлении описания к скилу и переименовании обилок.
+- **Соответствие**: На экране видно, как редактируется файл локализации, где добавляются и изменяются описания и названия способностей, что соответствует обсуждаемым в аудио действиям.
+
+#### 4. Важные детали:
+- **Путь к файлу**: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakebra\resource\addon_english.txt`.
+- **Структура проекта**: Видна структура папок и файлов проекта, включая скрипты и ресурсы для модификации Dota 2.
+- **Редактируемый контент**: Изменения касаются локализации и описаний способностей, что важно для моддинга и кастомизации игры.

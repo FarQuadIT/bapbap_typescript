@@ -1,0 +1,77 @@
+Кадр 13
+Временная метка: 0:03:15
+Номер кадра: 11700
+Скриншот: frame_011700_195.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:03:03] выполняется вот что, что тут, тут, короче, все, что написано, выполняется.
+[0:03:08] Давайте попробуем проверить это и выведем в консоль чупакабра.
+[0:03:15] Почему нет?
+[0:03:17] Это пока закомментируем.
+[0:03:19] Да, комментарии, что делается двойным дефисом.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `addon_game_mode.lua`. Это файл на языке программирования Lua, используемый для создания модификаций в игре Dota 2.
+
+### Видимый код:
+
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+function Precache(context)
+    -- Precache things we know we'll use. Possible file types include (but not limited to):
+    -- PrecacheResource("model", "models/heroes/viper/viper.vmdl", context)
+    -- PrecacheResource("soundfile", "soundevents/game_sounds.vsndevts", context)
+    -- PrecacheResource("particle", "particles/units/heroes/hero_viper/viper.vpcf", context)
+    -- PrecacheResource("particle_folder", "particles/folder", context)
+end
+
+-- Create the game mode when we activate
+function Activate()
+    print("Чупакабра")
+    GameRules.AddonTemplate = CAddonTemplateGameMode()
+    GameRules.AddonTemplate:InitGameMode()
+end
+
+function ChupakabraMode:InitGameMode()
+    print("Template addon is loaded.")
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+1. **Определение класса**: Проверяется, существует ли `ChupakabraMode`. Если нет, создается новый класс.
+2. **Функция `Precache`**: Подготавливает ресурсы, которые могут быть использованы в игре, такие как модели, звуки и частицы. Комментарии указывают на примеры использования.
+3. **Функция `Activate`**: Активирует игровой режим, выводя в консоль текст "Чупакабра" и инициализируя шаблон игрового режима.
+4. **Функция `InitGameMode`**: Инициализирует игровой режим, выводя в консоль сообщение о загрузке шаблона и устанавливая функцию `OnThink` для периодического выполнения.
+5. **Функция `OnThink`**: Проверяет состояние игры. Если игра в процессе, выводит сообщение о работе скрипта. Если игра завершена, прекращает выполнение.
+
+### Связь с аудио:
+
+- В аудио говорится о выводе в консоль слова "чупакабра", что соответствует строке `print("Чупакабра")` в функции `Activate`.
+- Также упоминается комментирование, что связано с закомментированными строками в функции `Precache`.
+
+### Важные детали:
+
+- **Импорты**: Отсутствуют, так как Lua не требует явных импортов для стандартных функций.
+- **Функции и классы**: Основной класс `ChupakabraMode` и функции `Precache`, `Activate`, `InitGameMode`, `OnThink`.
+- **Переменные**: `ChupakabraMode`, `GameRules.AddonTemplate`.
+
+Этот код является частью модификации для Dota 2, и его цель — управление игровым режимом.

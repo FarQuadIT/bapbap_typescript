@@ -1,0 +1,76 @@
+Кадр 32
+Временная метка: 0:08:00
+Номер кадра: 28800
+Скриншот: frame_028800_480.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:48] То есть, если мы вот нажали skill, модификатор накинулся на таргета, все, эта функция сработала.
+[0:07:53] Больше она никогда не срабатывает.
+[0:07:56] Можете сами проверить, написать вот print, допустим.
+[0:07:59] Я пробился.
+[0:08:01] И проверить у себя, сработает... ну, когда она сработает.
+[0:08:05] Идем дальше.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier( "modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE )
+
+strong_poison = class({})
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {duration = 8})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT
+    }
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+
+function modifier_strong_poison:OnCreated()
+    print("Modifier applied")
+end
+```
+
+### Описание кода:
+
+1. **Импорт модификатора**: `LinkLuaModifier` связывает Lua-модификатор с именем `"modifier_strong_poison"`.
+
+2. **Класс `strong_poison`**:
+   - Метод `OnSpellStart`: При активации способности применяется модификатор `modifier_strong_poison` к цели на 8 секунд.
+
+3. **Класс `modifier_strong_poison`**:
+   - `IsHidden`: Возвращает `false`, что означает, что модификатор видим.
+   - `DeclareFunctions`: Определяет функции, которые модификатор будет изменять, в данном случае скорость передвижения.
+   - `GetModifierMoveSpeedBonus_Constant`: Уменьшает скорость передвижения на 150.
+   - `OnCreated`: Выводит сообщение в консоль при создании модификатора.
+
+### Связь с аудио:
+
+- В аудио говорится о том, что модификатор применяется к цели и функция срабатывает один раз. Это соответствует методу `OnSpellStart`, который добавляет модификатор к цели.
+- Упоминается использование `print` для проверки, что функция сработала. Это видно в методе `OnCreated`, где используется `print("Modifier applied")`.
+
+### Дополнительные детали:
+
+- В левой части экрана видна структура папок, где открыт файл `strong_poison.lua` в папке `abilities`.
+- В верхней части окна видны другие открытые файлы, такие как `npc_heroes_custom.txt` и `axe_culling_blade_lua.lua`.

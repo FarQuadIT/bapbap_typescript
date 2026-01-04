@@ -1,0 +1,56 @@
+Кадр 63
+Временная метка: 0:15:45
+Номер кадра: 56700
+Скриншот: frame_056700_945.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:33] И давайте вынесем это в то, что...
+[0:15:37] Типа, есть this entity.
+[0:15:39] getheld.
+[0:15:41] А, меньше.
+[0:15:44] this entity.
+[0:15:47] getmaxheld.
+[0:15:50] Сейчас он будет кастовать просто, когда у него не будет хп-шек.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. Файл называется `ai_kobold.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\`.
+
+### Видимый код:
+```lua
+function Spawn()
+    if not thisEntity then return nil end
+
+    thisEntity:SetContextThink("KoboldThink", KoboldThink, 1)
+end
+
+function KoboldThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME or not thisEntity:IsAlive() then
+        return nil
+    end
+
+    if thisEntity:GetHealth() < 5 then
+        ExecuteOrderFromTable({
+            UnitIndex = thisEntity:entindex(),
+            OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+            AbilityIndex = thisEntity:FindAbilityByName("alche")
+        })
+        print("dsds")
+        return 1
+    end
+end
+```
+
+### Описание кода:
+- **Функция `Spawn`:** Инициализирует процесс, проверяя наличие `thisEntity`. Если `thisEntity` существует, устанавливает контекст для выполнения функции `KoboldThink` каждую секунду.
+- **Функция `KoboldThink`:** Проверяет состояние игры и здоровье сущности. Если игра завершена или сущность мертва, функция возвращает `nil`. Если здоровье сущности меньше 5, выполняется команда на использование способности без цели, и выводится сообщение "dsds" в консоль.
+
+### Важные детали:
+- **Импорты и зависимости:** В коде отсутствуют явные импорты, но используются функции и константы из API Dota 2.
+- **Переменные и функции:** `thisEntity`, `KoboldThink`, `GameRules:State_Get()`, `DOTA_GAMERULES_STATE_POST_GAME`, `ExecuteOrderFromTable`.
+
+### Связь с аудио:
+- В аудио говорится о проверке здоровья (`getheld`) и использовании способности, что соответствует условию `if thisEntity:GetHealth() < 5` и вызову `ExecuteOrderFromTable` в коде.

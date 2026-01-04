@@ -1,0 +1,60 @@
+Кадр 41
+Временная метка: 0:10:15
+Номер кадра: 36900
+Скриншот: frame_036900_615.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:06] То есть мы берем, что нам возвращает спаун MapAtPosition.
+[0:10:11] Выносим это в переменную.
+[0:10:13] И после этого с помощью Manual Trigger Spawn Group Completion
+[0:10:17] наконец-то довершаем нашу карту.
+[0:10:21] Вот мы заходим в наш триггер.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `trigger.lua`. Это файл на языке программирования Lua. 
+
+### Видимый код:
+```lua
+function StartTouch(event)
+    local activator = event.activator
+
+    local point = Entities:FindByName(nil, "spawn_level_point"):GetAbsOrigin()
+    point.x = point.x * 2048
+    point.z = 0
+    local spawnGroupHandle = DOTA_SpawnMapAtPosition("spawn_test", point, true, nil, nil, nil)
+    ManuallyTriggerSpawnGroupCompletion(spawnGroupHandle)
+end
+
+function EndTouch(event)
+end
+```
+
+### Описание кода:
+- **Функция `StartTouch(event)`**: 
+  - Получает объект `activator` из события `event`.
+  - Находит координаты точки `spawn_level_point` и изменяет её координату `x`, умножая на 2048, а `z` устанавливает в 0.
+  - Вызывает функцию `DOTA_SpawnMapAtPosition`, чтобы создать карту в указанной позиции, и сохраняет возвращаемое значение в переменной `spawnGroupHandle`.
+  - Вызывает `ManuallyTriggerSpawnGroupCompletion`, чтобы завершить создание карты.
+
+- **Функция `EndTouch(event)`**: Пустая функция, которая не выполняет никаких действий.
+
+### Важные детали:
+- **Импорты и библиотеки**: Не указаны, но используется API Dota 2 для работы с сущностями и спаунами.
+- **Переменные**: `activator`, `point`, `spawnGroupHandle`.
+- **Функции**: `StartTouch`, `EndTouch`, `Entities:FindByName`, `DOTA_SpawnMapAtPosition`, `ManuallyTriggerSpawnGroupCompletion`.
+
+### Связь с аудио:
+- В аудио говорится о том, что результат функции `MapAtPosition` сохраняется в переменную, что соответствует строке с `spawnGroupHandle`.
+- Упоминается использование `Manual Trigger Spawn Group Completion`, что соответствует вызову `ManuallyTriggerSpawnGroupCompletion(spawnGroupHandle)` в коде.
+- Описание действий в коде соответствует объяснению в аудио, где говорится о завершении карты через триггер.
+
+### Интерфейс редактора:
+- **Панель слева**: Дерево файлов проекта, где видны различные файлы и папки, такие как `maps`, `materials`, `particles`, `scripts`.
+- **Окно кода**: Открыт файл `trigger.lua`.
+- **Консоль внизу**: Показан путь к различным библиотекам и программам, завершение работы скрипта.
+
+Этот кадр демонстрирует процесс работы с триггерами в Dota 2 через Lua-скрипты, что объясняется в аудио.

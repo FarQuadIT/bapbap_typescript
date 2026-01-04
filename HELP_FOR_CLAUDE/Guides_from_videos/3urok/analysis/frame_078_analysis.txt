@@ -1,0 +1,70 @@
+Кадр 78
+Временная метка: 0:19:30
+Номер кадра: 70200
+Скриншот: frame_070200_1170.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:19:20] Пассивную.
+[0:19:22] Хрень.
+[0:19:24] Ой.
+[0:19:25] Хз как назвать.
+[0:19:26] Но мы типа видим разделение.
+[0:19:28] Если мы, допустим, здесь еще вставим еще один тег такой.
+[0:19:31] Пишем здесь пассивный.
+[0:19:33] И здесь тоже что-то напишем.
+[0:19:35] То у нас получится как бы вот так вот.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `addon_english.txt`. Это файл конфигурации для модификации игры Dota 2.
+
+### Детали экрана:
+
+1. **Программа:**
+   - Sublime Text (UNREGISTERED).
+
+2. **Открытые файлы:**
+   - `addon_english.txt`
+   - `npc_abilities_custom.txt`
+   - `npc_heroes_custom.txt`
+   - `npc_items_custom.txt`
+   - `npc_units_custom.txt`
+   - `addon_russian.txt`
+   - `items.txt`
+   - `update.txt`
+   - `Новый текстовый документ.txt`
+
+3. **Структура папок:**
+   - Путь: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\resource\`
+   - Папки: `chupakabra`, `maps`, `materials`, `particles`, `resource`, `flash3`, `overviews`, `scripts`, `vscripts`.
+
+4. **Содержимое файла `addon_english.txt`:**
+   ```plaintext
+   "lang"
+   {
+       "Language"        "English"
+       "Tokens"
+       {
+           "addon_game_name"        "CHUPAKABRA"
+           "DOTA_Tooltip_ability_cocky_counter_helix"        "Cockx helix"
+           "DOTA_Tooltip_ability_cocky_counter_helix_Description"        "<font color='#ffffff'> как джагернаут </font>"
+           "DOTA_Tooltip_ability_cocky_counter_helix_damage"        "урон"
+           "DOTA_Tooltip_ability_cocky_counter_helix_radius"        "РАДИУС"
+           "DOTA_Tooltip_ability_item_motus_orb"        "Motus bobus <saaad>"
+           "DOTA_Tooltip_ability_item_motus_orb_Description"        "<h1>метазаголовок: поукус</h1> <h1>метазаголовок: поукус</h1> нвва"
+       }
+   }
+   ```
+
+5. **Описание кода:**
+   - Это файл локализации, который определяет текстовые строки для отображения в игре.
+   - Используются теги HTML для форматирования текста, например, `<font>` и `<h1>`.
+
+6. **Связь с аудио:**
+   - В аудио говорится о добавлении и изменении тегов, что соответствует редактированию строк с HTML-тегами в файле.
+   - Упоминается "пассивная хрень", что может относиться к описанию способности или предмета в игре.
+
+Этот кадр демонстрирует процесс редактирования текстов для модификации игры, что соответствует обсуждаемым в аудио изменениям.

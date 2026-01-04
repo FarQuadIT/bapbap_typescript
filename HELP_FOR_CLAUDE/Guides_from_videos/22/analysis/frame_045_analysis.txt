@@ -1,0 +1,70 @@
+Кадр 45
+Временная метка: 0:11:15
+Номер кадра: 40500
+Скриншот: frame_040500_675.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:08] Normalized
+[0:11:14] И после этого уже берем наш
+[0:11:16] direction и умножаем на
+[0:11:18] скорость, которую мы хотим.
+[0:11:20] Я на всякий случай, чтобы вам было
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local derction = point - casterPoint
+    derction = derction:Normalized()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        vVelocity = derction * self:GetSpecialValueFor("speed"),
+        fDistance = self:GetCastRange(casterPoint, caster),
+        Source = caster,
+        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+        iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+        iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
+    })
+end
+```
+
+### Описание кода:
+- **Класс `wave_terorist`:** Определяет новый класс для способности.
+- **Функция `OnSpellStart`:** Вызывается при активации способности.
+  - **Переменные:**
+    - `caster`: Получает объект, который применяет способность.
+    - `point`: Получает позицию курсора.
+    - `casterPoint`: Получает текущую позицию кастера.
+    - `derction`: Вычисляет направление от кастера к точке курсора и нормализует его.
+  - **`ProjectileManager:CreateLinearProjectile`:** Создает линейный снаряд с заданными параметрами, такими как эффект, радиус, скорость и дистанция.
+
+### Важные детали:
+- **Импорты и библиотеки:** Не указаны, но используется `ProjectileManager`.
+- **Переменные и функции:** `GetCaster`, `GetCursorPosition`, `GetOrigin`, `Normalized`, `CreateLinearProjectile`.
+
+### Связь с аудио:
+- В аудио говорится о нормализации направления и умножении его на скорость, что соответствует строкам кода, где `derction` нормализуется и используется для вычисления `vVelocity`.
+
+### Интерфейс и настройки:
+- **Панель слева:** Показана структура папок и файлов проекта, включая `abilities`, `scripts`, и другие.
+- **Открытые вкладки:** `wave_terorist.lua`, `mega_puper_stun.lua`, `npc_heroes_custom.txt`.
+- **Строка состояния:** Указывает на использование Lua и размер табуляции (Tab Size: 4).
+
+Этот код и его объяснение соответствуют аудио, где обсуждается работа с направлением и скоростью в контексте создания снаряда в игре.

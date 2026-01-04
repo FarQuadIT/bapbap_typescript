@@ -1,0 +1,79 @@
+Кадр 157
+Временная метка: 0:18:19
+Номер кадра: 65940
+Скриншот: frame_065940_1099.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:18:11] И хотим ему урон сразу впендюрить 5000.
+[0:18:15] Ну и тут 6000.
+[0:18:18] Запускаем.
+[0:18:21] Вот у нас Axe теперь основным атрибутом ловкость.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_heroes_custom.txt`. Этот файл, судя по пути, относится к модификации игры Dota 2.
+
+### Видимый код:
+Файл содержит данные в формате JSON-подобной структуры, описывающей параметры героя Axe в игре Dota 2. Вот полный видимый код:
+
+```plaintext
+"DOTAAttributes"
+{
+    // HERO: Templar Assassin
+    "npc_dota_hero_alchemist"
+    {
+        "Ability" "gggg" // Ability 1
+        "VisionNighttimeRange" "999" // Range of vision at night time.
+    }
+    "npc_dota_hero_axe"
+    {
+        "Ability1" "axe_berserkers_call"
+        "Ability2" "axe_battle_hunger"
+        "Ability3" "axe_counter_helix"
+        "Ability4" "generic_hidden"
+        "Ability5" "generic_hidden"
+        "Ability6" "axe_culling_blade"
+        "Ability10" "special_bonus_unique_axe_7"
+        "Ability11" "special_bonus_unique_axe_2"
+        "Ability12" "special_bonus_unique_axe_3"
+        "Ability13" "special_bonus_unique_axe_4"
+        "Ability14" "special_bonus_unique_axe_5"
+        "Ability15" "special_bonus_unique_axe_6"
+        "Ability16" "special_bonus_unique_axe"
+        "ArmorPhysical" "0"
+        "AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
+        "AttackDamageMin" "5000"
+        "AttackDamageMax" "6000"
+        "AttackRate" "1.700000"
+        "AttackAnimationPoint" "0.400000"
+        "AttackAcquisitionRange" "600"
+        "AttackRange" "150"
+        "AttributePrimary" "DOTA_ATTRIBUTE_AGILITY"
+        "AttributeBaseStrength" "25"
+        "AttributeStrengthGain" "2.800000"
+        "AttributeBaseIntelligence" "18"
+        "AttributeIntelligenceGain" "1.600000"
+        "AttributeBaseAgility" "20"
+        "AttributeAgilityGain" "2.200000"
+        "MovementSpeed" "315"
+    }
+}
+```
+
+### Описание кода:
+- **Герой Axe**: Описаны способности и характеристики героя Axe.
+- **Способности**: Перечислены способности героя, такие как `axe_berserkers_call`, `axe_battle_hunger` и другие.
+- **Атрибуты**: Указаны основные атрибуты героя, такие как сила, интеллект и ловкость, а также их прирост.
+- **Атака**: Установлены параметры атаки, включая минимальный и максимальный урон (`AttackDamageMin` и `AttackDamageMax`), скорость атаки (`AttackRate`), и дальность атаки (`AttackRange`).
+- **Основной атрибут**: Изменён основной атрибут героя на ловкость (`AttributePrimary`).
+
+### Связь с аудио:
+- В аудио говорится о том, что урон героя устанавливается на 5000 и 6000, что соответствует значениям `AttackDamageMin` и `AttackDamageMax` в коде.
+- Также упоминается, что основной атрибут героя изменён на ловкость, что отражено в строке `"AttributePrimary" "DOTA_ATTRIBUTE_AGILITY"`.
+
+### Важные детали:
+- Изменения в файле касаются модификации характеристик героя для кастомной игры или модификации.
+- Редактор Sublime Text используется для редактирования текстовых файлов, что удобно для работы с кодом и конфигурациями.

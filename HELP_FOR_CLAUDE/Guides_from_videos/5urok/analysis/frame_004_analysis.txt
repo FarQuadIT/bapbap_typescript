@@ -1,0 +1,80 @@
+Кадр 4
+Временная метка: 0:01:00
+Номер кадра: 3600
+Скриншот: frame_003600_60.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:00:51] то есть от него будут плясать все остальные будущие файлы
+[0:00:54] либо мы конечно можем почти
+[0:00:56] ладно не все конечно
+[0:00:58] но мы можем
+[0:00:58] но многое расписать тут
+[0:00:59] но это будет короче пиздец
+[0:01:01] на 30 тысяч строк
+[0:01:03] которые невозможно будет прочитать и так далее
+[0:01:05] ну давайте все по порядку
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+
+   - **Видимый код:**
+
+     ```lua
+     require('internal/util')
+     require('gamemode')
+
+     if CAddonTemplateGameMode == nil then
+         CAddonTemplateGameMode = class({})
+     end
+
+     function Precache(context)
+         -- Precache things we know we'll use. Possible file types include (but not limited to):
+         -- PrecacheResource("model", "*.vmdl", context)
+         -- PrecacheResource("soundfile", "*.vsndevts", context)
+         -- PrecacheResource("particle", "*.vpcf", context)
+         -- PrecacheResource("particle_folder", "particles/folder", context)
+     end
+
+     -- Create the game mode when we activate
+     function Activate()
+         GameRules.AddonTemplate = CAddonTemplateGameMode()
+         GameRules.AddonTemplate:InitGameMode()
+     end
+
+     function CAddonTemplateGameMode:InitGameMode()
+         print("Template addon is loaded.")
+         GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+     end
+
+     -- Evaluate the state of the game
+     function CAddonTemplateGameMode:OnThink()
+         if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+             print("Template addon script is running.")
+         elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+             return nil
+         end
+         return 1
+     end
+     ```
+
+   - **Описание кода:**
+     Этот код представляет собой шаблон для создания игрового режима в Dota 2 с использованием Lua. Он включает в себя функции для инициализации и активации игрового режима, а также для обработки состояния игры.
+
+   - **Важные детали:**
+     - **Импорты:** `require('internal/util')` и `require('gamemode')` для подключения необходимых модулей.
+     - **Классы и функции:**
+       - `CAddonTemplateGameMode`: класс для игрового режима.
+       - `Precache(context)`: функция для предварительной загрузки ресурсов.
+       - `Activate()`: функция для активации игрового режима.
+       - `InitGameMode()`: инициализация игрового режима.
+       - `OnThink()`: функция для обработки логики игры в процессе её выполнения.
+
+2. **СВЯЗЬ С АУДИО:**
+
+   - В аудио говорится о сложности и объёме кода, который может достигать 30 тысяч строк. Видимый код является примером шаблона, от которого могут "плясать" другие файлы, как упоминается в аудио. Это начальная точка для создания более сложных игровых режимов, что соответствует обсуждаемой теме в аудио.

@@ -1,0 +1,92 @@
+Кадр 41
+Временная метка: 0:10:15
+Номер кадра: 36900
+Скриншот: frame_036900_615.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:07] Вот наш scounter существует.
+[0:10:10] Теперь переходим в наш javascript.
+[0:10:12] И в нашем black-cube.js давайте приинтеллизоваться.
+[0:10:18] Для реализации нашего black-cube берем нашу контекстную панель, get-context-panel,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Visual Studio Code. Открыт файл с кодом на языке JavaScript, расположенный по пути: `Steam\steamapps\common\dota 2 beta\content\dota_addons\chupakabra2\panorama\scripts\custom_game\black_cube.js`.
+
+### Видимый код:
+
+```javascript
+function createAbilityPanel(event) {
+    const arrayAbilities = Object.values(event.abilities)
+    const rootPanel = $.CreatePanel("Panel", $.GetContextPanel(), "black-cube")
+    rootPanel.BLoadLayoutSnippet("ability")
+
+    rootPanel.AddClass("IsActive")
+
+    const panelBody = rootPanel.FindChildTraverse("black-cube__body")
+
+    arrayAbilities.map((element) => {
+        const ability = $.CreatePanel("DOTAAbilityImage", panelBody, "", {
+            class: "black-cube__ability",
+            abilityname: element,
+            showtooltip: "true"
+        })
+
+        ability.SetPanelEvent("onactivate", () => {
+            GameEvents.SendCustomGameEventToServer("add_ability", {
+                player: Players.GetLocalPlayer(),
+                ability: element
+            })
+            rootPanel.RemoveClass("IsActive")
+            rootPanel.DeleteAsync(0.4)
+        })
+    })
+}
+
+GameEvents.Subscribe("show_ability_panel", createAbilityPanel)
+
+const dotaHud = (() => {
+    let panel = $.GetContextPanel();
+    while (panel) {
+        if (panel.id === "DotaHud")
+            return panel;
+        panel = panel.GetParent();
+    }
+    return panel;
+})();
+
+const talent = dotaHud.FindChildTraverse("StatBranch");
+const levels = dotaHud.FindChildTraverse("level_stats_frame");
+talent.style.opacity = "0";
+talent.enabled = false;
+levels.style.opacity = "0";
+```
+
+### Описание кода:
+
+1. **Функция `createAbilityPanel`:**
+   - Создает панель для отображения способностей.
+   - Использует `$.CreatePanel` для создания панели с идентификатором "black-cube".
+   - Загружает макет с помощью `BLoadLayoutSnippet`.
+   - Добавляет класс "IsActive" к панели.
+   - Находит дочерний элемент "black-cube__body" для размещения способностей.
+   - Перебирает массив способностей и создает для каждой панель `DOTAAbilityImage`.
+   - Устанавливает событие `onactivate`, которое отправляет событие на сервер и удаляет панель.
+
+2. **Подписка на событие:**
+   - `GameEvents.Subscribe` подписывается на событие "show_ability_panel", вызывая `createAbilityPanel`.
+
+3. **Функция `dotaHud`:**
+   - Ищет и возвращает панель с идентификатором "DotaHud".
+
+4. **Изменение видимости элементов:**
+   - Находит элементы "StatBranch" и "level_stats_frame".
+   - Устанавливает их непрозрачность в "0" и отключает "StatBranch".
+
+### Связь с аудио:
+
+- В аудио говорится о переходе в JavaScript и использовании контекстной панели, что соответствует коду, где используется `$.GetContextPanel()` и создается панель "black-cube".
+- Код и аудио связаны через создание и настройку панели для способностей, что объясняется в аудио.

@@ -1,0 +1,68 @@
+Кадр 45
+Временная метка: 0:11:15
+Номер кадра: 40500
+Скриншот: frame_040500_675.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:05] Ну, сделаешь, но похуй, не про них речь.
+[0:11:09] С абилками это норм, но с предметами такую штуку лучше не делать, иначе вас забьют ссаными палками.
+[0:11:19] Поэтому меняем наш код.
+[0:11:21] Что мы будем делать?
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `item_desol_custom.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_item_desol_custom", "items/item_desol_custom", LUA_MODIFIER_MOTION_NONE)
+
+item_desol_custom = class({})
+
+function item_desol_custom:OnSpellStart()
+    local modifier = self:GetCaster():FindModifierByName("modifier_item_desol_custom")
+
+    if modifier then
+        modifier:IncrementStackCount()
+    end
+end
+
+modifier_item_desol_custom = class({})
+
+function modifier_item_desol_custom:IsHidden()
+    return false
+end
+
+function modifier_item_desol_custom:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE
+end
+
+function modifier_item_desol_custom:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+    }
+end
+
+function modifier_item_desol_custom:GetModifierBonusStats_Strength()
+    return self:GetAbility():GetSpecialValueFor("str_bonus") * self:GetStackCount()
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает Lua-модификатор с именем `modifier_item_desol_custom`.
+- **item_desol_custom**: Класс предмета, который при активации способности увеличивает количество стаков модификатора.
+- **modifier_item_desol_custom**: Класс модификатора, который:
+  - Не скрыт (`IsHidden` возвращает `false`).
+  - Имеет атрибут `MODIFIER_ATTRIBUTE_MULTIPLE`.
+  - Объявляет функцию `DeclareFunctions`, возвращающую бонус к силе (`MODIFIER_PROPERTY_STATS_STRENGTH_BONUS`).
+  - Рассчитывает бонус к силе на основе количества стаков и специального значения способности.
+
+### Важные детали:
+- **Импорты и функции**: Используются стандартные функции Lua для работы с модификаторами в Dota 2.
+- **Переменные**: `modifier`, `self`, `str_bonus`.
+
+### Связь с аудио:
+- В аудио говорится о том, что с предметами лучше не делать определенные вещи, иначе это приведет к негативным последствиям. Видимо, код на экране связан с изменением предмета, и автор видео объясняет, как правильно его модифицировать, чтобы избежать ошибок.

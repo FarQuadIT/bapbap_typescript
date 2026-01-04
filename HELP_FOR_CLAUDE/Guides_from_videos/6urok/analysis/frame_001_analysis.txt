@@ -1,0 +1,89 @@
+Кадр 1
+Временная метка: 0:00:15
+Номер кадра: 900
+Скриншот: frame_000900_15.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:00:04] Ба рэчуу дэ янгког, то мей нин яо яо,
+[0:00:07] Рё ай е бай лин уду дэ нин,
+[0:00:10] Диди чинчэн дэ чэн лё шэй.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `chupakabra_mode.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts`.
+
+### Код:
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+HeroExpTable = {0, 200, 500, 900, 1400}
+
+expTable[0] = 0
+HeroExpTable[1] = expTable[1] - expTable[0]
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetCustomGameEndDelay(0)
+    GameRules:SetCustomVictoryMessageDuration(0)
+    GameRules:SetStartingGold(1500)
+    GameRules:SetGoldTickTime(0.6)
+    GameRules:SetGoldPerTick(1)
+
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_5, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_6, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_7, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_8, 2)
+
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel(10) -- установка кастомного системы уровней
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true)
+
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 10.0)
+
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        -- Do some stuff here
+    elseif GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME then
+        -- Do some stuff here
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+- **Класс `ChupakabraMode`**: Создается класс для режима игры.
+- **Таблица опыта `HeroExpTable`**: Определяет количество опыта, необходимое для достижения каждого уровня.
+- **Функция `InitGameMode`**: Настраивает параметры игры, такие как начальное золото, время возрождения героев, время выбора героев и другие параметры.
+- **Функция `OnThink`**: Проверяет состояние игры и выполняет действия в зависимости от текущего состояния.
+
+### Важные детали:
+- **Импорты**: Не указаны, так как Lua не требует явных импортов.
+- **Переменные и функции**: Используются функции для настройки правил игры и определения поведения в зависимости от состояния игры.
+
+### Связь с аудио:
+Аудио не связано напрямую с кодом, так как текст на экране не соответствует произносимым словам. Возможно, аудио является фоновым или не относится к текущему коду.

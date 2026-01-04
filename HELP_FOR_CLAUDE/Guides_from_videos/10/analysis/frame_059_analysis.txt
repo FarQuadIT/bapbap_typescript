@@ -1,0 +1,96 @@
+Кадр 59
+Временная метка: 0:14:45
+Номер кадра: 53100
+Скриншот: frame_053100_885.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:37] И здесь прикол в том, что нам нужно получается...
+[0:14:41] Что сделать?
+[0:14:41] Модиф.
+[0:14:43] GetStack.
+[0:14:43] Count.
+[0:14:44] То есть получаем текущее количество стаков.
+[0:14:46] И давайте умножим на...
+[0:14:48] Пропишем тут просто...
+[0:14:50] DamagePerStack.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. Файл называется `ursa_copy.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities`.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if props.target == self:GetParent() then
+        if not props.attacker then
+            return
+        end
+        props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+        self:IncrementStackCount()
+        ApplyDamage({
+            victim = props.target,
+            attacker = props.attacker,
+            damage = self:GetStackCount()
+        })
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+
+1. **Импорт модификаторов**: Используются `LinkLuaModifier` для подключения модификаторов `modifier_ursa_copy` и `modifier_ursa_copy_debuff`.
+
+2. **Класс `ursa_copy`**: 
+   - Определяет метод `GetIntrinsicModifierName`, возвращающий имя модификатора `modifier_ursa_copy`.
+
+3. **Класс `modifier_ursa_copy`**:
+   - Метод `IsHidden` возвращает `true`, что делает модификатор скрытым.
+   - Метод `DeclareFunctions` возвращает событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+   - Метод `OnAttackLanded`:
+     - Проверяет, является ли цель родительским объектом.
+     - Добавляет новый модификатор `modifier_ursa_copy_debuff` к цели.
+     - Увеличивает счетчик стаков.
+     - Применяет урон, равный количеству стаков.
+
+4. **Класс `modifier_ursa_copy_debuff`**:
+   - Метод `IsHidden` возвращает `false`, делая модификатор видимым.
+   - Метод `IsDebuff` возвращает `true`, указывая, что это дебафф.
+
+### Связь с аудио:
+
+Аудио описывает процесс получения текущего количества стаков и умножения их на `DamagePerStack`. Это соответствует части кода, где используется `self:GetStackCount()` для вычисления урона, который затем применяется к цели.

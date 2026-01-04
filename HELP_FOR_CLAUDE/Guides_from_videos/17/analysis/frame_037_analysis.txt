@@ -1,0 +1,69 @@
+Кадр 37
+Временная метка: 0:09:15
+Номер кадра: 33300
+Скриншот: frame_033300_555.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:03] Давайте по-быстренькому сварганим такой прикол, что когда мы нажимаем, у нашего предмета появляются стаки.
+[0:09:11] И сравним это с тем, что у нашего предмета, ну, как мы делали это с обилками, что у обилки, ну, обилка, то есть не у самой обилки появлялись стаки, а у модификатора обилки появлялись стаки, и мы на них все завязывали.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан код на языке программирования Lua, открытый в текстовом редакторе Sublime Text. 
+
+### Код:
+```lua
+LinkLuaModifier("modifier_item_desol_custom", "items/item_desol_custom", LUA_MODIFIER_MOTION_NONE)
+
+item_desol_custom = class({})
+
+function item_desol_custom:OnSpellStart()
+    print("123123")
+end
+
+function item_desol_custom:GetIntrinsicModifierName()
+    return "modifier_item_desol_custom"
+end
+
+modifier_item_desol_custom = class({})
+
+function modifier_item_desol_custom:IsHidden()
+    return true
+end
+
+function modifier_item_desol_custom:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE
+end
+
+function modifier_item_desol_custom:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+    }
+end
+
+function modifier_item_desol_custom:GetModifierBonusStats_Strength()
+    return self:GetAbility():GetSpecialValueFor("str_bonus")
+end
+```
+
+### Описание кода:
+- **Импорт модификатора**: `LinkLuaModifier` связывает модификатор `modifier_item_desol_custom` с файлом `items/item_desol_custom`.
+- **Класс `item_desol_custom`**: 
+  - Метод `OnSpellStart` выводит в консоль строку "123123".
+  - Метод `GetIntrinsicModifierName` возвращает имя модификатора `modifier_item_desol_custom`.
+- **Класс `modifier_item_desol_custom`**:
+  - Метод `IsHidden` возвращает `true`, скрывая модификатор.
+  - Метод `GetAttributes` возвращает атрибут `MODIFIER_ATTRIBUTE_MULTIPLE`, позволяя модификатору быть наложенным несколько раз.
+  - Метод `DeclareFunctions` возвращает таблицу с функцией `MODIFIER_PROPERTY_STATS_STRENGTH_BONUS`.
+  - Метод `GetModifierBonusStats_Strength` возвращает значение бонуса силы, полученное из способности.
+
+### Важные детали:
+- **Импорт**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции и методы**: Определены методы для работы с модификатором и его атрибутами.
+- **Переменные**: Используются стандартные функции и переменные для работы с модификаторами в Dota 2.
+
+### Связь с аудио:
+- В аудио говорится о добавлении стаков к предмету при нажатии, что связано с использованием модификаторов в коде. Код демонстрирует создание модификатора, который может быть использован для реализации подобной механики.

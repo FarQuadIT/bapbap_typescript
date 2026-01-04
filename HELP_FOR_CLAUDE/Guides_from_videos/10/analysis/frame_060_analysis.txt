@@ -1,0 +1,85 @@
+Кадр 60
+Временная метка: 0:15:00
+Номер кадра: 54000
+Скриншот: frame_054000_900.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:50] DamagePerStack.
+[0:14:54] И давайте будем наносить...
+[0:14:56] Ну, допустим, по 5 урона за стак.
+[0:15:00] И что мы делаем?
+[0:15:02] Умножаем на SellGetAbility.
+[0:15:04] GetSpecialValueFor.
+[0:15:06] И здесь DamagePerStack.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Этот файл используется для настройки способностей в модификации игры Dota 2.
+
+### Детали экрана:
+
+1. **Программа:**
+   - Sublime Text (UNREGISTERED).
+
+2. **Открытые файлы:**
+   - `npc_abilities_custom.txt`
+   - `chupakabra_mode.lua`
+   - `slark_essence_shift.lua`
+   - `npc_heroes_custom.txt`
+
+3. **Структура папок:**
+   - `abilities`
+     - `cechens_armor.lua`
+     - `ursa_copy.lua`
+   - `utils`
+     - `addon_game_mode.lua`
+   - `addoninfo.txt`
+   - `tools_asset_info.bin`
+   - `tools_thumbnail_cache.bin`
+
+4. **Код в файле `npc_abilities_custom.txt`:**
+
+```plaintext
+"Version" "1"
+"AbilityValues"
+{
+    "cechens_armor"
+    {
+        "BaseClass" "ability_lua"
+        "ScriptFile" "abilities/cechens_armor"
+        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityValues"
+        {
+            "bonus_armor" "5 10 15 20"
+        }
+    }
+    "ursa_copy"
+    {
+        "BaseClass" "ability_lua"
+        "ScriptFile" "abilities/ursa_copy"
+        "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityValues"
+        {
+            "duration" "5 8 12 20"
+            "damage_per_stack" "2 4"
+        }
+    }
+}
+```
+
+### Описание кода:
+
+- **Язык:** Конфигурационный файл для Dota 2.
+- **Структура:**
+  - Определены две способности: `cechens_armor` и `ursa_copy`.
+  - Каждая способность имеет базовый класс `ability_lua` и файл скрипта.
+  - Указаны параметры способностей, такие как `bonus_armor` и `damage_per_stack`.
+
+### Связь с аудио:
+
+- В аудио говорится о параметре `DamagePerStack`, который соответствует параметру `damage_per_stack` в коде.
+- Обсуждается нанесение урона за стак, что связано с настройкой `damage_per_stack` для способности `ursa_copy`.
+- Упоминается использование `GetSpecialValueFor`, что может относиться к получению значений параметров, таких как `damage_per_stack`, в игровом коде.

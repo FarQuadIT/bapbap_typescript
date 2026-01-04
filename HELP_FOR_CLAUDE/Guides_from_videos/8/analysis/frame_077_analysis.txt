@@ -1,0 +1,74 @@
+Кадр 77
+Временная метка: 0:19:15
+Номер кадра: 69300
+Скриншот: frame_069300_1155.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:19:03] Это у нас функция chupacabra-mod.
+[0:19:07] И почему мы использовали self вместо chupacabra-mod?
+[0:19:12] Потому что мы сейчас тут находимся уже внутри chupacabra-moda.
+[0:19:16] И по умолчанию дота воспринимает, в принципе, точнее не дота,
+[0:19:21] а лоа.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:Start()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+
+    local temates = Entities:FindAllByName("temates")
+
+    for i=1, #temates do
+        local temate = temates[i]
+        local temate_point = temate:GetAbsOrigin()
+
+        CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", temate_point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+    end
+
+    self:WaveBoss()
+end
+
+function ChupakabraMode:WaveBoss()
+    local points = Entities:FindByName(nil, "enemy_path3")
+
+    for i=1, 6 do
+        local unit = CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+
+        Timers:CreateTimer(0, function()
+            unit:SetInitialGoalEntity(points)
+        end)
+    end
+
+    return 10
+end
+```
+
+### Описание кода:
+
+- **Функция `ChupakabraMode:Start()`**: 
+  - Находит точку с именем "bosses_point" и создает в этой точке юнита "npc_dota_neutral_kobold_boss" для команды "DOTA_TEAM_BADGUYS".
+  - Находит все сущности с именем "temates" и создает для каждой из них юнита "npc_dota_neutral_forest_troll_high_priest_stronger" для команды "DOTA_TEAM_GOODGUYS".
+  - Вызывает функцию `self:WaveBoss()`.
+
+- **Функция `ChupakabraMode:WaveBoss()`**:
+  - Находит точку с именем "enemy_path3".
+  - Создает 6 юнитов "npc_dota_neutral_kobold" в этой точке для команды "DOTA_TEAM_BADGUYS".
+  - Устанавливает для каждого юнита начальную цель.
+
+### Важные детали:
+
+- Используются функции `Entities:FindByName` и `Entities:FindAllByName` для поиска сущностей в игре.
+- `CreateUnitByName` используется для создания юнитов.
+- `Timers:CreateTimer` используется для отложенного выполнения кода.
+
+### Связь с аудио:
+
+- В аудио говорится о функции `chupacabra-mod` и использовании `self` внутри нее. Это соответствует коду, где `self:WaveBoss()` вызывается внутри `ChupakabraMode:Start()`, что объясняет использование `self` для вызова метода внутри класса.

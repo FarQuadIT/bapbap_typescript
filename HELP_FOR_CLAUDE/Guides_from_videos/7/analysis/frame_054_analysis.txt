@@ -1,0 +1,76 @@
+Кадр 54
+Временная метка: 0:13:30
+Номер кадра: 48600
+Скриншот: frame_048600_810.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:21] У меня, опять же, заготовлен unit.
+[0:13:24] stronger.
+[0:13:26] Должны передать point.
+[0:13:27] То есть, получается, перед его убийством мы должны получить point.
+[0:13:30] teammates.point равно единичный экземпляр teammate.
+[0:13:37] getAppsOrigin.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+if killed_unit:GetUnitName() == "npc_dota_neutral_centaur_outrunner_boss" then
+    CreateUnitByName("bosses_point"):SetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_fel_beast_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+end
+
+if killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+    GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+end
+
+function giveGoldPlayers(gold)
+    for i = 0, DOTA_MAX_TEAM_PLAYERS-1 do
+        local player = PlayerResource:GetPlayer(i)
+        local hero = PlayerResource:GetSelectedHeroEntity(i)
+        if hero then
+            hero:ModifyGold(gold, true, DOTA_ModifyGold_Unspecified)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDrop(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    local drop = CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLootInitialHeight(false, 0, 150, 0.5, pos + RandomVector(dropRadius))
+end
+
+function ChupakabraMonster()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+
+    local temates = Entities:FindAllByName("temates")
+
+    for i=1, #temates do
+        local t = temates[i]
+        t:ForceKill(false)
+    end
+
+    CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", )
+end
+```
+
+### Описание кода:
+
+- **Импорты и функции**: Код содержит функции для создания юнитов, выдачи золота игрокам и создания предметов на карте.
+- **Переменные и классы**: Используются переменные для хранения юнитов и их позиций. Присутствуют функции для работы с юнитами и их состояниями.
+- **Логика**: Код проверяет, какой юнит был убит, и в зависимости от этого выполняет определенные действия, такие как создание новых юнитов или завершение игры.
+
+### Связь с аудио:
+
+- В аудио упоминается необходимость передать "point" перед убийством, что соответствует строкам кода, где используется `point` для создания юнитов.
+- Также упоминается "teammates.point", что связано с поиском и использованием позиций в коде.
+
+Этот код и аудио связаны с созданием и управлением юнитами в игровом процессе, что объясняется в видео.

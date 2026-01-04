@@ -1,0 +1,73 @@
+Кадр 92
+Временная метка: 0:23:00
+Номер кадра: 82800
+Скриншот: frame_082800_1380.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:22:52] То есть, ничего не видно, только видно свои сооружения.
+[0:22:55] И довольно прикольно, я считаю.
+[0:22:58] Это делать с помощью вот такой вот функции.
+[0:23:01] И так.
+[0:23:02] К сожалению, мы к этому блоку уже не успеем перейти.
+[0:23:06] Так много времени прошло.
+[0:23:07] Поиграйте с настроечками.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для настройки игрового режима в Dota 2.
+
+### Видимый код:
+
+```lua
+ChupakabraMode = nil
+
+ChupakabraMode = class({})
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(0.0)
+    GameRules:SetPostGameTime(0.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 0 )
+
+    GameRules:GetGameModeEntity():SetUseCustomHeroXPValues(true)
+    GameRules:GetGameModeEntity():SetUnseenFogOfWarEnabled(true)
+
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+end
+
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        print( "Template addon script is running." )
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`**: Создается класс для настройки игрового режима.
+- **Функция `InitGameMode`**: Инициализирует параметры игры, такие как начальное золото, время выбора героя, и другие временные параметры. Также устанавливает максимальное количество игроков для каждой команды и включает пользовательские значения опыта и тумана войны.
+- **Функция `OnThink`**: Проверяет состояние игры и выводит сообщение в консоль, если игра в процессе. Если игра завершена, функция возвращает `nil`.
+
+### Важные детали:
+
+- **Импорты и зависимости**: Не видны в данном фрагменте.
+- **Переменные и функции**: Используются функции `GameRules` и `GameModeEntity` для настройки параметров игры.
+
+### Связь с аудио:
+
+- В аудио говорится о том, что "ничего не видно, только видно свои сооружения", что может относиться к настройке тумана войны (`SetUnseenFogOfWarEnabled(true)`).
+- Упоминается функция, что соответствует обсуждаемой функции `InitGameMode`.
+- В аудио также говорится о том, что "поиграйте с настроечками", что может относиться к изменению параметров в коде, таких как начальное золото или временные параметры.

@@ -1,0 +1,69 @@
+Кадр 39
+Временная метка: 0:09:45
+Номер кадра: 35100
+Скриншот: frame_035100_585.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:36] Чтобы.
+[0:09:37] Короче хочу заменить радиус.
+[0:09:38] Дурашен оставлю.
+[0:09:41] Вот.
+[0:09:43] Так.
+[0:09:44] И радиус давайте прибавим на плюс косарик.
+[0:09:48] Ну и на самом деле это проверять даже нет смысла.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Это файл конфигурации для игры Dota 2, содержащий описание пользовательских способностей.
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+2. **Открытые файлы**: 
+   - `npc_abilities_custom.txt`
+   - Другие вкладки, такие как `npc_dota_hero_juggernaut.txt`, `npc_dota_hero_chaos_knight.txt`, и т.д.
+
+3. **Структура папок**:
+   - Путь к файлу: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc`
+   - Видны папки: `maps`, `materials`, `models`, `particles`, `resource`, `scripts`, и другие.
+
+4. **Содержимое файла**:
+   - Описание способностей, таких как `strong_poison` и `gold_hole`.
+   - Способность `gold_hole` имеет параметры:
+     - `BaseClass`: "ability_lua"
+     - `ScriptFile`: "abilities/gold_hole"
+     - `AbilityBehavior`: "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+     - `AbilityValues`: включает `duration`, `radius`, и `gold_per_unit`.
+
+5. **Код**:
+   ```plaintext
+   "gold_hole"
+   {
+       "BaseClass"              "ability_lua"
+       "ScriptFile"             "abilities/gold_hole"
+       "AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+       "HasScepterUpgrade"      "1"
+       "HasShardUpgrade"        "1"
+       "AbilityValues"
+       {
+           "duration"           "4 6 8 9 10" duration
+           "radius"
+           {
+               "value"          "300 500 700 900"
+               "special_bonus_shard" "+100"
+           }
+           "gold_per_unit"
+           {
+               "value"          "10 15 20 25"
+               "special_bonus_scepter" "+1000"
+           }
+       }
+   }
+   ```
+
+### Связь с аудио:
+
+- В аудио говорится о замене радиуса и добавлении значения. На экране видно, что в параметре `radius` для способности `gold_hole` указаны значения, и возможно, пользователь собирается изменить их, добавив "плюс косарик", что может означать увеличение радиуса на 1000 единиц.

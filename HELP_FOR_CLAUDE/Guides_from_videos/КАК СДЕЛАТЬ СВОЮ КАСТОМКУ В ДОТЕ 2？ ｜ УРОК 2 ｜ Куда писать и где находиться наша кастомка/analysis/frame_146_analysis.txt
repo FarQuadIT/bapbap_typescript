@@ -1,0 +1,75 @@
+Кадр 146
+Временная метка: 0:17:02
+Номер кадра: 61320
+Скриншот: frame_061320_1022.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:56] Главное на самом деле не удалить лишнюю скобочку.
+[0:16:59] Потому что если вы удалите или добавите лишнюю скобочку.
+[0:17:02] То у вас весь файл перестанет работать.
+[0:17:04] Это вот очень важный момент.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** JSON-подобный формат (используется в настройках игр, например, Dota 2).
+   - **Видимый код:**
+     ```plaintext
+     "npc_dota_hero_juggernaut"
+     {
+         "Model"                     "models/heroes/juggernaut/juggernaut.mdl"
+         "SoundSet"                  "Hero_Juggernaut"
+         "Enabled"                   "1"
+         "Role"                      "Carry,Escape,Pusher"
+         "RoleLevels"                "3,2,1"
+         "Team"                      "Good"
+         "HeroID"                    "8"
+         "ModelScale"                "0.840000"
+         "HeroGlowColor"             "255 255 255"
+         "PickSound"                 "juggernaut_jug_spawn_01"
+         "BanSound"                  "juggernaut_jug_anger_01"
+         "CMEnabled"                 "1"
+         "url"                       "Juggernaut"
+         "Ability1"                  "juggernaut_blade_fury"
+         "Ability2"                  "juggernaut_healing_ward"
+         "Ability3"                  "juggernaut_blade_dance"
+         "Ability4"                  "juggernaut_omni_slash"
+         "Ability5"                  "special_bonus_unique_juggernaut_1"
+         "Ability6"                  "special_bonus_unique_juggernaut_2"
+         "Ability7"                  "special_bonus_unique_juggernaut_3"
+         "Ability8"                  "special_bonus_unique_juggernaut_4"
+         "ArmorPhysical"             "1"
+         "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+         "AttackDamageMin"           "24"
+         "AttackDamageMax"           "28"
+         "AttackRate"                "1.400000"
+         "AttackAnimationPoint"      "0.330000"
+         "AttackAcquisitionRange"    "600"
+         "AttackRange"               "150"
+         "AttackSpeedActivityModifiers"
+         {
+             "fast"                  "1.7"
+         }
+         "AttributePrimary"          "DOTA_ATTRIBUTE_AGILITY"
+         "AttributeBaseStrength"     "20"
+         "AttributeBaseAgility"      "26"
+         "AttributeBaseIntelligence" "14"
+         "AttributeStrengthGain"     "2.2"
+         "AttributeAgilityGain"      "2.8"
+         "AttributeIntelligenceGain" "1.4"
+         "MovementSpeed"             "305"
+     }
+     ```
+   - **Описание кода:** 
+     Этот код описывает параметры героя Juggernaut в игре Dota 2. Он включает в себя модель, звуковые настройки, роли, способности, физические характеристики и атрибуты героя.
+   - **Важные детали:**
+     - **Импорты:** Отсутствуют.
+     - **Функции и классы:** Отсутствуют.
+     - **Переменные:** Описывают характеристики героя, такие как `Model`, `SoundSet`, `Enabled`, `Role`, `Ability1`, `ArmorPhysical`, `AttackCapabilities`, и т.д.
+
+2. **СВЯЗЬ С АУДИО:**
+   - В аудио говорится о важности правильного использования скобок, чтобы файл работал корректно. На экране показан код, где скобки играют ключевую роль в структуре данных. Ошибка в скобках может привести к тому, что игра не сможет правильно прочитать настройки героя.

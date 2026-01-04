@@ -1,0 +1,57 @@
+Кадр 132
+Временная метка: 0:11:00
+Номер кадра: 39600
+Скриншот: frame_039600_660.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:54] Это нам все уже с setParticleControl нам не нужны.
+[0:10:58] И можем тестить.
+[0:11:00] Но перед этим все-таки я бы хотел поменять карту на какую-нибудь более зимнюю.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+function modifier_gold_hole_thinker:OnCreated()
+    self.duration = self:GetAbility():GetSpecialValueFor("duration")
+    self.point = self:GetCursorPosition()
+    self.caster = self:GetCaster()
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+    local enemies = FindUnitsInRadius(self.caster:GetTeamNumber(), self.point, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
+    local gold = gold_per_unit * #enemies
+    self.caster:ModifyGold(gold, true, DOTA_ModifyGold_Unspecified)
+    SendOverheadEventMessage(self.caster:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, self.caster, gold, self.caster)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+```
+
+### Описание кода:
+
+- **Функция `OnCreated`:** Инициализирует модификатор, устанавливая длительность, позицию и кастера. Запускает периодическое выполнение функции `OnIntervalThink` с интервалом в 1 секунду.
+  
+- **Функция `OnIntervalThink`:** Выполняется каждую секунду. Определяет радиус и количество золота за юнита. Находит вражеские юниты в радиусе и начисляет золото кастеру за каждого найденного юнита. Отображает сообщение о получении золота.
+
+- **Функция `OnDestroy`:** Уничтожает визуальный эффект, связанный с модификатором.
+
+### Важные детали:
+
+- **Переменные:** `duration`, `point`, `caster`, `radius`, `gold_per_unit`, `enemies`, `gold`.
+- **Функции:** `GetSpecialValueFor`, `FindUnitsInRadius`, `ModifyGold`, `SendOverheadEventMessage`, `DestroyParticle`.
+
+### Связь с аудио:
+
+В аудио говорится о том, что некоторые элементы с `setParticleControl` больше не нужны и можно тестировать. Это соответствует коду, где создаются и уничтожаются частицы, а также выполняется логика начисления золота, что может быть частью тестирования функционала. Также упоминается желание сменить карту на зимнюю, что может быть связано с использованием зимних частиц в коде.

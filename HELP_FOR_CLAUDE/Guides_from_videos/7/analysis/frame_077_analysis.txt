@@ -1,0 +1,70 @@
+Кадр 77
+Временная метка: 0:19:15
+Номер кадра: 69300
+Скриншот: frame_069300_1155.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:19:06] координаты нам не нужно указывать мы можем конечно типа сделать вторую переменную
+[0:19:10] назвать все там origin и здесь уже как раз git aps region сделать но честно вот так
+[0:19:18] мне кажется проще намного но у нас все еще не будет работать то есть кобальты
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+function GiveGoldToPlayers()
+    for index = 0, DOTA_MAX_TEAM_PLAYERS-1 do
+        if PlayerResource:IsValidPlayer(index) then
+            local hero = PlayerResource:GetSelectedHeroEntity(index)
+            if hero then
+                hero:ModifyGold(OVERHEAD_ALERT_GOLD, hero, gold_m1)
+            end
+        end
+    end
+end
+
+function CreateDrop(nTeam, pos)
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+end
+
+function ChupakabraMode:OnGameInProgress()
+    local point = Entities:FindByName(nil, "enemy_path1")
+    local pointOrigin = Entities:FindByName(nil, "enemy_path1"):GetAbsOrigin()
+
+    local unit = CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+    unit:SetInitialGoalEntity(point)
+end
+```
+
+### Описание кода:
+
+1. **Функция `GiveGoldToPlayers`:**
+   - Проходит по всем игрокам в команде.
+   - Проверяет, является ли игрок валидным.
+   - Если у игрока есть выбранный герой, добавляет ему золото.
+
+2. **Функция `CreateDrop`:**
+   - Находит координаты точки с именем "bosses_point".
+   - Создает юнита "npc_dota_neutral_kobold_boss" в этой точке для команды BADGUYS.
+
+3. **Функция `ChupakabraMode:OnGameInProgress`:**
+   - Находит координаты точки с именем "enemy_path1".
+   - Создает юнита "npc_dota_neutral_kobold" в этой точке для команды BADGUYS.
+   - Устанавливает начальную цель для юнита.
+
+### Важные детали:
+
+- **Импорты и зависимости:** В коде используются функции и методы, специфичные для API Dota 2, такие как `PlayerResource`, `Entities`, `CreateUnitByName`.
+- **Переменные:** `gold_m1`, `OVERHEAD_ALERT_GOLD`, `DOTA_MAX_TEAM_PLAYERS`, `DOTA_TEAM_BADGUYS` и `DOTA_TEAM_GOODGUYS` — вероятно, глобальные или предопределенные переменные.
+
+### Связь с аудио:
+
+- В аудио говорится о том, что координаты можно не указывать, и обсуждается создание переменной `origin`. Это соответствует коду, где используются методы `GetAbsOrigin()` для получения координат, что делает явное указание координат необязательным.
+- Обсуждение упрощения кода также отражается в использовании функций для создания юнитов и получения их координат.

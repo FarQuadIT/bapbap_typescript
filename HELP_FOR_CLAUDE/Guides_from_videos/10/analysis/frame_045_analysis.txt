@@ -1,0 +1,78 @@
+Кадр 45
+Временная метка: 0:11:15
+Номер кадра: 40500
+Скриншот: frame_040500_675.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:08] 100,
+[0:11:12] 50,
+[0:11:12] 150,
+[0:11:14] 100,
+[0:11:16] 100,
+[0:11:17] 1500,
+[0:11:18] нам в модификатор который накладывается на врага то есть нам ну вы может подумали что нам надо
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в модах для игры Dota 2.
+
+### Видимый код:
+```lua
+ursa_copy = class({})
+
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if props.target == props.attacker then
+        props.target:AddNewModifier(props.attacker, self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+- **Класс `ursa_copy`:** Определяет способность, которая возвращает имя модификатора `modifier_ursa_copy`.
+- **Модификатор `modifier_ursa_copy`:** 
+  - Скрыт от игрока (`IsHidden` возвращает `true`).
+  - Реагирует на событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+  - При срабатывании события проверяет, является ли цель атакующим, и добавляет дебафф `modifier_ursa_copy_debuff` на цель.
+- **Модификатор `modifier_ursa_copy_debuff`:**
+  - Не скрыт от игрока (`IsHidden` возвращает `false`).
+  - Является дебаффом (`IsDebuff` возвращает `true`).
+
+### Важные детали:
+- **Импорты:** Используются функции `LinkLuaModifier` для подключения модификаторов.
+- **Функции:** `GetIntrinsicModifierName`, `IsHidden`, `DeclareFunctions`, `OnAttackLanded`, `IsDebuff`.
+- **Переменные:** `ursa_copy`, `modifier_ursa_copy`, `modifier_ursa_copy_debuff`.
+
+### Связь с аудио:
+Аудио, вероятно, объясняет процесс наложения модификатора на врага, что соответствует коду, где модификатор `modifier_ursa_copy_debuff` применяется к цели при выполнении определенных условий.

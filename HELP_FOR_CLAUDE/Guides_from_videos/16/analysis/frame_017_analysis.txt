@@ -1,0 +1,77 @@
+Кадр 17
+Временная метка: 0:04:15
+Номер кадра: 15300
+Скриншот: frame_015300_255.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:06] Обязательно.
+[0:04:07] Назвать её spawn.
+[0:04:09] Вот так вот.
+[0:04:10] End.
+[0:04:12] То есть эта функция выполняется тогда, когда наш нейтральный кобальт появляется.
+[0:04:16] Думаю, надеюсь, понятно.
+[0:04:18] После этого давайте напишем такую обезопащивающуюся штуку.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_units_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки параметров игровых юнитов.
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+
+2. **Путь к файлу**:
+   - `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\npc_units_custom.txt`
+
+3. **Структура папок**:
+   - В левой части экрана видна структура папок, содержащая файлы и папки: `chupakabra`, `maps`, `materials`, `panorama`, `particles`, `resource`, `scripts`, и другие.
+
+4. **Код**:
+   - Язык: Конфигурационный файл (формат текста).
+   - Видимый код:
+     ```plaintext
+     "npc_dota_neutral_kobold_boss"
+     {
+         // General
+         "vscripts" "ai/ai_kobold"
+         "Model" "models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl" // Model.
+         "BaseClass" "npc_dota_creature"
+         "SoundSet" "n_creep_Melee"
+         "Level" "10"
+         "ModelScale" "1.9"
+         "UseNeutralCreepBehavior" "0"
+
+         // Abilities
+         "Ability1" "slark_pounce" // Ability 1
+         "Ability2" "" // Ability 2
+         "Ability3" "" // Ability 3
+         "Ability4" "" // Ability 4
+
+         // Armor
+         "ArmorPhysical" "10" // Physical protection.
+
+         // Attack
+         "AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
+         "AttackDamageMin" "10" // Damage range min.
+         "AttackDamageMax" "15" // Damage range max.
+         "AttackRate" "1.0" // Speed of attack.
+         "BaseAttackSpeed" "100"
+         "AttackAnimationPoint" "0.38" // Normalized time in animation cycle to attack.
+         "AttackAcquisitionRange" "100" // Range within a target can be acquired.
+         "AttackRange" "100" // Range within a target can be attacked.
+     }
+     ```
+
+5. **Описание кода**:
+   - Код описывает параметры для нейтрального юнита "kobold_boss" в игре Dota 2.
+   - Указаны общие параметры, такие как модель, класс, уровень, масштаб модели.
+   - Описаны способности юнита, броня и параметры атаки.
+
+6. **Связь с аудио**:
+   - В аудио говорится о функции, которая выполняется при появлении нейтрального кобальта. Код на экране соответствует этому описанию, так как он настраивает параметры для нейтрального юнита "kobold_boss".
+   - Упоминается написание "обезопащивающейся штуки", что может относиться к настройкам поведения или параметрам атаки юнита.
+
+Этот кадр из видео-туториала демонстрирует, как настраивать параметры юнита в Dota 2 через конфигурационные файлы.

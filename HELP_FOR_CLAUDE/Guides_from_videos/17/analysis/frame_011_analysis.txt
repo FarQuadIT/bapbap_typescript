@@ -1,0 +1,81 @@
+Кадр 11
+Временная метка: 0:02:45
+Номер кадра: 9900
+Скриншот: frame_009900_165.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:33] остальные параметры ладно у нас еще есть один важный параметр ability behavior по факту а
+[0:02:38] остальные параметры они все опциональные вроде как на прошлых рассказывал на них но принципе
+[0:02:44] по названию здесь на самом деле легко определить сейчас что делает допустим item cost это цена
+[0:02:48] предмета shop.txt теги в магазине который мы гуглим quality это ну когда мы альтом зажимаем
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_items_custom.txt`. Этот файл относится к скриптам для игры Dota 2 и содержит описание пользовательских предметов.
+
+### Детали экрана:
+
+1. **Язык программирования**: 
+   - Используется форматирование, характерное для JSON-подобных конфигурационных файлов.
+
+2. **Видимый код**:
+   ```plaintext
+   "BaseClass" "item_lotus_orb"
+   "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+   "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+   "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
+   "FightRecapLevel" "1"
+   "AbilityTextureName" "motus"
+   "AbilityCooldown" "15.0"
+   "AbilityCastRange" "1150"
+   "AbilityManaCost" "175"
+
+   // Item Info
+   "ItemCost" "3850"
+   "ItemShopTags" "regen_health;regen_mana;str;agi;int;hard_to_tag"
+   "ItemQuality" "epic"
+   "ItemAliases" "ls;lotus orb"
+   "ItemDeclarations" "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+   "ItemDisassembleRule" "DOTA_ITEM_DISASSEMBLE_ALWAYS"
+   "ShouldBeSuggested" "1"
+
+   // Special
+   "AbilitySpecial"
+   {
+       "01"
+       {
+           "var_type" "FIELD_INTEGER"
+           "bonus_armor" "10"
+       }
+       "02"
+       {
+           "var_type" "FIELD_FLOAT"
+           "bonus_health_regen" "6.5"
+       }
+       "03"
+       {
+           "var_type" "FIELD_FLOAT"
+           "bonus_mana_regen" "4.0"
+       }
+       "04"
+       {
+           "var_type" "FIELD_INTEGER"
+           "bonus_mana" "250"
+       }
+   }
+   ```
+
+3. **Описание кода**:
+   - Код описывает параметры предмета в игре Dota 2. Указаны базовый класс предмета, поведение способности, цели, текстура, стоимость, теги магазина, качество, алиасы, правила разборки и специальные бонусы.
+
+4. **Важные детали**:
+   - Параметры `AbilityBehavior`, `ItemCost`, `ItemShopTags` и другие определяют, как предмет будет функционировать в игре.
+   - `AbilitySpecial` содержит бонусы, которые предмет предоставляет, такие как дополнительная броня и регенерация здоровья.
+
+5. **Связь с аудио**:
+   - В аудио говорится о параметрах предмета, таких как `ability behavior` и `item cost`, которые видны в коде. Обсуждается, что некоторые параметры опциональны и могут быть определены по названию, что соответствует видимым параметрам в коде.
+
+Этот фрагмент кода и аудио объясняют, как настраиваются предметы в игре, и какие параметры важны для их функционирования.

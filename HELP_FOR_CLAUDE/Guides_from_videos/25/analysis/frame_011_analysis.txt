@@ -1,0 +1,59 @@
+Кадр 11
+Временная метка: 0:02:45
+Номер кадра: 9900
+Скриншот: frame_009900_165.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:36] Я это сделаю, пожалуй, в аддонге.mod
+[0:02:38] Включу ее тут
+[0:02:40] И надо обязательно подключать перед чупакабра.mod
+[0:02:43] Потому что иначе чупакабра.mod не увидит item.drop
+[0:02:48] Это очень важное правило
+[0:02:50] И просто пишем item.drop.manager
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра из видео-туториала
+
+#### 1. Код
+- **Язык программирования**: Lua
+- **Видимый код**:
+  ```lua
+  require("utils/utils")
+  require("chupakabra")
+  require("utils/timers")
+
+  if ChupakabraMode == nil then
+      ChupakabraMode = class({})
+  end
+
+  function Precache(context)
+      PrecacheResource("soundfile", "soundevents/chupakabra_sounds.vsndevts", context)
+      PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_abaddon.vsndevts", context)
+      PrecacheResource("particle", "particles/units/heroes/hero_game.vpcf", context)
+  end
+
+  -- Create the game mode when we activate
+  function Activate()
+      ChupakabraMode:InitGameMode()
+  end
+  ```
+
+- **Описание кода**:
+  - **Импорты**: Подключаются модули `utils/utils`, `chupakabra`, `utils/timers`.
+  - **Класс**: Проверяется, существует ли `ChupakabraMode`. Если нет, создается новый класс.
+  - **Функция `Precache`**: Предварительно загружает ресурсы, такие как звуковые файлы и частицы.
+  - **Функция `Activate`**: Инициализирует игровой режим, вызывая метод `InitGameMode` у `ChupakabraMode`.
+
+#### 2. Редактор
+- **Название программы**: Sublime Text
+- **Открытые файлы**: `addon_game_mode.lua`, `chupakabra_mode.lua`, `item_drop_manager.lua`, `item_drop.lua`
+- **Панели/вкладки**: Слева видна структура папок проекта, включая файлы и папки, такие как `chupakabra`, `maps`, `materials`, `scripts`, `soundevents`.
+
+#### 5. Связь с аудио
+- **Соответствие с аудио**: В аудио говорится о необходимости подключения модулей в определенном порядке. Видимый код подтверждает это, так как сначала подключаются необходимые модули, что соответствует упоминанию о важности порядка подключения для корректной работы `chupakabra.mod`.
+
+Этот кадр демонстрирует процесс настройки и инициализации игрового режима в проекте, вероятно, связанном с модификацией для игры.

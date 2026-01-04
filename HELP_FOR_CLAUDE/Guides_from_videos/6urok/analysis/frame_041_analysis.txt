@@ -1,0 +1,72 @@
+Кадр 41
+Временная метка: 0:10:15
+Номер кадра: 36900
+Скриншот: frame_036900_615.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:05] О да! NPC Dota Neutral Cobalt.
+[0:10:09] И уже с помощью этого мы можем сделать реализацию кое-чего крутого.
+[0:10:13] Можем написать, если killUnit.
+[0:10:15] getUnitName
+[0:10:18] равно NPC Dota Neutral Cobalt,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+if HeroXPTable[0] ~= nil then
+    HeroXPTable[1] = HeroXPTable[0] + expTable[1]
+end
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroSelectionTime(30.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(10.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+    GameRules:SetUseUniversalShopMode(true) -- установка кастомной системы уровней
+    GameRules:SetCustomXPRequiredToReachNextLevel(HeroXPTable)
+    GameRules:GetGameModeEntity():SetFogOfWarDisabled(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    print("Killed unit: " .. killed_unit:GetUnitName())
+end
+```
+
+### Описание кода:
+
+- **Функция `InitGameMode`**: Инициализирует параметры игры, такие как стартовое золото, время выбора героя, время до начала игры и другие настройки. Также устанавливает максимальное количество игроков в командах и включает некоторые кастомные параметры, такие как универсальный магазин и кастомные атрибуты.
+
+- **Функция `ChupakabraKilled`**: Обрабатывает событие убийства сущности в игре. Получает имя убитой сущности и выводит его в консоль.
+
+### Важные детали:
+
+- **Переменные и функции**: `HeroXPTable`, `GameRules`, `SetStartingGold`, `SetHeroSelectionTime`, `EntIndexToHScript`, `GetUnitName`.
+- **События**: `entity_killed` — используется для вызова функции `ChupakabraKilled` при убийстве сущности.
+
+### Связь с аудио:
+
+- В аудио упоминается `NPC Dota Neutral Cobalt`, что связано с кодом, где происходит обработка события убийства сущности. Код выводит имя убитой сущности, что может быть связано с проверкой на `NPC Dota Neutral Cobalt`.

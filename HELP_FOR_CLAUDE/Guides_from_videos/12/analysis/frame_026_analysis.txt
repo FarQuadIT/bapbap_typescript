@@ -1,0 +1,69 @@
+Кадр 26
+Временная метка: 0:06:30
+Номер кадра: 23400
+Скриншот: frame_023400_390.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:19] Если вы не помните, что это и для чего это, пересмотрите видос про пассивки там.
+[0:06:24] Подробнее это все задевалось.
+[0:06:26] Пишем modifier.
+[0:06:27] Блять, блять, че.
+[0:06:31] Он мне должен подсказать.
+[0:06:36] Чтобы мне не лезть лиш...
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE)
+
+strong_poison = class({})
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_
+    }
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает Lua-модификатор `modifier_strong_poison` с файлом `abilities/strong_poison`.
+- **strong_poison**: Класс, представляющий способность.
+  - **OnSpellStart**: Функция, вызываемая при активации способности. Она добавляет модификатор `modifier_strong_poison` к цели.
+- **modifier_strong_poison**: Класс, представляющий модификатор.
+  - **IsHidden**: Возвращает `false`, что означает, что модификатор будет видим.
+  - **DeclareFunctions**: Объявляет функции модификатора. Здесь видно начало объявления, но оно не завершено.
+
+### Важные детали:
+- **Импорты и классы**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции**: `OnSpellStart`, `IsHidden`, `DeclareFunctions`.
+- **Переменные**: `target`, `caster`.
+
+### Интерфейс:
+- **Редактор**: Sublime Text (UNREGISTERED).
+- **Открытые файлы**: Несколько вкладок, включая `strong_poison.lua`.
+- **Панели**: Слева видна файловая структура проекта, включая папки и файлы.
+
+### Связь с аудио:
+- В аудио говорится о необходимости вспомнить, что такое модификаторы и как они работают. На экране как раз показан код, связанный с модификатором `modifier_strong_poison`.
+- Упоминается слово "modifier", что соответствует коду, где используется `LinkLuaModifier` и объявляется `modifier_strong_poison`.
+
+Этот кадр демонстрирует процесс работы с модификаторами в Lua для Dota 2, что соответствует обсуждаемой теме в аудио.

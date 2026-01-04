@@ -1,0 +1,68 @@
+Кадр 13
+Временная метка: 0:03:15
+Номер кадра: 11700
+Скриншот: frame_011700_195.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:03:05] Но, чтобы было чуть более понятно,
+[0:03:09] лучше напишу chupacabra,
+[0:03:11] наверное, пусть будет killed.
+[0:03:13] Killed.
+[0:03:15] Killed.
+[0:03:17] Пусть будет chupacabra-killed.
+[0:03:19] Вот так вот.
+[0:03:20] И третьим аргументом мы должны передать,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `chupakabra_mode.lua` и находится в директории, связанной с модификацией для игры Dota 2.
+
+### Видимый код:
+```lua
+ChupakabraMode = class({})
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(10.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(10.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetCustomGameEndDelay(0.0)
+    GameRules:SetCustomVictoryMessageDuration(0.0)
+    GameRules:SetStartingGold(500)
+    GameRules:SetGoldPerTick(0)
+    GameRules:SetGoldTickTime(0)
+    GameRules:SetRuneSpawnTime(0)
+    GameRules:SetUseBaseGoldBountyOnHeroes(false)
+    GameRules:SetHeroMinimapIconScale(1.0)
+    GameRules:SetCreepMinimapIconScale(1.0)
+    GameRules:SetRuneMinimapIconScale(1.0)
+
+    ListenToGameEvent("entity_killed", "chupakabra_killed", handle_2)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+function ChupakabraMode:Chasdhfjhdsjafhkjshgf()
+end
+```
+
+### Описание кода:
+- **Класс `ChupakabraMode`:** Создается класс для настройки игрового режима.
+- **Функция `InitGameMode`:** Инициализирует параметры игрового режима, такие как время выбора героя, время до начала игры, начальное количество золота и другие настройки.
+- **Событие `entity_killed`:** Подписка на событие убийства сущности, вызывающее функцию `chupakabra_killed`.
+- **Функция `SetThink`:** Устанавливает периодическое выполнение функции `OnThink` каждые 2 секунды.
+- **Пустая функция `Chasdhfjhdsjafhkjshgf`:** Объявлена, но не реализована.
+
+### Связь с аудио:
+- В аудио говорится о добавлении события `chupacabra_killed`, что соответствует строке кода `ListenToGameEvent("entity_killed", "chupakabra_killed", handle_2)`. Это событие связано с убийством сущности и, вероятно, будет обрабатывать логику, когда происходит убийство в игре.
+
+### Важные детали:
+- **Импорты:** Не видны в текущем фрагменте.
+- **Функции и переменные:** Основное внимание уделено настройке параметров игрового режима и обработке событий.
+
+Этот код является частью модификации для Dota 2, настраивающей различные аспекты игрового процесса.

@@ -1,0 +1,78 @@
+Кадр 4
+Временная метка: 0:01:00
+Номер кадра: 3600
+Скриншот: frame_003600_60.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:00:30] ДОТА 8
+[0:01:00] ДОТА 8
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities.txt`. Это файл конфигурации, вероятно, связанный с игрой Dota 2, так как в нем описаны способности персонажей.
+
+### Детали:
+
+1. **Название программы:**
+   - Sublime Text (UNREGISTERED)
+
+2. **Открытые файлы и вкладки:**
+   - `npc_abilities.txt`
+   - `npc_abilities_custom.txt`
+   - `addon_game_mode.lua`
+   - `chupakabra_mode.lua`
+
+3. **Структура папок:**
+   - `maps`
+   - `materials`
+   - `particles`
+   - `resource`
+   - `scripts`
+     - `npc`
+       - `heroes`
+       - `items`
+       - `units`
+   - `vscripts`
+
+4. **Содержимое файла `npc_abilities.txt`:**
+   - Описание способности "Queen of Pain: Scream of Pain"
+   - Параметры способности, такие как `ID`, `AbilityBehavior`, `DamageType`, `SpellImmunityType`, `AbilityCastRange`, `AbilityCastPoint`, `AbilityCooldown`, `AbilityManaCost`, и `AbilityValues`.
+
+5. **Пример кода:**
+   ```plaintext
+   "queenofpain_scream_of_pain"
+   {
+       // General
+       //-------------------------------------------------------------------------------------------------------------
+       "ID"                            "5175"                            // unique ID number for this ability.
+       "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+       "DamageType"                    "DAMAGE_TYPE_MAGICAL"
+       "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
+       "AbilityCastRange"              "0"
+       "AbilityCastPoint"              "0.0 0.0 0.0 0.0"
+       "AbilityCooldown"               "7"
+       "AbilityManaCost"               "100 110 120 130"
+       // AbilitySpecial
+       //-------------------------------------------------------------------------------------------------------------
+       "AbilityValues"
+       {
+           "area_of_effect"            "500"
+           "projectile_speed"          "900"
+           "tooltip"                   "показывает крутость, когда фрагмент хорош"
+           "value"                     "75 150 225 300"
+           "special_bonus_unique_queen_of_pain_2" "100"
+       }
+       "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_3"
+       "AbilityCastGestureSlot"        "DEFAULT"
+   }
+   ```
+
+6. **Связь с аудио:**
+   - В аудио упоминается "ДОТА 8", что может быть связано с обсуждением изменений или модификаций в игре Dota 2, которые отражены в файле конфигурации.
+
+### Заключение:
+
+На экране показан процесс редактирования файла конфигурации способностей для игры Dota 2 в редакторе Sublime Text. Видимые параметры и настройки относятся к способности "Queen of Pain: Scream of Pain". Аудио, вероятно, объясняет изменения или особенности этих способностей.

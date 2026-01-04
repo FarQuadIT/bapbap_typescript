@@ -1,0 +1,84 @@
+Кадр 60
+Временная метка: 0:15:00
+Номер кадра: 54000
+Скриншот: frame_054000_900.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:52] За исключение, конечно, некоторых функций.
+[0:14:53] Некоторых особенностей.
+[0:14:54] Вот, по типу, что там выкладывать предметы.
+[0:14:57] Допустим, где-то атрибут стоит приписывать предметам.
+[0:15:00] Если мы хотим, чтобы они стакались между собой.
+[0:15:03] Вот тип таких прикольчиков интересных.
+[0:15:05] И, соответственно, новых функций, которые появляются у предметов.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. Файл называется `item_desol_custom.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\items`.
+
+### Видимый код:
+
+```lua
+function item_desol_custom:OnSpellStart()
+    self:SetCurrentCharges(self:GetCurrentCharges() + 1)
+end
+
+function item_desol_custom:GetIntrinsicModifierName()
+    return "modifier_item_desol_custom"
+end
+
+modifier_item_desol_custom = class({})
+
+function modifier_item_desol_custom:IsHidden()
+    return false
+end
+
+function modifier_item_desol_custom:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_item_desol_custom:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+        local modif = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_item_desol_custom_debuff", { duration = self:GetAbility():GetSpecialValueFor("debuff_duration") })
+        modif:IncrementStackCount()
+        ApplyDamage({
+            victim = props.target,
+            attacker = props.attacker,
+            damage = modif:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+            damage_type = DAMAGE_TYPE_PHYSICAL,
+            ability = self:GetAbility()
+        })
+    end
+end
+
+modifier_item_desol_custom_debuff = class({})
+
+function modifier_item_desol_custom_debuff:IsHidden()
+    return false
+end
+
+function modifier_item_desol_custom_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+
+- **Функция `OnSpellStart`**: Увеличивает количество зарядов предмета на 1 при его использовании.
+- **Функция `GetIntrinsicModifierName`**: Возвращает имя модификатора, связанного с предметом.
+- **Класс `modifier_item_desol_custom`**: 
+  - **`IsHidden`**: Возвращает `false`, модификатор видим.
+  - **`DeclareFunctions`**: Определяет, что модификатор реагирует на событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+  - **`OnAttackLanded`**: При попадании атаки, если атакующий — владелец модификатора, добавляет дебафф цели, увеличивает его стеки и наносит физический урон, зависящий от количества стеков.
+- **Класс `modifier_item_desol_custom_debuff`**:
+  - **`IsHidden`**: Возвращает `false`, дебафф видим.
+  - **`IsDebuff`**: Возвращает `true`, это дебафф.
+
+### Связь с аудио:
+
+В аудио говорится о функциях и атрибутах, которые нужно приписывать предметам для их взаимодействия, например, чтобы они "стакались". Код на экране демонстрирует реализацию таких функций, как увеличение зарядов и применение эффектов при атаках, что соответствует обсуждаемым в аудио "прикольчикам" и новым функциям предметов.

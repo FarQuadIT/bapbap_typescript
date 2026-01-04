@@ -1,0 +1,1814 @@
+{
+  "metadata": {
+    "source": "moddota.com/api/#!/events",
+    "parsed_at": "2025-12-27 23:04:40",
+    "total_events": 361
+  },
+  "events": [
+    {
+      "name": "dota_ability_channel_finished\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_ability_channel_finished",
+      "content": "dota_ability_channel_finished(\nabilityname\n:\nstring\n,\ninterrupted\n:\nbool\n,\ncaster_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_hero_inventory_item_change\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_hero_inventory_item_change",
+      "content": "dota_hero_inventory_item_change(\nplayer_id\n:\nint\n,\nhero_entindex\n:\nEntityIndex\n,\nitem_entindex\n:\nEntityIndex\n,\nitem_ability_id\n:\nint\n,\nremoved\n:\nbool\n,\ndropped\n:\nbool\n,\nsold\n:\nbool\n,\nin_sellback_windown\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_illusions_created\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_illusions_created",
+      "content": "dota_illusions_created(\noriginal_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_combined\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_item_combined",
+      "content": "dota_item_combined(\nPlayerID\n:\nPlayerID\n,\nitemname\n:\nstring\n,\nitemcost\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_picked_up\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_item_picked_up",
+      "content": "dota_item_picked_up(\nitemname\n:\nstring\n,\nPlayerID\n:\nPlayerID\n,\nItemEntityIndex\n:\nEntityIndex\n,\nHeroEntityIndex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_purchased\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_item_purchased",
+      "content": "dota_item_purchased(\nPlayerID\n:\nPlayerID\n,\nitemname\n:\nstring\n,\nitemcost\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_non_player_used_ability\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_non_player_used_ability",
+      "content": "dota_non_player_used_ability(\nabilityname\n:\nstring\n,\ncaster_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_npc_goal_reached\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_npc_goal_reached",
+      "content": "dota_npc_goal_reached(\nnpc_entindex\n:\nEntityIndex\n,\ngoal_entindex\n:\nEntityIndex\n,\nnext_goal_entindex\n:\nEntityIndex\n):\nvoid\n#\nnpc_entindex\n: Entity index of the npc which was following a path and has reached a goal entity.\ngoal_entindex\n: Entity index of the path goal entity which has been reached.\nnext_goal_entindex\n: Entity index of the next goal entity on the path (if any) which the npc will now be pathing towards."
+    },
+    {
+      "name": "dota_player_begin_cast\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_player_begin_cast",
+      "content": "dota_player_begin_cast(\nPlayerID\n:\nPlayerID\n,\nabilityname\n:\nstring\n,\ncaster_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_gained_level\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_player_gained_level",
+      "content": "dota_player_gained_level(\nplayer\n:\nshort\n,\nplayer_id\n:\nPlayerID\n,\nlevel\n:\nshort\n,\nhero_entindex\n:\nEntityIndex\n,\nPlayerID\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_kill\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_player_kill",
+      "content": "dota_player_kill(\nvictim_userid\n:\nEntityIndex\n,\nkiller1_userid\n:\nEntityIndex\n,\nkiller2_userid\n:\nEntityIndex\n,\nkiller3_userid\n:\nEntityIndex\n,\nkiller4_userid\n:\nEntityIndex\n,\nkiller5_userid\n:\nEntityIndex\n,\nbounty\n:\nshort\n,\nneutral\n:\nshort\n,\ngreevil\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_learned_ability\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_player_learned_ability",
+      "content": "dota_player_learned_ability(\nPlayerID\n:\nPlayerID\n,\nplayer\n:\nshort\n,\nabilityname\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_pick_hero\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_player_pick_hero",
+      "content": "dota_player_pick_hero(\nplayer\n:\nshort\n,\nheroindex\n:\nshort\n,\nhero\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_selected_custom_team\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_player_selected_custom_team",
+      "content": "dota_player_selected_custom_team(\nplayer_id\n:\nPlayerID\n,\nteam_id\n:\nshort\n,\nsuccess\n:\nbool\n):\nvoid\n#\nplayer_id\n: Player id of the player who select a team.\nteam_id\n: Id of the team the player selected.\nsuccess\n: Was the player successfully assigned to the selected team."
+    },
+    {
+      "name": "dota_player_take_tower_damage\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_player_take_tower_damage",
+      "content": "dota_player_take_tower_damage(\nPlayerID\n:\nPlayerID\n,\ndamage\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_update_query_unit\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_player_update_query_unit",
+      "content": "dota_player_update_query_unit():\nvoid\n#"
+    },
+    {
+      "name": "dota_player_update_selected_unit\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_player_update_selected_unit",
+      "content": "dota_player_update_selected_unit():\nvoid\n#"
+    },
+    {
+      "name": "dota_player_used_ability\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_player_used_ability",
+      "content": "dota_player_used_ability(\nPlayerID\n:\nPlayerID\n,\nabilityname\n:\nstring\n,\ncaster_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_rune_activated_server\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_rune_activated_server",
+      "content": "dota_rune_activated_server(\nPlayerID\n:\nPlayerID\n,\nrune\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_team_kill_credit\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_team_kill_credit",
+      "content": "dota_team_kill_credit(\nkiller_userid\n:\nEntityIndex\n,\nvictim_userid\n:\nEntityIndex\n,\nteamnumber\n:\nshort\n,\nherokills\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_tower_kill\n⭐",
+      "url": "https://moddota.com/api/#!/events/dota_tower_kill",
+      "content": "dota_tower_kill(\nkiller_userid\n:\nEntityIndex\n,\nteamnumber\n:\nshort\n,\ngold\n:\nshort\n,\ntier\n:\nshort\n,\npos_x\n:\nfloat\n,\npos_y\n:\nfloat\n,\npos_z\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "entity_hurt\n⭐",
+      "url": "https://moddota.com/api/#!/events/entity_hurt",
+      "content": "entity_hurt(\nentindex_killed\n:\nEntityIndex\n,\nentindex_attacker\n:\nEntityIndex\n,\nentindex_inflictor\n:\nEntityIndex\n,\ndamagebits\n:\nlong\n,\ndamage\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "entity_killed\n⭐",
+      "url": "https://moddota.com/api/#!/events/entity_killed",
+      "content": "entity_killed(\nentindex_killed\n:\nEntityIndex\n,\nentindex_attacker\n:\nEntityIndex\n,\nentindex_inflictor\n:\nEntityIndex\n,\ndamagebits\n:\nlong\n):\nvoid\n#"
+    },
+    {
+      "name": "game_rules_state_change\n⭐",
+      "url": "https://moddota.com/api/#!/events/game_rules_state_change",
+      "content": "game_rules_state_change():\nvoid\n#"
+    },
+    {
+      "name": "last_hit\n⭐",
+      "url": "https://moddota.com/api/#!/events/last_hit",
+      "content": "last_hit(\nPlayerID\n:\nPlayerID\n,\nEntKilled\n:\nshort\n,\nFirstBlood\n:\nbool\n,\nHeroKill\n:\nbool\n,\nTowerKill\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "npc_spawned\n⭐",
+      "url": "https://moddota.com/api/#!/events/npc_spawned",
+      "content": "npc_spawned(\nentindex\n:\nEntityIndex\n,\nis_respawn\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "player_chat\n⭐",
+      "url": "https://moddota.com/api/#!/events/player_chat",
+      "content": "player_chat(\nteamonly\n:\nbool\n,\nuserid\n:\nEntityIndex\n,\nplayerid\n:\nPlayerID\n,\ntext\n:\nstring\n):\nvoid\n#\nteamonly\n: True if team only chat.\nuserid\n: Chatting player.\nplayerid\n: Chatting player ID.\ntext\n: Chat text.\nA public player chat."
+    },
+    {
+      "name": "player_connect\n⭐",
+      "url": "https://moddota.com/api/#!/events/player_connect",
+      "content": "player_connect(\nname\n:\nstring\n,\nuserid\n:\nEntityIndex\n,\nnetworkid\n:\nstring\n,\nxuid\n:\nuint64\n,\nbot\n:\nbool\n,\nindex\n:\nbyte\n):\nvoid\n#\nname\n: Player name.\nuserid\n: User ID on server (unique on server).\nnetworkid\n: Player network (i.e steam) id.\nxuid\n: Steam id.\nindex\n: Player slot (entity index-1).\nA new client connected."
+    },
+    {
+      "name": "player_connect_full\n⭐",
+      "url": "https://moddota.com/api/#!/events/player_connect_full",
+      "content": "player_connect_full(\nuserid\n:\nEntityIndex\n,\nindex\n:\nshort\n,\nPlayerID\n:\nPlayerID\n):\nvoid\n#\nuserid\n: User ID on server (unique on server).\nPlayer has sent final message in the connection sequence."
+    },
+    {
+      "name": "player_disconnect\n⭐",
+      "url": "https://moddota.com/api/#!/events/player_disconnect",
+      "content": "player_disconnect(\nuserid\n:\nEntityIndex\n,\nreason\n:\nshort\n,\nname\n:\nstring\n,\nnetworkid\n:\nstring\n,\nxuid\n:\nuint64\n,\nPlayerID\n:\nPlayerID\n):\nvoid\n#\nuserid\n: User ID on server.\nreason\n: See networkdisconnect enum protobuf.\nname\n: Player name.\nnetworkid\n: Player network (i.e steam) id.\nxuid\n: Steam id.\nA client was disconnected."
+    },
+    {
+      "name": "player_reconnected\n⭐",
+      "url": "https://moddota.com/api/#!/events/player_reconnected",
+      "content": "player_reconnected(\nPlayerID\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "tree_cut\n⭐",
+      "url": "https://moddota.com/api/#!/events/tree_cut",
+      "content": "tree_cut(\ntree_x\n:\nfloat\n,\ntree_y\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "account_all_hero_challenge_changed",
+      "url": "https://moddota.com/api/#!/events/account_all_hero_challenge_changed",
+      "content": "account_all_hero_challenge_changed(\naccount_id\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "achievement_earned",
+      "url": "https://moddota.com/api/#!/events/achievement_earned",
+      "content": "achievement_earned(\nplayer\n:\nplayer_controller\n,\nachievement\n:\nshort\n):\nvoid\n#\nplayer\n: Entindex of the player.\nachievement\n: Achievement ID."
+    },
+    {
+      "name": "achievement_event",
+      "url": "https://moddota.com/api/#!/events/achievement_event",
+      "content": "achievement_event(\nachievement_name\n:\nstring\n,\ncur_val\n:\nshort\n,\nmax_val\n:\nshort\n):\nvoid\n#\nachievement_name\n: Non-localized name of achievement.\ncur_val\n: # of steps toward achievement.\nmax_val\n: Total # of steps in achievement."
+    },
+    {
+      "name": "achievement_write_failed",
+      "url": "https://moddota.com/api/#!/events/achievement_write_failed",
+      "content": "achievement_write_failed():\nvoid\n#"
+    },
+    {
+      "name": "aegis_event",
+      "url": "https://moddota.com/api/#!/events/aegis_event",
+      "content": "aegis_event(\nplayer_id\n:\nPlayerID\n,\nchat_message_type\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "antiaddiction_toast",
+      "url": "https://moddota.com/api/#!/events/antiaddiction_toast",
+      "content": "antiaddiction_toast(\nmessage\n:\nstring\n,\nduration\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "bindpanel_close",
+      "url": "https://moddota.com/api/#!/events/bindpanel_close",
+      "content": "bindpanel_close():\nvoid\n#"
+    },
+    {
+      "name": "bindpanel_open",
+      "url": "https://moddota.com/api/#!/events/bindpanel_open",
+      "content": "bindpanel_open():\nvoid\n#"
+    },
+    {
+      "name": "bonus_updated",
+      "url": "https://moddota.com/api/#!/events/bonus_updated",
+      "content": "bonus_updated(\nnumadvanced\n:\nshort\n,\nnumbronze\n:\nshort\n,\nnumsilver\n:\nshort\n,\nnumgold\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "booster_state_updated",
+      "url": "https://moddota.com/api/#!/events/booster_state_updated",
+      "content": "booster_state_updated():\nvoid\n#"
+    },
+    {
+      "name": "bot_takeover",
+      "url": "https://moddota.com/api/#!/events/bot_takeover",
+      "content": "bot_takeover(\nuserid\n:\nEntityIndex\n,\nbotid\n:\nplayer_controller\n,\np\n:\nfloat\n,\ny\n:\nfloat\n,\nr\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "bought_back",
+      "url": "https://moddota.com/api/#!/events/bought_back",
+      "content": "bought_back(\nplayer_id\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "break_breakable",
+      "url": "https://moddota.com/api/#!/events/break_breakable",
+      "content": "break_breakable(\nentindex\n:\nEntityIndex\n,\nuserid\n:\nEntityIndex\n,\nmaterial\n:\nbyte\n):\nvoid\n#\nmaterial\n: BREAK_GLASS, BREAK_WOOD, etc."
+    },
+    {
+      "name": "break_prop",
+      "url": "https://moddota.com/api/#!/events/break_prop",
+      "content": "break_prop(\nentindex\n:\nEntityIndex\n,\nuserid\n:\nEntityIndex\n,\nplayer_held\n:\nbool\n,\nplayer_thrown\n:\nbool\n,\nplayer_dropped\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "broken_breakable",
+      "url": "https://moddota.com/api/#!/events/broken_breakable",
+      "content": "broken_breakable(\nentindex\n:\nEntityIndex\n,\nuserid\n:\nEntityIndex\n,\nmaterial\n:\nbyte\n):\nvoid\n#\nmaterial\n: BREAK_GLASS, BREAK_WOOD, etc."
+    },
+    {
+      "name": "cart_updated",
+      "url": "https://moddota.com/api/#!/events/cart_updated",
+      "content": "cart_updated():\nvoid\n#"
+    },
+    {
+      "name": "chat_members_changed",
+      "url": "https://moddota.com/api/#!/events/chat_members_changed",
+      "content": "chat_members_changed(\nchannel\n:\nbyte\n):\nvoid\n#\nThe specified channel has had players leave or join."
+    },
+    {
+      "name": "chat_new_message",
+      "url": "https://moddota.com/api/#!/events/chat_new_message",
+      "content": "chat_new_message(\nchannel\n:\nbyte\n):\nvoid\n#\nThe specified channel contains new messages."
+    },
+    {
+      "name": "client_disconnect",
+      "url": "https://moddota.com/api/#!/events/client_disconnect",
+      "content": "client_disconnect(\nreason_code\n:\nint\n,\nreason_desc\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "client_reload_game_keyvalues",
+      "url": "https://moddota.com/api/#!/events/client_reload_game_keyvalues",
+      "content": "client_reload_game_keyvalues():\nvoid\n#"
+    },
+    {
+      "name": "clientside_lesson_closed",
+      "url": "https://moddota.com/api/#!/events/clientside_lesson_closed",
+      "content": "clientside_lesson_closed(\nlesson_name\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "colorblind_mode_changed",
+      "url": "https://moddota.com/api/#!/events/colorblind_mode_changed",
+      "content": "colorblind_mode_changed():\nvoid\n#"
+    },
+    {
+      "name": "community_cached_names_updated",
+      "url": "https://moddota.com/api/#!/events/community_cached_names_updated",
+      "content": "community_cached_names_updated():\nvoid\n#"
+    },
+    {
+      "name": "custom_game_friends_played_updated",
+      "url": "https://moddota.com/api/#!/events/custom_game_friends_played_updated",
+      "content": "custom_game_friends_played_updated(\ncustom_game_id\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "custom_game_lobby_list_updated",
+      "url": "https://moddota.com/api/#!/events/custom_game_lobby_list_updated",
+      "content": "custom_game_lobby_list_updated():\nvoid\n#"
+    },
+    {
+      "name": "custom_game_mode_list_updated",
+      "url": "https://moddota.com/api/#!/events/custom_game_mode_list_updated",
+      "content": "custom_game_mode_list_updated():\nvoid\n#"
+    },
+    {
+      "name": "custom_game_player_count_updated",
+      "url": "https://moddota.com/api/#!/events/custom_game_player_count_updated",
+      "content": "custom_game_player_count_updated(\ncustom_game_id\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "custom_games_friends_play_updated",
+      "url": "https://moddota.com/api/#!/events/custom_games_friends_play_updated",
+      "content": "custom_games_friends_play_updated():\nvoid\n#"
+    },
+    {
+      "name": "dashboard_caches_cleared",
+      "url": "https://moddota.com/api/#!/events/dashboard_caches_cleared",
+      "content": "dashboard_caches_cleared():\nvoid\n#"
+    },
+    {
+      "name": "dashboard_switched_section",
+      "url": "https://moddota.com/api/#!/events/dashboard_switched_section",
+      "content": "dashboard_switched_section(\nsection\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "defeated",
+      "url": "https://moddota.com/api/#!/events/defeated",
+      "content": "defeated(\nentindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "demo_skip",
+      "url": "https://moddota.com/api/#!/events/demo_skip",
+      "content": "demo_skip(\nplayback_tick\n:\nlong\n,\nskipto_tick\n:\nlong\n,\nuser_message_list\n:\nlocal\n,\ndota_hero_chase_list\n:\nlocal\n):\nvoid\n#\nplayback_tick\n: Current playback tick.\nskipto_tick\n: Tick we're going to.\nuser_message_list\n: CSVCMsgList_UserMessages.\ndota_hero_chase_list\n: CSVCMsgList_GameEvents."
+    },
+    {
+      "name": "demo_start",
+      "url": "https://moddota.com/api/#!/events/demo_start",
+      "content": "demo_start(\ndota_combatlog_list\n:\nlocal\n,\ndota_hero_chase_list\n:\nlocal\n,\ndota_pick_hero_list\n:\nlocal\n):\nvoid\n#\ndota_combatlog_list\n: CSVCMsgList_GameEvents that are combat log events.\ndota_hero_chase_list\n: CSVCMsgList_GameEvents.\ndota_pick_hero_list\n: CSVCMsgList_GameEvents."
+    },
+    {
+      "name": "demo_stop",
+      "url": "https://moddota.com/api/#!/events/demo_stop",
+      "content": "demo_stop():\nvoid\n#"
+    },
+    {
+      "name": "difficulty_changed",
+      "url": "https://moddota.com/api/#!/events/difficulty_changed",
+      "content": "difficulty_changed(\nnewDifficulty\n:\nshort\n,\noldDifficulty\n:\nshort\n,\nstrDifficulty\n:\nstring\n):\nvoid\n#\nstrDifficulty\n: New difficulty as string."
+    },
+    {
+      "name": "door_close",
+      "url": "https://moddota.com/api/#!/events/door_close",
+      "content": "door_close(\nuserid\n:\nEntityIndex\n,\ncheckpoint\n:\nbool\n):\nvoid\n#\nuserid\n: Who closed the door.\ncheckpoint\n: Is the door a checkpoint door."
+    },
+    {
+      "name": "dota_ability_changed",
+      "url": "https://moddota.com/api/#!/events/dota_ability_changed",
+      "content": "dota_ability_changed(\nentityIndex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_action_item",
+      "url": "https://moddota.com/api/#!/events/dota_action_item",
+      "content": "dota_action_item(\nreason\n:\nshort\n,\nitemdef\n:\nshort\n,\nmessage\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_action_success",
+      "url": "https://moddota.com/api/#!/events/dota_action_success",
+      "content": "dota_action_success():\nvoid\n#"
+    },
+    {
+      "name": "dota_ad_ban",
+      "url": "https://moddota.com/api/#!/events/dota_ad_ban",
+      "content": "dota_ad_ban(\nheroid\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_ad_ban_count",
+      "url": "https://moddota.com/api/#!/events/dota_ad_ban_count",
+      "content": "dota_ad_ban_count(\ncount\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_ad_hero_collision",
+      "url": "https://moddota.com/api/#!/events/dota_ad_hero_collision",
+      "content": "dota_ad_hero_collision(\nheroid\n:\nshort\n,\nplayerid1\n:\nPlayerID\n,\nplayerid2\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_ad_nominated_ban",
+      "url": "https://moddota.com/api/#!/events/dota_ad_nominated_ban",
+      "content": "dota_ad_nominated_ban(\nheroid\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_ad_randomed",
+      "url": "https://moddota.com/api/#!/events/dota_ad_randomed",
+      "content": "dota_ad_randomed(\nuserid\n:\nEntityIndex\n,\nitem_ability_id\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_alchemist_granted_scepter",
+      "url": "https://moddota.com/api/#!/events/dota_alchemist_granted_scepter",
+      "content": "dota_alchemist_granted_scepter(\nalchemist_userid\n:\nEntityIndex\n,\ngrantee_userid\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_assist_earned",
+      "url": "https://moddota.com/api/#!/events/dota_assist_earned",
+      "content": "dota_assist_earned(\nentindex_hero\n:\nEntityIndex\n,\nplayerid_victim\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_banner_planted",
+      "url": "https://moddota.com/api/#!/events/dota_banner_planted",
+      "content": "dota_banner_planted(\nteamnumber\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_barracks_kill",
+      "url": "https://moddota.com/api/#!/events/dota_barracks_kill",
+      "content": "dota_barracks_kill(\nbarracks_id\n:\nshort\n,\nbarracks_type\n:\nshort\n,\nteamnumber\n:\nshort\n,\nkiller_userid\n:\nEntityIndex\n,\nkiller_team\n:\nshort\n,\ngold\n:\nshort\n,\npos_x\n:\nfloat\n,\npos_y\n:\nfloat\n,\npos_z\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_bounty",
+      "url": "https://moddota.com/api/#!/events/dota_bounty",
+      "content": "dota_bounty(\nuserid\n:\nEntityIndex\n,\ntarget\n:\nshort\n,\nbounty_event\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_buyback",
+      "url": "https://moddota.com/api/#!/events/dota_buyback",
+      "content": "dota_buyback(\nentindex\n:\nEntityIndex\n,\nplayer_id\n:\nint\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_candy",
+      "url": "https://moddota.com/api/#!/events/dota_candy",
+      "content": "dota_candy(\nuserid\n:\nEntityIndex\n,\ncandy_event\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_challenge_socache_updated",
+      "url": "https://moddota.com/api/#!/events/dota_challenge_socache_updated",
+      "content": "dota_challenge_socache_updated():\nvoid\n#"
+    },
+    {
+      "name": "dota_chase_hero",
+      "url": "https://moddota.com/api/#!/events/dota_chase_hero",
+      "content": "dota_chase_hero(\ntarget1\n:\nshort\n,\ntarget2\n:\nshort\n,\ntype\n:\nbyte\n,\npriority\n:\nshort\n,\ngametime\n:\nfloat\n,\nhighlight\n:\nbool\n,\ntarget1playerid\n:\nPlayerID\n,\ntarget2playerid\n:\nPlayerID\n,\neventtype\n:\nshort\n):\nvoid\n#\ntarget1\n: Primary traget index.\ntarget2\n: Secondary traget index or 0.\nhighlight\n: If set, a result of highlight reel mode.\neventtype\n: EDOTAHeroChaseEventType.\nShot of a single entity."
+    },
+    {
+      "name": "dota_chat_assassin_announce",
+      "url": "https://moddota.com/api/#!/events/dota_chat_assassin_announce",
+      "content": "dota_chat_assassin_announce(\nassassin_id\n:\nshort\n,\ntarget_id\n:\nshort\n,\nmessage\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_chat_assassin_denied",
+      "url": "https://moddota.com/api/#!/events/dota_chat_assassin_denied",
+      "content": "dota_chat_assassin_denied(\nassassin_id\n:\nshort\n,\ntarget_id\n:\nshort\n,\nmessage\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_chat_assassin_success",
+      "url": "https://moddota.com/api/#!/events/dota_chat_assassin_success",
+      "content": "dota_chat_assassin_success(\nassassin_id\n:\nshort\n,\ntarget_id\n:\nshort\n,\nmessage\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_chat_ban_notification",
+      "url": "https://moddota.com/api/#!/events/dota_chat_ban_notification",
+      "content": "dota_chat_ban_notification(\nuserid\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_chat_event",
+      "url": "https://moddota.com/api/#!/events/dota_chat_event",
+      "content": "dota_chat_event(\nuserid\n:\nEntityIndex\n,\ngold\n:\nshort\n,\nmessage\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_chat_first_blood",
+      "url": "https://moddota.com/api/#!/events/dota_chat_first_blood",
+      "content": "dota_chat_first_blood(\ngold\n:\nshort\n,\nkiller_id\n:\nshort\n,\nvictim_id\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_chat_informational",
+      "url": "https://moddota.com/api/#!/events/dota_chat_informational",
+      "content": "dota_chat_informational(\nuserid\n:\nEntityIndex\n,\ntype\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_chat_kill_streak",
+      "url": "https://moddota.com/api/#!/events/dota_chat_kill_streak",
+      "content": "dota_chat_kill_streak(\ngold\n:\nshort\n,\nkiller_id\n:\nshort\n,\nkiller_streak\n:\nshort\n,\nkiller_multikill\n:\nshort\n,\nvictim_id\n:\nshort\n,\nvictim_streak\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_chat_timed_reward",
+      "url": "https://moddota.com/api/#!/events/dota_chat_timed_reward",
+      "content": "dota_chat_timed_reward(\nuserid\n:\nEntityIndex\n,\nitmedef\n:\nshort\n,\nmessage\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_coin_wager",
+      "url": "https://moddota.com/api/#!/events/dota_coin_wager",
+      "content": "dota_coin_wager(\nuserid\n:\nEntityIndex\n,\nmessage\n:\nshort\n,\ncoins\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_combat_event_message",
+      "url": "https://moddota.com/api/#!/events/dota_combat_event_message",
+      "content": "dota_combat_event_message(\nmessage\n:\nstring\n,\nteamnumber\n:\nshort\n,\nplayer_id\n:\nint\n,\nplayer_id2\n:\nint\n,\nvalue\n:\nfloat\n,\nvalue1\n:\nfloat\n,\nvalue2\n:\nfloat\n,\nvalue3\n:\nfloat\n,\nint_value\n:\nint\n,\nint_value2\n:\nint\n,\nability_name\n:\nstring\n,\nlocstring_value\n:\nstring\n,\nlocstring_value2\n:\nstring\n,\nstring_replace_token\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_combatlog",
+      "url": "https://moddota.com/api/#!/events/dota_combatlog",
+      "content": "dota_combatlog(\ntype\n:\nbyte\n,\nsourcename\n:\nshort\n,\ntargetname\n:\nshort\n,\nattackername\n:\nshort\n,\ninflictorname\n:\nshort\n,\nattackerillusion\n:\nbool\n,\ntargetillusion\n:\nbool\n,\nvalue\n:\nshort\n,\nhealth\n:\nshort\n,\ntimestamp\n:\nfloat\n,\ntargetsourcename\n:\nshort\n,\ntimestampraw\n:\nfloat\n,\nattackerhero\n:\nbool\n,\ntargethero\n:\nbool\n,\nability_toggle_on\n:\nbool\n,\nability_toggle_off\n:\nbool\n,\nability_level\n:\nshort\n,\ngold_reason\n:\nshort\n,\nxp_reason\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_courier_lost",
+      "url": "https://moddota.com/api/#!/events/dota_courier_lost",
+      "content": "dota_courier_lost(\nkillerid\n:\nshort\n,\nteamnumber\n:\nshort\n,\nbounty_gold\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_courier_respawned",
+      "url": "https://moddota.com/api/#!/events/dota_courier_respawned",
+      "content": "dota_courier_respawned(\nteamnumber\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_courier_transfer_item",
+      "url": "https://moddota.com/api/#!/events/dota_courier_transfer_item",
+      "content": "dota_courier_transfer_item(\nhero_entindex\n:\nEntityIndex\n,\ncourier_entindex\n:\nEntityIndex\n,\nitem_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_crafting_xp",
+      "url": "https://moddota.com/api/#!/events/dota_crafting_xp",
+      "content": "dota_crafting_xp(\nuserid\n:\nEntityIndex\n,\ntype\n:\nshort\n,\nxp\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_creature_gained_level",
+      "url": "https://moddota.com/api/#!/events/dota_creature_gained_level",
+      "content": "dota_creature_gained_level(\nentindex\n:\nEntityIndex\n,\nlevel\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_custom_camera_pitch_updated",
+      "url": "https://moddota.com/api/#!/events/dota_custom_camera_pitch_updated",
+      "content": "dota_custom_camera_pitch_updated(\npitch\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_custom_camera_updated",
+      "url": "https://moddota.com/api/#!/events/dota_custom_camera_updated",
+      "content": "dota_custom_camera_updated(\nflags\n:\nint\n,\nzoom\n:\nfloat\n,\nx\n:\nfloat\n,\ny\n:\nfloat\n,\nextra_yaw\n:\nfloat\n,\npitch\n:\nfloat\n,\nduration\n:\nfloat\n,\nplayer_id\n:\nint\n):\nvoid\n#\nflags\n: DOTACustomCameraEventFlags_t.\nplayer_id\n: Only used if associated flag is set."
+    },
+    {
+      "name": "dota_effigy_kill",
+      "url": "https://moddota.com/api/#!/events/dota_effigy_kill",
+      "content": "dota_effigy_kill(\nowner_userid\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_enemy_money_changed",
+      "url": "https://moddota.com/api/#!/events/dota_enemy_money_changed",
+      "content": "dota_enemy_money_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_event_game_camera_position_updated",
+      "url": "https://moddota.com/api/#!/events/dota_event_game_camera_position_updated",
+      "content": "dota_event_game_camera_position_updated(\nx\n:\nfloat\n,\ny\n:\nfloat\n,\nduration\n:\nfloat\n):\nvoid\n#\nduration\n: 0 - instantaneous camera update."
+    },
+    {
+      "name": "dota_event_game_camera_zoom_updated",
+      "url": "https://moddota.com/api/#!/events/dota_event_game_camera_zoom_updated",
+      "content": "dota_event_game_camera_zoom_updated(\nzoom\n:\nint\n,\nduration\n:\nfloat\n):\nvoid\n#\nduration\n: 0 - instantaneous camera update."
+    },
+    {
+      "name": "dota_favorite_heroes_updated",
+      "url": "https://moddota.com/api/#!/events/dota_favorite_heroes_updated",
+      "content": "dota_favorite_heroes_updated():\nvoid\n#"
+    },
+    {
+      "name": "dota_force_portrait_update",
+      "url": "https://moddota.com/api/#!/events/dota_force_portrait_update",
+      "content": "dota_force_portrait_update():\nvoid\n#"
+    },
+    {
+      "name": "dota_game_state_change",
+      "url": "https://moddota.com/api/#!/events/dota_game_state_change",
+      "content": "dota_game_state_change(\nold_state\n:\nshort\n,\nnew_state\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_glyph_used",
+      "url": "https://moddota.com/api/#!/events/dota_glyph_used",
+      "content": "dota_glyph_used(\nteamnumber\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_hero_ability_points_changed",
+      "url": "https://moddota.com/api/#!/events/dota_hero_ability_points_changed",
+      "content": "dota_hero_ability_points_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_hero_entered_shop",
+      "url": "https://moddota.com/api/#!/events/dota_hero_entered_shop",
+      "content": "dota_hero_entered_shop(\nshop_type\n:\nshort\n,\nshop_entindex\n:\nEntityIndex\n,\nhero_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_hero_on_gain_aggro",
+      "url": "https://moddota.com/api/#!/events/dota_hero_on_gain_aggro",
+      "content": "dota_hero_on_gain_aggro(\nentindex_attacker\n:\nEntityIndex\n,\nentindex_hero\n:\nEntityIndex\n):\nvoid\n#\nAn NPC has gained aggro (is attacking) a hero."
+    },
+    {
+      "name": "dota_hero_random",
+      "url": "https://moddota.com/api/#!/events/dota_hero_random",
+      "content": "dota_hero_random(\nuserid\n:\nEntityIndex\n,\nheroid\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_hero_swap",
+      "url": "https://moddota.com/api/#!/events/dota_hero_swap",
+      "content": "dota_hero_swap(\nplayerid1\n:\nPlayerID\n,\nplayerid2\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_hero_teleport_to_unit",
+      "url": "https://moddota.com/api/#!/events/dota_hero_teleport_to_unit",
+      "content": "dota_hero_teleport_to_unit(\nhero_entindex\n:\nEntityIndex\n,\nunit_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_hero_undoselection",
+      "url": "https://moddota.com/api/#!/events/dota_hero_undoselection",
+      "content": "dota_hero_undoselection(\nplayerid1\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_holdout_revive_complete",
+      "url": "https://moddota.com/api/#!/events/dota_holdout_revive_complete",
+      "content": "dota_holdout_revive_complete(\ncaster\n:\nshort\n,\ntarget\n:\nshort\n,\nchannel_time\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_holdout_revive_eliminated",
+      "url": "https://moddota.com/api/#!/events/dota_holdout_revive_eliminated",
+      "content": "dota_holdout_revive_eliminated(\ncaster\n:\nshort\n,\ntarget\n:\nshort\n,\nchannel_time\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_hud_error_message",
+      "url": "https://moddota.com/api/#!/events/dota_hud_error_message",
+      "content": "dota_hud_error_message(\nreason\n:\nbyte\n,\nmessage\n:\nstring\n,\nsequenceNumber\n:\nint\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_hud_skin_changed",
+      "url": "https://moddota.com/api/#!/events/dota_hud_skin_changed",
+      "content": "dota_hud_skin_changed(\nskin\n:\nstring\n,\nstyle\n:\nbyte\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_inventory_changed",
+      "url": "https://moddota.com/api/#!/events/dota_inventory_changed",
+      "content": "dota_inventory_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_inventory_changed_query_unit",
+      "url": "https://moddota.com/api/#!/events/dota_inventory_changed_query_unit",
+      "content": "dota_inventory_changed_query_unit():\nvoid\n#"
+    },
+    {
+      "name": "dota_inventory_item_added",
+      "url": "https://moddota.com/api/#!/events/dota_inventory_item_added",
+      "content": "dota_inventory_item_added(\nitem_slot\n:\nshort\n,\ninventory_player_id\n:\nPlayerID\n,\nitemname\n:\nstring\n,\nitem_entindex\n:\nEntityIndex\n,\ninventory_parent_entindex\n:\nEntityIndex\n,\nis_courier\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_inventory_item_changed",
+      "url": "https://moddota.com/api/#!/events/dota_inventory_item_changed",
+      "content": "dota_inventory_item_changed(\nentityIndex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_inventory_player_got_item",
+      "url": "https://moddota.com/api/#!/events/dota_inventory_player_got_item",
+      "content": "dota_inventory_player_got_item(\nitemname\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_auto_purchase",
+      "url": "https://moddota.com/api/#!/events/dota_item_auto_purchase",
+      "content": "dota_item_auto_purchase(\nitem_id\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_drag_begin",
+      "url": "https://moddota.com/api/#!/events/dota_item_drag_begin",
+      "content": "dota_item_drag_begin():\nvoid\n#"
+    },
+    {
+      "name": "dota_item_drag_end",
+      "url": "https://moddota.com/api/#!/events/dota_item_drag_end",
+      "content": "dota_item_drag_end():\nvoid\n#"
+    },
+    {
+      "name": "dota_item_gifted",
+      "url": "https://moddota.com/api/#!/events/dota_item_gifted",
+      "content": "dota_item_gifted(\nuserid\n:\nEntityIndex\n,\nitem_ability_id\n:\nint\n,\nsourceid\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_physical_destroyed",
+      "url": "https://moddota.com/api/#!/events/dota_item_physical_destroyed",
+      "content": "dota_item_physical_destroyed(\nitemname\n:\nstring\n,\nPlayerID\n:\nPlayerID\n,\nItemEntityIndex\n:\nEntityIndex\n,\nHeroEntityIndex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_placed_in_neutral_stash",
+      "url": "https://moddota.com/api/#!/events/dota_item_placed_in_neutral_stash",
+      "content": "dota_item_placed_in_neutral_stash(\nuserid\n:\nEntityIndex\n,\nitem_ability_id\n:\nint\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_purchase",
+      "url": "https://moddota.com/api/#!/events/dota_item_purchase",
+      "content": "dota_item_purchase(\nuserid\n:\nEntityIndex\n,\nitem_ability_id\n:\nint\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_spawned",
+      "url": "https://moddota.com/api/#!/events/dota_item_spawned",
+      "content": "dota_item_spawned(\nitem_ent_index\n:\nEntityIndex\n,\nplayer_id\n:\nint\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_spotted",
+      "url": "https://moddota.com/api/#!/events/dota_item_spotted",
+      "content": "dota_item_spotted(\nuserid\n:\nEntityIndex\n,\nitem_ability_id\n:\nint\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_item_used",
+      "url": "https://moddota.com/api/#!/events/dota_item_used",
+      "content": "dota_item_used(\nPlayerID\n:\nPlayerID\n,\nitemname\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_link_clicked",
+      "url": "https://moddota.com/api/#!/events/dota_link_clicked",
+      "content": "dota_link_clicked(\nlink\n:\nstring\n,\nnav\n:\nbool\n,\nnav_back\n:\nbool\n,\nrecipe\n:\nshort\n,\nshop\n:\nshort\n):\nvoid\n#\nnav\n: Internal to item panel - preserve the nav stack.\nnav_back\n: Internal to item panel - preserve the nav stack.\nshop\n: Show the item in a particular shop."
+    },
+    {
+      "name": "dota_local_quickbuy_changed",
+      "url": "https://moddota.com/api/#!/events/dota_local_quickbuy_changed",
+      "content": "dota_local_quickbuy_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_match_done",
+      "url": "https://moddota.com/api/#!/events/dota_match_done",
+      "content": "dota_match_done(\nwinningteam\n:\nbyte\n):\nvoid\n#\nwinningteam\n: The ID of the winning team."
+    },
+    {
+      "name": "dota_match_done_client",
+      "url": "https://moddota.com/api/#!/events/dota_match_done_client",
+      "content": "dota_match_done_client():\nvoid\n#"
+    },
+    {
+      "name": "dota_match_signout",
+      "url": "https://moddota.com/api/#!/events/dota_match_signout",
+      "content": "dota_match_signout():\nvoid\n#"
+    },
+    {
+      "name": "dota_miniboss_kill",
+      "url": "https://moddota.com/api/#!/events/dota_miniboss_kill",
+      "content": "dota_miniboss_kill(\nshard_recipient_id\n:\nshort\n,\nteamnumber\n:\nshort\n,\ngold\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_money_changed",
+      "url": "https://moddota.com/api/#!/events/dota_money_changed",
+      "content": "dota_money_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_neutral_creep_camp_cleared",
+      "url": "https://moddota.com/api/#!/events/dota_neutral_creep_camp_cleared",
+      "content": "dota_neutral_creep_camp_cleared(\ncamp_name\n:\nstring\n,\ncamp_type\n:\nint\n,\nkiller_player_id\n:\nint\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_neutral_item_sent_to_stash",
+      "url": "https://moddota.com/api/#!/events/dota_neutral_item_sent_to_stash",
+      "content": "dota_neutral_item_sent_to_stash(\nplayer_id\n:\nPlayerID\n,\nitemname\n:\nstring\n,\nitem_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_no_battle_points",
+      "url": "https://moddota.com/api/#!/events/dota_no_battle_points",
+      "content": "dota_no_battle_points(\nuserid\n:\nEntityIndex\n,\nreason\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_non_player_begin_cast",
+      "url": "https://moddota.com/api/#!/events/dota_non_player_begin_cast",
+      "content": "dota_non_player_begin_cast(\nabilityname\n:\nstring\n,\ncaster_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_on_hero_finish_spawn",
+      "url": "https://moddota.com/api/#!/events/dota_on_hero_finish_spawn",
+      "content": "dota_on_hero_finish_spawn(\nheroindex\n:\nint\n,\nhero\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_pause_event",
+      "url": "https://moddota.com/api/#!/events/dota_pause_event",
+      "content": "dota_pause_event(\nuserid\n:\nEntityIndex\n,\nvalue\n:\nshort\n,\nmessage\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_connection_state_changed",
+      "url": "https://moddota.com/api/#!/events/dota_player_connection_state_changed",
+      "content": "dota_player_connection_state_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_player_deny",
+      "url": "https://moddota.com/api/#!/events/dota_player_deny",
+      "content": "dota_player_deny(\nkiller_userid\n:\nEntityIndex\n,\nvictim_userid\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_details_changed",
+      "url": "https://moddota.com/api/#!/events/dota_player_details_changed",
+      "content": "dota_player_details_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_player_hero_selection_dirty",
+      "url": "https://moddota.com/api/#!/events/dota_player_hero_selection_dirty",
+      "content": "dota_player_hero_selection_dirty():\nvoid\n#"
+    },
+    {
+      "name": "dota_player_killed",
+      "url": "https://moddota.com/api/#!/events/dota_player_killed",
+      "content": "dota_player_killed(\nPlayerID\n:\nPlayerID\n,\nHeroKill\n:\nbool\n,\nTowerKill\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_reconnected",
+      "url": "https://moddota.com/api/#!/events/dota_player_reconnected",
+      "content": "dota_player_reconnected(\nplayer_id\n:\nint\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_shop_changed",
+      "url": "https://moddota.com/api/#!/events/dota_player_shop_changed",
+      "content": "dota_player_shop_changed(\nprevshopmask\n:\nbyte\n,\nshopmask\n:\nbyte\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_show_killcam",
+      "url": "https://moddota.com/api/#!/events/dota_player_show_killcam",
+      "content": "dota_player_show_killcam(\nnodes\n:\nbyte\n,\nplayer\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_show_minikillcam",
+      "url": "https://moddota.com/api/#!/events/dota_player_show_minikillcam",
+      "content": "dota_player_show_minikillcam(\nnodes\n:\nbyte\n,\nplayer\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_spawned",
+      "url": "https://moddota.com/api/#!/events/dota_player_spawned",
+      "content": "dota_player_spawned(\nPlayerID\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_team_changed",
+      "url": "https://moddota.com/api/#!/events/dota_player_team_changed",
+      "content": "dota_player_team_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_player_update_assigned_hero",
+      "url": "https://moddota.com/api/#!/events/dota_player_update_assigned_hero",
+      "content": "dota_player_update_assigned_hero(\nplayerid\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_update_hero_selection",
+      "url": "https://moddota.com/api/#!/events/dota_player_update_hero_selection",
+      "content": "dota_player_update_hero_selection(\ntabcycle\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_player_update_killcam_unit",
+      "url": "https://moddota.com/api/#!/events/dota_player_update_killcam_unit",
+      "content": "dota_player_update_killcam_unit():\nvoid\n#"
+    },
+    {
+      "name": "dota_portrait_ability_layout_changed",
+      "url": "https://moddota.com/api/#!/events/dota_portrait_ability_layout_changed",
+      "content": "dota_portrait_ability_layout_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_portrait_unit_modifiers_changed",
+      "url": "https://moddota.com/api/#!/events/dota_portrait_unit_modifiers_changed",
+      "content": "dota_portrait_unit_modifiers_changed(\nmodifier_affects_abilities\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_portrait_unit_stats_changed",
+      "url": "https://moddota.com/api/#!/events/dota_portrait_unit_stats_changed",
+      "content": "dota_portrait_unit_stats_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_protector_spawned",
+      "url": "https://moddota.com/api/#!/events/dota_protector_spawned",
+      "content": "dota_protector_spawned(\nplayer_id\n:\nint\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_quest_completed",
+      "url": "https://moddota.com/api/#!/events/dota_quest_completed",
+      "content": "dota_quest_completed(\nquestIndex\n:\nlong\n):\nvoid\n#\nquestIndex\n: Entity index."
+    },
+    {
+      "name": "dota_quest_started",
+      "url": "https://moddota.com/api/#!/events/dota_quest_started",
+      "content": "dota_quest_started(\nquestIndex\n:\nlong\n):\nvoid\n#\nquestIndex\n: Entity index."
+    },
+    {
+      "name": "dota_quick_buy_changed",
+      "url": "https://moddota.com/api/#!/events/dota_quick_buy_changed",
+      "content": "dota_quick_buy_changed(\nitem\n:\nstring\n,\nrecipe\n:\nbyte\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_rank_wager",
+      "url": "https://moddota.com/api/#!/events/dota_rank_wager",
+      "content": "dota_rank_wager(\nuserid\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_rd_chat_turn",
+      "url": "https://moddota.com/api/#!/events/dota_rd_chat_turn",
+      "content": "dota_rd_chat_turn(\nuserid\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_report_submitted",
+      "url": "https://moddota.com/api/#!/events/dota_report_submitted",
+      "content": "dota_report_submitted(\nresult\n:\nint\n,\nreport_flags\n:\nint\n,\nmessage\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_reset_suggested_items",
+      "url": "https://moddota.com/api/#!/events/dota_reset_suggested_items",
+      "content": "dota_reset_suggested_items():\nvoid\n#"
+    },
+    {
+      "name": "dota_river_painted",
+      "url": "https://moddota.com/api/#!/events/dota_river_painted",
+      "content": "dota_river_painted(\nuserid\n:\nEntityIndex\n,\nriverid\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_roshan_kill",
+      "url": "https://moddota.com/api/#!/events/dota_roshan_kill",
+      "content": "dota_roshan_kill(\nteamnumber\n:\nshort\n,\ngold\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_roshan_roar",
+      "url": "https://moddota.com/api/#!/events/dota_roshan_roar",
+      "content": "dota_roshan_roar(\nteamnumber\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_rubick_ability_steal",
+      "url": "https://moddota.com/api/#!/events/dota_rubick_ability_steal",
+      "content": "dota_rubick_ability_steal(\nabilityIndex\n:\nshort\n,\nabilityLevel\n:\nbyte\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_rune_deny",
+      "url": "https://moddota.com/api/#!/events/dota_rune_deny",
+      "content": "dota_rune_deny(\nuserid\n:\nEntityIndex\n,\nrune\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_rune_pickup",
+      "url": "https://moddota.com/api/#!/events/dota_rune_pickup",
+      "content": "dota_rune_pickup(\nuserid\n:\nEntityIndex\n,\ntype\n:\nshort\n,\nrune\n:\nshort\n,\nbounty_amount\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_rune_spotted",
+      "url": "https://moddota.com/api/#!/events/dota_rune_spotted",
+      "content": "dota_rune_spotted(\nuserid\n:\nEntityIndex\n,\nrune\n:\nshort\n,\nmap_location\n:\nstring\n,\nrune_team\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_scan_found_enemy",
+      "url": "https://moddota.com/api/#!/events/dota_scan_found_enemy",
+      "content": "dota_scan_found_enemy(\nteamnumber\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_scan_used",
+      "url": "https://moddota.com/api/#!/events/dota_scan_used",
+      "content": "dota_scan_used(\nteamnumber\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_set_quick_buy",
+      "url": "https://moddota.com/api/#!/events/dota_set_quick_buy",
+      "content": "dota_set_quick_buy(\nitem\n:\nstring\n,\nrecipe\n:\nbyte\n,\ntoggle\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_shop_item_drag_begin",
+      "url": "https://moddota.com/api/#!/events/dota_shop_item_drag_begin",
+      "content": "dota_shop_item_drag_begin():\nvoid\n#"
+    },
+    {
+      "name": "dota_shop_item_drag_end",
+      "url": "https://moddota.com/api/#!/events/dota_shop_item_drag_end",
+      "content": "dota_shop_item_drag_end():\nvoid\n#"
+    },
+    {
+      "name": "dota_shrine_kill",
+      "url": "https://moddota.com/api/#!/events/dota_shrine_kill",
+      "content": "dota_shrine_kill(\nkiller_userid\n:\nEntityIndex\n,\nteamnumber\n:\nshort\n,\ngold\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_spectate_hero",
+      "url": "https://moddota.com/api/#!/events/dota_spectate_hero",
+      "content": "dota_spectate_hero(\nentindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_spectator_talent_changed",
+      "url": "https://moddota.com/api/#!/events/dota_spectator_talent_changed",
+      "content": "dota_spectator_talent_changed(\nabilityname\n:\nstring\n,\nplayerid\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_super_creeps",
+      "url": "https://moddota.com/api/#!/events/dota_super_creeps",
+      "content": "dota_super_creeps(\nteamnumber\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_team_neutral_stash_items_acknowledged_changed",
+      "url": "https://moddota.com/api/#!/events/dota_team_neutral_stash_items_acknowledged_changed",
+      "content": "dota_team_neutral_stash_items_acknowledged_changed(\nteamnumber\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_team_neutral_stash_items_changed",
+      "url": "https://moddota.com/api/#!/events/dota_team_neutral_stash_items_changed",
+      "content": "dota_team_neutral_stash_items_changed(\nteamnumber\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_team_player_list_changed",
+      "url": "https://moddota.com/api/#!/events/dota_team_player_list_changed",
+      "content": "dota_team_player_list_changed():\nvoid\n#"
+    },
+    {
+      "name": "dota_tournament_item_event",
+      "url": "https://moddota.com/api/#!/events/dota_tournament_item_event",
+      "content": "dota_tournament_item_event(\nwinner_count\n:\nshort\n,\nevent_type\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_tower_deny",
+      "url": "https://moddota.com/api/#!/events/dota_tower_deny",
+      "content": "dota_tower_deny(\nkiller_userid\n:\nEntityIndex\n,\nteamnumber\n:\nshort\n,\ngold\n:\nshort\n,\ntier\n:\nshort\n,\npos_x\n:\nfloat\n,\npos_y\n:\nfloat\n,\npos_z\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_tutorial_lesson_start",
+      "url": "https://moddota.com/api/#!/events/dota_tutorial_lesson_start",
+      "content": "dota_tutorial_lesson_start():\nvoid\n#"
+    },
+    {
+      "name": "dota_tutorial_shop_toggled",
+      "url": "https://moddota.com/api/#!/events/dota_tutorial_shop_toggled",
+      "content": "dota_tutorial_shop_toggled(\nshop_opened\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_tutorial_task_advance",
+      "url": "https://moddota.com/api/#!/events/dota_tutorial_task_advance",
+      "content": "dota_tutorial_task_advance():\nvoid\n#"
+    },
+    {
+      "name": "dota_unit_event",
+      "url": "https://moddota.com/api/#!/events/dota_unit_event",
+      "content": "dota_unit_event(\nvictim\n:\nshort\n,\nattacker\n:\nshort\n,\nbasepriority\n:\nshort\n,\npriority\n:\nshort\n,\neventtype\n:\nshort\n):\nvoid\n#\neventtype\n: EDOTAHeroChaseEventType."
+    },
+    {
+      "name": "dota_wager_token",
+      "url": "https://moddota.com/api/#!/events/dota_wager_token",
+      "content": "dota_wager_token(\nuserid\n:\nEntityIndex\n,\nmessage\n:\nshort\n,\namount\n:\nint\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_ward_killed",
+      "url": "https://moddota.com/api/#!/events/dota_ward_killed",
+      "content": "dota_ward_killed(\nuserid\n:\nEntityIndex\n,\ntype\n:\nshort\n,\nbounty_amount\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_watch_tower_captured",
+      "url": "https://moddota.com/api/#!/events/dota_watch_tower_captured",
+      "content": "dota_watch_tower_captured(\nentindex\n:\nEntityIndex\n,\nteam_number\n:\nshort\n,\nold_team_number\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_workshop_filecanceled",
+      "url": "https://moddota.com/api/#!/events/dota_workshop_filecanceled",
+      "content": "dota_workshop_filecanceled():\nvoid\n#"
+    },
+    {
+      "name": "dota_workshop_fileselected",
+      "url": "https://moddota.com/api/#!/events/dota_workshop_fileselected",
+      "content": "dota_workshop_fileselected(\nfilename\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "dota_year_beast_killed",
+      "url": "https://moddota.com/api/#!/events/dota_year_beast_killed",
+      "content": "dota_year_beast_killed(\nkiller_player_id\n:\nPlayerID\n,\nmessage\n:\nshort\n,\nbeast_id\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "drop_rate_modified",
+      "url": "https://moddota.com/api/#!/events/drop_rate_modified",
+      "content": "drop_rate_modified():\nvoid\n#"
+    },
+    {
+      "name": "dynamic_shadow_light_changed",
+      "url": "https://moddota.com/api/#!/events/dynamic_shadow_light_changed",
+      "content": "dynamic_shadow_light_changed():\nvoid\n#"
+    },
+    {
+      "name": "enable_china_logomark",
+      "url": "https://moddota.com/api/#!/events/enable_china_logomark",
+      "content": "enable_china_logomark():\nvoid\n#"
+    },
+    {
+      "name": "entity_visible",
+      "url": "https://moddota.com/api/#!/events/entity_visible",
+      "content": "entity_visible(\nuserid\n:\nEntityIndex\n,\nsubject\n:\nlong\n,\nclassname\n:\nstring\n,\nentityname\n:\nstring\n):\nvoid\n#\nuserid\n: The player who sees the entity.\nsubject\n: Entindex of the entity they see.\nclassname\n: Classname of the entity they see.\nentityname\n: Name of the entity they see."
+    },
+    {
+      "name": "event_ticket_modified",
+      "url": "https://moddota.com/api/#!/events/event_ticket_modified",
+      "content": "event_ticket_modified():\nvoid\n#"
+    },
+    {
+      "name": "fantasy_league_changed",
+      "url": "https://moddota.com/api/#!/events/fantasy_league_changed",
+      "content": "fantasy_league_changed():\nvoid\n#"
+    },
+    {
+      "name": "fantasy_score_info_changed",
+      "url": "https://moddota.com/api/#!/events/fantasy_score_info_changed",
+      "content": "fantasy_score_info_changed():\nvoid\n#"
+    },
+    {
+      "name": "fantasy_updated",
+      "url": "https://moddota.com/api/#!/events/fantasy_updated",
+      "content": "fantasy_updated():\nvoid\n#"
+    },
+    {
+      "name": "file_downloaded",
+      "url": "https://moddota.com/api/#!/events/file_downloaded",
+      "content": "file_downloaded(\nsuccess\n:\nbool\n,\nlocal_filename\n:\nstring\n,\nremote_url\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "finale_start",
+      "url": "https://moddota.com/api/#!/events/finale_start",
+      "content": "finale_start(\nrushes\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "flare_ignite_npc",
+      "url": "https://moddota.com/api/#!/events/flare_ignite_npc",
+      "content": "flare_ignite_npc(\nentindex\n:\nEntityIndex\n):\nvoid\n#\nentindex\n: Entity ignited."
+    },
+    {
+      "name": "friend_lobby_list_updated",
+      "url": "https://moddota.com/api/#!/events/friend_lobby_list_updated",
+      "content": "friend_lobby_list_updated():\nvoid\n#"
+    },
+    {
+      "name": "frosty_points_updated",
+      "url": "https://moddota.com/api/#!/events/frosty_points_updated",
+      "content": "frosty_points_updated():\nvoid\n#"
+    },
+    {
+      "name": "full_ui_unlocked",
+      "url": "https://moddota.com/api/#!/events/full_ui_unlocked",
+      "content": "full_ui_unlocked():\nvoid\n#"
+    },
+    {
+      "name": "game_end_visible",
+      "url": "https://moddota.com/api/#!/events/game_end_visible",
+      "content": "game_end_visible():\nvoid\n#"
+    },
+    {
+      "name": "game_message",
+      "url": "https://moddota.com/api/#!/events/game_message",
+      "content": "game_message(\ntarget\n:\nbyte\n,\ntext\n:\nstring\n):\nvoid\n#\ntarget\n: 0 = console, 1 = HUD.\ntext\n: The message text.\nA message send by game logic to everyone."
+    },
+    {
+      "name": "game_newmap",
+      "url": "https://moddota.com/api/#!/events/game_newmap",
+      "content": "game_newmap(\nmapname\n:\nstring\n,\ntransition\n:\nbool\n):\nvoid\n#\nmapname\n: Map name.\ntransition\n: True if this is a transition from one map to another.\nSend when new map is completely loaded."
+    },
+    {
+      "name": "game_rules_shutdown",
+      "url": "https://moddota.com/api/#!/events/game_rules_shutdown",
+      "content": "game_rules_shutdown():\nvoid\n#"
+    },
+    {
+      "name": "gameinstructor_draw",
+      "url": "https://moddota.com/api/#!/events/gameinstructor_draw",
+      "content": "gameinstructor_draw():\nvoid\n#"
+    },
+    {
+      "name": "gameinstructor_nodraw",
+      "url": "https://moddota.com/api/#!/events/gameinstructor_nodraw",
+      "content": "gameinstructor_nodraw():\nvoid\n#"
+    },
+    {
+      "name": "gameui_activated",
+      "url": "https://moddota.com/api/#!/events/gameui_activated",
+      "content": "gameui_activated():\nvoid\n#"
+    },
+    {
+      "name": "gameui_hidden",
+      "url": "https://moddota.com/api/#!/events/gameui_hidden",
+      "content": "gameui_hidden():\nvoid\n#"
+    },
+    {
+      "name": "gc_chat_channel_list_updated",
+      "url": "https://moddota.com/api/#!/events/gc_chat_channel_list_updated",
+      "content": "gc_chat_channel_list_updated():\nvoid\n#"
+    },
+    {
+      "name": "gc_connected",
+      "url": "https://moddota.com/api/#!/events/gc_connected",
+      "content": "gc_connected():\nvoid\n#"
+    },
+    {
+      "name": "gc_mismatched_version",
+      "url": "https://moddota.com/api/#!/events/gc_mismatched_version",
+      "content": "gc_mismatched_version():\nvoid\n#"
+    },
+    {
+      "name": "gc_user_session_created",
+      "url": "https://moddota.com/api/#!/events/gc_user_session_created",
+      "content": "gc_user_session_created():\nvoid\n#"
+    },
+    {
+      "name": "guild_data_updated",
+      "url": "https://moddota.com/api/#!/events/guild_data_updated",
+      "content": "guild_data_updated():\nvoid\n#"
+    },
+    {
+      "name": "guild_open_parties_updated",
+      "url": "https://moddota.com/api/#!/events/guild_open_parties_updated",
+      "content": "guild_open_parties_updated():\nvoid\n#"
+    },
+    {
+      "name": "halloween_high_score_received",
+      "url": "https://moddota.com/api/#!/events/halloween_high_score_received",
+      "content": "halloween_high_score_received():\nvoid\n#"
+    },
+    {
+      "name": "halloween_high_score_request_failed",
+      "url": "https://moddota.com/api/#!/events/halloween_high_score_request_failed",
+      "content": "halloween_high_score_request_failed():\nvoid\n#"
+    },
+    {
+      "name": "halloween_phase_end",
+      "url": "https://moddota.com/api/#!/events/halloween_phase_end",
+      "content": "halloween_phase_end(\nphase\n:\nbyte\n,\nteam\n:\nbyte\n):\nvoid\n#"
+    },
+    {
+      "name": "helicopter_grenade_punt_miss",
+      "url": "https://moddota.com/api/#!/events/helicopter_grenade_punt_miss",
+      "content": "helicopter_grenade_punt_miss():\nvoid\n#"
+    },
+    {
+      "name": "hero_picker_hidden",
+      "url": "https://moddota.com/api/#!/events/hero_picker_hidden",
+      "content": "hero_picker_hidden():\nvoid\n#"
+    },
+    {
+      "name": "hero_picker_shown",
+      "url": "https://moddota.com/api/#!/events/hero_picker_shown",
+      "content": "hero_picker_shown():\nvoid\n#"
+    },
+    {
+      "name": "hero_selected",
+      "url": "https://moddota.com/api/#!/events/hero_selected",
+      "content": "hero_selected(\nplayer_id\n:\nPlayerID\n,\nteam_number\n:\nshort\n,\nhero_unit\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "hero_selector_preview_set",
+      "url": "https://moddota.com/api/#!/events/hero_selector_preview_set",
+      "content": "hero_selector_preview_set(\nsetindex\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "hide_highlight_hud_element",
+      "url": "https://moddota.com/api/#!/events/hide_highlight_hud_element",
+      "content": "hide_highlight_hud_element():\nvoid\n#"
+    },
+    {
+      "name": "highlight_hud_element",
+      "url": "https://moddota.com/api/#!/events/highlight_hud_element",
+      "content": "highlight_hud_element(\nelementname\n:\nstring\n,\nduration\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "hltv_cameraman",
+      "url": "https://moddota.com/api/#!/events/hltv_cameraman",
+      "content": "hltv_cameraman(\nuserid\n:\nEntityIndex\n):\nvoid\n#\nuserid\n: Camera man entity index.\nA spectator/player is a cameraman."
+    },
+    {
+      "name": "hltv_chase",
+      "url": "https://moddota.com/api/#!/events/hltv_chase",
+      "content": "hltv_chase(\ntarget1\n:\nplayer_controller\n,\ntarget2\n:\nplayer_controller\n,\ndistance\n:\nshort\n,\ntheta\n:\nshort\n,\nphi\n:\nshort\n,\ninertia\n:\nbyte\n,\nineye\n:\nbyte\n):\nvoid\n#\ntarget1\n: Primary traget index.\ntarget2\n: Secondary traget index or 0.\ndistance\n: Camera distance.\ntheta\n: View angle horizontal.\nphi\n: View angle vertical.\ninertia\n: Camera inertia.\nineye\n: Diretcor suggests to show ineye.\nShot of a single entity."
+    },
+    {
+      "name": "hltv_chat",
+      "url": "https://moddota.com/api/#!/events/hltv_chat",
+      "content": "hltv_chat(\ntext\n:\nstring\n,\nsteamID\n:\nuint64\n,\nname\n:\nstring\n):\nvoid\n#\nsteamID\n: Steam id.\nA HLTV chat msg sent by spectators."
+    },
+    {
+      "name": "hltv_fixed",
+      "url": "https://moddota.com/api/#!/events/hltv_fixed",
+      "content": "hltv_fixed(\nposx\n:\nlong\n,\nposy\n:\nlong\n,\nposz\n:\nlong\n,\ntheta\n:\nshort\n,\nphi\n:\nshort\n,\noffset\n:\nshort\n,\nfov\n:\nfloat\n,\ntarget\n:\nplayer_controller\n):\nvoid\n#\nposx\n: Camera position in world.\ntheta\n: Camera angles.\ntarget\n: Follow this player.\nShow from fixed view."
+    },
+    {
+      "name": "hltv_message",
+      "url": "https://moddota.com/api/#!/events/hltv_message",
+      "content": "hltv_message(\ntext\n:\nstring\n):\nvoid\n#\nA HLTV message send by moderators."
+    },
+    {
+      "name": "hltv_rank_camera",
+      "url": "https://moddota.com/api/#!/events/hltv_rank_camera",
+      "content": "hltv_rank_camera(\nindex\n:\nbyte\n,\nrank\n:\nfloat\n,\ntarget\n:\nplayer_controller\n):\nvoid\n#\nindex\n: Fixed camera index.\nrank\n: Ranking, how interesting is this camera view.\ntarget\n: Best/closest target entity.\nA camera ranking."
+    },
+    {
+      "name": "hltv_rank_entity",
+      "url": "https://moddota.com/api/#!/events/hltv_rank_entity",
+      "content": "hltv_rank_entity(\nuserid\n:\nEntityIndex\n,\nrank\n:\nfloat\n,\ntarget\n:\nplayer_controller\n):\nvoid\n#\nuserid\n: Player slot.\nrank\n: Ranking, how interesting is this entity to view.\ntarget\n: Best/closest target entity.\nAn entity ranking."
+    },
+    {
+      "name": "hltv_replay",
+      "url": "https://moddota.com/api/#!/events/hltv_replay",
+      "content": "hltv_replay(\ndelay\n:\nlong\n,\nreason\n:\nlong\n):\nvoid\n#\ndelay\n: Number of seconds in killer replay delay.\nreason\n: Reason for replay\t(ReplayEventType_t)."
+    },
+    {
+      "name": "hltv_replay_status",
+      "url": "https://moddota.com/api/#!/events/hltv_replay_status",
+      "content": "hltv_replay_status(\nreason\n:\nlong\n):\nvoid\n#\nreason\n: Reason for hltv replay status change ()."
+    },
+    {
+      "name": "hltv_status",
+      "url": "https://moddota.com/api/#!/events/hltv_status",
+      "content": "hltv_status(\nclients\n:\nlong\n,\nslots\n:\nlong\n,\nproxies\n:\nshort\n,\nmaster\n:\nstring\n):\nvoid\n#\nclients\n: Number of HLTV spectators.\nslots\n: Number of HLTV slots.\nproxies\n: Number of HLTV proxies.\nmaster\n: Disptach master IP:port.\nGeneral HLTV status."
+    },
+    {
+      "name": "hltv_title",
+      "url": "https://moddota.com/api/#!/events/hltv_title",
+      "content": "hltv_title(\ntext\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "hltv_versioninfo",
+      "url": "https://moddota.com/api/#!/events/hltv_versioninfo",
+      "content": "hltv_versioninfo(\nversion\n:\nlong\n):\nvoid\n#"
+    },
+    {
+      "name": "hostname_changed",
+      "url": "https://moddota.com/api/#!/events/hostname_changed",
+      "content": "hostname_changed(\nhostname\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "hud_flip_changed",
+      "url": "https://moddota.com/api/#!/events/hud_flip_changed",
+      "content": "hud_flip_changed(\nflipped\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "instructor_close_lesson",
+      "url": "https://moddota.com/api/#!/events/instructor_close_lesson",
+      "content": "instructor_close_lesson(\nuserid\n:\nEntityIndex\n,\nhint_name\n:\nstring\n):\nvoid\n#\nuserid\n: The player who this lesson is intended for.\nhint_name\n: Name of the lesson to start.  Must match instructor_lesson.txt."
+    },
+    {
+      "name": "instructor_server_hint_create",
+      "url": "https://moddota.com/api/#!/events/instructor_server_hint_create",
+      "content": "instructor_server_hint_create(\nuserid\n:\nEntityIndex\n,\nhint_entindex\n:\nEntityIndex\n,\nhint_name\n:\nstring\n,\nhint_replace_key\n:\nstring\n,\nhint_target\n:\nlong\n,\nhint_activator_userid\n:\nEntityIndex\n,\nhint_timeout\n:\nshort\n,\nhint_icon_onscreen\n:\nstring\n,\nhint_icon_offscreen\n:\nstring\n,\nhint_caption\n:\nstring\n,\nhint_activator_caption\n:\nstring\n,\nhint_color\n:\nstring\n,\nhint_icon_offset\n:\nfloat\n,\nhint_range\n:\nfloat\n,\nhint_flags\n:\nlong\n,\nhint_binding\n:\nstring\n,\nhint_allow_nodraw_target\n:\nbool\n,\nhint_nooffscreen\n:\nbool\n,\nhint_forcecaption\n:\nbool\n,\nhint_local_player_only\n:\nbool\n,\nhint_start_sound\n:\nstring\n,\nhint_layoutfile\n:\nstring\n,\nhint_vr_panel_type\n:\nshort\n,\nhint_vr_height_offset\n:\nfloat\n,\nhint_vr_offset_x\n:\nfloat\n,\nhint_vr_offset_y\n:\nfloat\n,\nhint_vr_offset_z\n:\nfloat\n):\nvoid\n#\nuserid\n: User ID of the player that triggered the hint.\nhint_entindex\n: Entity id of the env_instructor_hint that fired the event.\nhint_name\n: What to name the hint. For referencing it again later (e.g. a kill command for the hint instead of a timeout).\nhint_replace_key\n: Type name so that messages of the same type will replace each other.\nhint_target\n: Entity id that the hint should display at.\nhint_activator_userid\n: Playerslot of the activator.\nhint_timeout\n: How long in seconds until the hint automatically times out, 0 = never.\nhint_icon_onscreen\n: The hint icon to use when the hint is onscreen. e.g. \"icon_alert_red\".\nhint_icon_offscreen\n: The hint icon to use when the hint is offscreen. e.g. \"icon_alert\".\nhint_caption\n: The hint caption. e.g. \"#ThisIsDangerous\".\nhint_activator_caption\n: The hint caption that only the activator sees e.g. \"#YouPushedItGood\".\nhint_color\n: The hint color in \"r,g,b\" format where each component is 0-255.\nhint_icon_offset\n: How far on the z axis to offset the hint from entity origin.\nhint_range\n: Range before the hint is culled.\nhint_flags\n: Hint flags.\nhint_binding\n: Bindings to use when use_binding is the onscreen icon.\nhint_allow_nodraw_target\n: If false, the hint will dissappear if the target entity is invisible.\nhint_nooffscreen\n: If true, the hint will not show when outside the player view.\nhint_forcecaption\n: If true, the hint caption will show even if the hint is occluded.\nhint_local_player_only\n: If true, only the local player will see the hint.\nhint_start_sound\n: Game sound to play.\nhint_layoutfile\n: Path for Panorama layout file.\nhint_vr_panel_type\n: Attachment type for the Panorama panel.\nhint_vr_height_offset\n: Height offset for attached panels.\nhint_vr_offset_x\n: Offset for attached panels.\nhint_vr_offset_y\n: Offset for attached panels.\nhint_vr_offset_z\n: Offset for attached panels."
+    },
+    {
+      "name": "instructor_server_hint_stop",
+      "url": "https://moddota.com/api/#!/events/instructor_server_hint_stop",
+      "content": "instructor_server_hint_stop(\nhint_name\n:\nstring\n,\nhint_entindex\n:\nEntityIndex\n):\nvoid\n#\nhint_name\n: The hint to stop. Will stop ALL hints with this name.\nhint_entindex\n: Entity id of the env_instructor_hint that fired the event."
+    },
+    {
+      "name": "instructor_start_lesson",
+      "url": "https://moddota.com/api/#!/events/instructor_start_lesson",
+      "content": "instructor_start_lesson(\nuserid\n:\nEntityIndex\n,\nhint_name\n:\nstring\n,\nhint_target\n:\nlong\n,\nvr_movement_type\n:\nbyte\n,\nvr_single_controller\n:\nbool\n,\nvr_controller_type\n:\nbyte\n):\nvoid\n#\nuserid\n: The player who this lesson is intended for.\nhint_name\n: Name of the lesson to start.  Must match instructor_lesson.txt.\nhint_target\n: Entity id that the hint should display at. Leave empty if controller target."
+    },
+    {
+      "name": "intro_video_finished",
+      "url": "https://moddota.com/api/#!/events/intro_video_finished",
+      "content": "intro_video_finished():\nvoid\n#"
+    },
+    {
+      "name": "inventory_updated",
+      "url": "https://moddota.com/api/#!/events/inventory_updated",
+      "content": "inventory_updated(\nitemdef\n:\nshort\n,\nitemid\n:\nlong\n):\nvoid\n#"
+    },
+    {
+      "name": "item_preview_closed",
+      "url": "https://moddota.com/api/#!/events/item_preview_closed",
+      "content": "item_preview_closed():\nvoid\n#"
+    },
+    {
+      "name": "item_purchased",
+      "url": "https://moddota.com/api/#!/events/item_purchased",
+      "content": "item_purchased(\nitemid\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "item_schema_initialized",
+      "url": "https://moddota.com/api/#!/events/item_schema_initialized",
+      "content": "item_schema_initialized():\nvoid\n#"
+    },
+    {
+      "name": "joined_chat_channel",
+      "url": "https://moddota.com/api/#!/events/joined_chat_channel",
+      "content": "joined_chat_channel(\nchannelName\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "keybind_changed",
+      "url": "https://moddota.com/api/#!/events/keybind_changed",
+      "content": "keybind_changed():\nvoid\n#"
+    },
+    {
+      "name": "league_admin_info_updated",
+      "url": "https://moddota.com/api/#!/events/league_admin_info_updated",
+      "content": "league_admin_info_updated():\nvoid\n#"
+    },
+    {
+      "name": "league_series_info_updated",
+      "url": "https://moddota.com/api/#!/events/league_series_info_updated",
+      "content": "league_series_info_updated():\nvoid\n#"
+    },
+    {
+      "name": "left_chat_channel",
+      "url": "https://moddota.com/api/#!/events/left_chat_channel",
+      "content": "left_chat_channel(\nchannelName\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "live_games_updated",
+      "url": "https://moddota.com/api/#!/events/live_games_updated",
+      "content": "live_games_updated():\nvoid\n#"
+    },
+    {
+      "name": "live_leagues_updated",
+      "url": "https://moddota.com/api/#!/events/live_leagues_updated",
+      "content": "live_leagues_updated():\nvoid\n#"
+    },
+    {
+      "name": "lobby_invites_updated",
+      "url": "https://moddota.com/api/#!/events/lobby_invites_updated",
+      "content": "lobby_invites_updated():\nvoid\n#"
+    },
+    {
+      "name": "lobby_updated",
+      "url": "https://moddota.com/api/#!/events/lobby_updated",
+      "content": "lobby_updated():\nvoid\n#"
+    },
+    {
+      "name": "local_player_controller_team",
+      "url": "https://moddota.com/api/#!/events/local_player_controller_team",
+      "content": "local_player_controller_team():\nvoid\n#"
+    },
+    {
+      "name": "local_player_pawn_changed",
+      "url": "https://moddota.com/api/#!/events/local_player_pawn_changed",
+      "content": "local_player_pawn_changed():\nvoid\n#"
+    },
+    {
+      "name": "local_player_team",
+      "url": "https://moddota.com/api/#!/events/local_player_team",
+      "content": "local_player_team():\nvoid\n#"
+    },
+    {
+      "name": "map_shutdown",
+      "url": "https://moddota.com/api/#!/events/map_shutdown",
+      "content": "map_shutdown():\nvoid\n#"
+    },
+    {
+      "name": "map_transition",
+      "url": "https://moddota.com/api/#!/events/map_transition",
+      "content": "map_transition():\nvoid\n#"
+    },
+    {
+      "name": "match_details_updated",
+      "url": "https://moddota.com/api/#!/events/match_details_updated",
+      "content": "match_details_updated(\nmatchID\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "match_history_updated",
+      "url": "https://moddota.com/api/#!/events/match_history_updated",
+      "content": "match_history_updated(\nSteamID\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "matchmaking_status_visibility_changed",
+      "url": "https://moddota.com/api/#!/events/matchmaking_status_visibility_changed",
+      "content": "matchmaking_status_visibility_changed():\nvoid\n#"
+    },
+    {
+      "name": "microtransaction_success",
+      "url": "https://moddota.com/api/#!/events/microtransaction_success",
+      "content": "microtransaction_success(\ntxnid\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "modifier_event",
+      "url": "https://moddota.com/api/#!/events/modifier_event",
+      "content": "modifier_event(\neventname\n:\nstring\n,\ncaster\n:\nshort\n,\nability\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "news_updated",
+      "url": "https://moddota.com/api/#!/events/news_updated",
+      "content": "news_updated():\nvoid\n#"
+    },
+    {
+      "name": "nommed_tree",
+      "url": "https://moddota.com/api/#!/events/nommed_tree",
+      "content": "nommed_tree(\nPlayerID\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "npc_replaced",
+      "url": "https://moddota.com/api/#!/events/npc_replaced",
+      "content": "npc_replaced(\nold_entindex\n:\nEntityIndex\n,\nnew_entindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "npc_spawn_finished",
+      "url": "https://moddota.com/api/#!/events/npc_spawn_finished",
+      "content": "npc_spawn_finished(\nentindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "particle_system_start",
+      "url": "https://moddota.com/api/#!/events/particle_system_start",
+      "content": "particle_system_start(\ntargetname\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "particle_system_stop",
+      "url": "https://moddota.com/api/#!/events/particle_system_stop",
+      "content": "particle_system_stop(\ntargetname\n:\nstring\n,\nimmediate\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "party_invites_updated",
+      "url": "https://moddota.com/api/#!/events/party_invites_updated",
+      "content": "party_invites_updated():\nvoid\n#"
+    },
+    {
+      "name": "party_updated",
+      "url": "https://moddota.com/api/#!/events/party_updated",
+      "content": "party_updated():\nvoid\n#"
+    },
+    {
+      "name": "persona_updated",
+      "url": "https://moddota.com/api/#!/events/persona_updated",
+      "content": "persona_updated(\nSteamID\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "physgun_pickup",
+      "url": "https://moddota.com/api/#!/events/physgun_pickup",
+      "content": "physgun_pickup(\ntarget\n:\nehandle\n):\nvoid\n#\ntarget\n: Entity picked up."
+    },
+    {
+      "name": "player_activate",
+      "url": "https://moddota.com/api/#!/events/player_activate",
+      "content": "player_activate(\nuserid\n:\nEntityIndex\n):\nvoid\n#\nuserid\n: User ID on server."
+    },
+    {
+      "name": "player_changename",
+      "url": "https://moddota.com/api/#!/events/player_changename",
+      "content": "player_changename(\nuserid\n:\nEntityIndex\n,\noldname\n:\nstring\n,\nnewname\n:\nstring\n):\nvoid\n#\nuserid\n: User ID on server.\noldname\n: Players old (current) name.\nnewname\n: Players new name."
+    },
+    {
+      "name": "player_completed_game",
+      "url": "https://moddota.com/api/#!/events/player_completed_game",
+      "content": "player_completed_game(\nPlayerID\n:\nPlayerID\n,\nWinner\n:\nbyte\n):\nvoid\n#"
+    },
+    {
+      "name": "player_death",
+      "url": "https://moddota.com/api/#!/events/player_death",
+      "content": "player_death(\nuserid\n:\nEntityIndex\n,\nattacker\n:\nplayer_controller_and_pawn\n):\nvoid\n#\nuserid\n: User ID who died.\nattacker\n: User ID who killed.\nA game event, name may be 32 charaters long."
+    },
+    {
+      "name": "player_footstep",
+      "url": "https://moddota.com/api/#!/events/player_footstep",
+      "content": "player_footstep(\nuserid\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "player_full_update",
+      "url": "https://moddota.com/api/#!/events/player_full_update",
+      "content": "player_full_update(\nuserid\n:\nEntityIndex\n,\ncount\n:\nshort\n):\nvoid\n#\nuserid\n: User ID on server.\ncount\n: Number of this full update."
+    },
+    {
+      "name": "player_fullyjoined",
+      "url": "https://moddota.com/api/#!/events/player_fullyjoined",
+      "content": "player_fullyjoined(\nuserid\n:\nEntityIndex\n,\nname\n:\nstring\n):\nvoid\n#\nuserid\n: User ID on server.\nname\n: Player name."
+    },
+    {
+      "name": "player_hintmessage",
+      "url": "https://moddota.com/api/#!/events/player_hintmessage",
+      "content": "player_hintmessage(\nhintmessage\n:\nstring\n):\nvoid\n#\nhintmessage\n: Localizable string of a hint."
+    },
+    {
+      "name": "player_hurt",
+      "url": "https://moddota.com/api/#!/events/player_hurt",
+      "content": "player_hurt(\nuserid\n:\nEntityIndex\n,\nattacker\n:\nplayer_controller_and_pawn\n,\nhealth\n:\nbyte\n):\nvoid\n#\nuserid\n: Player who was hurt.\nattacker\n: Player who attacked.\nhealth\n: Remaining health points."
+    },
+    {
+      "name": "player_info",
+      "url": "https://moddota.com/api/#!/events/player_info",
+      "content": "player_info(\nname\n:\nstring\n,\nuserid\n:\nEntityIndex\n,\nsteamid\n:\nuint64\n,\nbot\n:\nbool\n):\nvoid\n#\nname\n: Player name.\nuserid\n: User ID on server (unique on server).\nsteamid\n: Player network (i.e steam) id.\nbot\n: True if player is a AI bot.\nA player changed his name."
+    },
+    {
+      "name": "player_info_individual_updated",
+      "url": "https://moddota.com/api/#!/events/player_info_individual_updated",
+      "content": "player_info_individual_updated(\naccount_id\n:\nlong\n):\nvoid\n#"
+    },
+    {
+      "name": "player_info_updated",
+      "url": "https://moddota.com/api/#!/events/player_info_updated",
+      "content": "player_info_updated():\nvoid\n#"
+    },
+    {
+      "name": "player_is_experienced",
+      "url": "https://moddota.com/api/#!/events/player_is_experienced",
+      "content": "player_is_experienced():\nvoid\n#"
+    },
+    {
+      "name": "player_is_notexperienced",
+      "url": "https://moddota.com/api/#!/events/player_is_notexperienced",
+      "content": "player_is_notexperienced():\nvoid\n#"
+    },
+    {
+      "name": "player_report_counts_updated",
+      "url": "https://moddota.com/api/#!/events/player_report_counts_updated",
+      "content": "player_report_counts_updated(\npositive_remaining\n:\nbyte\n,\nnegative_remaining\n:\nbyte\n,\npositive_total\n:\nshort\n,\nnegative_total\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "player_spawn",
+      "url": "https://moddota.com/api/#!/events/player_spawn",
+      "content": "player_spawn(\nuserid\n:\nEntityIndex\n):\nvoid\n#\nPlayer spawned in game."
+    },
+    {
+      "name": "player_stats_updated",
+      "url": "https://moddota.com/api/#!/events/player_stats_updated",
+      "content": "player_stats_updated(\nforceupload\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "player_team",
+      "url": "https://moddota.com/api/#!/events/player_team",
+      "content": "player_team(\nuserid\n:\nEntityIndex\n,\nteam\n:\nbyte\n,\noldteam\n:\nbyte\n,\ndisconnect\n:\nbool\n,\nsilent\n:\nbool\n,\nname\n:\nstring\n,\nisbot\n:\nbool\n):\nvoid\n#\nteam\n: Team id.\noldteam\n: Old team id.\ndisconnect\n: Team change because player disconnects."
+    },
+    {
+      "name": "practice_lobby_visibility_changed",
+      "url": "https://moddota.com/api/#!/events/practice_lobby_visibility_changed",
+      "content": "practice_lobby_visibility_changed():\nvoid\n#"
+    },
+    {
+      "name": "prizepool_received",
+      "url": "https://moddota.com/api/#!/events/prizepool_received",
+      "content": "prizepool_received(\nsuccess\n:\nbool\n,\nprizepool\n:\nuint64\n,\nleagueid\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "profile_closed",
+      "url": "https://moddota.com/api/#!/events/profile_closed",
+      "content": "profile_closed():\nvoid\n#"
+    },
+    {
+      "name": "profile_opened",
+      "url": "https://moddota.com/api/#!/events/profile_opened",
+      "content": "profile_opened():\nvoid\n#"
+    },
+    {
+      "name": "ragdoll_dissolved",
+      "url": "https://moddota.com/api/#!/events/ragdoll_dissolved",
+      "content": "ragdoll_dissolved(\nentindex\n:\nEntityIndex\n):\nvoid\n#"
+    },
+    {
+      "name": "recent_matches_updated",
+      "url": "https://moddota.com/api/#!/events/recent_matches_updated",
+      "content": "recent_matches_updated(\nPage\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "reset_defeated",
+      "url": "https://moddota.com/api/#!/events/reset_defeated",
+      "content": "reset_defeated():\nvoid\n#"
+    },
+    {
+      "name": "rich_presence_updated",
+      "url": "https://moddota.com/api/#!/events/rich_presence_updated",
+      "content": "rich_presence_updated():\nvoid\n#"
+    },
+    {
+      "name": "richpresence_custom_updated",
+      "url": "https://moddota.com/api/#!/events/richpresence_custom_updated",
+      "content": "richpresence_custom_updated():\nvoid\n#"
+    },
+    {
+      "name": "round_end",
+      "url": "https://moddota.com/api/#!/events/round_end",
+      "content": "round_end(\nwinner\n:\nbyte\n,\nreason\n:\nbyte\n,\nmessage\n:\nstring\n,\ntime\n:\nfloat\n):\nvoid\n#\nwinner\n: Winner team/user i.\nreason\n: Reson why team won.\nmessage\n: End round message."
+    },
+    {
+      "name": "round_freeze_end",
+      "url": "https://moddota.com/api/#!/events/round_freeze_end",
+      "content": "round_freeze_end():\nvoid\n#"
+    },
+    {
+      "name": "round_start",
+      "url": "https://moddota.com/api/#!/events/round_start",
+      "content": "round_start(\ntimelimit\n:\nlong\n,\nfraglimit\n:\nlong\n,\nobjective\n:\nstring\n):\nvoid\n#\ntimelimit\n: Round time limit in seconds.\nfraglimit\n: Frag limit in seconds.\nobjective\n: Round objective."
+    },
+    {
+      "name": "round_start_post_nav",
+      "url": "https://moddota.com/api/#!/events/round_start_post_nav",
+      "content": "round_start_post_nav():\nvoid\n#"
+    },
+    {
+      "name": "round_start_pre_entity",
+      "url": "https://moddota.com/api/#!/events/round_start_pre_entity",
+      "content": "round_start_pre_entity():\nvoid\n#"
+    },
+    {
+      "name": "scaleform_file_download_complete",
+      "url": "https://moddota.com/api/#!/events/scaleform_file_download_complete",
+      "content": "scaleform_file_download_complete(\nsuccess\n:\nbool\n,\nlocal_filename\n:\nstring\n,\nremote_url\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "server_cvar",
+      "url": "https://moddota.com/api/#!/events/server_cvar",
+      "content": "server_cvar(\ncvarname\n:\nstring\n,\ncvarvalue\n:\nstring\n):\nvoid\n#\ncvarname\n: Cvar name, eg \"mp_roundtime\".\ncvarvalue\n: New cvar value.\nA server console var has changed."
+    },
+    {
+      "name": "server_message",
+      "url": "https://moddota.com/api/#!/events/server_message",
+      "content": "server_message(\ntext\n:\nstring\n):\nvoid\n#\ntext\n: The message text.\nA generic server message."
+    },
+    {
+      "name": "server_pre_shutdown",
+      "url": "https://moddota.com/api/#!/events/server_pre_shutdown",
+      "content": "server_pre_shutdown(\nreason\n:\nstring\n):\nvoid\n#\nreason\n: Reason why server is about to be shut down.\nServer is about to be shut down."
+    },
+    {
+      "name": "server_shutdown",
+      "url": "https://moddota.com/api/#!/events/server_shutdown",
+      "content": "server_shutdown(\nreason\n:\nstring\n):\nvoid\n#\nreason\n: Reason why server was shut down.\nServer shut down."
+    },
+    {
+      "name": "server_spawn",
+      "url": "https://moddota.com/api/#!/events/server_spawn",
+      "content": "server_spawn(\nhostname\n:\nstring\n,\naddress\n:\nstring\n,\nport\n:\nshort\n,\ngame\n:\nstring\n,\nmapname\n:\nstring\n,\naddonname\n:\nstring\n,\nmaxplayers\n:\nlong\n,\nos\n:\nstring\n,\ndedicated\n:\nbool\n,\npassword\n:\nbool\n):\nvoid\n#\nhostname\n: Public host name.\naddress\n: Hostame, IP or DNS name.\nport\n: Server port.\ngame\n: Game dir.\nmapname\n: Map name.\naddonname\n: Addon name.\nmaxplayers\n: Max players.\nos\n: WIN32, LINUX.\ndedicated\n: True if dedicated server.\npassword\n: True if password protected.\nSend once a server starts."
+    },
+    {
+      "name": "set_instructor_group_enabled",
+      "url": "https://moddota.com/api/#!/events/set_instructor_group_enabled",
+      "content": "set_instructor_group_enabled(\ngroup\n:\nstring\n,\nenabled\n:\nshort\n):\nvoid\n#"
+    },
+    {
+      "name": "spec_aegis_reclaim_time",
+      "url": "https://moddota.com/api/#!/events/spec_aegis_reclaim_time",
+      "content": "spec_aegis_reclaim_time(\nreclaim_time\n:\nfloat\n):\nvoid\n#"
+    },
+    {
+      "name": "spec_item_pickup",
+      "url": "https://moddota.com/api/#!/events/spec_item_pickup",
+      "content": "spec_item_pickup(\nplayer_id\n:\nPlayerID\n,\nitem_name\n:\nstring\n,\npurchase\n:\nbool\n,\ngift\n:\nbool\n,\ngift_player_id\n:\nPlayerID\n):\nvoid\n#"
+    },
+    {
+      "name": "spec_mode_updated",
+      "url": "https://moddota.com/api/#!/events/spec_mode_updated",
+      "content": "spec_mode_updated(\nuserid\n:\nEntityIndex\n):\nvoid\n#\nuserid\n: Spectating player."
+    },
+    {
+      "name": "spec_target_updated",
+      "url": "https://moddota.com/api/#!/events/spec_target_updated",
+      "content": "spec_target_updated(\nuserid\n:\nEntityIndex\n,\ntarget\n:\nehandle\n):\nvoid\n#\nuserid\n: Spectating player.\ntarget\n: Ehandle of the target."
+    },
+    {
+      "name": "store_pricesheet_updated",
+      "url": "https://moddota.com/api/#!/events/store_pricesheet_updated",
+      "content": "store_pricesheet_updated():\nvoid\n#"
+    },
+    {
+      "name": "team_data_updated",
+      "url": "https://moddota.com/api/#!/events/team_data_updated",
+      "content": "team_data_updated():\nvoid\n#"
+    },
+    {
+      "name": "team_details_updated",
+      "url": "https://moddota.com/api/#!/events/team_details_updated",
+      "content": "team_details_updated(\nteamID\n:\nlong\n):\nvoid\n#"
+    },
+    {
+      "name": "team_info",
+      "url": "https://moddota.com/api/#!/events/team_info",
+      "content": "team_info(\nteamid\n:\nbyte\n,\nteamname\n:\nstring\n):\nvoid\n#\nteamid\n: Unique team id.\nteamname\n: Team name eg \"Team Blue\".\nInfo about team."
+    },
+    {
+      "name": "team_score",
+      "url": "https://moddota.com/api/#!/events/team_score",
+      "content": "team_score(\nteamid\n:\nbyte\n,\nscore\n:\nshort\n):\nvoid\n#\nteamid\n: Team id.\nscore\n: Total team score.\nTeam score changed."
+    },
+    {
+      "name": "team_showcase_ui_update",
+      "url": "https://moddota.com/api/#!/events/team_showcase_ui_update",
+      "content": "team_showcase_ui_update(\nshow\n:\nbool\n,\naccount_id\n:\nuint64\n,\nhero_entindex\n:\nEntityIndex\n,\ndisplay_ui_on_left\n:\nbool\n):\nvoid\n#"
+    },
+    {
+      "name": "teamplay_broadcast_audio",
+      "url": "https://moddota.com/api/#!/events/teamplay_broadcast_audio",
+      "content": "teamplay_broadcast_audio(\nteam\n:\nbyte\n,\nsound\n:\nstring\n):\nvoid\n#\nteam\n: Unique team id.\nsound\n: Name of the sound to emit.\nEmits a sound to everyone on a team."
+    },
+    {
+      "name": "teamplay_round_start",
+      "url": "https://moddota.com/api/#!/events/teamplay_round_start",
+      "content": "teamplay_round_start(\nfull_reset\n:\nbool\n):\nvoid\n#\nfull_reset\n: Is this a full reset of the map.\nRound restart."
+    },
+    {
+      "name": "tournament_state_updated",
+      "url": "https://moddota.com/api/#!/events/tournament_state_updated",
+      "content": "tournament_state_updated():\nvoid\n#"
+    },
+    {
+      "name": "ugc_details_arrived",
+      "url": "https://moddota.com/api/#!/events/ugc_details_arrived",
+      "content": "ugc_details_arrived(\npublished_file_id\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "ugc_download_requested",
+      "url": "https://moddota.com/api/#!/events/ugc_download_requested",
+      "content": "ugc_download_requested(\npublished_file_id\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "ugc_installed",
+      "url": "https://moddota.com/api/#!/events/ugc_installed",
+      "content": "ugc_installed(\npublished_file_id\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "ugc_subscribed",
+      "url": "https://moddota.com/api/#!/events/ugc_subscribed",
+      "content": "ugc_subscribed(\npublished_file_id\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "ugc_unsubscribed",
+      "url": "https://moddota.com/api/#!/events/ugc_unsubscribed",
+      "content": "ugc_unsubscribed(\npublished_file_id\n:\nuint64\n):\nvoid\n#"
+    },
+    {
+      "name": "user_data_downloaded",
+      "url": "https://moddota.com/api/#!/events/user_data_downloaded",
+      "content": "user_data_downloaded():\nvoid\n#\nFired when achievements/stats are downloaded from Steam or XBox Live."
+    },
+    {
+      "name": "vote_cast_no",
+      "url": "https://moddota.com/api/#!/events/vote_cast_no",
+      "content": "vote_cast_no(\nteam\n:\nbyte\n,\nentityid\n:\nlong\n):\nvoid\n#\nentityid\n: Entity id of the voter."
+    },
+    {
+      "name": "vote_cast_yes",
+      "url": "https://moddota.com/api/#!/events/vote_cast_yes",
+      "content": "vote_cast_yes(\nteam\n:\nbyte\n,\nentityid\n:\nlong\n):\nvoid\n#\nentityid\n: Entity id of the voter."
+    },
+    {
+      "name": "vote_changed",
+      "url": "https://moddota.com/api/#!/events/vote_changed",
+      "content": "vote_changed(\nyesVotes\n:\nbyte\n,\nnoVotes\n:\nbyte\n,\npotentialVotes\n:\nbyte\n):\nvoid\n#"
+    },
+    {
+      "name": "vote_failed",
+      "url": "https://moddota.com/api/#!/events/vote_failed",
+      "content": "vote_failed(\nteam\n:\nbyte\n,\nreliable\n:\n1\n):\nvoid\n#\nreliable\n: This event is reliable."
+    },
+    {
+      "name": "vote_passed",
+      "url": "https://moddota.com/api/#!/events/vote_passed",
+      "content": "vote_passed(\ndetails\n:\nstring\n,\nparam1\n:\nstring\n,\nteam\n:\nbyte\n,\nreliable\n:\n1\n):\nvoid\n#\nreliable\n: This event is reliable."
+    },
+    {
+      "name": "vote_started",
+      "url": "https://moddota.com/api/#!/events/vote_started",
+      "content": "vote_started(\nissue\n:\nstring\n,\nparam1\n:\nstring\n,\nvotedata\n:\nstring\n,\nteam\n:\nbyte\n,\ninitiator\n:\nlong\n,\nreliable\n:\n1\n):\nvoid\n#\ninitiator\n: Entity id of the player who initiated the vote.\nreliable\n: This event is reliable."
+    }
+  ]
+}

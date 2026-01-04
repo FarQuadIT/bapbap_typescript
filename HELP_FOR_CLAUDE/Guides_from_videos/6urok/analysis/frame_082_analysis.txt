@@ -1,0 +1,91 @@
+Кадр 82
+Временная метка: 0:20:30
+Номер кадра: 73800
+Скриншот: frame_073800_1230.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:20:21] Может, что-то мне еще дообъяснять.
+[0:20:23] Может, еблан.
+[0:20:24] А может и нет.
+[0:20:25] Поставьте лайк в любом случае.
+[0:20:27] И ждите новых...
+[0:20:29] Роликов.
+[0:20:32] Ай, опять ничего не получается.
+[0:20:35] И так тоже не получается.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua.
+
+### Видимый код:
+
+```lua
+ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(self, 'ChupakabraStateChange'), self)
+
+function ChupakabraStateChange(data)
+    local state = GameRules:State_Get()
+    if state == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        -- код
+    end
+end
+
+local kobold_count = 0
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        print(killed_unit:GetAbsOrigin())
+    end
+
+    if kobold_count >= 10 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+
+    if killed_unit:IsRealHero() then
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+
+function GiveGoldPlayers(gold)
+    for i = 0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:IsValidPlayer(i) then
+            local player = PlayerResource:GetPlayer(i)
+            local hero = PlayerResource:GetSelectedHeroEntity(i)
+            if hero then
+                hero:ModifyGold(gold, true, DOTA_ModifyGold_Unspecified)
+                SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+            end
+        end
+    end
+end
+
+function CreateDrop(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    local drop = CreateItemOnPositionSync(pos, newItem)
+    local dropRadius = RandomFloat(150, 200)
+    newItem:LaunchLootInitialHeight(false, 150, 0.5, pos + RandomVector(dropRadius))
+end
+
+function ChupakabraMode:ChupakabraModeStart()
+    print("32")
+end
+```
+
+### Описание кода:
+
+- **Импорты и события**: Код слушает события `entity_killed` и `game_rules_state_change`, вызывая соответствующие функции `ChupakabraKilled` и `ChupakabraStateChange`.
+- **Функция `ChupakabraStateChange`**: Проверяет состояние игры и выполняет действия, если игра в процессе.
+- **Переменная `kobold_count`**: Счетчик убитых юнитов типа "kobold".
+- **Функция `ChupakabraKilled`**: Увеличивает счетчик `kobold_count` при убийстве "kobold". Если счетчик достигает 10, команда "GOODGUYS" выигрывает. Если убит герой, выигрывает команда "BADGUYS".
+- **Функция `GiveGoldPlayers`**: Раздает золото всем игрокам.
+- **Функция `CreateDrop`**: Создает предмет на позиции и запускает его с начальной высоты.
+- **Функция `ChupakabraModeStart`**: Печатает "32" в консоль.
+
+### Связь с аудио:
+
+Аудио сопровождает процесс объяснения кода. Фразы, такие как "Может, что-то мне еще дообъяснять" и "Ай, опять ничего не получается", могут указывать на попытки автора объяснить или исправить код. Фраза "Поставьте лайк в любом случае" может быть призывом к зрителям поддержать видео, несмотря на возможные ошибки или сложности в объяснении.

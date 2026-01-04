@@ -1,0 +1,68 @@
+Кадр 67
+Временная метка: 0:16:45
+Номер кадра: 60300
+Скриншот: frame_060300_1005.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:35] isFullCastAbil.
+[0:16:40] then
+[0:16:41] И выполняем наши приколюхи немные.
+[0:16:45] Отлично. Отлично.
+[0:16:51] Вроде, это все, что надо.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ai_kobold.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+function Spawn()
+    if not thisEntity then return nil end
+
+    thisEntity:SetContextThink("KoboldThink", KoboldThink, 1)
+end
+
+function KoboldThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME or not thisEntity:IsAlive() then
+        return nil
+    end
+
+    if thisEntity:GetHealth() < thisEntity:GetMaxHealth() * 0.5 then
+        local ability = thisEntity:FindAbilityByName("alchemist_chemical_rage")
+        if ability:IsFullyCastable() then
+            ExecuteOrderFromTable({
+                UnitIndex = thisEntity:entindex(),
+                OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+                AbilityIndex = ability:entindex(),
+            })
+        end
+    end
+
+    print("dsds")
+    return 1
+end
+```
+
+### Описание кода:
+- **Функция `Spawn`:** Инициализирует процесс мышления для сущности, если она существует.
+- **Функция `KoboldThink`:** Проверяет состояние игры и здоровье сущности. Если здоровье меньше 50%, пытается использовать способность `alchemist_chemical_rage`, если она доступна.
+- **Используемые функции и методы:**
+  - `SetContextThink`: Устанавливает функцию, которая будет периодически вызываться.
+  - `GameRules:State_Get`: Получает текущее состояние игры.
+  - `thisEntity:IsAlive`: Проверяет, жива ли сущность.
+  - `FindAbilityByName`: Находит способность по имени.
+  - `IsFullyCastable`: Проверяет, можно ли использовать способность.
+  - `ExecuteOrderFromTable`: Выполняет команду для сущности.
+  - `entindex`: Возвращает индекс сущности или способности.
+
+### Важные детали:
+- **Контекст:** Код предназначен для управления поведением сущности в игре Dota 2.
+- **Файловая структура:** В левой части экрана видна структура папок, где находятся скрипты и другие игровые файлы.
+
+### Связь с аудио:
+- В аудио говорится о проверке способности `isFullCastAbil`, что соответствует проверке `IsFullyCastable` в коде.
+- Фраза "И выполняем наши приколюхи немные" может относиться к использованию способности, если она доступна.
+- "Отлично. Отлично." и "Вроде, это все, что надо." могут означать, что код завершен и работает как задумано.

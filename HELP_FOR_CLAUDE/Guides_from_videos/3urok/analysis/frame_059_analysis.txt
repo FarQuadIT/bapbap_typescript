@@ -1,0 +1,106 @@
+Кадр 59
+Временная метка: 0:14:45
+Номер кадра: 53100
+Скриншот: frame_053100_885.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:33] А вот, что можно сказать, это про аналоги айтемов.
+[0:14:38] На самом деле, здесь так же работают, как с табилками.
+[0:14:40] Копируем просто сам лайт...
+[0:14:41] Lotus Orb.
+[0:14:43] Называем его как-то не item Lotus Orb, а...
+[0:14:45] Motus Orb.
+[0:14:47] И...
+[0:14:49] Копируем название.
+[0:14:51] Вставляем сюда.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_items_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки пользовательских предметов.
+
+### Детали экрана:
+
+1. **Название программы:**
+   - Sublime Text (UNREGISTERED)
+
+2. **Открытые файлы:**
+   - npc_abilities_custom.txt
+   - addon_english.txt
+   - npc_heroes_custom.txt
+   - Новый текстовый документ.txt
+   - update.txt
+   - npc_items_custom.txt (активный)
+   - Items.txt
+
+3. **Структура папок:**
+   - Путь к файлу: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\npc_items_custom.txt`
+   - Видны папки: `maps`, `materials`, `particles`, `resource`, `scripts`, `vscripts`
+
+4. **Код:**
+   - Язык: Конфигурационный файл (формат KeyValue, используемый в Dota 2)
+   - Пример кода:
+     ```plaintext
+     "item_lotus_orb"
+     {
+         // General
+         "ID" "265" // unique ID number for this item. Do not change this once established or it will invalidate collected stats.
+         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+         "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+         "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
+         "AbilityCastRange" "1150"
+         "AbilityCooldown" "15.0"
+         "AbilityManaCost" "75"
+         
+         // Item Info
+         "ItemCost" "3950"
+         "ItemShopTags" "regen_health;regen_mana;str;agi;int;hard_to_tag"
+         "ItemAliases" "Lotus orb"
+         "ItemDeclarations" "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+         "ItemDisassembleRule" "DOTA_ITEM_DISASSEMBLE_ALWAYS"
+         "ItemStockMax" "1"
+         "ItemStockTime" "120"
+         "ItemInitialStockTime" "120"
+         "ItemStockInitial" "1"
+         "ItemStockReplenishTime" "120"
+         
+         // Special
+         "AbilitySpecial"
+         {
+             "01"
+             {
+                 "var_type" "FIELD_INTEGER"
+                 "bonus_armor" "10"
+             }
+             "02"
+             {
+                 "var_type" "FIELD_FLOAT"
+                 "bonus_health_regen" "6.5"
+             }
+             "03"
+             {
+                 "var_type" "FIELD_FLOAT"
+                 "bonus_mana_regen" "4.0"
+             }
+             "04"
+             {
+                 "var_type" "FIELD_INTEGER"
+                 "bonus_mana" "250"
+             }
+             "05"
+             {
+                 "var_type" "FIELD_FLOAT"
+                 "active_duration" "6.0"
+             }
+         }
+     }
+     ```
+
+5. **Связь с аудио:**
+   - В аудио говорится о создании аналога предмета "Lotus Orb", который переименовывается в "Motus Orb". На экране видно, что редактируется конфигурация предмета "item_lotus_orb", что соответствует описанию в аудио.
+
+### Важные детали:
+- Редактируется конфигурация предмета, включая его характеристики, стоимость, поведение и специальные способности.
+- Аудио объясняет процесс копирования и изменения конфигурации предмета, что соответствует действиям на экране.

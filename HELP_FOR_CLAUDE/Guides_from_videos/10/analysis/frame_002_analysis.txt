@@ -1,0 +1,68 @@
+Кадр 2
+Временная метка: 0:00:30
+Номер кадра: 1800
+Скриншот: frame_001800_30.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:00:30] Я уже написал обилку, то есть Ability.lua.baseclass, скрипт файл указал, Ability.behaviour.passive у нас просто и в Ability.values пока у нас ничего нету.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки способностей персонажей.
+
+### Детали экрана:
+
+1. **Программа:**
+   - Sublime Text (UNREGISTERED).
+
+2. **Открытые файлы:**
+   - `npc_abilities_custom.txt`
+   - `slark_essence_shift.lua`
+   - `npc_heroes_custom.txt`
+
+3. **Структура папок:**
+   - Путь: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc`
+   - Папки: `abilities`, `heroes`, `items`, `units`, `utils`
+   - Файлы: `npc_heroes_custom.txt`, `npc_items_custom.txt`, `npc_units_custom.txt`, `addon_game_mode.lua`, `chupakabra_mode.lua`, `addoninfo.txt`, `tools_asset_info.bin`, `tools_thumbnail_cache.bin`
+
+4. **Код:**
+   ```plaintext
+   "ecchens_armor"
+   {
+       // Base attributes
+       "BaseClass"             "ability_lua"
+       "ScriptFile"            "abilities/ecchens_armor"
+       "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+       "AbilityValues"
+       {
+           "bonus_armor"       "5 10 15 20"
+       }
+   }
+
+   "ursa_copy"
+   {
+       "BaseClass"             "ability_lua"
+       "ScriptFile"            "abilities/ursa_copy"
+       "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+       "AbilityValues"
+       {
+       }
+   }
+   ```
+
+5. **Описание кода:**
+   - **Язык:** Конфигурационный файл в формате KeyValue, используемый в Dota 2.
+   - **Назначение:** Определяет параметры для способностей персонажей.
+   - **Способности:**
+     - `ecchens_armor`: Пассивная способность, добавляющая бонус к броне на уровнях 5, 10, 15 и 20.
+     - `ursa_copy`: Пассивная способность, пока без дополнительных параметров.
+
+6. **Связь с аудио:**
+   - В аудио упоминается создание способности с использованием `Ability.lua.baseclass` и `Ability.behaviour.passive`, что соответствует коду на экране, где указаны `BaseClass` и `AbilityBehavior`.
+   - Также упоминается, что в `Ability.values` пока ничего нет, что соответствует пустому блоку `AbilityValues` для `ursa_copy`.
+
+### Заключение:
+Экран демонстрирует процесс настройки способностей в Dota 2 через редактирование конфигурационного файла. Аудио поясняет, как создаются и настраиваются способности, что соответствует видимому коду.

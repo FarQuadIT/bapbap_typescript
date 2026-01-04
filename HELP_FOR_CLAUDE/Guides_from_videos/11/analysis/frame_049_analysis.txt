@@ -1,0 +1,73 @@
+Кадр 49
+Временная метка: 0:12:15
+Номер кадра: 44100
+Скриншот: frame_044100_735.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:05] И используем тут.
+[0:12:08] И так слишком длинное получится.
+[0:12:11] Поэтому давайте вынесу сюда.
+[0:12:13] И вставлю сюда.
+[0:12:19] Radius.
+[0:12:20] Дальше.
+[0:12:21] Team filter.
+[0:12:22] Давайте посмотрим что мы должны сюда вернуть.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл находится по пути: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities\healing_spell.lua`.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    local heal = self:GetSpecialValueFor("heal")
+
+    caster:Heal(heal, self)
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, caster, heal, nil)
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:GetEffectName()
+    return "particles/econ/items/juggernaut/jugg_badekeeper_healing_ward/juggernaut_healing_ward_dc.vpcf"
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+
+1. **Импорт модификатора**: `LinkLuaModifier` связывает модификатор `modifier_healing_spell` с файлом `abilities/healing_spell`.
+
+2. **Класс `healing_spell`**:
+   - **Функция `OnSpellStart`**: 
+     - Получает кастера (`caster`) и значение лечения (`heal`).
+     - Применяет лечение к кастеру и отображает визуальный эффект.
+     - Добавляет модификатор `modifier_healing_spell` к кастеру на определённую длительность.
+
+3. **Класс `modifier_healing_spell`**:
+   - **Функция `GetEffectName`**: Возвращает путь к визуальному эффекту.
+   - **Функция `DeclareFunctions`**: Объявляет функции модификатора, в данном случае постоянное восстановление здоровья.
+   - **Функция `GetModifierConstantHealthRegen`**: Возвращает значение постоянного восстановления здоровья.
+
+### Связь с аудио:
+
+- В аудио говорится о перемещении и вставке кода, что может относиться к реорганизации функций или переменных в коде.
+- Упоминание `Radius` и `Team filter` в аудио не отражено в видимом коде, возможно, это часть другого фрагмента кода или контекста, который не показан на экране.
+- Фраза "давайте посмотрим что мы должны сюда вернуть" может относиться к проверке возвращаемых значений функций, таких как `GetSpecialValueFor` или `GetModifierConstantHealthRegen`.

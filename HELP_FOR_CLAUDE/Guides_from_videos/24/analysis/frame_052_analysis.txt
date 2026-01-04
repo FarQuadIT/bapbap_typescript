@@ -1,0 +1,81 @@
+Кадр 52
+Временная метка: 0:13:00
+Номер кадра: 46800
+Скриншот: frame_046800_780.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:52] Мы можем взять custom-nettables.
+[0:12:56] И написать subscribe-nettable-listener.
+[0:12:59] Указать наш босс-килл.
+[0:13:03] И через запятую указать функцию, которая будет выполняться при обновлении босс-килла.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан код в редакторе Visual Studio Code. Вот подробное описание:
+
+### 1. Код:
+- **Язык программирования**: JavaScript
+- **Видимый код**:
+  ```javascript
+  $.GetContextPanel().SetDialogVariable("counter", CustomNetTables.GetTableValue("boss_kill", `${Players.GetLocalPlayer()}`).boss_killed);
+  $.Msg(CustomNetTables.GetTableValue("boss_kill", `${Players.GetLocalPlayer()}`).boss_killed);
+
+  function CreateAbilityPanel() {
+      const arrayAbilities = Object.values(elements);
+      const rootPanel = $.CreatePanel("Panel", $.GetContextPanel(), "black-cube");
+      rootPanel.BLoadLayoutSnippet("AbilityPanel");
+      const panelBody = rootPanel.FindChildTraverse("black-cube_body");
+      arrayAbilities.map((element) => {
+          const ability = $.CreatePanel("DOTAAbilityImage", panelBody, "", {
+              class: "black-cube_ability",
+              abilityname: element,
+              showtooltip: "true",
+          });
+          ability.SetPanelEvent("onactivate", () => {
+              GameEvents.SendCustomGameEventToServer("add_ability", {
+                  player: Players.GetLocalPlayer(),
+                  ability: element,
+              });
+              rootPanel.RemoveClass("IsActive");
+              rootPanel.DeleteAsync(0.4);
+          });
+      });
+  }
+
+  CustomNetTables.SubscribeNetTableListener("boss_kill", CreateAbilityPanel);
+  GameEvents.Subscribe("show_ability_panel", CreateAbilityPanel);
+
+  const dotaHud = (() => {
+      let panel = $.GetContextPanel();
+      while (panel) {
+          if (panel.id === "DotaHud") return panel;
+          panel = panel.GetParent();
+      }
+      return panel;
+  })();
+
+  const talent = dotaHud.FindChildTraverse("StatBranch");
+  const levels = dotaHud.FindChildTraverse("level_stats_frame");
+  talent.style.opacity = "0";
+  talent.enabled = false;
+  levels.style.opacity = "0";
+  ```
+
+### 2. Описание кода:
+- **Функция `CreateAbilityPanel`**: Создает панель с изображениями способностей. При активации способности отправляется событие на сервер, и панель удаляется.
+- **Подписка на обновления**: Используется `CustomNetTables.SubscribeNetTableListener` для подписки на изменения в таблице `boss_kill`, что соответствует аудио, где упоминается `subscribe-nettable-listener`.
+- **События**: Подписка на событие `show_ability_panel`, которое вызывает `CreateAbilityPanel`.
+- **Поиск панели DotaHud**: Используется для изменения видимости и доступности элементов интерфейса, таких как `StatBranch` и `level_stats_frame`.
+
+### 3. Связь с аудио:
+- В аудио говорится о подписке на изменения в таблице `boss_kill` и выполнении функции при обновлении. Это соответствует строке `CustomNetTables.SubscribeNetTableListener("boss_kill", CreateAbilityPanel);` в коде.
+- Упоминается использование `subscribe-nettable-listener`, что также отражено в коде.
+
+### 4. Важные детали:
+- **Импорты и зависимости**: Используются объекты и функции, специфичные для среды разработки игр (например, `GameEvents`, `CustomNetTables`).
+- **Переменные и функции**: `CreateAbilityPanel`, `dotaHud`, `talent`, `levels`.
+
+Это описание охватывает все ключевые аспекты видимого кода и его связь с аудио.

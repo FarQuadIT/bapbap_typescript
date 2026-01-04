@@ -1,0 +1,73 @@
+Кадр 37
+Временная метка: 0:09:15
+Номер кадра: 33300
+Скриншот: frame_033300_555.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:06] И мы просто берем наш CullMotiveProbability
+[0:09:08] И прибавляем к нему
+[0:09:10] Chance
+[0:09:12] От нашего предмета
+[0:09:14] И если RandomNumber будет меньше
+[0:09:16] Чем CullMotiveProbability
+[0:09:18] В данном случае
+[0:09:20] То тогда нам этот предмет и выпадет
+[0:09:22] Давайте вынесем его в отдельную строчку
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+1. **КОД:**
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     require("chupakabra/item_drop")
+
+     if ItemDropManager == nil then
+         ItemDropManager = class({})
+     end
+
+     function ItemDropManager:Init()
+         ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'EntityKilled'), self)
+     end
+
+     function ItemDropManager:EntityKilled(event)
+         local killedUnit = EntIndexToHScript(event.entindex_killed)
+
+         local items = ITEM_DROP[killedUnit:GetUnitName()]
+
+         if not items then return end
+
+         local randomNumber = RandomFloat(0, 0.99)
+         local cumulativeProbability = 0
+
+         for _, item in ipairs(items) do
+             cumulativeProbability = cumulativeProbability + item.chance
+
+             if randomNumber < cumulativeProbability then
+                 -- код для выпадения предмета
+             end
+         end
+     end
+     ```
+   - **Описание кода:**
+     - Код реализует систему выпадения предметов при убийстве сущностей в игре.
+     - Используется класс `ItemDropManager` для управления выпадением предметов.
+     - Функция `Init` подписывается на событие `entity_killed`.
+     - Функция `EntityKilled` обрабатывает событие убийства, определяя, какие предметы могут выпасть.
+     - Используется случайное число `randomNumber` для определения, выпадет ли предмет, сравнивая его с накопленной вероятностью `cumulativeProbability`.
+
+   - **Важные детали:**
+     - Импортируется модуль `chupakabra/item_drop`.
+     - Используются функции `ListenToGameEvent`, `Dynamic_Wrap`, `EntIndexToHScript`.
+     - Переменные: `killedUnit`, `items`, `randomNumber`, `cumulativeProbability`.
+
+2. **СВЯЗЬ С АУДИО:**
+   - В аудио объясняется логика, связанная с переменными `CullMotiveProbability` и `Chance`, которые в коде представлены как `cumulativeProbability` и `item.chance`.
+   - Описывается процесс, как случайное число (`randomNumber`) используется для определения выпадения предмета, что соответствует коду внутри цикла `for`.
+
+Этот кадр демонстрирует реализацию системы выпадения предметов в игровом движке, используя язык Lua.

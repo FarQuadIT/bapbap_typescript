@@ -1,0 +1,87 @@
+Кадр 71
+Временная метка: 0:17:45
+Номер кадра: 63900
+Скриншот: frame_063900_1065.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:36] Лучше использовать и так, потому что тогда вы чуть меньше нагружаете вашу кастомку
+[0:17:42] и компьютер ваших кастомщиков, пользователей.
+[0:17:46] Короче, ну это cringe использовать.
+[0:17:48] Кстати, я обещал с вами разобрать эту функцию.
+[0:17:51] На самом деле, ну, по ней можно понять onSync.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     ia2_expTable = {}
+     HeroXPTable[1] = HeroXPTable[-1] = expTable[-1]
+
+     function ChupakabraMode:InitGameMode()
+         GameRules:SetHeroRespawnEnabled(true)
+         GameRules:SetUseUniversalShopMode(true)
+         GameRules:SetSameHeroSelectionEnabled(true)
+         GameRules:SetHeroSelectionTime(30.0)
+         GameRules:SetPreGameTime(10.0)
+         GameRules:SetPostGameTime(60.0)
+         GameRules:SetTreeRegrowTime(60.0)
+         GameRules:SetUseCustomHeroXPValues(true) -- установка кастомной системы уровней
+         GameRules:SetCustomGameEndDelay(0)
+         GameRules:SetCustomVictoryMessageDuration(0)
+         GameRules:SetStartingGold(500)
+         GameRules:SetGoldTickTime(0.0)
+         GameRules:SetGoldPerTick(0)
+         GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+         GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+         GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 0)
+         GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 0)
+         GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 0)
+         GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 0)
+         GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+         GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+         ListenToGameEvent('entity_killed', Dynamic_Wrap(self, 'Chupakabrakilled'), self)
+         ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(self, 'ChupakabrastateChange'), self)
+         GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+     end
+
+     -- Evaluate the state of the game
+     function ChupakabraMode:ChupakabrastateChange(data)
+         local newState = GameRules:State_Get()
+         if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+             Timers:CreateTimer(30, function()
+                 GameRules:State_Change() == DOTA_GAMERULES_STATE_POST_GAME then
+                 return
+             end)
+         end
+     end
+
+     function ChupakabraMode:Chupakabrakilled(data)
+         local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+         if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+             kobold_count = kobold_count + 1
+             CreateDrop("test_lots_drop", killed_unit:GetAbsOrigin())
+         end
+
+         killed_unit:SetTeamNumber(DOTA_TEAM_GOODGUYS)
+         GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+     end
+     ```
+   - **Описание кода:**
+     Код на Lua для настройки пользовательского игрового режима в Dota 2. Он включает функции для инициализации режима игры, обработки событий изменения состояния игры и убийства сущностей. Настройки включают параметры возрождения героев, времени выбора героев, начального золота и другие.
+
+   - **Важные детали:**
+     - **Функции:** `InitGameMode`, `ChupakabrastateChange`, `Chupakabrakilled`
+     - **Переменные:** `ia2_expTable`, `HeroXPTable`, `kobold_count`
+     - **События:** `entity_killed`, `game_rules_state_change`
+     - **Настройки игры:** Включение кастомных значений опыта, времени выбора героев, начального золота и т.д.
+
+2. **СВЯЗЬ С АУДИО:**
+   - В аудио говорится о том, как лучше использовать определенные функции, чтобы снизить нагрузку на пользователей. Видимый код показывает настройку пользовательского режима игры, что может быть связано с обсуждением оптимизации и использования кастомных функций.

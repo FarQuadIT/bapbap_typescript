@@ -1,0 +1,87 @@
+Кадр 55
+Временная метка: 0:13:45
+Номер кадра: 49500
+Скриншот: frame_049500_825.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:36] Пишем здесь Apply Damage.
+[0:13:38] После всего это всех пересваиваний стаков.
+[0:13:43] Вызываем это и что нам туда нужно передать?
+[0:13:47] Мы видим, что у нас просит только один аргумент.
+[0:13:49] И аргумент это является таблица.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier( "modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if props.attacker == self:GetParent() then
+        local modifier = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+        modifier:IncrementStackCount()
+        ApplyDamage({
+            victim = props.target,
+            attacker = self:GetParent(),
+            damage = self:GetAbility():GetSpecialValueFor("damage"),
+            damage_type = DAMAGE_TYPE_MAGICAL,
+            ability = self:GetAbility()
+        })
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+- **Импорты и модификаторы**: Используются функции `LinkLuaModifier` для связывания модификаторов с их файлами.
+- **Класс `ursa_copy`**: Определяет способность и возвращает имя модификатора.
+- **Модификатор `modifier_ursa_copy`**: 
+  - Скрыт от игрока (`IsHidden` возвращает `true`).
+  - Реагирует на событие `ON_ATTACK_LANDED`.
+  - При атаке добавляет новый модификатор цели и увеличивает его стеки.
+  - Применяет магический урон цели.
+- **Модификатор `modifier_ursa_copy_debuff`**:
+  - Не скрыт и является дебаффом.
+
+### Связь с аудио:
+- В аудио говорится о вызове функции `ApplyDamage`, что соответствует коду, где эта функция используется для нанесения урона цели.
+- Упоминается передача таблицы в качестве аргумента, что также видно в коде при вызове `ApplyDamage`.
+
+### Важные детали:
+- **Функции и классы**: Определены классы для способности и модификаторов, а также функции для обработки событий и применения эффектов.
+- **Переменные**: Используются для передачи параметров в функции, таких как `victim`, `attacker`, `damage`, и `damage_type`.
+
+Этот код является частью скрипта для игровой способности, которая добавляет дебафф и наносит урон при атаке.

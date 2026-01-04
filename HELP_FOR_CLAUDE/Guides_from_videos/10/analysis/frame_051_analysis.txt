@@ -1,0 +1,82 @@
+Кадр 51
+Временная метка: 0:12:45
+Номер кадра: 45900
+Скриншот: frame_045900_765.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:36] наложили на врага и просто делаем increment stack count просто так нагло и безобразно и
+[0:12:44] Давайте смотреть, что из этого произошло.
+[0:12:47] Итак, смотрим.
+[0:12:48] Ноль стаков.
+[0:12:49] Начинаем атаковать.
+[0:12:50] Хоп, один стак.
+[0:12:51] Хоп, два.
+[0:12:52] Хоп, три.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это скрипт на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier( "modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+        local modif = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+        modif:IncrementStackCount()
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+- **Импорт модификаторов**: `LinkLuaModifier` связывает Lua-модификаторы с их именами.
+- **Класс `ursa_copy`**: Определяет способность, которая возвращает имя модификатора `modifier_ursa_copy`.
+- **Модификатор `modifier_ursa_copy`**:
+  - **Скрытый**: Не отображается на интерфейсе.
+  - **Функции**: Реагирует на событие `ON_ATTACK_LANDED`.
+  - **Логика**: При успешной атаке добавляет дебафф `modifier_ursa_copy_debuff` на цель и увеличивает счетчик стаков.
+- **Модификатор `modifier_ursa_copy_debuff`**:
+  - **Не скрытый**: Отображается на интерфейсе.
+  - **Дебафф**: Негативный эффект для цели.
+
+### Связь с аудио:
+- В аудио говорится о наложении стаков на врага и увеличении их количества. Код на экране реализует эту логику через функцию `OnAttackLanded`, которая добавляет дебафф и увеличивает счетчик стаков при каждой атаке.
+
+### Важные детали:
+- **Файловая структура**: В левой панели видна структура папок и файлов, относящихся к модификациям Dota 2.
+- **Путь к файлу**: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities\ursa_copy.lua`.
+
+Этот код и его описание соответствуют обсуждаемой в аудио логике увеличения стаков при атаках.

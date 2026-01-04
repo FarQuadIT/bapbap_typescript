@@ -1,0 +1,59 @@
+Кадр 37
+Временная метка: 0:09:15
+Номер кадра: 33300
+Скриншот: frame_033300_555.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:06] Учтите это
+[0:09:08] Окей мы вроде что то допоняли
+[0:09:10] Но остался последний нюанс
+[0:09:12] Что же такое у нас
+[0:09:14] Self
+[0:09:16] Self на самом деле появляется у нас
+[0:09:18] Только тогда когда мы пишем
+[0:09:20] Функцию
+[0:09:22] Так вот через двоеточие
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `cechens_armor.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+cechens_armor = class({})
+
+function cechens_armor:GetIntrinsicModifierName()
+    return "modifier_cechens_armor"
+end
+
+modifier_cechens_armor = class({})
+
+function modifier_cechens_armor:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
+    }
+end
+
+function modifier_cechens_armor:GetModifierPhysicalArmorBonus()
+    return self:GetParent():GetStrength()
+end
+```
+
+### Описание кода:
+1. **LinkLuaModifier**: Связывает модификатор `modifier_cechens_armor` с файлом `abilities/cechens_armor`.
+2. **cechens_armor**: Класс, который возвращает имя модификатора `modifier_cechens_armor`.
+3. **modifier_cechens_armor**: Класс, определяющий функции модификатора.
+   - **DeclareFunctions**: Возвращает список функций, которые модификатор будет использовать. В данном случае это `MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS`.
+   - **GetModifierPhysicalArmorBonus**: Возвращает бонус к физической броне, который равен силе родительского объекта.
+
+### Важные детали:
+- **Импорты и классы**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции**: Основные функции включают `GetIntrinsicModifierName`, `DeclareFunctions`, и `GetModifierPhysicalArmorBonus`.
+
+### Связь с аудио:
+Аудио объясняет концепцию `self`, которая используется в методе `GetModifierPhysicalArmorBonus`. `self` ссылается на текущий экземпляр класса `modifier_cechens_armor`, что позволяет получить родительский объект и его силу для расчета бонуса к броне.

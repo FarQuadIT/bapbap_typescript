@@ -1,0 +1,83 @@
+Кадр 36
+Временная метка: 0:09:00
+Номер кадра: 32400
+Скриншот: frame_032400_540.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:52] То есть даже если у вас будет тут бонус.
+[0:08:54] Дурейшн условно.
+[0:08:55] То мы должны написать бонус.
+[0:08:57] Нижний слэш.
+[0:08:58] Бонус дурейшн.
+[0:08:59] Обязательно.
+[0:09:00] Но в данном случае у нас было просто дурейшн.
+[0:09:02] Поэтому берем.
+[0:09:03] Бонус.
+[0:09:04] Нижнее подчеркивание.
+[0:09:05] Дурейшн.
+[0:09:06] Все.
+[0:09:07] У нас будет показываться плюс 100.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `addon_english.txt`. Это файл конфигурации для игры Dota 2, содержащий текстовые строки для локализации.
+
+### Детали экрана:
+
+1. **Программа**: Sublime Text (UNREGISTERED).
+2. **Открытые файлы**:
+   - `addon_english.txt`
+   - `ursa_copy.lua`
+   - `addon_russian.txt`
+   - `npc_heroes_custom.txt`
+   - `npc_abilities.txt`
+   - `npc_dota_hero_batrider.txt`
+
+3. **Структура папок**:
+   - `maps`
+   - `materials`
+   - `particles`
+   - `resource`
+   - `scripts`
+     - `vscripts`
+       - `abilities`
+       - `utils`
+   - `soundevents`
+   - `sounds`
+
+4. **Содержимое файла `addon_english.txt`**:
+   ```plaintext
+   "lang"
+   {
+       "Language"        "English"
+       "Tokens"
+       {
+           "addon_game_name"        "ЧУПАКАБРА"
+           "DOTA_GoodGuys"        "г"
+           "DOTA_BadGuys"        "еи"
+           "DOTA_Custom1"        "Собак"
+           "DOTA_Custom2"        "каждый"
+           "DOTA_Custom3"        "бочки"
+           "DOTA_Custom4"        "день"
+           "DOTA_Custom5"        "спасите меня"
+           "DOTA_Tooltip_ability_cockx_counter_helix"        "Cockx helix"
+           "DOTA_Tooltip_ability_cockx_counter_helix_Description"        "Я круче <font color=\"#ffffff\"> как джагернаут </font>"
+           "DOTA_Tooltip_ability_cockx_counter_helix_damage"        "УРОН:"
+           "DOTA_Tooltip_ability_cockx_counter_helix_radius"        "РАДИУС:"
+           "DOTA_Tooltip_ability_cockx_counter_helix_lore"        "асдасдасдасд"
+           "DOTA_Tooltip_ability_item_motus_orb"        "Motus bobus dsads"
+           "DOTA_Tooltip_ability_item_motus_orb_Description"        "<h1>Мечтания: Пощук</h1> фывафывафывафыва \n\n<h1>DAFFDSA: фываф</h1> фывафыва"
+           "DOTA_Tooltip_ability_item_motus_orb_lore"        "асдасдасдасд"
+           "DOTA_Tooltip_ability_special_bonus_unique_ursa_duration"        "+{s:bonus_bonus_duration}"
+       }
+   }
+   ```
+
+5. **Связь с аудио**:
+   - В аудио говорится о необходимости правильно указывать бонусы в формате `bonus_длительность`. На экране видно, что в строке `"DOTA_Tooltip_ability_special_bonus_unique_ursa_duration"` используется переменная `{s:bonus_bonus_duration}`, что соответствует обсуждаемой теме.
+
+### Заключение:
+На экране показан процесс редактирования файла локализации для Dota 2, где объясняется, как правильно задавать бонусы в текстовых строках.

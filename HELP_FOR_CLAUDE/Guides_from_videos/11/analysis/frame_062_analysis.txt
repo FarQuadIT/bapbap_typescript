@@ -1,0 +1,71 @@
+Кадр 62
+Временная метка: 0:15:30
+Номер кадра: 55800
+Скриншот: frame_055800_930.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:15] выходит если мы подойдем поближе то накинется бомба пушка ракета питада и на
+[0:15:22] этом урок пожалуй закончим следующий урок будет про таргетные скиллы тоже расскажу вам что-то
+[0:15:27] из мира а пешки dota и просто расскажу как делать аргенте скилл спойлер
+[0:15:33] примерно так же как этот ну а с вами был кустарь и бог всем пока
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `healing_spell.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local heal = self:GetSpecialValueFor("heal")
+    local radius = self:GetSpecialValueFor("radius")
+    local allies = FindUnitsInRadius(self:GetCaster():GetTeamNumber(), self:GetCaster():GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS, FIND_ANY_ORDER, false)
+
+    for _, ally in pairs(allies) do
+        ally:Heal(heal, self)
+        SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, ally, heal, nil)
+        ally:AddNewModifier(self:GetCaster(), self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+    end
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:IsHidden()
+    return false
+end
+
+function modifier_healing_spell:GetEffectName()
+    return "particles/econ/items/juggernaut/jugg_arcana/juggernaut_healing_ward_arc.vpcf"
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает модификатор `modifier_healing_spell` с файлом `abilities/healing_spell`.
+- **healing_spell**: Класс, представляющий заклинание исцеления.
+  - **OnSpellStart**: Функция, вызываемая при активации заклинания. Она исцеляет союзников в радиусе и добавляет им модификатор.
+- **modifier_healing_spell**: Класс модификатора, который применяется к союзникам.
+  - **IsHidden**: Возвращает `false`, модификатор видим.
+  - **GetEffectName**: Возвращает путь к визуальному эффекту.
+  - **DeclareFunctions**: Объявляет функции, которые модификатор будет использовать.
+  - **GetModifierConstantHealthRegen**: Возвращает значение регенерации здоровья.
+
+### Важные детали:
+- **Импорты и функции**: Используются стандартные функции Dota 2 API для поиска юнитов и применения эффектов.
+- **Переменные**: `heal`, `radius`, `allies` — ключевые переменные для работы заклинания.
+
+### Связь с аудио:
+- В аудио говорится о завершении урока и упоминается, что следующий урок будет о таргетных скиллах. На экране показан код, который, вероятно, был частью текущего урока, связанного с созданием заклинания исцеления в Dota 2.

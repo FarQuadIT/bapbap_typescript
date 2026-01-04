@@ -1,0 +1,80 @@
+Кадр 7
+Временная метка: 0:01:45
+Номер кадра: 6300
+Скриншот: frame_006300_105.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:37] Хочешь делать
+[0:01:38] Каст, ну как там
+[0:01:40] Game Rules, Set Game Winner
+[0:01:43] И там выигрывает команда сил света
+[0:01:45] Вот реально
+[0:01:46] Можно даже сделать такую штуку
+[0:01:48] Вообще спокойно
+[0:01:49] Здесь лишь позволяет разгуляться ваша фантазия
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text с открытым файлом `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+modifier_gold_hole_thinker = class({})
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+
+    self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+    ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self.effect_cast, 1, Vector(radius, 0, 0))
+
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local parent = self:GetParent()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    if caster:HasScepter() then
+        gold_per_unit = 1000
+    end
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
+    local gold = gold_per_unit * #enemies
+
+    caster:ModifyGold(gold, true, 13)
+    EmitSoundOnClient("General.Coins", caster)
+    SendOverheadEventMessage(caster:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, caster, gold, caster)
+end
+```
+
+### Описание кода:
+
+- **Класс `modifier_gold_hole_thinker`:** Определяет модификатор, который управляет эффектом "золотой дыры".
+- **Функция `IsHidden`:** Возвращает `true`, скрывая модификатор от интерфейса.
+- **Функция `OnCreated`:** Создает визуальный эффект с радиусом, заданным в способности.
+- **Функция `OnDestroy`:** Уничтожает созданный эффект.
+- **Функция `OnIntervalThink`:** Каждую секунду проверяет наличие врагов в радиусе и начисляет золото владельцу способности. Если у кастера есть Scepter, количество золота увеличивается.
+
+### Важные детали:
+
+- **Импорты и классы:** Используются классы и функции из API Dota 2, такие как `ParticleManager`, `FindUnitsInRadius`, `ModifyGold`.
+- **Переменные:** `radius`, `gold_per_unit`, `enemies`, `gold`.
+
+### Связь с аудио:
+
+В аудио говорится о настройке правил игры и победе команды. Видимый код может быть частью механики, которая влияет на игровой процесс, например, начисление золота, что может быть связано с победой команды.

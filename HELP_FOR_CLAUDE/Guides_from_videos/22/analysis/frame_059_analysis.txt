@@ -1,0 +1,85 @@
+Кадр 59
+Временная метка: 0:14:45
+Номер кадра: 53100
+Скриншот: frame_053100_885.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:36] Они застанились и хоп, мне хило
+[0:14:38] пришел именно в конце, когда
+[0:14:40] projectile дошел.
+[0:14:42] То есть этим самым, когда наш projectile
+[0:14:44] доходит до конца, он выполняет
+[0:14:46] функцию projectile hit и в таргет
+[0:14:48] он ничего не выливает.
+[0:14:50] Ну, не дает. То есть таргет равно
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local derction = point - casterPoint
+    local speed = 600
+    derction = derction:Normalized()
+
+    ProjectileManager:CreateLinearProjectile({
+        Ability = self,
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        vVelocity = derction * speed,
+        fDistance = 1200,
+        Source = caster,
+        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+        iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+        iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
+        bProvidesVision = true,
+        iVisionTeamNumber = caster:GetTeamNumber(),
+        iVisionRadius = 500
+    })
+end
+
+function wave_terorist:OnProjectileHit(target)
+    local caster = self:GetCaster()
+
+    if not target then
+        caster:Heal(9999, self)
+        return
+    end
+
+    ApplyDamage({
+        victim = target,
+        attacker = caster,
+        ability = self,
+        damage = 100,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+    })
+
+    target:AddNewModifier(caster, self, "modifier_stunned", {duration = 1})
+end
+```
+
+### Описание кода:
+- **Класс `wave_terorist`:** Определяет способности героя.
+- **Функция `OnSpellStart`:** Запускается при активации способности. Создает линейный снаряд, который движется в направлении цели.
+- **Функция `OnProjectileHit`:** Выполняется при попадании снаряда. Если цель не найдена, исцеляет кастера на 9999 единиц. Если цель есть, наносит ей магический урон и оглушает на 1 секунду.
+
+### Важные детали:
+- **Переменные:** `caster`, `point`, `casterPoint`, `derction`, `speed`.
+- **Функции:** `CreateLinearProjectile`, `ApplyDamage`, `AddNewModifier`.
+- **Константы:** `DOTA_UNIT_TARGET_TEAM_ENEMY`, `DOTA_UNIT_TARGET_FLAG_NONE`, `DOTA_UNIT_TARGET_HERO`, `DOTA_UNIT_TARGET_CREEP`, `DAMAGE_TYPE_MAGICAL`.
+
+### Связь с аудио:
+- В аудио говорится о том, что снаряд достигает конца и выполняет функцию `projectile hit`, которая не воздействует на цель, если она отсутствует. Это соответствует коду, где при отсутствии цели кастер исцеляется.

@@ -1,0 +1,74 @@
+Кадр 36
+Временная метка: 0:09:00
+Номер кадра: 32400
+Скриншот: frame_032400_540.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:52] Появление босса теперь.
+[0:08:54] Нам нужно сделать так, чтобы этот кобальт босс появлялся после убийства.
+[0:08:59] Кобальт босс. Ну, появлялся следующий босс после убийства кобальт босса.
+[0:09:04] Мы уже разбирали на прошлом уроке listening game слушателей.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+end
+
+function ChupakabraMode:ChupakabraAbstractChange(data)
+    local nState = GameRules:State_Get()
+    if nState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        self:End()
+    end
+end
+
+function GiveGoldPlayers(gold)
+    for index=0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = PlayerResource:GetSelectedHeroEntity(index)
+            hero:ModifyGold(gold, true, DOTA_ModifyGold_Unspecified)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDropItem(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLootInitialHeight(false, 0, 150, 0.5, pos + RandomVector(dropRadius))
+end
+
+function ChupakabraMode:CreateCobaltBoss()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_cobalt_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+end
+```
+
+### Описание кода:
+
+- **Функция `ChupakabraKilled`**: Обрабатывает событие убийства юнита, получая объект убитого юнита.
+- **Функция `ChupakabraAbstractChange`**: Проверяет состояние игры и завершает её, если она в процессе.
+- **Функция `GiveGoldPlayers`**: Раздаёт золото всем игрокам, проверяя их валидность и добавляя золото к их героям.
+- **Функция `CreateDropItem`**: Создаёт предмет на указанной позиции и запускает его с начальной высоты.
+- **Функция `CreateCobaltBoss`**: Создаёт юнита "cobalt boss" на позиции, определённой точкой "bosses_point".
+
+### Важные детали:
+
+- Используются функции для взаимодействия с игровыми объектами и ресурсами, такие как `EntIndexToHScript`, `PlayerResource`, `CreateItem`, `CreateUnitByName`.
+- Код связан с игровыми событиями и управлением игровыми объектами, такими как боссы и предметы.
+
+### Связь с аудио:
+
+- В аудио говорится о появлении "кобальт босса" после убийства, что соответствует функции `CreateCobaltBoss`, создающей этого босса.
+- Упоминается необходимость появления следующего босса после убийства "кобальт босса", что может быть частью логики, реализованной в других частях кода.
+
+Этот код и его описание помогают понять, как управляется появление боссов и раздача ресурсов в игре, что соответствует обсуждаемым в аудио аспектам.

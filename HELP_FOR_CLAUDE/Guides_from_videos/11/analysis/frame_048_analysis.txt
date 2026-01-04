@@ -1,0 +1,75 @@
+Кадр 48
+Временная метка: 0:12:00
+Номер кадра: 43200
+Скриншот: frame_043200_720.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:52] Radius.
+[0:11:54] Radius мы не написали.
+[0:11:57] Давайте его напишем тут.
+[0:11:59] Давайте будем искать в радиусе 300.
+[0:12:03] 350 даже.
+[0:12:05] И используем тут.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки способностей персонажей.
+
+### 1. Код:
+- **Язык программирования:** Формат конфигурации (похож на JSON, но не является им).
+- **Видимый код:**
+
+```plaintext
+"cechens_armor"
+{
+    "BaseClass" "ability_lua"
+    "ScriptFile" "abilities/cechens_armor"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityValues"
+    {
+        "bonus_armor" "5 10 15 20"
+    }
+}
+
+"ursa_copy"
+{
+    "BaseClass" "ability_lua"
+    "ScriptFile" "abilities/ursa_copy"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityValues"
+    {
+        "duration" "5 12 20"
+        "damage_per_stack" "2"
+    }
+}
+
+"healing_spell"
+{
+    "BaseClass" "ability_lua"
+    "ScriptFile" "abilities/healing_spell"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityCastPoint" "0.4"
+    "AbilityManaCost" "75 60 65 90"
+    "AbilityValues"
+    {
+        "heal" "150 300 450 600"
+        "duration" "3 5 6 7"
+    }
+}
+```
+
+- **Описание кода:**
+  - Код описывает три способности: `cechens_armor`, `ursa_copy`, и `healing_spell`.
+  - Каждая способность имеет базовый класс `ability_lua` и указывает путь к скрипту, который реализует логику способности.
+  - Указаны различные параметры, такие как `AbilityBehavior`, `AbilityValues`, `AbilityCastPoint`, и `AbilityManaCost`.
+
+- **Важные детали:**
+  - **Импорты:** Не применимо, так как это конфигурационный файл.
+  - **Функции/Классы:** Используются ключи для определения классов и поведения способностей.
+  - **Переменные:** `bonus_armor`, `duration`, `damage_per_stack`, `heal`.
+
+### 2. Связь с аудио:
+- В аудио говорится о радиусе, но в видимом коде нет упоминания радиуса. Возможно, это обсуждение связано с изменениями, которые планируется внести в код, но они еще не добавлены в текущий момент.

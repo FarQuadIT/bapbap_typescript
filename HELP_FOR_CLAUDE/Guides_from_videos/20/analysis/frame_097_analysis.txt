@@ -1,0 +1,84 @@
+Кадр 97
+Временная метка: 0:08:05
+Номер кадра: 29100
+Скриншот: frame_029100_485.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:01] И нам нужно, ну, нам не обязательно прямо вот сейчас надо удалить быстрей.
+[0:08:05] Нам желательно с какой-то анимашкой, поэтому ставим false.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+function gold_hole:GetAOERadius()
+    return self:GetSpecialValueFor("radius")
+end
+
+function gold_hole:OnSpellStart()
+    local trigger = Entities:FindByName(nil, "teleport")
+    if trigger:IsTouching(self:GetCaster()) then
+        local point = self:GetCursorPosition()
+        local duration = self:GetSpecialValueFor("duration")
+        CreateModifierThinker(caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false)
+    end
+end
+
+modifier_gold_hole_thinker = class({})
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    if not IsServer() then return end
+
+    self._effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+    ParticleManager:SetParticleControl(self._effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self._effect_cast, 1, Vector( radius, radius, radius ))
+
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self._effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local parent = self:GetParent()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+
+    caster:ModifyGold(gold, true, 13)
+    EmitSoundOnClient("General.Coins", caster)
+end
+```
+
+### Описание кода:
+
+- **Функция `gold_hole:GetAOERadius()`**: Возвращает радиус действия способности.
+- **Функция `gold_hole:OnSpellStart()`**: Проверяет, находится ли кастер в зоне триггера "teleport". Если да, создаёт модификатор `modifier_gold_hole_thinker` в указанной точке.
+- **Класс `modifier_gold_hole_thinker`**: 
+  - **Метод `IsHidden()`**: Возвращает `true`, скрывая модификатор.
+  - **Метод `OnCreated()`**: Создаёт визуальный эффект и запускает интервал для периодического выполнения.
+  - **Метод `OnDestroy()`**: Удаляет визуальный эффект.
+  - **Метод `OnIntervalThink()`**: Находит врагов в радиусе и добавляет золото кастеру.
+
+### Важные детали:
+
+- Используются функции для работы с частицами и звуками.
+- Присутствует работа с радиусом и золотом, что связано с механикой игры.
+
+### Связь с аудио:
+
+В аудио говорится о необходимости удаления с анимацией, что соответствует вызову `ParticleManager:DestroyParticle(self._effect_cast, false)` в методе `OnDestroy()`, где `false` указывает на отсутствие анимации при удалении.

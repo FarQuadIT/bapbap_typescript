@@ -1,0 +1,68 @@
+Кадр 4
+Временная метка: 0:01:00
+Номер кадра: 3600
+Скриншот: frame_003600_60.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:00:49] Наш кастер
+[0:00:53] Has Skeptor
+[0:00:55] То тогда
+[0:00:59] Мы перезначаем голд при юнит на условно 1000 голды за юнита
+[0:01:03] Все
+[0:01:04] Это реально все
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+local duration = self:GetSpecialValueFor("duration")
+CreateModifierThinker(caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false)
+
+modifier_gold_hole_thinker = {}
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+    ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self.effect_cast, 1, Vector(radius, 0, 0))
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local parent = self:GetParent()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    if caster:HasScepter() then
+        gold_per_unit = 1000
+    end
+end
+```
+
+### Описание кода:
+- **Импорты и функции:** Код определяет модификатор `modifier_gold_hole_thinker`, который управляет созданием и уничтожением частицы, а также выполняет периодические действия.
+- **Переменные:** Используются переменные `duration`, `radius`, и `gold_per_unit`, которые получают значения из специальных параметров способности.
+- **Логика:** Если у кастера есть скипетр (`HasScepter`), то значение `gold_per_unit` устанавливается в 1000.
+
+### Связь с аудио:
+- В аудио говорится о том, что если у кастера есть скипетр, то "мы перезначаем голд при юнит на условно 1000 голды за юнита". Это соответствует условию в коде, где `gold_per_unit` устанавливается в 1000, если `caster:HasScepter()` возвращает `true`.
+
+### Важные детали:
+- **Функции:** `OnCreated`, `OnDestroy`, `OnIntervalThink` — управляют жизненным циклом модификатора.
+- **Панели:** Слева видна структура папок проекта, что указывает на организацию файлов в моде Dota 2.
+
+Это описание поможет в создании документации, связанной с данным скриптом и его функциональностью в игре.

@@ -1,0 +1,102 @@
+Кадр 35
+Временная метка: 0:08:45
+Номер кадра: 31500
+Скриншот: frame_031500_525.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:37] Переводим в строку.
+[0:08:38] Полученный от него.
+[0:08:39] GetPlayerId.
+[0:08:40] GetPlayerOwnerId.
+[0:08:41] И.
+[0:08:42] И.
+[0:08:43] И.
+[0:08:44] И.
+[0:08:45] И.
+[0:08:46] И.
+[0:08:47] И.
+[0:08:48] И.
+[0:08:49] И.
+[0:08:50] И.
+[0:08:51] И.
+[0:08:52] И.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        self:ChupakabraStart()
+    elseif newState == DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
+        CustomNetTables:SetTableValue("boss_kill", "stringKeyName", 0)
+    end
+    return true
+end
+
+function ChupakabraMode:DamageFilter(data)
+    return true
+end
+
+function ChupakabraMode:OrderFilter(data)
+    local type = data.order_type
+    local playerId = data.issuer_player_id_const
+    if type == DOTA_UNIT_ORDER_PICKUP_ITEM then
+        local target = EntIndexToHScript(data.entindex_target)
+        if target:GetContainedItem():GetCost() > 500 then
+            CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "ShowError", {message = "Не трогай, а то сожрет"})
+            return false
+        end
+    end
+    return true
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+    local attacker = EntIndexToHScript(data.entindex_attacker)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        local bossKill = CustomNetTables:GetTableValue("boss_kill", stringKeyName)
+        CustomNetTables:SetTableValue("boss_kill", tostring(0), {boss_killed = 0})
+        EmitSoundOn("Hero_Abaddon.AphoticShield.Cast", killed_unit)
+        AddRandomAbilityFromPanel()
+    end
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_centaur_outrunner_boss" then
+        CreateUnitByName("npc_dota_neutral_fel_beast_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+        AddRandomAbilityFromPanel()
+    end
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+end
+
+function ChupakabraMode:ChupakabraStart()
+    local playerId = PlayerResource:GetPlayer(0):GetAbsOrigin()
+    local point = Entities:FindByName(nil, "boss_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+end
+```
+
+### Описание кода:
+- **Функции**:
+  - `ChupakabraStateChange`: Изменяет состояние игры и запускает `ChupakabraStart` при начале игры.
+  - `DamageFilter`: Возвращает `true`, возможно, для фильтрации урона.
+  - `OrderFilter`: Проверяет заказы игроков, запрещая подбирать предметы дороже 500.
+  - `ChupakabraKilled`: Обрабатывает события убийства определённых юнитов, создаёт новых юнитов и определяет победителя.
+  - `ChupakabraStart`: Создаёт юнита "kobold boss" в определённой точке.
+
+- **Детали**:
+  - Используются функции для работы с игровыми объектами и событиями.
+  - Присутствуют вызовы `CustomNetTables` для работы с таблицами данных.
+  - Используются звуковые эффекты и создание юнитов.
+
+### Связь с аудио:
+Аудио контекст говорит о переводе в строку и упоминает `GetPlayerId`, что может быть связано с использованием `PlayerResource:GetPlayer` в коде. Однако, конкретные упоминания `GetPlayerId` и `GetPlayerOwnerId` в коде не видны. Возможно, это часть более широкого объяснения работы с игроками в игре.

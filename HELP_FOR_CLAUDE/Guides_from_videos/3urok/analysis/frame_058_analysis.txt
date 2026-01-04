@@ -1,0 +1,120 @@
+Кадр 58
+Временная метка: 0:14:30
+Номер кадра: 52200
+Скриншот: frame_052200_870.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:18] Макс левел, обилити битвенной брейд, потому что это просто предмет, который покупается.
+[0:14:24] Логично.
+[0:14:25] И мы хотим, допустим, изменить ему рецепт.
+[0:14:27] Хотя, на самом деле, для чего это я рассказываю, все по факту...
+[0:14:30] В этом, окей, можно потыкаться, не буду вам рассказывать.
+[0:14:33] А вот, что можно сказать, это про аналоги айтемов.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `items.txt`. Этот файл, вероятно, относится к настройкам или конфигурации для игры, возможно, Dota 2, судя по контексту и структуре файла.
+
+### 1. Код:
+- **Язык программирования:** Это не код на языке программирования, а конфигурационный файл в формате, похожем на JSON или Key-Value пары.
+- **Видимый код:**
+  ```plaintext
+  "AbilityValues"
+  {
+      "bonus_all_stats"        "6"
+      "bonus_health_regen"     "4.5"
+      "bonus_mana_regen"       "2.25"
+      "bonus_cooldown"         "14.0"
+      "bonus_damage"           "10"
+  }
+  //=================================================================================================================
+  "item_lotus_orb"
+  {
+      // General
+      "ID"                    "221"                            // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+      "Model"                 "models/props_gameplay/recipe.vmdl"
+      // Item Info
+      "ItemCost"              "250"
+      "ItemShopTags"          "str"
+      // Recipe
+      "ItemRecipe"            "1"
+      "ItemResult"            "item_lotus_orb"
+      "ItemRequirements"
+      {
+          "01"                "item_pers;item_platemail;item_energy_booster"
+      }
+  }
+  //=================================================================================================================
+  "item_lotus_orb"
+  {
+      // General
+      "ID"                    "221"                            // unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+      "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+      "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+      "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
+      "SpellImmunityType"     "SPELL_IMMUNITY_ENEMIES_YES"
+      "AbilityCooldown"       "15"
+      "AbilityCastRange"      "900"
+      "AbilityManaCost"       "175"
+      // Item Info
+      "ItemCost"              "3950"
+      "ItemShopTags"          "regen;health_regen;mana;str;agi;int;hard_to_tag"
+      "ItemAliases"           "lotus orb"
+      "ItemDeclarations"      "DECLARE_PURCHASES_TO_TEAMMATES;DECLARE_PURCHASES_IN_SPEECH;DECLARE_PURCHASES_TO_SPECTATORS"
+      "ItemDisassembleRule"   "DOTA_ITEM_DISASSEMBLE_ALWAYS"
+      "MaxUpgradeLevel"       "0"
+      "SideShop"              "1"
+      "SecretShop"            "1"
+      "GlobalShop"            "1"
+      "Recipe"                "1"
+      "ItemResult"            "item_lotus_orb"
+      "ItemRequirements"
+      {
+          "01"                "item_pers;item_platemail;item_energy_booster"
+      }
+      "ItemSpecial"
+      {
+          "01"
+          {
+              "var_type"      "FIELD_INTEGER"
+              "bonus_all_stats" "6"
+          }
+          "02"
+          {
+              "var_type"      "FIELD_FLOAT"
+              "bonus_health_regen" "4.5"
+          }
+          "03"
+          {
+              "var_type"      "FIELD_FLOAT"
+              "bonus_mana_regen" "2.25"
+          }
+          "04"
+          {
+              "var_type"      "FIELD_FLOAT"
+              "bonus_cooldown" "14.0"
+          }
+          "05"
+          {
+              "var_type"      "FIELD_INTEGER"
+              "bonus_damage" "10"
+          }
+      }
+  }
+  ```
+
+- **Описание:**
+  - Конфигурация предмета "Lotus Orb" для игры.
+  - Указаны параметры предмета, такие как стоимость, модель, теги магазина, требования для создания, способности и их параметры.
+
+- **Важные детали:**
+  - Уникальный ID предмета.
+  - Параметры способности: поведение, команды, типы целей.
+  - Стоимость и теги для магазина.
+  - Правила разборки и доступность в различных магазинах.
+
+### 2. Связь с аудио:
+- В аудио говорится о максимальном уровне и изменении рецепта предмета. На экране как раз показаны детали рецепта и параметры предмета "Lotus Orb", что соответствует обсуждаемой теме в аудио.

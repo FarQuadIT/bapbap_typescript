@@ -1,0 +1,101 @@
+Кадр 24
+Временная метка: 0:06:00
+Номер кадра: 21600
+Скриншот: frame_021600_360.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:51] И если мы вызовем ее индикатором.
+[0:05:53] И если мы вызовем ее в ней.
+[0:05:54] То у нас ничего не получится.
+[0:05:55] Потому что.
+[0:05:57] Плеер.
+[0:05:58] Получить количество игроков можно уже только после того, как они все загрузятся.
+[0:06:04] Поэтому давайте просто в Chupacabra StateChange.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:DamageFilter(data)
+    return true
+end
+
+function ChupakabraMode:OrderFilter(data)
+    local type = data.order_type
+    local playerId = data.issuer_player_id_const
+
+    if type == DOTA_UNIT_ORDER_PICKUP_ITEM then
+        local entIndex = data.entindex_target
+        if GetContainedItem(entIndex):GetCost() > 500 then
+            GameRules:SendCustomMessageToPlayer(PlayerResource:GetPlayer(playerId), "Не трогай, а то сожрет")
+            return false
+        end
+    end
+
+    return true
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        killed_unit:RemoveAbility("modifier_kobold_boss")
+        AddRandomAbilityFromName(16)
+    end
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_centaur_outrunner_boss" then
+        local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_fel_beast_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+        AddRandomAbilityFromName(16)
+    end
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+end
+
+function ChupakabraMode:ChupakabraModeStart()
+    local player = PlayerResource:GetPlayer(0)
+    local hero = player:GetAssignedHero()
+    hero:DestroyAllItems()
+    hero:SetAbilityPoints(0)
+    AddRandomAbilityFromName(6)
+
+    local teamates = Entities:FindAllByName("teamates")
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+
+    for i=1, #teamates do
+        local teamate = teamates[i]
+        teamate:ForceKill(true)
+        CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", teamate_point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+    end
+end
+```
+
+### Описание кода:
+
+- **Функции**:
+  - `DamageFilter`: Возвращает `true`, что означает, что все повреждения разрешены.
+  - `OrderFilter`: Проверяет тип заказа. Если это заказ на поднятие предмета, и стоимость предмета больше 500, отправляет сообщение игроку и отменяет действие.
+  - `ChupakabraKilled`: Обрабатывает события убийства определенных юнитов и выполняет действия в зависимости от имени убитого юнита.
+  - `ChupakabraModeStart`: Инициализирует режим, удаляя все предметы у героя и добавляя случайные способности.
+
+- **Переменные и объекты**:
+  - `data`: Используется для передачи информации о событиях.
+  - `playerId`, `entIndex`, `killed_unit`: Локальные переменные для хранения данных о игроках и юнитах.
+
+### Связь с аудио:
+
+Аудио объясняет, что вызов определенных функций или действий может не сработать, если они выполняются до загрузки всех игроков. Это связано с тем, что в коде используются функции, которые требуют полной загрузки игроков, например, `PlayerResource:GetPlayer`.
+
+### Важные детали:
+
+- **Импорты**: Не видны, но предполагается, что используются стандартные библиотеки Dota 2.
+- **Классы и функции**: Основной класс `ChupakabraMode` с несколькими методами для управления игровыми событиями.
+- **Сообщения игрокам**: Используется функция `GameRules:SendCustomMessageToPlayer` для отправки сообщений.

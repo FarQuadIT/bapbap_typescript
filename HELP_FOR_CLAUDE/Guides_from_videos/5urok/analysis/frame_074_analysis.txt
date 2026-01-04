@@ -1,0 +1,65 @@
+Кадр 74
+Временная метка: 0:18:30
+Номер кадра: 66600
+Скриншот: frame_066600_1110.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:18:21] Ща будет 10 лет искать. Окей.
+[0:18:26] Можете еще посмотреть кучу там всяких разных крутых настроек, на самом деле.
+[0:18:29] Можно, допустим, за...
+[0:18:31] Ну, типа, мы видим...
+[0:18:33] С самого начала мы видим всю карту.
+[0:18:35] И...
+[0:18:36] Если покопаться там в этих настройках, типа...
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для настройки игрового режима в Dota 2.
+
+### Видимый код:
+
+```lua
+ChupakabraMode = class({})
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(10.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 5 )
+
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR,0.050)
+
+    GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+end
+
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`**: Создается класс для настройки игрового режима.
+- **Функция `InitGameMode`**: Инициализирует параметры игры, такие как начальное золото, время выбора героя, предыгровое время и другие настройки.
+- **Функция `OnThink`**: Проверяет состояние игры и выводит сообщение в консоль, если игра в процессе. Возвращает `nil`, если игра завершена.
+
+### Важные детали:
+
+- **Настройки игры**: Устанавливаются параметры, такие как количество игроков в командах и атрибуты героев.
+- **Функция `SetThink`**: Используется для периодического выполнения функции `OnThink`.
+
+### Связь с аудио:
+
+В аудио говорится о настройках и возможности их изменения. Видимый код как раз демонстрирует, как можно изменять различные параметры игрового режима, что соответствует обсуждаемой теме в аудио.

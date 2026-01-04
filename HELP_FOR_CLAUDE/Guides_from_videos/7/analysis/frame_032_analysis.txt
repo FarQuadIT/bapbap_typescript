@@ -1,0 +1,104 @@
+Кадр 32
+Временная метка: 0:08:00
+Номер кадра: 28800
+Скриншот: frame_028800_480.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:51] nil
+[0:07:54] И что там еще?
+[0:07:55] NPC-Owner нет.
+[0:07:56] NPC-Owner, entity-Owner.
+[0:07:58] Так я вот тут случайно по институту не заметил.
+[0:08:03] nil-nil. Получается мы это уже написали.
+[0:08:06] Окей. Передали имя, передали точку.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:OnHeroKilled(data)
+    GameRules:GetGameModeEntity():SetCustomGameForceHero("npc_dota_hero_phantom_lancer")
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 1)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 1)
+    GameRules:SetHeroRespawnEnabled(false)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetPreGameTime(10)
+    GameRules:SetPostGameTime(60)
+    GameRules:SetTreeRegrowTime(60)
+    GameRules:SetHeroSelectionTime(0)
+    GameRules:SetStrategyTime(0)
+    GameRules:SetShowcaseTime(0)
+    GameRules:SetCustomGameEndDelay(0)
+    GameRules:SetStartingGold(0)
+    GameRules:SetGoldTickTime(0)
+    GameRules:SetGoldPerTick(0)
+    GameRules:SetRuneSpawnTime(0)
+    GameRules:SetUseBaseGoldBountyOnHeroes(false)
+    GameRules:SetHeroMinimapIconScale(1)
+    GameRules:SetCreepMinimapIconScale(1)
+    GameRules:SetRuneMinimapIconScale(1)
+    GameRules:SetCustomGameAllowHeroPickMusic(false)
+    GameRules:SetCustomGameAllowBattleMusic(false)
+    GameRules:SetCustomGameAllowMusicAtGameStart(false)
+end
+
+function ChupakabraMode:OnNPCSpawned(data)
+    local npc = EntIndexToHScript(data.entindex)
+    if npc:IsRealHero() then
+        npc:AddNewModifier(npc, nil, "modifier_phantom_lancer_juxtapose", {})
+    end
+end
+
+function GiveGoldToPlayers(gold)
+    for index = 0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = player:GetAssignedHero()
+            hero:ModifyGold(gold, true, DOTA_ModifyGold_Unspecified)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDrop(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    local drop = CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLoot(false, 150, 0.5, pos + RandomVector(RandomFloat(50, 100)))
+end
+
+function ChupakabraMode:ChupakabraModeStart()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_NEUTRALS)
+end
+```
+
+### Описание кода:
+
+- **Функция `OnHeroKilled`**: Настраивает параметры игры, такие как выбор героя, количество игроков в командах, время до начала игры и другие игровые настройки.
+  
+- **Функция `OnNPCSpawned`**: Добавляет модификатор к героям, когда они появляются в игре.
+
+- **Функция `GiveGoldToPlayers`**: Раздает золото всем игрокам в игре.
+
+- **Функция `CreateDrop`**: Создает предмет на карте в указанной позиции.
+
+- **Функция `ChupakabraModeStart`**: Создает нейтрального босса в определенной точке на карте.
+
+### Важные детали:
+
+- Используются функции для управления игровыми правилами и создания игровых объектов.
+- Присутствуют вызовы функций для работы с игроками и NPC.
+- Код ориентирован на модификацию игрового процесса в Dota 2.
+
+### Связь с аудио:
+
+- В аудио упоминаются элементы, такие как `NPC-Owner` и `entity-Owner`, которые могут быть связаны с функциями, работающими с NPC.
+- Упоминание о передаче имени и точки может относиться к функциям `CreateDrop` или `ChupakabraModeStart`, где используются параметры `itemname` и `pos`.
+
+Этот анализ поможет в создании документации для скриптового мода в Dota 2.

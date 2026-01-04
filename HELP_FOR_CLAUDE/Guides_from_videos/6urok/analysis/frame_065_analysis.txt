@@ -1,0 +1,90 @@
+Кадр 65
+Временная метка: 0:16:15
+Номер кадра: 58500
+Скриншот: frame_058500_975.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:06] которые дропают какие-то предметы,
+[0:16:08] то это становится просто очень неудобно, нагроможденно.
+[0:16:11] Там вообще какая-то ересь становится.
+[0:16:13] Но это мы можем уже разобрать в будущих уроках,
+[0:16:15] как это все более оптимизировать, лучше оптимизировать.
+[0:16:19] Есть специальные библиотеки или там мои готовые решения.
+[0:16:22] Допустим, у меня вот гигл флеерс.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+
+GameRules:SetHeroRespawnEnabled(true) -- установка частотности уровня
+GameRules:SetUseUniversalShopMode(true)
+GameRules:SetSameHeroSelectionEnabled(true)
+GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 1.0)
+GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+GameRules:SendCustomMessage("#GlobalThink", 2, 0)
+
+-- Evaluate the state of the game
+if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+    print("Game is running.")
+elseif GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME then
+    print("Game is over.")
+end
+
+local kobold_count = 0
+function Chupakabra:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        CreateDrop("item_bag_of_gold", killed_unit:GetAbsOrigin() + RandomVector(RandomFloat(50, 200)))
+    end
+    if kobold_count >= 10 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+    if killed_unit:IsRealHero() then
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+
+function GiveGoldPlayers(gold)
+    for index = 0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = player:GetAssignedHero()
+            hero:ModifyGold(gold, false, 0)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDrop(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    local drop = CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLoot(false, 300, 0.75, pos + RandomVector(RandomFloat(50, 350)))
+end
+```
+
+### Описание кода:
+
+1. **Настройка команд и игроков**: Устанавливается максимальное количество игроков для каждой команды.
+2. **Настройки игры**: Включается возрождение героев, универсальный магазин и возможность выбора одинаковых героев.
+3. **События и функции**:
+   - `ChupakabraKilled`: Обрабатывает событие убийства сущности. Если убит "kobold", увеличивается счетчик и создается "мешок золота". Если счетчик достигает 10, команда "GOODGUYS" выигрывает. Если убит реальный герой, выигрывает команда "BADGUYS".
+   - `GiveGoldPlayers`: Раздает золото всем игрокам.
+   - `CreateDrop`: Создает предмет на позиции.
+
+### Связь с аудио:
+
+В аудио говорится о сложностях и оптимизации кода, который дропает предметы. Видимый код как раз содержит функции, связанные с дропом предметов и обработкой событий убийства, что соответствует обсуждаемой теме в аудио.

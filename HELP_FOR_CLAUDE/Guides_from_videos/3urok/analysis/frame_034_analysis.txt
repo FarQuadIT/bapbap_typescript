@@ -1,0 +1,89 @@
+Кадр 34
+Временная метка: 0:08:30
+Номер кадра: 30600
+Скриншот: frame_030600_510.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:21] Но если мы дадим Cox Helix.
+[0:08:23] Какому-нибудь другому герою.
+[0:08:25] И... Ну, короче, он будет работать, да.
+[0:08:27] И мы можем поменять ему значение.
+[0:08:29] Допустим, мы можем убрать ему Max Level 7.
+[0:08:31] Оставить ему Max Level 1.
+[0:08:33] Это тоже убрать.
+[0:08:35] И, допустим, урон 50 оставить.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Это файл конфигурации для игры Dota 2, содержащий настройки способностей персонажей.
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+2. **Открытые файлы**:
+   - `npc_abilities_custom.txt`
+   - `npc_heroes_custom.txt`
+   - Несколько других вкладок, включая "Новый текстовый документ.txt" и "update.txt".
+
+3. **Структура папок**:
+   - Путь к файлу: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\npc_abilities_custom.txt`.
+   - Видны папки: `chupakabra`, `maps`, `materials`, `particles`, `resource`, `scripts`, `npc`.
+
+4. **Код**:
+   - Язык: Конфигурационный файл (формат, похожий на JSON, но без строгого синтаксиса).
+   - Пример кода:
+     ```plaintext
+     "Cox Helix"
+     {
+         // General
+         "BaseClass" "ability_lua"
+         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         "AbilityUnitDamageType" "DAMAGE_TYPE_PURE"
+         "SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
+         "AbilityTextureName" "axe_counter_helix"
+         "MaxLevel" "7"
+         "RequiredLevel" "1"
+         "LevelsBetweenUpgrades" "10"
+         "HasShardUpgrade" "1"
+         // Special
+         "AbilityValues"
+         {
+             "damage"
+             {
+                 "value" "100 200 300 400 500 600 700"
+             }
+             "radius" "380"
+             "trigger_attacks" "0"
+             "AbilityCooldown" "0.8"
+             "shard_bonus"
+             {
+                 "value" "special_bonus_unique_axe"
+             }
+             "shard_debuff_duration"
+             {
+                 "value" "special_bonus_shard"
+             }
+             "shard_damage_reduction"
+             {
+                 "value" "special_bonus_shard"
+             }
+             "shard_max_stacks"
+             {
+                 "value" "special_bonus_shard"
+             }
+         }
+         "AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_3"
+     }
+     ```
+
+5. **Связь с аудио**:
+   - В аудио говорится о возможности изменения параметров способности, таких как `Max Level` и `урон`.
+   - На экране видно, что `MaxLevel` установлен на "7", что соответствует обсуждаемому в аудио.
+   - Также упоминается изменение урона, который в коде представлен как `"damage"` с различными значениями для каждого уровня.
+
+### Заключение:
+
+На экране показан процесс редактирования конфигурационного файла для настройки способностей персонажа в игре Dota 2. Аудио объясняет, как можно изменить параметры, такие как максимальный уровень и урон, что соответствует видимым изменениям в коде.

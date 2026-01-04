@@ -1,0 +1,89 @@
+Кадр 78
+Временная метка: 0:19:30
+Номер кадра: 70200
+Скриншот: frame_070200_1170.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:19:21] а лоа.
+[0:19:22] То, что self.
+[0:19:23] Это обращение вот к этой текстуре.
+[0:19:24] Вот.
+[0:19:25] И мы можем написать надписи классу.
+[0:19:26] Поэтому, ну, у этого класса же есть такая функция, мы
+[0:19:32] ее тут объявили.
+[0:19:33] Поэтому мы можем написать self, то есть это будет равнозначно
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Анализ кадра из видео-туториала
+
+#### 1. КОД:
+- **Язык программирования:** Lua
+- **Видимый код:**
+  ```lua
+  function GiveGoldToPlayers(gold)
+      for index = 0, DOTA_MAX_TEAM_PLAYERS - 1 do
+          if PlayerResource:IsValidPlayer(index) then
+              local hero = PlayerResource:GetSelectedHeroEntity(index)
+              SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+          end
+      end
+  end
+
+  function CreateDropItem(itemname, pos)
+      local newItem = CreateItem(itemname, nil, nil)
+      local drop = CreateItemOnPositionSync(pos, newItem)
+      newItem:LaunchLootInitialHeight(false, 0, 150, 0.5, pos + RandomVector(dropRadius))
+  end
+
+  function ChupakabraMode:StartBosses()
+      local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+      CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+
+      local temates = Entities:FindAllByName("temates")
+      for i=1, #temates do
+          local temate = temates[i]
+          local temate_point = temate:GetAbsOrigin()
+          CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", temate_point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+      end
+      self:WaveMobs()
+  end
+
+  function ChupakabraMode:WaveMobs()
+      local point = Entities:FindByName(nil, "enemy_path1")
+      if id > 0 then
+          local unit = CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+          unit:SetInitialGoalEntity(point)
+      end
+
+      Timers:CreateTimer(0, function()
+          if id > 0 then
+              local unit = CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+              unit:SetInitialGoalEntity(point)
+          end
+          return 10
+      end)
+  end
+  ```
+- **Описание кода:**
+  - **Функция `GiveGoldToPlayers`:** Раздаёт золото всем игрокам в команде, отображая сообщение о получении золота.
+  - **Функция `CreateDropItem`:** Создаёт предмет и размещает его на карте с начальной высотой.
+  - **Функция `ChupakabraMode:StartBosses`:** Создаёт босса и союзников на определённых точках карты.
+  - **Функция `ChupakabraMode:WaveMobs`:** Создаёт волну мобов, которые следуют по заданному пути.
+- **Важные детали:**
+  - Используются функции для создания юнитов и предметов.
+  - Применяются методы для получения координат объектов на карте.
+  - Используется таймер для периодического создания мобов.
+
+#### 2. РЕДАКТОР:
+- **Название программы:** Sublime Text
+- **Что открыто в редакторе:** Файл `chupakabra_mode.lua` из папки `scripts/vscripts`.
+- **Активные инструменты:** Подсветка синтаксиса для Lua.
+- **Панели/вкладки:** Открыты несколько файлов, включая `cechens_armor.lua`, `npc_heroes_custom.txt`, и другие.
+
+#### 5. СВЯЗЬ С АУДИО:
+- **Соотношение с аудио:** В аудио объясняется использование `self` для обращения к методам класса, что соответствует использованию `self` в методах `ChupakabraMode:StartBosses` и `ChupakabraMode:WaveMobs`.
+- **Объяснение:** Аудио помогает понять, как методы класса взаимодействуют с объектами и переменными внутри класса.

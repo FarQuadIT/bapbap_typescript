@@ -1,0 +1,77 @@
+Кадр 57
+Временная метка: 0:14:15
+Номер кадра: 51300
+Скриншот: frame_051300_855.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:06] Берите себе на заметку.
+[0:14:08] И так реально можно придумать дроп-айтемов.
+[0:14:11] Вот у меня как раз эта функция тоже,
+[0:14:13] я из кастомки ее взял.
+[0:14:15] На самом деле, вот то, что я сейчас пишу,
+[0:14:17] типа, give gold players,
+[0:14:19] все это можно намного сильно упростить,
+[0:14:21] но, окей, вы, типа, начинающий,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+1. **КОД:**
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     local kobold1_count = 0
+
+     function ChupakabraMode:ChupakabraKilled(data)
+         local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+         if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+             kobold1_count = kobold1_count + 1
+             CreateDrop("item_treasure_chest", killedUnit:GetAbsOrigin() + RandomVector(RandomFloat(50, 200)))
+         end
+
+         if kobold1_count >= 10 then
+             GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+         end
+
+         if killed_unit:IsRealHero() then
+             GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+         end
+     end
+
+     function GiveGoldToPlayers(gold)
+         for index=0, DOTA_MAX_TEAM_PLAYERS-1 do
+             if PlayerResource:IsValidPlayer(index) then
+                 local player = PlayerResource:GetPlayer(index)
+                 local hero = PlayerResource:GetSelectedHeroEntity(index)
+                 hero:ModifyGold(gold, true, DOTA_ModifyGold_Unspecified)
+                 SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+             end
+         end
+     end
+
+     function Invasion:CreateDrop(itemName, pos)
+         local newItem = CreateItem(itemName, nil, nil)
+         CreateItemOnPositionSync(pos, newItem)
+         newItem:LaunchLoot(false, 300, 0.75, pos + RandomVector(RandomFloat(50, 350)))
+     end
+     ```
+   - **Описание кода:**
+     - **Функция `ChupakabraKilled`:** Увеличивает счетчик убитых "kobold" и создает дроп на месте смерти. Если убито 10 "kobold", команда "GOODGUYS" побеждает. Если убит герой, побеждает команда "BADGUYS".
+     - **Функция `GiveGoldToPlayers`:** Раздает золото всем игрокам.
+     - **Функция `CreateDrop`:** Создает предмет на указанной позиции и запускает его как лут.
+   - **Важные детали:**
+     - Используются функции `EntIndexToHScript`, `GetUnitName`, `CreateItem`, `CreateItemOnPositionSync`.
+     - Переменная `kobold1_count` отслеживает количество убитых "kobold".
+
+2. **РЕДАКТОР:**
+   - **Название программы:** Sublime Text
+   - **Открытые файлы:** `chupakabra_mode.lua`
+   - **Панели/вкладки:** Видна структура папок проекта, включая `vscripts`, `npc`, `resource`.
+
+3. **СВЯЗЬ С АУДИО:**
+   - В аудио говорится о функции `give gold players`, что соответствует функции `GiveGoldToPlayers` в коде. Упоминается упрощение кода для начинающих, что может относиться к объяснению текущей реализации.

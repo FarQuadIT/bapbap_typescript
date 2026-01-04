@@ -1,0 +1,65 @@
+Кадр 36
+Временная метка: 0:09:00
+Номер кадра: 32400
+Скриншот: frame_032400_540.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:45] мы говорим модификатору, чтобы он эту функцию вызывал каждые 0,5 секунд.
+[0:08:53] То есть у нас эта функция будет вызываться каждые 0,5 секунд, пока у нас здесь вот этот модификатор.
+[0:08:58] Модификатор пропал, и onIntervalSync, естественно, тоже пропал.
+[0:09:02] Думаю, более-менее понятно.
+[0:09:04] Но если вам сейчас не очень понятно, давайте посмотрим на примере.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE)
+
+strong_poison = class({})
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {duration = 8})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:DeclareFunctions()
+    return { MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT }
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+
+function modifier_strong_poison:OnCreated()
+    self:StartIntervalThink(0.5)
+end
+
+function modifier_strong_poison:OnIntervalThink()
+    print("Я работаю")
+end
+```
+
+### Описание кода:
+- **Импорт модификатора**: `LinkLuaModifier` связывает модификатор `modifier_strong_poison` с файлом.
+- **Класс `strong_poison`**: Определяет способность, которая при активации применяет модификатор `modifier_strong_poison` к цели на 8 секунд.
+- **Класс `modifier_strong_poison`**: 
+  - **Функция `DeclareFunctions`**: Указывает, что модификатор изменяет скорость передвижения.
+  - **Функция `GetModifierMoveSpeedBonus_Constant`**: Уменьшает скорость передвижения на 150 единиц.
+  - **Функция `OnCreated`**: Запускает интервал в 0,5 секунд.
+  - **Функция `OnIntervalThink`**: Каждые 0,5 секунд выводит в консоль сообщение "Я работаю".
+
+### Важные детали:
+- **Файловая структура**: В левой части экрана видна структура папок и файлов, относящихся к модификации.
+- **Открытые вкладки**: Несколько вкладок с другими файлами Lua, такими как `modifier_viper_poison_attack.lua`, `healing_spell.lua`, и `axe_cutting_blade_lua.lua`.
+
+### Связь с аудио:
+- В аудио объясняется, как модификатор вызывает функцию каждые 0,5 секунд, что соответствует функции `OnIntervalThink` в коде, где используется `StartIntervalThink(0.5)`.

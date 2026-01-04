@@ -1,0 +1,62 @@
+Кадр 33
+Временная метка: 0:08:15
+Номер кадра: 29700
+Скриншот: frame_029700_495.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:06] Окей. Передали имя, передали точку.
+[0:08:10] Сказали, что искать свободное место не является ничьей собакой, так сказать.
+[0:08:18] И int6 у нас это team.
+[0:08:22] Team. Да, мы указываем team.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+function ChupakabraMode:OnChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+end
+
+function GiveGoldToPlayers(gold)
+    for index = 0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = PlayerResource:GetSelectedHeroEntity(index)
+            hero:ModifyGold(gold, true, 0)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDrop(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    local drop = CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLootInitialHeight(false, 0, 150, 0.5, pos + RandomVector(dropRadius))
+end
+
+function ChupakabraMode:ChupakabraModeStart()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, int_6)
+end
+```
+
+### Описание кода:
+- **Функция `OnChupakabraKilled`**: Обрабатывает событие убийства существа, получая объект убитого юнита.
+- **Функция `GiveGoldToPlayers`**: Раздаёт золото всем игрокам в игре. Проверяет каждого игрока на валидность, получает его героя и добавляет золото.
+- **Функция `CreateDrop`**: Создаёт предмет на указанной позиции и запускает его с начальной высоты.
+- **Функция `ChupakabraModeStart`**: Инициализирует режим, создавая юнита на определённой точке карты.
+
+### Важные детали:
+- **Переменные и функции**: `EntIndexToHScript`, `PlayerResource`, `CreateItem`, `CreateItemOnPositionSync`, `LaunchLootInitialHeight`, `Entities:FindByName`, `CreateUnitByName`.
+- **Использование `int_6`**: В коде упоминается переменная `int_6`, которая, вероятно, связана с командой или другим параметром.
+
+### Связь с аудио:
+- В аудио говорится о передаче имени и точки, что соответствует вызову `CreateUnitByName` с параметрами `point` и `int_6`.
+- Упоминается, что `int6` это `team`, что может быть связано с параметром `int_6` в функции `CreateUnitByName`.
+
+Этот код и аудио связаны с настройкой и управлением игровыми событиями и объектами в Dota 2.

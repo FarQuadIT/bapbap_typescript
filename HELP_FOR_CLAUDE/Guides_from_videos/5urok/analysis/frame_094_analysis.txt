@@ -1,0 +1,67 @@
+Кадр 94
+Временная метка: 0:23:30
+Номер кадра: 84600
+Скриншот: frame_084600_1410.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:23:21] От автора отписка дизлайк.
+[0:23:23] Ну, и следующий урок.
+[0:23:26] Ждите.
+[0:23:27] Ждите.
+[0:23:28] Чем больше лайков, тем быстрее выходит урок.
+[0:23:30] Возможно, если наберется 8 лайков, я просто бросаю все дела, сразу начинаю записывать урок.
+[0:23:37] Поэтому дизадерзайте.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для настройки игрового режима в Dota 2.
+
+### Видимый код:
+
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 0)
+    GameRules:GetGameModeEntity():SetUnseenFogOfWarEnabled(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`:** Проверяется, существует ли класс `ChupakabraMode`. Если нет, он создается.
+- **Функция `InitGameMode`:** Настраивает параметры игры, такие как начальное золото, время выбора героя, предыгровое и постигровое время, максимальное количество игроков в командах и другие параметры.
+- **Функция `OnThink`:** Выполняется периодически. Проверяет состояние игры и выводит сообщение в консоль, если игра в процессе. Если игра завершена, функция возвращает `nil`.
+
+### Важные детали:
+
+- **Импорты и зависимости:** Не указаны, но используются функции из API Dota 2.
+- **Переменные и функции:** `GameRules`, `GameModeEntity`, `SetStartingGold`, `SetHeroSelectionTime`, `SetThink`, и другие.
+
+### Связь с аудио:
+
+Аудио контекст говорит о том, что автор видео ожидает лайков для выпуска следующего урока. Видимый код не имеет прямой связи с аудио, но может быть частью урока по созданию или модификации игрового режима в Dota 2.

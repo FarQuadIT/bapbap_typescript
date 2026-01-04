@@ -1,0 +1,77 @@
+Кадр 65
+Временная метка: 0:16:15
+Номер кадра: 58500
+Скриншот: frame_058500_975.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:08] Просто self.getAbility.
+[0:16:10] Чтобы...
+[0:16:11] При смерти игра...
+[0:16:13] Это...
+[0:16:14] Ну, в данном случае у нас скрипт, вроде бы, без разницы, но...
+[0:16:19] Хотя не без разницы.
+[0:16:20] В журнале боев будет обозначаться, что с помощью этого скилла нанесся урон.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это скрипт на языке программирования Lua, используемый для модификации в игре Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier( "modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if props.target == self:GetParent() then
+        local modifier = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+        ApplyDamage({
+            victim = props.target,
+            attacker = props.attacker,
+            damage = modifier:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+            damage_type = DAMAGE_TYPE_PHYSICAL,
+            ability = self:GetAbility()
+        })
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает Lua-модификаторы с их именами и файлами.
+- **ursa_copy**: Класс способности, который возвращает имя модификатора `modifier_ursa_copy`.
+- **modifier_ursa_copy**: Модификатор, который скрыт и реагирует на событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+- **OnAttackLanded**: Функция, которая добавляет дебафф `modifier_ursa_copy_debuff` к цели и наносит физический урон, основанный на количестве стаков и специальном значении урона.
+- **modifier_ursa_copy_debuff**: Дебафф, который не скрыт и является дебаффом.
+
+### Связь с аудио:
+Аудио объясняет использование `self.getAbility`, что видно в коде, где `self:GetAbility()` используется для получения значений, таких как длительность и урон. Это соответствует обсуждению в аудио о том, как скилл наносит урон и как это отображается в журнале боев.

@@ -1,0 +1,94 @@
+Кадр 61
+Временная метка: 0:15:15
+Номер кадра: 54900
+Скриншот: frame_054900_915.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:06] ну, это еще один параметр, в который
+[0:15:08] мы можем пихать собственные данные. Сколько
+[0:15:10] угодно собственных данных. Однако
+[0:15:12] он может принимать только строку
+[0:15:14] и число.
+[0:15:16] Для чего в теории это может пригодиться?
+[0:15:18] Допустим, мы бы хотели
+[0:15:20] передать счетчик, допустим,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local drection = point - casterPoint
+    local speed = 600
+    drection = drection:Normalized()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        fDistance = 1200,
+        vVelocity = drection * speed,
+        bProvidesVision = true,
+        iVisionTeamNumber = caster:GetTeamNumber(),
+        iVisionRadius = 500,
+        ExtraData = {
+        }
+    })
+end
+
+function wave_terorist:OnProjectileHit(target)
+    local caster = self:GetCaster()
+
+    if not target then
+        caster:Heal(9999, self)
+        return
+    end
+
+    ApplyDamage({
+        victim = target,
+        attacker = caster,
+        ability = self,
+        damage = 100,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+    })
+
+    target:AddNewModifier(caster, self, "modifier_stunned", {duration = 1})
+end
+```
+
+### Описание кода:
+
+1. **Класс `wave_terorist`:** Определяет новый класс способности.
+2. **Функция `OnSpellStart`:** 
+   - Получает объект, который кастует заклинание, и позицию курсора.
+   - Вычисляет направление и скорость снаряда.
+   - Создает линейный снаряд с заданными параметрами (эффект, радиус, дистанция, скорость и т.д.).
+3. **Функция `OnProjectileHit`:**
+   - Проверяет, попал ли снаряд в цель.
+   - Если нет, восстанавливает здоровье кастеру.
+   - Если попал, наносит магический урон цели и оглушает её на 1 секунду.
+
+### Важные детали:
+
+- **Импорты:** Не видны, но используются стандартные функции Dota 2 API.
+- **Переменные:** `caster`, `point`, `casterPoint`, `drection`, `speed`.
+- **Функции:** `CreateLinearProjectile`, `ApplyDamage`, `AddNewModifier`.
+
+### Связь с аудио:
+
+В аудио говорится о параметре, который может принимать строку и число. В коде это может быть связано с `ExtraData`, который передается в `CreateLinearProjectile`, хотя в данном случае он пустой. Это может быть местом, где можно передавать дополнительные данные, как обсуждается в аудио.

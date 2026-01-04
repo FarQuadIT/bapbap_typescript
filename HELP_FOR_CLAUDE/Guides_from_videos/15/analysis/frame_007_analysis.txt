@@ -1,0 +1,87 @@
+Кадр 7
+Временная метка: 0:01:45
+Номер кадра: 6300
+Скриншот: frame_006300_105.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:37] Поэтому подписывайтесь
+[0:01:39] Ну а мы начинаем
+[0:01:41] Итак, у всех была такая тема, что вот вы создали своего юнита
+[0:01:44] Назвали его
+[0:01:46] Ну допустим Пудж Милле
+[0:01:48] И дали ему модельку какого-либо героя
+[0:01:50] Именно героя
+[0:01:52] То есть в данном случае мы дали модельку Пуджа
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_units_custom.txt`. Этот файл относится к модификации для игры Dota 2, судя по пути к файлу: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\zombie_invasion\scripts\npc`.
+
+### Детали экрана:
+
+1. **Редактор:**
+   - **Название:** Sublime Text (UNREGISTERED)
+   - **Открытые файлы:** `npc_units_custom.txt` (вкладка активна)
+
+2. **Содержимое файла:**
+   - **Формат:** Текстовый файл конфигурации
+   - **Язык:** Не программирование, а конфигурационный файл для настройки юнитов в игре Dota 2.
+   - **Код:**
+     ```plaintext
+     // Attack
+     "AttackCapabilities" "DOTA_UNIT_CAP_NO_ATTACK"
+     "AttackDamageType" "DAMAGE_TYPE_ArmorPhysical"
+     "AttackDamageMin" "0"
+     "AttackDamageMax" "0"
+
+     // Bounty
+     "BountyGoldMin" "0"
+     "BountyGoldMax" "0"
+
+     // Bounds
+     "BoundsHullName" "DOTA_HULL_SIZE_HERO"
+     "RingRadius" "70"
+     "CollisionSize" "1"
+
+     // Movement
+     "MovementCapabilities" "DOTA_UNIT_CAP_MOVE_GROUND"
+     "MovementSpeed" "0"
+
+     // Status
+     "StatusHealth" "5000"
+     "StatusHealthRegen" "5"
+     "StatusMana" "500"
+     "StatusManaRegen" "0"
+
+     // Vision
+     "VisionDaytimeRange" "900"
+     "VisionNighttimeRange" "900"
+
+     // Team
+     "TeamName" "DOTA_TEAM_GOODGUYS"
+     "CombatClassAttack" "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
+     "CombatClassDefend" "DOTA_COMBAT_CLASS_DEFEND_BASIC"
+     "UnitRelationshipClass" "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+     // Creature Data
+     "Creature"
+     {
+         "AttachWearables"
+         {
+             "Wearable1" { "ItemDef" "452" }
+             "Wearable2" { "ItemDef" "44" }
+         }
+     }
+     ```
+
+3. **Связь с аудио:**
+   - В аудио говорится о создании юнита и присвоении ему модели героя. На экране видно, как настраиваются параметры юнита, такие как способности атаки, здоровье, скорость передвижения и другие характеристики. Это соответствует обсуждению в аудио о создании и настройке юнита в игре.
+
+4. **Панели и вкладки:**
+   - **Панель слева:** Дерево папок и файлов, относящихся к модификации игры.
+   - **Активные инструменты:** Нет активных инструментов, только текстовый редактор.
+
+Этот кадр демонстрирует процесс настройки юнита в модификации для Dota 2, что соответствует обсуждаемой теме в аудио.

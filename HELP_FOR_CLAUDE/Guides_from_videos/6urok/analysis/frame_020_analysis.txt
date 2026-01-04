@@ -1,0 +1,79 @@
+Кадр 20
+Временная метка: 0:05:00
+Номер кадра: 18000
+Скриншот: frame_018000_300.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:50] у нас пропишется chuvaczidok.
+[0:04:53] Ну и тут еще куча всего.
+[0:04:54] Одновременно пропишется.
+[0:04:55] Ну, да.
+[0:04:56] Все работает.
+[0:04:58] И что мы с этим можем делать?
+[0:05:00] Весь прикол в том, что
+[0:05:02] видите, мы тут
+[0:05:04] опрокидываем нашу функцию,
+[0:05:06] и Valve находит нашу функцию
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Код:
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+expTable = {0, 200, 500, 900, 1400, 2000, 2600, 3200, 4400, 5400, 6000}
+HeroExpTable = {}
+HeroExpTable[0] = expTable[1] - expTable[1]
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(10.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+function ChupakabraMode:ChupakabraKilled()
+    -- Код обработки убийства
+end
+```
+
+### Описание кода:
+- **Класс `ChupakabraMode`**: Создается класс для настройки игрового режима.
+- **Функция `InitGameMode`**: Инициализирует параметры игры, такие как начальное золото, время выбора героя, и другие настройки.
+- **Настройки команд**: Устанавливаются максимальные игроки для каждой команды.
+- **Настройки опыта и атрибутов**: Настраиваются таблицы опыта и атрибуты героев.
+- **События**: Подписка на событие убийства сущности и установка функции `OnThink`.
+
+### Важные детали:
+- **Импорты**: Не указаны, но используются стандартные функции Dota 2 API.
+- **Переменные**: `expTable`, `HeroExpTable`, `ChupakabraMode`.
+
+### Связь с аудио:
+- В аудио говорится о функции, которая "опрокидывается" и "находится Valve". Это может относиться к функции `InitGameMode`, которая инициализирует игровой режим и взаимодействует с API Dota 2.
+- Упоминается, что "все работает", что может означать успешную инициализацию и выполнение кода.
+
+Этот код и его описание соответствуют тому, что говорится в аудио, где обсуждаются функции и их взаимодействие с системой.

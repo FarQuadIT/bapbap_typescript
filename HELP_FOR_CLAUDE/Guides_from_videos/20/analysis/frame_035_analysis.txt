@@ -1,0 +1,62 @@
+Кадр 35
+Временная метка: 0:02:55
+Номер кадра: 10500
+Скриншот: frame_010500_175.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:51] Но мы сосредоточимся чисто на createParticle.
+[0:02:53] И, как мы видим...
+[0:02:54] Первый аргумент у нас это название самого партикла.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+modifier_gold_hole_thinker = {}
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+
+    self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+    ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self.effect_cast, 1, Vector( radius, 0, 0 ) )
+
+    self:StartIntervalThink(0.1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+end
+```
+
+### Описание кода:
+- **Класс `modifier_gold_hole_thinker`**: Определяет поведение модификатора.
+- **Функция `IsHidden`**: Возвращает `true`, скрывая модификатор.
+- **Функция `OnCreated`**: Создает партикл-эффект с использованием `ParticleManager:CreateParticle`. Устанавливает его позицию и радиус.
+- **Функция `OnDestroy`**: Уничтожает партикл-эффект.
+- **Функция `OnIntervalThink`**: Выполняется периодически, ищет вражеские юниты в радиусе и, вероятно, взаимодействует с ними (хотя детали взаимодействия не видны).
+
+### Важные детали:
+- **Импорты и библиотеки**: Не видны, но используются стандартные функции Dota 2 API.
+- **Переменные**: `radius`, `gold_per_unit`, `enemies`.
+- **Функции**: `CreateParticle`, `SetParticleControl`, `DestroyParticle`, `FindUnitsInRadius`.
+
+### Связь с аудио:
+- В аудио говорится о функции `createParticle`, которая используется в коде для создания партикл-эффекта. Это соответствует обсуждаемому в видео моменту, где объясняется первый аргумент функции — название партикла.

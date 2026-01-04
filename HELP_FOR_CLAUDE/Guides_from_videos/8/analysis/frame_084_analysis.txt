@@ -1,0 +1,59 @@
+Кадр 84
+Временная метка: 0:21:00
+Номер кадра: 75600
+Скриншот: frame_075600_1260.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:20:50] Тоже можете полазить всякое разное.
+[0:20:52] А в данном случае нас интересует такая функция как getSpecialValuesFor.
+[0:21:02] И тут мы должны писать название некого значения.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `eechens_armor.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_eechens_armor", "abilities/eechens_armor.lua", LUA_MODIFIER_MOTION_NONE)
+
+modifier_eechens_armor = class({})
+
+function modifier_eechens_armor:GetIntrinsicModifierName()
+    return "modifier_eechens_armor"
+end
+
+function modifier_eechens_armor:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
+    }
+end
+
+function modifier_eechens_armor:GetModifierPhysicalArmorBonus()
+    return self:GetAbility():GetSpecialValueFor
+end
+```
+
+### Описание кода:
+- **Импорт и объявление модификатора**: Используется `LinkLuaModifier` для связывания Lua-модификатора с файлом.
+- **Класс `modifier_eechens_armor`**: Определяет модификатор, который будет применяться к объекту.
+- **Функция `GetIntrinsicModifierName`**: Возвращает имя модификатора.
+- **Функция `DeclareFunctions`**: Определяет, какие функции модификатора будут использоваться, в данном случае это бонус к физической броне.
+- **Функция `GetModifierPhysicalArmorBonus`**: Возвращает специальное значение для бонуса к физической броне, используя метод `GetSpecialValueFor`.
+
+### Важные детали:
+- **Импорт**: `LinkLuaModifier` связывает модификатор с файлом.
+- **Функции**: `GetIntrinsicModifierName`, `DeclareFunctions`, `GetModifierPhysicalArmorBonus`.
+- **Переменные**: `MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS`.
+
+### Связь с аудио:
+- В аудио говорится о функции `GetSpecialValueFor`, которая используется в коде для получения специального значения. Это соответствует строке, где функция `GetModifierPhysicalArmorBonus` возвращает значение через `GetSpecialValueFor`.
+
+### Интерфейс редактора:
+- **Панель слева**: Дерево файлов проекта, где видны различные файлы и папки.
+- **Вкладки**: Открыты несколько файлов, включая `eechens_armor.lua`.
+- **Автодополнение**: Видно, что активировано автодополнение для функции `GetSpecialValueFor`.
+
+Этот кадр демонстрирует процесс написания и редактирования скрипта для модификации игровых механик.

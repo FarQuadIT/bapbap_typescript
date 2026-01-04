@@ -1,0 +1,62 @@
+Кадр 29
+Временная метка: 0:07:15
+Номер кадра: 26100
+Скриншот: frame_026100_435.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:02] Мы создадем еще один модификатор, который назовем UrsaCopyDebuff.
+[0:07:10] Я не помню, Buff с двумя F пишется, неважно.
+[0:07:13] И создаем такой модификатор, который уже делаем видимым.
+[0:07:19] То есть из Hidden ставим на False.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+    end
+end
+```
+
+### Описание кода:
+- **Импорты:** Используются функции `LinkLuaModifier` для подключения модификаторов `modifier_ursa_copy` и `modifier_ursa_copy_debuff`.
+- **Классы и функции:**
+  - `ursa_copy` — класс, который возвращает имя модификатора `modifier_ursa_copy`.
+  - `modifier_ursa_copy` — класс, содержащий функции:
+    - `IsHidden()` — возвращает `true`, делая модификатор скрытым.
+    - `DeclareFunctions()` — объявляет события, на которые модификатор будет реагировать, в данном случае `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+    - `OnAttackLanded(props)` — функция, которая проверяет, является ли атакующий родителем модификатора.
+
+### Связь с аудио:
+- В аудио говорится о создании модификатора `UrsaCopyDebuff`, который должен быть видимым. На экране видно, что модификатор `modifier_ursa_copy` скрыт (`IsHidden()` возвращает `true`), но в коде упоминается `modifier_ursa_copy_debuff`, который, вероятно, будет изменен в дальнейшем, чтобы стать видимым, как упоминается в аудио.
+
+### Важные детали:
+- В коде используется стандартная структура для создания модификаторов в Dota 2.
+- В аудио упоминается возможная ошибка в написании слова "Buff", но в коде это слово не используется, что может указывать на будущие изменения.

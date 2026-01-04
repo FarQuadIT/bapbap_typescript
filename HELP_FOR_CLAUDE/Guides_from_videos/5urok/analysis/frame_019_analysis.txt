@@ -1,0 +1,67 @@
+Кадр 19
+Временная метка: 0:04:45
+Номер кадра: 17100
+Скриншот: frame_017100_285.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:35] И просто вызовем нашу функцию.
+[0:04:38] В прошлых уроках мы вызывали функцию вот так вот просто.
+[0:04:41] Она, по идее, может сработать, но лучше писать, когда у нас функция обозначена вот так вот, лучше писать...
+[0:04:50] ...вместе с ней.
+[0:04:50] То есть, чупакабра-мод, ставим двоеточие и вызываем эту функцию.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text. Видно, что открыт файл `addon_game_mode.lua`, написанный на языке программирования Lua. 
+
+### Код:
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+function Precache(context)
+    -- Precache things we know we'll use. Possible file types include (but not limited to):
+    -- PrecacheResource("model", "*.vmdl", context)
+    -- PrecacheResource("soundfile", "*.vsndevts", context)
+    -- PrecacheResource("particle", "*.vpcf", context)
+    -- PrecacheResource("particle_folder", "particles/folder", context)
+end
+
+-- Create the game mode when we activate
+function Activate()
+    InitGameMode()
+end
+
+function ChupakabraMode:InitGameMode()
+    print("Template addon is loaded.")
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+- **ChupakabraMode**: Проверяется, если переменная `ChupakabraMode` не определена, она инициализируется как класс.
+- **Precache**: Функция для предварительной загрузки ресурсов, таких как модели, звуки и частицы.
+- **Activate**: Функция, вызывающая `InitGameMode` для создания игрового режима.
+- **InitGameMode**: Инициализирует игровой режим, выводя сообщение в консоль и устанавливая функцию `OnThink` для периодического выполнения.
+- **OnThink**: Оценивает состояние игры и выводит сообщение, если игра в процессе. Возвращает `nil`, если игра завершена.
+
+### Важные детали:
+- **Импорты и зависимости**: Нет явных импортов, но используются функции и классы, специфичные для среды разработки модов Dota 2.
+- **Функции и классы**: Основной класс `ChupakabraMode` и его методы `InitGameMode` и `OnThink`.
+
+### Связь с аудио:
+- В аудио говорится о вызове функции и правильном её обозначении. На экране видно, как функция `InitGameMode` вызывается внутри `Activate`, что соответствует обсуждаемой теме в аудио.

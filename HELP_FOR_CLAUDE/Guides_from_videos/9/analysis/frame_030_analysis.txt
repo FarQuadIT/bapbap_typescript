@@ -1,0 +1,68 @@
+Кадр 30
+Временная метка: 0:07:30
+Номер кадра: 27000
+Скриншот: frame_027000_450.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:22] По аналогии с этой таблицей
+[0:07:24] Ну с этим примером
+[0:07:26] Мы можем сказать что мы
+[0:07:28] Создаем таблицу так сказать
+[0:07:30] Нашей обилки
+[0:07:32] И присваиваем ей такие
+[0:07:34] Переменные
+[0:07:36] Как getIntrinsicModifierName
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `cechens_armor.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+cechens_armor = class({})
+
+function cechens_armor:GetIntrinsicModifierName()
+    return "modifier_cechens_armor"
+end
+
+modifier_cechens_armor = class({})
+
+function modifier_cechens_armor:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
+    }
+end
+
+function modifier_cechens_armor:GetModifierPhysicalArmorBonus()
+    return self:GetParent():GetStrength()
+end
+```
+
+### Описание кода:
+
+1. **LinkLuaModifier**: Связывает модификатор `modifier_cechens_armor` с файлом `abilities/cechens_armor`. Это необходимо для использования модификатора в игре.
+
+2. **cechens_armor = class({})**: Определяет новый класс `cechens_armor`.
+
+3. **GetIntrinsicModifierName**: Функция возвращает имя модификатора `modifier_cechens_armor`, который будет применяться к объекту.
+
+4. **modifier_cechens_armor = class({})**: Определяет класс модификатора `modifier_cechens_armor`.
+
+5. **DeclareFunctions**: Возвращает таблицу функций, которые модификатор будет использовать. В данном случае это `MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS`.
+
+6. **GetModifierPhysicalArmorBonus**: Функция возвращает бонус к физической броне, который равен силе родительского объекта (`self:GetParent():GetStrength()`).
+
+### Важные детали:
+
+- **Импорты и ссылки**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Классы и функции**: Определены классы `cechens_armor` и `modifier_cechens_armor` с соответствующими функциями.
+
+### Связь с аудио:
+
+Аудио объясняет процесс создания таблицы и присвоения переменных, что соответствует определению и использованию модификатора в коде. Упоминается функция `getIntrinsicModifierName`, которая присутствует в коде и возвращает имя модификатора.

@@ -1,0 +1,50 @@
+Кадр 56
+Временная метка: 0:04:40
+Номер кадра: 16800
+Скриншот: frame_016800_280.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:37] Вот он у нас.
+[0:04:38] И мы видим, что первый аргумент это particleId.
+[0:04:41] Да, createParticle возвращает нам particleId.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан интерфейс веб-сайта с документацией API для ModDota. Это страница, посвященная функциям, связанным с управлением частицами в игре Dota 2.
+
+### Детали интерфейса:
+
+1. **Название сайта**: ModDota API.
+2. **Вкладки**: 
+   - Lua API
+   - Game Events
+   - Panorama API
+   - Panorama Events
+
+3. **Поиск**: В строке поиска введено "SetParticleControl".
+
+4. **Список функций**:
+   - `SetParticleControl(particle: ParticleID, controlPoint: int, value: Vector): nil`
+     - Описание: Устанавливает данные для контрольной точки на эффекте частицы.
+   - `SetParticleControlEnt(particle: ParticleID, controlPoint: int, unit: CBaseEntity, particleAttach: ParticleAttachment_t, attachment: string, offset: Vector, lockOrientation: bool): nil`
+   - `SetParticleControlFallback(particle: ParticleID, controlPoint: int, vecPosition: Vector): nil`
+   - `SetParticleControlForward(particle: ParticleID, controlPoint: int, arg3: Vector): nil`
+     - Примечание: Устарело, рекомендуется использовать `SetParticleControlTransformForward`.
+   - `SetParticleControlOrientation(particle: ParticleID, controlPoint: int, arg3: Vector, arg4: Vector, arg5: Vector): nil`
+     - Примечание: Устарело, рекомендуется использовать `SetParticleControlTransform`.
+   - `SetParticleControlTransform(fXIndex: int, point: int, origin: Vector, qAngles: QAngle): nil`
+   - `SetParticleControlTransformForward(fXIndex: int, point: int, origin: Vector, forward: Vector): nil`
+
+5. **Панель навигации**: Слева отображается список классов и функций, таких как `CBaseEntity`, `CBodyComponent`, `CDOTABaseGameMode` и другие.
+
+### Связь с аудио:
+
+- В аудио говорится о функции `createParticle`, которая возвращает `particleId`. Это связано с функцией `SetParticleControl`, где `particleId` используется как первый аргумент.
+- Обсуждение в аудио помогает понять, как использовать `particleId` в контексте управления частицами.
+
+### Заключение:
+
+Экран демонстрирует документацию, которая помогает разработчикам использовать функции для управления частицами в игре. Аудио объясняет, как `particleId` используется в этих функциях, что соответствует отображаемой информации на экране.

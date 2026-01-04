@@ -1,0 +1,65 @@
+Кадр 54
+Временная метка: 0:13:30
+Номер кадра: 48600
+Скриншот: frame_048600_810.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:20] сейчас находимся в таблице модификатора то есть мы можем использовать все функции модификатора
+[0:13:27] пишем сэлф и смотрим какие же есть у нас функцию модификатора сидут обо функции модификатора и тут
+[0:13:36] нам подойдет вообще 2 get кастер это кастер способности и get кастер способности и
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+1. **КОД:**
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     LinkLuaModifier("modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+     cechens_armor = class({})
+
+     function cechens_armor:GetIntrinsicModifierName()
+         return "modifier_cechens_armor"
+     end
+
+     modifier_cechens_armor = class({})
+
+     function modifier_cechens_armor:DeclareFunctions()
+         local funcs = {
+             MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+             MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE
+         }
+         return funcs
+     end
+
+     function modifier_cechens_armor:GetModifierPreAttack_BonusDamage()
+         return self:GetCaster():GetSpecialValueFor("bonus_damage")
+     end
+     ```
+   - **Описание кода:**
+     - Код определяет модификатор для способности в игре Dota 2.
+     - Используется функция `LinkLuaModifier` для связывания модификатора с файлом.
+     - Класс `cechens_armor` возвращает имя модификатора через `GetIntrinsicModifierName`.
+     - Класс `modifier_cechens_armor` объявляет функции модификатора, которые включают бонус к физической броне и бонус к урону перед атакой.
+     - Функция `GetModifierPreAttack_BonusDamage` возвращает значение бонусного урона, используя метод `GetSpecialValueFor`.
+
+   - **Важные детали:**
+     - Импортируется модификатор с помощью `LinkLuaModifier`.
+     - Определены функции `DeclareFunctions` и `GetModifierPreAttack_BonusDamage`.
+     - Используется метод `GetSpecialValueFor` для получения значения бонуса.
+
+2. **РЕДАКТОР:**
+   - **Название программы:** Sublime Text (UNREGISTERED)
+   - **Что открыто в редакторе:** Файл `cechens_armor.lua` из папки `abilities`.
+   - **Активные инструменты:** Автодополнение кода.
+   - **Панели/вкладки:** Слева видна структура папок проекта.
+
+3. **СВЯЗЬ С АУДИО:**
+   - В аудио говорится о функциях модификатора и использовании `self` для доступа к функциям. Это соответствует коду, где используется `self:GetCaster()` для получения значений.
+
+Этот кадр демонстрирует процесс написания и объяснения кода для модификатора в игре Dota 2, с акцентом на использование функций и методов для управления игровыми параметрами.

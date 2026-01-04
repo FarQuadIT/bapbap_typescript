@@ -1,0 +1,61 @@
+Кадр 16
+Временная метка: 0:04:00
+Номер кадра: 14400
+Скриншот: frame_014400_240.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:03:52] Init.
+[0:03:53] Boss.
+[0:03:53] Kill.
+[0:03:54] И здесь пройдемся по всем плеерам.
+[0:04:00] Потому что у каждого плеера будет свой счетчик убийства боссов.
+[0:04:03] Поэтому нам нужно пройтись, соответственно, по всем плеерам и сделать им по умолчанию количество убийства боссов 0.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     function AddRandomAbilityFromPanel(limit)
+         local abilities = {
+             "hoodwink_acorn_shot", "hoodwink_bushwhack", "hoodwink_scurrying", "drow_ranger_frost_arrows",
+             "drow_ranger_multishot", "drow_ranger_silence", "huskar_burning_spear",
+             "huskar_berserkers_blood", "huskar_life_break", "broodmother_sticky_snare", "broodmother_silken_bola",
+             "broodmother_poison_sting", "broodmother_spawn_spiderlings"
+         }
+         local abilityRandom = {}
+         for i=1, limit do
+             table.insert(abilityRandom, abilities[RandomInt(1, #abilities)])
+         end
+         CustomGameEventManager:Send_ServerToAllClients("show_ability_panel", {
+             abilities = abilityRandom
+         })
+     end
+
+     function ChupakabraMode:InitBossKill()
+     end
+     ```
+   - **Описание кода:**
+     - Функция `AddRandomAbilityFromPanel` принимает параметр `limit` и выбирает случайные способности из списка `abilities`, добавляя их в `abilityRandom`. Затем отправляет событие клиентам для отображения панели способностей.
+     - Функция `ChupakabraMode:InitBossKill` объявлена, но не реализована.
+
+   - **Важные детали:**
+     - Используется функция `RandomInt` для выбора случайных способностей.
+     - Событие `show_ability_panel` отправляется всем клиентам через `CustomGameEventManager`.
+
+2. **РЕДАКТОР:**
+
+   - **Название программы/редактора:** Sublime Text
+   - **Что открыто в редакторе:** Файл `chupakabra_mode.lua` из папки `vscripts` проекта Dota 2.
+   - **Активные инструменты:** Нет активных инструментов, стандартный вид редактора.
+   - **Настройки:** Видна структура папок проекта в боковой панели.
+   - **Панели/вкладки:** Открыты вкладки `chupakabra_mode.lua` и `custom_net_tables.txt`.
+
+5. **СВЯЗЬ С АУДИО:**
+
+   - В аудио говорится о необходимости пройтись по всем плеерам и установить счетчик убийства боссов в 0. Это может быть связано с функцией `ChupakabraMode:InitBossKill`, которая, вероятно, будет использоваться для инициализации таких счетчиков, хотя в текущем виде она не реализована.

@@ -1,0 +1,86 @@
+Кадр 28
+Временная метка: 0:07:00
+Номер кадра: 25200
+Скриншот: frame_025200_420.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:51] Мы обязательно должны i превратить в таблицу.
+[0:06:53] Потому что.
+[0:06:58] GetTableValue.
+[0:06:59] Обязательно должен принимать строку.
+[0:07:01] И кстати на самом деле.
+[0:07:02] SetTableValue.
+[0:07:03] Он тоже должен принимать строку.
+[0:07:05] Поэтому когда мы пишем.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+    killed_unit:Hero:AddNewModifier(nil, nil, "modifier_hero_Abaddon_AphoticShield_cast", killed_unit)
+elseif killed_unit:GetUnitName() == "npc_dota_neutral_centaur_outrunner_boss" then
+    CreateUnitByName("npc_dota_neutral_fel_beast_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+    AddAnimationAbilityForName(nil)
+elseif killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+    CreateUnitByName("npc_dota_neutral_fel_beast_boss", point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+end
+
+function ChupakabraMode:ChupakabraModeStart()
+    local player = PlayerResource:GetPlayer(0)
+    local hero = player:GetAssignedHero()
+
+    AddAnimationAbilityForName(nil)
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+
+    local temates = Entities:FindAllByName("temates")
+    for i=0, PlayerResource:GetPlayerCount() - 1 do
+        CustomNetTables:GetTableValue("boss_kill", tostring(i))
+    end
+    for i, temate in ipairs(temates) do
+        local temate_point = temate:GetAbsOrigin()
+        temate:ForceKill(true)
+        CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", temate_point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+    end
+end
+
+function ChupakabraMode:HaveWobs(isCenter)
+    local point
+    if isCenter then
+        point = Vector(0,0,0)
+    else
+        point = Entities:FindByName(nil, "enemy_path4"):GetAbsOrigin()
+    end
+    local unit = CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+    Timers:CreateTimer(1.0, function()
+        local unit = CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+        unit:SetInitialGoalEntity(point)
+    end)
+end
+```
+
+### Описание кода:
+
+- **Функции и переменные**: 
+  - `EntIndexToHScript`, `GetUnitName`, `CreateUnitByName`, `AddNewModifier` — функции для работы с игровыми объектами.
+  - `killed_unit`, `point`, `temates`, `temate_point` — переменные, используемые для хранения объектов и координат.
+  - `ChupakabraModeStart`, `HaveWobs` — функции, определяющие поведение игровых объектов.
+
+- **Логика**:
+  - Код обрабатывает события, связанные с уничтожением юнитов и созданием новых.
+  - Используются условные конструкции для проверки имен юнитов и выполнения соответствующих действий.
+  - Функция `ChupakabraModeStart` создает юниты в определенной точке и обрабатывает их взаимодействие.
+  - Функция `HaveWobs` создает юниты в зависимости от переданного параметра `isCenter`.
+
+### Связь с аудио:
+
+- В аудио говорится о необходимости преобразования переменной `i` в строку для использования в `GetTableValue` и `SetTableValue`. Это отражено в коде строкой `CustomNetTables:GetTableValue("boss_kill", tostring(i))`, где `i` преобразуется в строку с помощью `tostring(i)`.

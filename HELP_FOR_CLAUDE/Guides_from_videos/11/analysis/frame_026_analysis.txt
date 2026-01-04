@@ -1,0 +1,65 @@
+Кадр 26
+Временная метка: 0:06:30
+Номер кадра: 23400
+Скриншот: frame_023400_390.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:20] То есть именно такой зелененькая штучка.
+[0:06:23] Текст.
+[0:06:24] Вы видите потом.
+[0:06:25] Поэтому у нас стоит healing.
+[0:06:27] Дальше мы выбираем на ком это будет.
+[0:06:29] У нас на кастере будет количество healing.
+[0:06:34] Указываем просто так вот.
+[0:06:37] Но давайте лучше это вынесем тоже в отдельную переменную.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `healing_spell.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+
+    caster:Heal(caster:GetSpecialValueFor("heal"), self)
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, self:GetParent(), self.damage, nil)
+
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает модификатор `modifier_healing_spell` с файлом `abilities/healing_spell`.
+- **healing_spell**: Класс, представляющий заклинание исцеления.
+  - **OnSpellStart**: Функция, вызываемая при активации заклинания. Исцеляет кастера и добавляет ему модификатор.
+- **modifier_healing_spell**: Класс модификатора, который предоставляет постоянную регенерацию здоровья.
+  - **DeclareFunctions**: Определяет функции, которые модификатор будет изменять.
+  - **GetModifierConstantHealthRegen**: Возвращает значение регенерации здоровья.
+
+### Важные детали:
+- **Импорты**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции**: `OnSpellStart`, `DeclareFunctions`, `GetModifierConstantHealthRegen`.
+- **Переменные**: `caster`, `self.damage`, `duration`, `hp_regen`.
+
+### Связь с аудио:
+- В аудио говорится о "зелененькой штучке", что может относиться к визуализации исцеления.
+- Упоминается "healing", что соответствует функции `OnSpellStart`, где происходит исцеление.
+- Обсуждается создание переменной, что может относиться к переменным `duration` или `hp_regen`, используемым в коде.

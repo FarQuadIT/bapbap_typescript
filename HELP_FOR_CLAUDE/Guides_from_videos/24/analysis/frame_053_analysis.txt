@@ -1,0 +1,62 @@
+Кадр 53
+Временная метка: 0:13:15
+Номер кадра: 47700
+Скриншот: frame_047700_795.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:03] И через запятую указать функцию, которая будет выполняться при обновлении босс-килла.
+[0:13:10] Давайте сделаем функцию.
+[0:13:12] Функшн.
+[0:13:14] Апдейт.
+[0:13:17] Босс-каунтер.
+[0:13:19] Ставим сюда просто.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Visual Studio Code. Видно, что пользователь работает с файлом на языке JavaScript. 
+
+### Код:
+- **Язык программирования:** JavaScript
+- **Видимый код:**
+  ```javascript
+  function CreateAbilityPanel() {
+      const arrayAbilities = Object.values(elements.abilities);
+      const rootPanel = $.CreatePanel('Panel', $('#AbilitiesPanel'), 'black-cube');
+      rootPanel.BLoadLayoutSnippet('AbilityPanel');
+      const panelBody = rootPanel.FindChildTraverse('black-cube_body');
+      arrayAbilities.map((element) => {
+          const ability = $.CreatePanel('DOTAAbilityImage', panelBody, '', {
+              class: 'black-cube_ability',
+              abilityname: element,
+              showtooltip: 'true',
+          });
+          ability.SetPanelEvent('onactivate', () => {
+              GameEvents.SendCustomGameEventToServer('add_ability', {
+                  player: Players.GetLocalPlayer(),
+                  ability: element,
+              });
+              rootPanel.RemoveClass('IsActive');
+              rootPanel.DeleteAsync(0.4);
+          });
+      });
+  }
+
+  function Upd
+  ```
+- **Описание кода:**
+  - Функция `CreateAbilityPanel` создает панель с изображениями способностей.
+  - Используется метод `map` для создания панели для каждой способности.
+  - При активации способности отправляется событие на сервер.
+  - Панель удаляется после активации способности.
+
+- **Важные детали:**
+  - Используются методы `$.CreatePanel`, `BLoadLayoutSnippet`, `FindChildTraverse`.
+  - Событие `onactivate` связано с отправкой события на сервер через `GameEvents.SendCustomGameEventToServer`.
+  - Переменные `arrayAbilities`, `rootPanel`, `panelBody` используются для управления панелями и способностями.
+
+### Связь с аудио:
+- В аудио говорится о создании функции для обновления "босс-килла". На экране видно начало написания функции `Upd`, что может быть частью этой задачи.
+- Код, показанный на экране, связан с управлением способностями, что может быть частью более широкой системы, включающей обновление "босс-килла".

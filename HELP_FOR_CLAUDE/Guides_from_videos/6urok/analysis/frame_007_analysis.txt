@@ -1,0 +1,105 @@
+Кадр 7
+Временная метка: 0:01:45
+Номер кадра: 6300
+Скриншот: frame_006300_105.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `chupakabra_mode.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\chupakabra`.
+
+### Видимый код:
+
+```lua
+if HeroExpTable == nil then
+    HeroExpTable = class({})
+end
+
+HeroExpTable[0] = 0
+HeroExpTable[1] = 200
+HeroExpTable[2] = 500
+HeroExpTable[3] = 900
+HeroExpTable[4] = 1400
+HeroExpTable[5] = 2000
+HeroExpTable[6] = 2700
+HeroExpTable[7] = 3500
+HeroExpTable[8] = 4400
+HeroExpTable[9] = 5400
+HeroExpTable[10] = 6500
+HeroExpTable[11] = 7700
+HeroExpTable[12] = 9000
+HeroExpTable[13] = 10400
+HeroExpTable[14] = 11900
+HeroExpTable[15] = 13500
+HeroExpTable[16] = 15200
+HeroExpTable[17] = 17000
+HeroExpTable[18] = 18900
+HeroExpTable[19] = 20900
+HeroExpTable[20] = 23000
+HeroExpTable[21] = 25200
+HeroExpTable[22] = 27500
+HeroExpTable[23] = 29900
+HeroExpTable[24] = 32400
+HeroExpTable[25] = 35000
+
+function chupakabramode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetPreGameTime(0.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true) -- установка кастомной системы уровней
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel(#HeroExpTable)
+    GameRules:GetGameModeEntity():SetUseCustomXPValues(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(chupakabramode, 'OnEntityKilled'), self)
+    ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(chupakabramode, 'OnGameRulesStateChange'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function chupakabramode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        --print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+- **Класс `HeroExpTable`:** Создается таблица опыта для героев, где каждому уровню соответствует определенное количество опыта.
+- **Функция `InitGameMode`:** Инициализирует параметры игры, такие как начальное золото, время выбора героев, максимальное количество игроков в командах и другие настройки.
+- **Кастомные уровни и атрибуты:** Устанавливаются кастомные уровни героев и значения атрибутов.
+- **События:** Подписка на события `entity_killed` и `game_rules_state_change`.
+- **Функция `OnThink`:** Проверяет состояние игры и выполняет действия в зависимости от него.
+
+### Интерфейс редактора:
+
+- **Панель слева:** Дерево файлов проекта, где видно, что открыты несколько файлов, включая `chupakabra_mode.lua`.
+- **Основное окно:** Отображает код Lua.
+- **Строка состояния:** Показывает путь к файлу и статус редактора (UNREGISTERED).
+
+### Связь с аудио:
+
+Аудио контекст отсутствует, поэтому связь с происходящим на экране не может быть установлена.

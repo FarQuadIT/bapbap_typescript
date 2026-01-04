@@ -1,0 +1,79 @@
+Кадр 65
+Временная метка: 0:05:25
+Номер кадра: 19500
+Скриншот: frame_019500_325.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:21] То есть, ну, у нас не забываем, это синкер.
+[0:05:23] Поэтому, ну, мы можем сделать это.
+[0:05:24] То есть, где находится модификатор syncer, там и должен появиться партикл.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+function gold_hole:OnSpellStart()
+    local trigger = Entities:FindByName(nil, "teleport")
+    if (trigger:IsTouching(self:GetCaster())) then
+        local point = self:GetCursorPosition()
+        local duration = self:GetSpecialValueFor("duration")
+        local caster = self:GetCaster()
+        CreateModifierThinker(caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false)
+    end
+end
+
+modifier_gold_hole_thinker = class({})
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+    ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self.effect_cast, 1, Vector(radius, 0, 0))
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local parent = self:GetParent()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+    local gold = gold_per_unit * #enemies
+
+    caster:ModifyGold(gold, true, 13)
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, caster, gold, nil)
+end
+```
+
+### Описание кода:
+
+- **Функция `gold_hole:OnSpellStart()`**: Определяет поведение при активации способности. Проверяет, находится ли кастер в зоне триггера "teleport". Если да, создаёт модификатор `modifier_gold_hole_thinker` в указанной точке.
+
+- **Класс `modifier_gold_hole_thinker`**: 
+  - **`IsHidden()`**: Возвращает `true`, скрывая модификатор.
+  - **`OnCreated()`**: Создаёт визуальный эффект и запускает периодическое выполнение функции `OnIntervalThink`.
+  - **`OnDestroy()`**: Уничтожает визуальный эффект.
+  - **`OnIntervalThink()`**: Каждую секунду проверяет наличие врагов в радиусе и начисляет золото кастеру за каждого врага.
+
+### Важные детали:
+
+- **Импорты и библиотеки**: Не указаны, так как это скрипт для Dota 2, где функции предоставляются игровым API.
+- **Переменные**: `trigger`, `point`, `duration`, `caster`, `radius`, `gold_per_unit`, `enemies`, `gold`.
+
+### Связь с аудио:
+
+- В аудио говорится о "синкере" и модификаторе `syncer`, что соответствует созданию и использованию `modifier_gold_hole_thinker` в коде. Это модификатор, который создаётся в определённой точке и выполняет периодические действия, такие как начисление золота.

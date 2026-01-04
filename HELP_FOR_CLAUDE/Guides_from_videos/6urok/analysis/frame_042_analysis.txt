@@ -1,0 +1,75 @@
+Кадр 42
+Временная метка: 0:10:30
+Номер кадра: 37800
+Скриншот: frame_037800_630.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:18] равно NPC Dota Neutral Cobalt,
+[0:10:24] то тогда будет что-то происходить.
+[0:10:26] И произойдет у нас, допустим,
+[0:10:29] gameRules setGameWinner DotaTeamBadGuys.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для настройки игрового режима в Dota 2.
+
+### Код:
+```lua
+if Chupakabramode == nil then
+    Chupakabramode = class({})
+end
+
+HeroExpTable = {}
+for i = 1, 30 do
+    HeroExpTable[i] = HeroExpTable[i - 1] + expTable[i - 1]
+end
+
+function Chupakabramode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroMinimapIconScale(1.0)
+    GameRules:SetCreepMinimapIconScale(1.0)
+    GameRules:SetRuneMinimapIconScale(1.0)
+    GameRules:SetTreeRegrowTime(180.0)
+    GameRules:SetHeroSelectionTime(60.0)
+    GameRules:SetPreGameTime(90.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true) -- установка кастомной системы уровней
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel(#HeroExpTable)
+    GameRules:GetGameModeEntity():SetUseCustomTopBarValues(true)
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+    GameRules:GetGameModeEntity():SetUseCustomHeroXPValues(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+end
+
+function Chupakabramode:OnNPCSpawned(keys)
+    local npc = EntIndexToHScript(keys.entindex)
+    if npc:IsRealHero() then
+        npc:SetGold(0, false)
+    end
+end
+```
+
+### Описание кода:
+- **Класс `Chupakabramode`**: Создается, если не существует.
+- **Таблица опыта `HeroExpTable`**: Заполняется значениями опыта для уровней героев.
+- **Функция `InitGameMode`**: Настраивает параметры игры, такие как начальное золото, масштаб иконок на миникарте, время возрождения деревьев, время выбора героев и другие параметры.
+- **Функция `OnNPCSpawned`**: Обнуляет золото у героев при их появлении.
+
+### Важные детали:
+- **Импорты и зависимости**: Не указаны, но используются стандартные функции Dota 2 API.
+- **Переменные и функции**: `HeroExpTable`, `InitGameMode`, `OnNPCSpawned`.
+
+### Связь с аудио:
+- В аудио говорится о проверке на нейтрального NPC и установке победителя игры. Это может быть связано с функцией `OnNPCSpawned`, где проверяется, является ли NPC героем, но конкретная логика из аудио в коде не представлена.

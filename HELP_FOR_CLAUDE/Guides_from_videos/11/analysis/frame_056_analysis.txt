@@ -1,0 +1,74 @@
+Кадр 56
+Временная метка: 0:14:00
+Номер кадра: 50400
+Скриншот: frame_050400_840.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:48] напишем фолз и все вот такая длинная у нас функция получилась вообще обалдеть
+[0:13:53] поэтому рекомендую пользоваться пользоваться mod.dot там все довольно понятно вы
+[0:13:57] можете потыкаться и легко в следующий раз написать опять эту функцию ok теперь
+[0:14:03] нам осталось только пройти по ней по этому массиву и выполнить все то же
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. Файл называется `healing_spell.lua` и находится в директории, связанной с игрой Dota 2.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    local heal = self:GetSpecialValueFor("heal")
+    local radius = self:GetSpecialValueFor("radius")
+    local duration = self:GetSpecialValueFor("duration")
+    local units = FindUnitsInRadius(caster:GetTeamNumber(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS, FIND_ANY_ORDER, false)
+    
+    caster:EmitSound("Hero_Omniknight.Purification")
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, caster, heal, nil)
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:GetEffectName()
+    return "particles/econ/items/juggernaut/jugg_ti10/juggernaut_healing_ward_ti10.vpcf"
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+
+1. **Импорт и регистрация модификатора:**
+   - `LinkLuaModifier` связывает модификатор `modifier_healing_spell` с файлом `abilities/healing_spell`.
+
+2. **Класс `healing_spell`:**
+   - Определяет способность, которая при активации исцеляет союзников в радиусе.
+   - `OnSpellStart`: Функция, вызываемая при активации способности. Она:
+     - Получает кастера и значения для исцеления, радиуса и длительности.
+     - Находит союзные юниты в радиусе.
+     - Проигрывает звук и отображает визуальный эффект исцеления.
+     - Применяет модификатор `modifier_healing_spell` к кастеру.
+
+3. **Класс `modifier_healing_spell`:**
+   - Определяет модификатор, который:
+     - Возвращает имя эффекта частицы для визуализации.
+     - Объявляет функцию для постоянного восстановления здоровья.
+     - Реализует восстановление здоровья, используя специальное значение `hp_regen`.
+
+### Связь с аудио:
+
+- В аудио говорится о написании функции и использовании `mod.dot` для упрощения работы. На экране видно, что функция `OnSpellStart` уже написана и содержит вызовы для получения специальных значений и применения модификаторов, что соответствует обсуждаемой теме в аудио.

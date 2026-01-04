@@ -1,0 +1,68 @@
+Кадр 78
+Временная метка: 0:19:30
+Номер кадра: 70200
+Скриншот: frame_070200_1170.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:19:23] Вот так вот.
+[0:19:24] Что не так?
+[0:19:25] Функцию, наверное, неправильно написал.
+[0:19:27] Да.
+[0:19:28] И давайте, ну окей, я буду вывести в консоль по-разному.
+[0:19:32] Ну что, иная так выведется.
+[0:19:34] Ну, на самом деле, можно что угодно тут вывести.
+[0:19:36] Опять же, можно, допустим, заспавнить некого босса.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+function chupakabrakilled(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        local kobald_count = 0
+        function ChupakabraMode:OnNPCSpawned(keys)
+            local npc = EntIndexToHScript(keys.entindex)
+            if npc:GetUnitName() == "npc_dota_neutral_kobold" then
+                kobald_count = kobald_count + 1
+                GiveGoldToPlayers(kobald_count * 10, npc:GetAbsOrigin())
+            end
+            if kobald_count >= 10 then
+                GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+            end
+        end
+    end
+end
+
+function GiveGoldToPlayers(gold)
+    for index = 0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:HasSelectedHero(index) then
+            print("Giving gold to player", gold, index)
+        end
+    end
+end
+```
+
+### Описание кода:
+
+1. **Функция `chupakabrakilled(data)`**:
+   - Проверяет текущее состояние игры.
+   - Если игра в процессе, и появляется NPC с именем "npc_dota_neutral_kobold", увеличивает счетчик `kobald_count`.
+   - Если счетчик достигает 10, устанавливает победу команды `DOTA_TEAM_GOODGUYS`.
+
+2. **Функция `GiveGoldToPlayers(gold)`**:
+   - Проходит по всем игрокам и, если у игрока выбран герой, выводит сообщение в консоль о выдаче золота.
+
+### Важные детали:
+- Используются функции `GameRules:State_Get()` и `EntIndexToHScript()`.
+- Переменные `kobald_count` и `newState` играют ключевую роль в логике.
+- Функция `GiveGoldToPlayers` взаимодействует с ресурсами игроков через `PlayerResource`.
+
+### Связь с аудио:
+- В аудио говорится о выводе в консоль и возможных действиях, таких как "заспавнить некого босса". Это соответствует обсуждению логики в коде, где происходит проверка состояния игры и взаимодействие с игроками через консольные сообщения.

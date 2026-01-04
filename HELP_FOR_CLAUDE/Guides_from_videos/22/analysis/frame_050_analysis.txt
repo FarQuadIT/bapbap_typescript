@@ -1,0 +1,80 @@
+Кадр 50
+Временная метка: 0:12:30
+Номер кадра: 45000
+Скриншот: frame_045000_750.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:20] vision. Можете посмотреть реализацию.
+[0:12:22] Просто добавляем be provide vision true.
+[0:12:24] I vision team number.
+[0:12:26] Наберем number
+[0:12:28] кастера нашего.
+[0:12:30] И I vision radius я просто написал
+[0:12:32] 500. Все. Давайте
+[0:12:34] заменим на всякий случай.
+[0:12:36] И давайте протестим.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Анализ кадра из видео-туториала
+
+#### 1. Код:
+- **Язык программирования:** Lua
+- **Видимый код:**
+
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local derction = point - casterPoint
+    local speed = 600
+    derction = derction:Normalized()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        vVelocity = derction * speed,
+        bProvidesVision = true,
+        iVisionTeamNumber = self:GetCaster():GetTeamNumber(),
+        iVisionRadius = 500,
+    })
+end
+```
+
+- **Описание кода:**
+  - Создается класс `wave_terorist`.
+  - Функция `OnSpellStart` инициирует запуск заклинания.
+  - Определяются переменные `caster`, `point`, `casterPoint`, `derction`, и `speed`.
+  - `derction` нормализуется для использования в качестве направления.
+  - Используется `ProjectileManager:CreateLinearProjectile` для создания линейного снаряда с заданными параметрами, включая визуальные эффекты, радиус, скорость и видимость.
+
+- **Важные детали:**
+  - **Импорты:** Не указаны, но используется `ProjectileManager`.
+  - **Функции:** `OnSpellStart`, `CreateLinearProjectile`.
+  - **Переменные:** `caster`, `point`, `casterPoint`, `derction`, `speed`.
+
+#### 2. Редактор:
+- **Название программы:** Sublime Text
+- **Что открыто в редакторе:** Файл `wave_terorist.lua`
+- **Активные инструменты:** Нет явных активных инструментов, стандартный текстовый редактор.
+- **Настройки:** Видна структура папок слева, открыты вкладки с другими файлами.
+- **Панели/вкладки:** Открыты вкладки с файлами `npc_abilities_custom.txt`, `mega_puper_stun.lua`, `npc_items_custom.txt`, `npc_heroes_custom.txt`.
+
+#### 5. Связь с аудио:
+- **Соответствие с аудио:**
+  - В аудио упоминается добавление `bProvidesVision = true`, что видно в коде.
+  - Также говорится о `iVisionTeamNumber` и `iVisionRadius`, которые присутствуют в коде.
+  - Аудио объясняет процесс настройки видимости и команды для снаряда, что отражено в коде.
+
+Этот анализ может быть использован для создания документации по разработке скриптов для Dota 2.

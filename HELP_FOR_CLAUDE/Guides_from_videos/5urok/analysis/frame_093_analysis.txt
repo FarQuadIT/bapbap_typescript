@@ -1,0 +1,81 @@
+Кадр 93
+Временная метка: 0:23:15
+Номер кадра: 83700
+Скриншот: frame_083700_1395.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:23:07] Поиграйте с настроечками.
+[0:23:09] Думаю, будет очень интересно.
+[0:23:11] Спрашивайте вопросы, потому что, думаю, урок получился такой скомканный.
+[0:23:14] Я хуёво объясняю.
+[0:23:15] В этом, честно скажем, куча запинок.
+[0:23:19] Куча всякого дерьма.
+[0:23:20] Короче, понятно, да.
+[0:23:21] От автора отписка дизлайк.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+
+     ```lua
+     if ChupakabraMode == nil then
+         ChupakabraMode = class({})
+     end
+
+     function ChupakabraMode:InitGameMode()
+         GameRules:SetStartingGold(1500)
+         GameRules:SetHeroSelectionTime(0.0)
+         GameRules:SetStrategyTime(0.0)
+         GameRules:SetShowcaseTime(0.0)
+         GameRules:SetPreGameTime(5.0)
+         GameRules:SetPostGameTime(0.0)
+         GameRules:SetTreeRegrowTime(60.0)
+
+         GameRules:SetCustomGameEndDelay(0)
+         GameRules:SetCustomVictoryMessageDuration(0)
+
+         GameRules:SetSameHeroSelectionEnabled(true)
+         GameRules:SetUseUniversalShopMode(true)
+         GameRules:SetHeroRespawnEnabled(true)
+
+         GameRules:GetGameModeEntity():SetUnseenFogOfWarEnabled(true)
+
+         GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+         GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+         GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+     end
+
+     function ChupakabraMode:OnThink()
+         if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+             print("Template addon script is running.")
+         elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+             return nil
+         end
+         return 1
+     end
+     ```
+
+   - **Описание кода:**
+     - Код определяет класс `ChupakabraMode` и инициализирует игровой режим с помощью функции `InitGameMode`.
+     - Устанавливаются различные параметры игры, такие как начальное золото, время выбора героя, стратегия, время до начала игры и другие.
+     - Включается режим одинакового выбора героев и универсальный магазин.
+     - Настраиваются параметры атрибутов ловкости.
+     - Функция `OnThink` проверяет состояние игры и выводит сообщение в консоль, если игра в процессе.
+
+   - **Важные детали:**
+     - Используются функции `GameRules` для настройки параметров игры.
+     - Настройки атрибутов ловкости изменяются через `SetCustomAttributeDerivedStatValue`.
+     - Функция `SetThink` используется для периодического выполнения `OnThink`.
+
+2. **СВЯЗЬ С АУДИО:**
+
+   - В аудио говорится о том, что урок получился скомканным и с запинками. Это может указывать на то, что автор не уверен в объяснении кода или его настройках.
+   - Фраза "Поиграйте с настроечками" может относиться к параметрам, которые можно изменять в коде, таким как время выбора героя или начальное золото.
+   - Комментарии о "куче запинок" и "всяком дерьме" могут отражать сложность или недостаточную ясность кода.

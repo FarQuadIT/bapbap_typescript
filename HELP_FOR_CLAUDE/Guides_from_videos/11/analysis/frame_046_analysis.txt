@@ -1,0 +1,79 @@
+Кадр 46
+Временная метка: 0:11:30
+Номер кадра: 41400
+Скриншот: frame_041400_690.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:22] Давайте получим get team number.
+[0:11:25] Она у нас точно сработает.
+[0:11:27] А вот get team в последнее время она что-то функцию у меня шарит.
+[0:11:30] Окей.
+[0:11:31] Получили team.
+[0:11:32] Идем дальше.
+[0:11:33] Локация.
+[0:11:34] То есть точка от которой будут искаться все юниты.
+[0:11:36] В данном случае это у нас позиция кастера.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. Файл находится по пути: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities\healing_spell.lua`.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    local heal = self:GetSpecialValueFor("heal")
+
+    local allies = FindUnitsInRadius(caster:GetTeamNumber(), vector_2, handle_3, float_4, int_5, int_6, int_7, int_8, bool_9)
+    caster:EmitSound("Hero_Omniknight.Purification")
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, caster, heal, nil)
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:GetEffectName()
+    return "particles/econ/items/juggernaut/blinkkeeper_healing_ward/juggernaut_healing_ward_dc.vpcf"
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+
+- **Импорт модификатора**: `LinkLuaModifier` связывает модификатор `modifier_healing_spell` с файлом `healing_spell`.
+- **Класс `healing_spell`**: Определяет заклинание, которое при активации:
+  - Получает кастера и значение исцеления.
+  - Находит союзников в радиусе.
+  - Проигрывает звук исцеления.
+  - Отображает сообщение об исцелении.
+  - Добавляет модификатор `modifier_healing_spell` кастеру на определенную длительность.
+- **Класс `modifier_healing_spell`**: Определяет модификатор, который:
+  - Возвращает эффект частицы.
+  - Объявляет функцию для постоянной регенерации здоровья.
+  - Возвращает значение регенерации здоровья из способности.
+
+### Важные детали:
+
+- **Функции**: `OnSpellStart`, `GetEffectName`, `DeclareFunctions`, `GetModifierConstantHealthRegen`.
+- **Переменные**: `caster`, `heal`, `allies`.
+- **Импорты и модификаторы**: `LinkLuaModifier`, `modifier_healing_spell`.
+
+### Связь с аудио:
+
+- В аудио говорится о получении номера команды и позиции кастера, что соответствует использованию `caster:GetTeamNumber()` и `caster` в коде.
+- Упоминается функция `get team`, что связано с `GetTeamNumber()` в коде.

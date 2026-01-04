@@ -1,0 +1,92 @@
+Кадр 17
+Временная метка: 0:04:15
+Номер кадра: 15300
+Скриншот: frame_015300_255.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:05] Итак, давайте теперь выведем в консоль
+[0:04:07] что-нибудь, типа там,
+[0:04:10] chuvaczidok.
+[0:04:12] И теперь, по идее, что у нас сделается?
+[0:04:14] Каждый раз, когда умирает любой чувак на карте,
+[0:04:16] у нас выполняется эта функция.
+[0:04:18] Давайте проверять.
+[0:04:19] Итак, вот мы зашли на карту.
+[0:04:21] Давайте поубиваем пару кобальтов.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+HeroExpTable = {}
+for i = 1, 100 do
+    HeroExpTable[i] = HeroExpTable[i - 1] + expTable[i - 1]
+end
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(10.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetUseCustomHeroXPValues(true) -- установка кастомной системы уровней
+    GameRules:SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+
+    GameRules:GetGameModeEntity():SetBuybackEnabled(true)
+
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        --print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+
+function ChupakabraMode:ChupakabraKilled()
+    print("чувак сдох")
+end
+```
+
+### Описание кода:
+
+1. **Объявление класса**: Проверяется, существует ли `ChupakabraMode`. Если нет, создается новый класс.
+2. **Таблица опыта**: Создается таблица `HeroExpTable` для хранения значений опыта.
+3. **Инициализация игрового режима**: Функция `InitGameMode` устанавливает различные параметры игры, такие как начальное золото, время выбора героя, время до начала игры и т.д.
+4. **Кастомные значения**: Устанавливаются кастомные значения опыта и атрибутов.
+5. **События**: Подписка на событие `entity_killed`, которое вызывает функцию `ChupakabraKilled`.
+6. **Функция `OnThink`**: Проверяет состояние игры и выполняет действия в зависимости от него.
+7. **Функция `ChupakabraKilled`**: Выводит в консоль сообщение "чувак сдох" при смерти сущности.
+
+### Связь с аудио:
+
+- В аудио говорится о выводе в консоль сообщения "chuvaczidok", что соответствует строке `print("чувак сдох")` в функции `ChupakabraKilled`.
+- Упоминается проверка функции при смерти персонажа, что связано с подпиской на событие `entity_killed`.

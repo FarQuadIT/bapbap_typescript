@@ -1,0 +1,68 @@
+Кадр 37
+Временная метка: 0:09:15
+Номер кадра: 33300
+Скриншот: frame_033300_555.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:07] У нас будет показываться плюс 100.
+[0:09:08] Сейчас.
+[0:09:09] Давайте проверим это.
+[0:09:11] У нас да.
+[0:09:12] Показывается плюс 100.
+[0:09:14] Пишем дальше.
+[0:09:15] Уже типа.
+[0:09:16] Плюс 100 сек.
+[0:09:17] К.
+[0:09:18] Упса.
+[0:09:19] Копия.
+[0:09:20] Все.
+[0:09:21] И у нас выглядит название таланта ну просто охуенно.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **Редактор:**
+   - **Название программы:** Sublime Text (UNREGISTERED)
+   - **Открытые файлы:** addon_english.txt, ursa_copy.lua, addon_russian.txt, rpc_heroes_custom.txt, npc_abilities.txt, npc_dota_hero_batrider.txt
+
+2. **Содержимое файла addon_english.txt:**
+   - **Формат:** JSON-подобная структура
+   - **Содержимое:**
+     ```json
+     {
+         "Language": "English",
+         "Tokens": {
+             "addon_game_name": "ЧУПАКАБРА",
+             "DOTA_GoodGuys": "ег",
+             "DOTA_BadGuys": "еу",
+             "DOTA_Custom1": "каждый",
+             "DOTA_Custom2": "охотник",
+             "DOTA_Custom3": "желает",
+             "DOTA_Custom4": "знать",
+             "DOTA_Custom5": "где",
+             "DOTA_Custom6": "спасите меня",
+             "DOTA_Tooltip_ability_cockx_counter_helix": "Cockx helix",
+             "DOTA_Tooltip_ability_cockx_counter_helix_Description": "Я круче <font color=\"#ffffff\"> как джагернаут </font>",
+             "DOTA_Tooltip_ability_cockx_counter_helix_damage": "УРОН:",
+             "DOTA_Tooltip_ability_cockx_counter_helix_radius": "РАДИУС:",
+             "DOTA_Tooltip_ability_cockx_counter_helix_lore": "asdasdasdasd",
+             "DOTA_Tooltip_ability_item_motus_orb": "Motus bobus dsads",
+             "DOTA_Tooltip_ability_item_motus_orb_Description": "<h1>Немитированная: Пошук</h1> фывафывафывафывафыва \n\n<h1>DAFFDSA: фываф</h1> фывафыва",
+             "DOTA_Tooltip_ability_item_motus_orb_lore": "asdasdasdasd",
+             "DOTA_Tooltip_ability_special_bonus_unique_ursa_duration": "+{s:bonus_duration}"
+         }
+     }
+     ```
+
+3. **Контекст и связь с аудио:**
+   - В аудио говорится о том, что "показывается плюс 100", что может относиться к строке `"DOTA_Tooltip_ability_special_bonus_unique_ursa_duration": "+{s:bonus_duration}"`, где `{s:bonus_duration}` может быть заменено на конкретное значение, например, "+100".
+   - Также упоминается "название таланта", что может быть связано с редактированием токенов для способностей и предметов в файле.
+
+4. **Панели и вкладки:**
+   - **Слева:** Дерево папок и файлов, относящихся к модификации игры Dota 2, включая папки `maps`, `materials`, `particles`, `resource`, `scripts`, `soundevents`.
+   - **Вкладки:** Несколько открытых вкладок с различными текстовыми файлами, связанными с настройками и скриптами для игры.
+
+5. **Действия пользователя:**
+   - Пользователь редактирует текстовые файлы, вероятно, для изменения или добавления новых элементов в модификацию игры.

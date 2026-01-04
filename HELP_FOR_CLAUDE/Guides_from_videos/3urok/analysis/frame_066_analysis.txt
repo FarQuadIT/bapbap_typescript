@@ -1,0 +1,76 @@
+Кадр 66
+Временная метка: 0:16:30
+Номер кадра: 59400
+Скриншот: frame_059400_990.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:19] И здесь мы в Recept укажем сам Lotus Orb.
+[0:16:22] То есть, наш Motus Orb будет собираться из Lotus Orb.
+[0:16:25] И ставим вот такую вот загорючку.
+[0:16:28] И пишем еще один раз item Lotus Orb.
+[0:16:31] То есть, наш Motus Orb будет собираться из двух Lotus Orbs.
+[0:16:34] Проверяем, как это смотрится.
+[0:16:36] Смотрим на наш Motus Orb.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_items_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки пользовательских предметов.
+
+### Детали экрана:
+
+1. **Язык программирования**: 
+   - Это не код в традиционном смысле, а конфигурационный файл, использующий формат ключ-значение, похожий на JSON.
+
+2. **Видимый код**:
+   ```plaintext
+   "item_recipe_motus_orb"
+   {
+       // General
+       "BaseClass" "item_datadriven"
+       "AbilityTextureName" "item_recipe"
+       "Model" "models/props_gameplay/recipe.mdl"
+
+       // Item Info
+       "ItemCost" "100"
+       "ItemShopTags" ""
+
+       // Recipe
+       "ItemResult" "item_motus_orb"
+       "ItemRequirements"
+       {
+           "01" "item_lotus_orb;item_lotus_orb"
+       }
+   }
+
+   "item_motus_orb"
+   {
+       // General
+       "ID" "0" // unique ID number for this item. Do not change this once established or it will invalidate collected stats.
+       "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+       "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+       "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
+       "AbilityCooldown" "15.0"
+       "AbilityCastRange" "750"
+
+       // Item Info
+       "ItemCost" "0"
+       "ItemShopTags" "regen_health;regen_mana;str;agi;int;hard_to_tag"
+   }
+   ```
+
+3. **Описание кода**:
+   - **item_recipe_motus_orb**: Определяет рецепт для создания предмета `Motus Orb`. Для его создания требуется два `Lotus Orb`.
+   - **item_motus_orb**: Описание самого предмета `Motus Orb`, включая его поведение и характеристики.
+
+4. **Важные детали**:
+   - **BaseClass**: Указывает, что это предмет, управляемый данными.
+   - **AbilityBehavior** и другие параметры: Определяют, как предмет будет взаимодействовать с игровыми объектами.
+
+5. **Связь с аудио**:
+   - Аудио объясняет процесс создания предмета `Motus Orb` из двух `Lotus Orb`, что соответствует видимому коду, где в `ItemRequirements` указаны два `item_lotus_orb`.
+
+### Общий контекст:
+Пользователь редактирует файл конфигурации для создания нового предмета в игре Dota 2, следуя инструкциям, озвученным в аудио.

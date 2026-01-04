@@ -1,0 +1,81 @@
+Кадр 6
+Временная метка: 0:01:30
+Номер кадра: 5400
+Скриншот: frame_005400_90.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:19] Для того, чтобы мы смогли на кого-то ее применить, мы должны использовать вот такие два свойства.
+[0:01:24] Ability Unit Target Team и Ability Unit Target Target.
+[0:01:28] В первой мы указываем команду, на которую мы можем кастовать.
+[0:01:35] Это мы можем посмотреть в нашем любимом Valve API в разделе Dota Unit Target Team.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Этот файл относится к модификации для игры Dota 2 и содержит описание пользовательских способностей.
+
+### Детали:
+
+1. **Язык программирования**: JSON-подобный формат, используемый для конфигурации в Dota 2.
+
+2. **Код**:
+   ```json
+   "cechens_armor"
+   {
+       "BaseClass"             "ability_lua"
+       "ScriptFile"            "abilities/cechens_armor"
+       "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+       "AbilityValues"
+       {
+           "bonus_armor"       "5 10 15 20"
+       }
+   }
+   "ursa_copy"
+   {
+       "BaseClass"             "ability_lua"
+       "ScriptFile"            "abilities/ursa_copy"
+       "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+       "AbilityValues"
+       {
+           "duration"          "5 8 12 20"
+           "damage_per_stack"  "2 3 4 5"
+       }
+   }
+   "healing_spell"
+   {
+       "BaseClass"             "ability_lua"
+       "ScriptFile"            "abilities/healing_spell"
+       "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+       "AbilityCastPoint"      "0.45"
+       "AbilityManaCost"       "75 90 85 90"
+       "AbilityValues"
+       {
+           "heal"              "100 150 400 650"
+           "radius"            "350 575 679"
+           "hp_regen"          "20 40 60 80"
+       }
+   }
+   "strong_poison"
+   {
+       "BaseClass"             "ability_lua"
+       "ScriptFile"            "abilities/strong_poison"
+       "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+       "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
+       "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+   }
+   ```
+
+3. **Описание кода**:
+   - **Способности**: Описаны несколько способностей, каждая из которых имеет свои параметры, такие как `BaseClass`, `ScriptFile`, `AbilityBehavior`, и `AbilityValues`.
+   - **Параметры**: У каждой способности есть уникальные параметры, например, `bonus_armor` для `cechens_armor` или `heal` для `healing_spell`.
+
+4. **Связь с аудио**:
+   - В аудио говорится о свойствах `Ability Unit Target Team` и `Ability Unit Target Target`, которые видны в описании способности `strong_poison`. Это соответствует объяснению, как настраивать цели для способностей.
+
+5. **Интерфейс**:
+   - **Открытые вкладки**: `npc_heroes_custom.txt`, `axe.txt`, `strong_poison.lua`, `modifier_viper_poison_attack_lua.lua`, `healing_spell.lua`, `axe_cutting_blade_lua.lua`.
+   - **Панель слева**: Дерево папок и файлов, относящихся к модификации Dota 2.
+
+Этот кадр демонстрирует, как настраивать способности в Dota 2, используя текстовые файлы конфигурации.

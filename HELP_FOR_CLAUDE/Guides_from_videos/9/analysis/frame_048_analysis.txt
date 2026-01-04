@@ -1,0 +1,53 @@
+Кадр 48
+Временная метка: 0:12:00
+Номер кадра: 43200
+Скриншот: frame_043200_720.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:52] Я
+[0:11:54] Вернулся
+[0:11:56] Да
+[0:11:58] Ну
+[0:12:00] Я
+[0:12:02] Вернулся
+[0:12:04] Да
+[0:12:06] Да
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `cechens_armor.lua`. Это файл на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+cechens_armor = class({})
+
+function cechens_armor:GetIntrinsicModifierName()
+    return "modifier_cechens_armor"
+end
+
+modifier_cechens_armor = class({})
+
+function modifier_cechens_armor:DeclareFunctions()
+    return {
+    }
+end
+```
+
+### Описание кода:
+1. **LinkLuaModifier**: Связывает модификатор `modifier_cechens_armor` с файлом `abilities/cechens_armor`. Это необходимо для использования модификатора в игре.
+2. **cechens_armor = class({})**: Определяет новый класс `cechens_armor`.
+3. **GetIntrinsicModifierName**: Функция возвращает имя модификатора `modifier_cechens_armor`, который будет применяться автоматически.
+4. **modifier_cechens_armor = class({})**: Определяет новый класс `modifier_cechens_armor`.
+5. **DeclareFunctions**: Функция, которая должна возвращать таблицу функций, которые модификатор будет использовать. В данном случае она пуста.
+
+### Важные детали:
+- **Импорты**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Классы и функции**: Определены классы `cechens_armor` и `modifier_cechens_armor`, а также функции `GetIntrinsicModifierName` и `DeclareFunctions`.
+
+### Связь с аудио:
+Аудио не содержит информации, связанной с кодом. Вероятно, в этот момент автор видео возвращается к объяснению кода после перерыва.

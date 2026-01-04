@@ -1,0 +1,73 @@
+Кадр 58
+Временная метка: 0:14:30
+Номер кадра: 52200
+Скриншот: frame_052200_870.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:21] но, окей, вы, типа, начинающий,
+[0:14:23] можно и немного поговнокодить, так сказать,
+[0:14:25] типа, ничего такого.
+[0:14:27] Вот, можете опять же взять ее из моей кастомки.
+[0:14:29] Функция createDrop.
+[0:14:31] Мы тут спауним, типа, лотосорб,
+[0:14:33] берем место положения нашего сдохшего юнита.
+[0:14:37] Кстати, здесь надо вот так поменять.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Анализ кадра из видео-туториала
+
+#### 1. Код
+- **Язык программирования**: Lua
+- **Видимый код**:
+  ```lua
+  local kobold_count = 0
+
+  function ChupakabraMode:ChupakabraKilled(data)
+      local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+      if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+          kobold_count = kobold_count + 1
+          CreateDrop("item_lotus_orb", killedEntity:GetAbsOrigin() + RandomVector(RandomFloat(50, 200)))
+      end
+
+      if kobold_count >= 10 then
+          GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+          kobold_count = 0
+      end
+  end
+
+  function InvasionMode:CreateDrop(itemname, pos)
+      local newItem = CreateItem(itemname, nil, nil)
+      CreateItemOnPositionSync(pos, newItem)
+      newItem:LaunchLoot(false, 300, 0.75, pos + RandomVector(RandomFloat(150, 350)))
+  end
+  ```
+
+- **Описание кода**:
+  - **Переменные**:
+    - `kobold_count`: Счетчик убитых юнитов типа "kobold".
+  - **Функции**:
+    - `ChupakabraMode:ChupakabraKilled(data)`: Увеличивает счетчик `kobold_count` при убийстве юнита "kobold". Если счетчик достигает 10, устанавливает победу команды "GOODGUYS".
+    - `InvasionMode:CreateDrop(itemname, pos)`: Создает предмет на позиции и запускает его в воздух.
+
+- **Важные детали**:
+  - Используются функции `EntIndexToHScript`, `GetUnitName`, `CreateItem`, `CreateItemOnPositionSync`, `LaunchLoot`.
+  - Код связан с игровыми правилами и механикой дропа предметов.
+
+#### 2. Редактор
+- **Название программы**: Sublime Text
+- **Что открыто в редакторе**: Файл `chupakabra_mode.lua`
+- **Активные инструменты**: Нет явных активных инструментов, стандартный интерфейс редактора кода.
+- **Панели/вкладки**: Открыты вкладки с файлами `npc_items_custom.txt`, `npc_heroes_custom.txt`, `npc_units_custom.txt`, `addon_game_mode.lua`.
+
+#### 5. Связь с аудио
+- **Соответствие с аудио**:
+  - В аудио упоминается функция `createDrop`, которая соответствует функции `InvasionMode:CreateDrop` в коде.
+  - Обсуждается создание дропа на месте убитого юнита, что отражено в коде через `CreateDrop` и использование `GetAbsOrigin`.
+  - Упоминается "лотосорб", который создается в коде как `item_lotus_orb`.
+
+Код и аудио тесно связаны, объясняя процесс создания дропа в игре и использование определенных функций для этого.

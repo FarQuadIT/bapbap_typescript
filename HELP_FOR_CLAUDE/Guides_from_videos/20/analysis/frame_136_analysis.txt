@@ -1,0 +1,75 @@
+Кадр 136
+Временная метка: 0:11:20
+Номер кадра: 40800
+Скриншот: frame_040800_680.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:17] Потому что, по touch и вес follow не обязательно будет для определенного юнита.
+[0:11:22] Но имеем, что имеем.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Код:
+```lua
+function gold_hole:OnSpellStart()
+    local caster = Entities:FindByName(nil, "teleport")
+    if (trigger:IsTouching(self:GetCaster())) then
+        local point = self:GetCursorPosition()
+        local caster = self:GetCaster()
+        local duration = self:GetSpecialValueFor("duration")
+
+        CreateModifierThinker(caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false)
+    end
+end
+
+modifier_gold_hole_thinker = class({})
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    if not IsServer() then return end
+
+    self.effect_cast = ParticleManager:CreateParticleForPlayer("particles/winter_fx/weather_frostivus_snow.vpcf", PATTACH_EYES_FOLLOW, self:GetCaster(), self:GetCaster():GetPlayerOwner())
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local parent = self:GetParent()
+    local caster = self:GetCaster()
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+    local gold = gold_per_unit * #enemies
+
+    caster:ModifyGold(gold, true, 13)
+    SendOverheadEventMessage(caster:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, caster, gold, caster)
+end
+```
+
+### Описание кода:
+- **Функция `gold_hole:OnSpellStart()`**: Активируется при начале заклинания. Проверяет, касается ли юнит определенной области, и создает модификатор `modifier_gold_hole_thinker` в указанной точке.
+- **Класс `modifier_gold_hole_thinker`**: Управляет эффектами и логикой, связанной с модификатором.
+  - **`IsHidden()`**: Возвращает `true`, скрывая модификатор.
+  - **`OnCreated()`**: Создает визуальный эффект и запускает интервал для периодического выполнения.
+  - **`OnDestroy()`**: Уничтожает визуальный эффект.
+  - **`OnIntervalThink()`**: Каждую секунду проверяет наличие врагов в радиусе и начисляет золото кастеру за каждого врага.
+
+### Важные детали:
+- **Импорты и функции**: Используются функции для работы с частицами и модификаторами, такие как `CreateParticleForPlayer` и `DestroyParticle`.
+- **Переменные**: `radius`, `gold_per_unit`, `effect_cast`.
+
+### Связь с аудио:
+- В аудио говорится о том, что "по touch и вес follow не обязательно будет для определенного юнита". Это может относиться к проверке касания юнита в функции `OnSpellStart` и использованию `PATTACH_EYES_FOLLOW` для привязки эффекта к глазам юнита.

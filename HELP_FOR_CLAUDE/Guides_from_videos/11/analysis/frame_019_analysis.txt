@@ -1,0 +1,63 @@
+Кадр 19
+Временная метка: 0:04:45
+Номер кадра: 17100
+Скриншот: frame_017100_285.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:35] Вернем у нас property, которое отвечает за регенерацию.
+[0:04:40] Итак, я сделал модификатор.
+[0:04:42] Если вы здесь что-то недопонимаете, то посмотрите мои прошлые уроки про пассивки и модификаторы.
+[0:04:47] Итак, давайте теперь наложим модификатор на нашего кастера.
+[0:04:52] Мы уже в прошлом уроке изучили такую функцию как IDModifier.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `healing_spell.lua`. Это файл скрипта на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+
+    caster:Heal(caster:GetSpecialValueFor("heal"), self)
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:IsHidden()
+    return false
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+1. **Импорт модификатора**: `LinkLuaModifier` связывает модификатор `modifier_healing_spell` с файлом `abilities/healing_spell`.
+2. **Класс `healing_spell`**: Определяет заклинание, которое при активации лечит кастера на значение, полученное из специального параметра `heal`.
+3. **Класс `modifier_healing_spell`**: 
+   - **`IsHidden`**: Возвращает `false`, что означает, что модификатор видим.
+   - **`DeclareFunctions`**: Указывает, что модификатор влияет на постоянную регенерацию здоровья.
+   - **`GetModifierConstantHealthRegen`**: Возвращает значение регенерации здоровья, полученное из специального параметра `hp_regen`.
+
+### Связь с аудио:
+- В аудио говорится о модификаторе, который отвечает за регенерацию, что соответствует функции `GetModifierConstantHealthRegen` в коде.
+- Упоминается функция `IDModifier`, что может быть связано с использованием `LinkLuaModifier` для связывания модификатора с заклинанием.
+
+### Важные детали:
+- **Файловая структура**: В левой части экрана видна структура папок, где находятся различные файлы игры, такие как `maps`, `particles`, `scripts`, и другие.
+- **Путь к файлу**: В верхней части окна отображается полный путь к файлу `healing_spell.lua`.
+
+Этот код и его объяснение соответствуют обсуждаемым в аудио темам о модификаторах и их применении в игре.

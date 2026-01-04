@@ -1,0 +1,74 @@
+Кадр 59
+Временная метка: 0:14:45
+Номер кадра: 53100
+Скриншот: frame_053100_885.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:37] бы на этом все то есть вообще ничего сложного мы тут добавили буквально три
+[0:14:43] строчки три строчки добавили жесть давайте проверять окей теперь проверяем
+[0:14:50] получается в радиусе мы должны наложить на них модификаторы отхилить их и у них
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. Файл называется `healing_spell.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities`.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    local heal = self:GetSpecialValueFor("heal")
+    local radius = self:GetSpecialValueFor("radius")
+    local allies = FindUnitsInRadius(caster:GetTeamNumber(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS, FIND_ANY_ORDER, false)
+
+    for _, ally in pairs(allies) do
+        ally:Heal(heal, self)
+        SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, ally, heal, nil)
+        ally:AddNewModifier(ally, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+    end
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:IsHidden()
+    return false
+end
+
+function modifier_healing_spell:GetEffectName()
+    return "particles/econ/items/juggernaut/jugg_arcana/juggernaut_arcana_healing_ward.vpcf"
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+
+- **Импорт модификатора**: `LinkLuaModifier` связывает модификатор `modifier_healing_spell` с файлом.
+- **Класс `healing_spell`**: Определяет способность, которая при активации лечит союзников в радиусе.
+  - **Функция `OnSpellStart`**: 
+    - Получает кастера, значения лечения и радиуса.
+    - Находит союзников в радиусе и лечит их.
+    - Отображает визуальный эффект лечения и добавляет модификатор `modifier_healing_spell`.
+- **Класс `modifier_healing_spell`**: Определяет поведение модификатора.
+  - **Функции**:
+    - `IsHidden`: Возвращает `false`, модификатор видим.
+    - `GetEffectName`: Возвращает путь к визуальному эффекту.
+    - `DeclareFunctions`: Определяет, что модификатор влияет на регенерацию здоровья.
+    - `GetModifierConstantHealthRegen`: Возвращает значение регенерации здоровья.
+
+### Связь с аудио:
+
+В аудио говорится о добавлении нескольких строк кода и проверке их работы. Видимый код соответствует этому описанию: добавлены функции для лечения союзников и применения модификатора, что соответствует упомянутым "трем строчкам".

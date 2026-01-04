@@ -1,0 +1,159 @@
+Кадр 152
+Временная метка: 0:17:44
+Номер кадра: 63840
+Скриншот: frame_063840_1064.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:38] Мы хотим заменить ему на агилку.
+[0:17:40] Но как будет Dota Attribute Agility.
+[0:17:43] Можем найти просто какого-нибудь антимага.
+[0:17:46] У которого мы точно знаем что у него.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+1. **Редактор:**
+   - **Название программы:** Sublime Text
+   - **Открытые файлы:** `npc_heroes_custom.txt`, `npc_heroes.txt`, `npc_items_custom.txt`, `npc_units_custom.txt`, `addoninfo.txt`, `npc_abilities.txt`, `npc_abilities_custom.txt`
+   - **Активный файл:** `npc_heroes_custom.txt`
+
+2. **Содержимое файла:**
+   - **Формат:** Текстовый файл, вероятно, конфигурационный для игры Dota 2.
+   - **Структура:** JSON-подобный формат, используется для описания характеристик героя.
+   - **Код:**
+     ```plaintext
+     "npc_dota_hero_axe"
+     {
+         // General attributes
+         "Model"                         "models/heroes/axe/axe.mdl"
+         "Portrait"                      "vgui/hud/heroportraits/portrait_axe"
+         "SoundSet"                      "Hero_Axe"
+         "Enabled"                       "1"
+         "Role"                          "Durable,Initiator,Disabler,Jungler"
+         "Rolelevels"                    "3,2,1,1"
+         "Team"                          "Good"
+         "HeroID"                        "2"
+         "ModelScale"                    "0.84"
+         "HeroGlowColor"                 "255 0 0"
+         "PickSound"                     "axe_axe_spawn_01"
+         "BanSound"                      "axe_axe_anger_01"
+         "CMEnabled"                     "1"
+         "url"                           "Axe"
+         "AbilityLayout"                 "6"
+         "Ability1"                      "axe_berserkers_call"
+         "Ability2"                      "axe_battle_hunger"
+         "Ability3"                      "axe_counter_helix"
+         "Ability4"                      "generic_hidden"
+         "Ability5"                      "generic_hidden"
+         "Ability6"                      "axe_culling_blade"
+         "Ability10"                     "special_bonus_unique_axe_2"
+         "Ability11"                     "special_bonus_unique_axe_3"
+         "Ability12"                     "special_bonus_unique_axe_4"
+         "Ability13"                     "special_bonus_unique_axe_5"
+         "Ability14"                     "special_bonus_unique_axe_6"
+         "Ability15"                     "special_bonus_unique_axe_7"
+         "Ability16"                     "special_bonus_unique_axe_8"
+         "Ability17"                     "special_bonus_unique_axe"
+         "ArmorPhysical"                 "0"
+         "AttackCapabilities"            "DOTA_UNIT_CAP_MELEE_ATTACK"
+         "AttackDamageMin"               "27"
+         "AttackDamageMax"               "31"
+         "AttackRate"                    "1.7"
+         "AttackAnimationPoint"          "0.5"
+         "AttackAcquisitionRange"        "600"
+         "AttackRange"                   "150"
+         "ProjectileModel"               ""
+         "ProjectileSpeed"               ""
+         "AttributePrimary"              "DOTA_ATTRIBUTE_STRENGTH"
+         "AttributeBaseStrength"         "25"
+         "AttributeStrengthGain"         "2.8"
+         "AttributeBaseIntelligence"     "18"
+         "AttributeIntelligenceGain"     "1.6"
+         "AttributeBaseAgility"          "20"
+         "AttributeAgilityGain"          "2.2"
+         "MovementSpeed"                 "310"
+         "MovementTurnRate"              "0.6"
+         "HealthBarOffset"               "140"
+         "ParticleFile"                  "particles/units/heroes/hero_axe.pcf"
+         "GameSoundsFile"                "scripts/game_sounds_heroes/game_sounds_axe.txt"
+         "VoiceFile"                     "scripts/voscripts/game_sounds_vo_axe.txt"
+         "RenderablePortrait"
+         {
+             "Particles"
+             {
+                 "axe_ambient"
+                 {
+                     "0"
+                     {
+                         "type"          "follow_attachment"
+                         "location"      "attach_hitloc"
+                     }
+                 }
+             }
+         }
+         "Bot"
+         {
+             "Loadout"
+             {
+                 "item_tango"            "ITEM_CONSUMABLE | ITEM_SELLABLE"
+                 "item_stout_shield"     "ITEM_CORE"
+                 "item_quelling_blade"   "ITEM_CORE"
+                 "item_boots"            "ITEM_CORE"
+                 "item_magic_stick"      "ITEM_CORE"
+                 "item_branches"         "ITEM_EXTENSION"
+                 "item_branches"         "ITEM_EXTENSION"
+                 "item_ring_of_health"   "ITEM_EXTENSION"
+                 "item_vitality_booster" "ITEM_EXTENSION"
+                 "item_vanguard"         "ITEM_DERIVED"
+                 "item_blink"            "ITEM_DERIVED"
+                 "item_blade_mail"       "ITEM_DERIVED"
+                 "item_ultimate_scepter" "ITEM_DERIVED"
+                 "item_shivas_guard"     "ITEM_DERIVED"
+             }
+             "Build"
+             {
+                 "1"                     "axe_berserkers_call"
+                 "2"                     "axe_counter_helix"
+                 "3"                     "axe_berserkers_call"
+                 "4"                     "axe_counter_helix"
+                 "5"                     "axe_berserkers_call"
+                 "6"                     "axe_culling_blade"
+                 "7"                     "axe_berserkers_call"
+                 "8"                     "axe_counter_helix"
+                 "9"                     "axe_counter_helix"
+                 "10"                    "special_bonus_unique_axe_2"
+                 "11"                    "axe_culling_blade"
+                 "12"                    "axe_battle_hunger"
+                 "13"                    "axe_battle_hunger"
+                 "14"                    "axe_battle_hunger"
+                 "15"                    "special_bonus_unique_axe_3"
+                 "16"                    "axe_culling_blade"
+                 "17"                    "special_bonus_unique_axe_4"
+                 "18"                    "axe_battle_hunger"
+                 "19"                    "special_bonus_unique_axe_5"
+                 "20"                    "special_bonus_unique_axe_6"
+                 "21"                    "special_bonus_unique_axe_7"
+                 "22"                    "special_bonus_unique_axe_8"
+             }
+             "HeroType"                  "DOTA_HERO_TANK | DOTA_HERO_INITIATOR"
+             "LaningInfo"
+             {
+                 "SoloDesire"            "1"
+                 "RequiresBabysit"       "0"
+                 "ProvidesBabysit"       "2"
+                 "SurvivalRating"        "2"
+                 "RequiresFarm"          "2"
+                 "ProvidesSetup"         "2"
+                 "RequiresSetup"         "0"
+             }
+         }
+     }
+     ```
+
+3. **Связь с аудио:**
+   - **Контекст:** В аудио говорится о замене атрибута героя на "агилку" (Agility).
+   - **Связь:** На экране видно, что в коде атрибут героя "AttributePrimary" установлен как "DOTA_ATTRIBUTE_STRENGTH". Вероятно, пользователь собирается изменить его на "DOTA_ATTRIBUTE_AGILITY", что соответствует обсуждаемой теме в аудио.

@@ -1,0 +1,78 @@
+Кадр 45
+Временная метка: 0:11:15
+Номер кадра: 40500
+Скриншот: frame_040500_675.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:06] У нас предложение мы создаем предмет
+[0:11:08] ItemName
+[0:11:10] ItemName у нас это item
+[0:11:12] Вот этого значения
+[0:11:14] Owner
+[0:11:16] Можно присвоить можем нет
+[0:11:18] Это для того чтобы
+[0:11:20] Допустим если там Jagger
+[0:11:22] Зафармил зомби и с него выпал предмет
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `item_drop_manager.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+```lua
+require("tables/item_drop")
+
+if ItemDropManager == nil then
+    ItemDropManager = class({})
+end
+
+function ItemDropManager:Init()
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'EntityKilled'), self)
+end
+
+function ItemDropManager:EntityKilled(event)
+    local killedUnit = EntIndexToHScript(event.entindex_killed)
+
+    local items = ITEM_DROP[killedUnit:GetUnitName()]
+    if not items then return end
+
+    local randomNumber = RandomFloat(0, 0.99)
+    local cumulativeProbability = 0
+    local dropItem
+
+    for _, item in ipairs(items) do
+        cumulativeProbability = cumulativeProbability + item.chance
+        if randomNumber < cumulativeProbability then
+            dropItem = item
+            break
+        end
+    end
+
+    if not dropItem then return end
+
+    local newItem = CreateItem(dropItem.item, owner, owner)
+    CreateItemOnPositionSync(killedUnit:GetAbsOrigin(), newItem)
+end
+```
+
+### Описание кода:
+- **Импорт:** `require("tables/item_drop")` — импортирует таблицу `item_drop`, содержащую информацию о предметах.
+- **Класс `ItemDropManager`:** Создается класс для управления выпадением предметов.
+- **Функция `Init`:** Подписывается на событие `entity_killed`, чтобы вызывать функцию `EntityKilled` при убийстве сущности.
+- **Функция `EntityKilled`:** 
+  - Получает убитую сущность.
+  - Извлекает список предметов, которые могут выпасть из убитой сущности.
+  - Генерирует случайное число и определяет, какой предмет выпадет, основываясь на вероятностях.
+  - Создает и размещает предмет на позиции убитой сущности.
+
+### Важные детали:
+- **Переменные:** `killedUnit`, `items`, `randomNumber`, `cumulativeProbability`, `dropItem`, `newItem`.
+- **Функции:** `EntIndexToHScript`, `RandomFloat`, `CreateItem`, `CreateItemOnPositionSync`.
+- **События:** `entity_killed`.
+
+### Связь с аудио:
+- В аудио говорится о создании предмета и его владельце. В коде это соответствует строке `local newItem = CreateItem(dropItem.item, owner, owner)`, где создается новый предмет и назначается его владелец.
+- Упоминается, что предмет может выпасть из зомби, что связано с логикой выпадения предметов при убийстве сущности в функции `EntityKilled`.

@@ -1,0 +1,127 @@
+Кадр 32
+Временная метка: 0:08:00
+Номер кадра: 28800
+Скриншот: frame_028800_480.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:51] Текущую нашу таблицу.
+[0:07:53] Поэтому.
+[0:07:54] Имейте это ввиду.
+[0:07:55] Он не дополняет.
+[0:07:56] Он полностью заменяет.
+[0:07:57] То есть если изначально у вас было там кучу условно данных каких-то.
+[0:08:00] И вы.
+[0:08:01] Условно написали потом вот так вот.
+[0:08:03] BossKilled.
+[0:08:04] То у вас все данные сотрутся.
+[0:08:06] Останется только один BossKilled.
+[0:08:07] Имейте ввиду.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Анализ кадра из видео-туториала
+
+#### 1. Код
+
+- **Язык программирования**: Lua
+- **Видимый код**:
+  ```lua
+  CustomGameEventManager:RegisterListener("spawn-cobold", Dynamic_Wrap(self, 'OnSpawnCobold'))
+  CustomGameEventManager:RegisterListener("add_ability", Dynamic_Wrap(self, 'OnChoiceAbility'))
+
+  function ChupakabraMode:OnSpawnCobold(data)
+      local player = PlayerResource:GetPlayer(data.id)
+      local hero = player:GetAssignedHero()
+
+      hero:ModifyGold(START_GOLD, true, 1)
+  end
+
+  function ChupakabraMode:OnChoiceAbility(data)
+      local player = PlayerResource:GetPlayer(data.player)
+      local hero = player:GetAssignedHero()
+
+      hero:AddAbility(data.ability)
+  end
+
+  function ChupakabraMode:ChupakabraStateChange(data)
+      local newState = GameRules:State_Get()
+      if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+          self:ChupakabraStateInit()
+      elseif newState == DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
+          ChupakabraMode:InitBossKill()
+      end
+  end
+
+  function ChupakabraMode:DamageFilter(data)
+      return true
+  end
+
+  function ChupakabraMode:OrderFilter(data)
+      local type = data.order_type
+      local playerId = data.issuer_player_id_const
+
+      if type == DOTA_UNIT_ORDER_PICKUP_ITEM then
+          local target = EntIndexToHScript(data.entindex_target)
+
+          if target:GetContainedItem():GetCost() > 500 then
+              CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "ShowError", {message = "Не трогай, а то сожрет"})
+              return false
+          end
+      end
+
+      return true
+  end
+
+  function ChupakabraMode:ChupakabraKilled(data)
+      local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+      if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+          CustomNetTables:SetTableValue("boss_kill", tostring(1), {boss_killed = 0})
+
+          EmitSoundOn("Hero_Abaddon.DeathShield.Cast", killed_unit)
+          AddFOWViewer(DOTA_TEAM_GOODGUYS, killed_unit:GetAbsOrigin(), 500, 3, false)
+      end
+
+      if killed_unit:GetUnitName() == "npc_dota_neutral_centaur_ourtrunner_boss" then
+          local point = Entities:FindByName(nil, "boss_point"):GetAbsOrigin()
+          CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+      end
+
+      if killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+          GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+      end
+  end
+  ```
+
+- **Описание кода**:
+  - **Регистрация событий**: Используются `CustomGameEventManager:RegisterListener` для регистрации событий, таких как "spawn-cobold" и "add_ability".
+  - **Функции**:
+    - `OnSpawnCobold`: Добавляет золото герою.
+    - `OnChoiceAbility`: Добавляет способность герою.
+    - `ChupakabraStateChange`: Инициализирует состояние игры в зависимости от текущего состояния.
+    - `DamageFilter`: Возвращает `true`, что позволяет всем видам урона проходить.
+    - `OrderFilter`: Проверяет заказы игроков, например, не позволяет поднимать предметы дороже 500 золота.
+    - `ChupakabraKilled`: Обрабатывает события убийства различных боссов, включая обновление таблиц и создание новых юнитов.
+
+- **Важные детали**:
+  - Используются функции для работы с игроками и героями, такие как `PlayerResource:GetPlayer` и `GetAssignedHero`.
+  - Применяются сетевые таблицы через `CustomNetTables:SetTableValue`.
+  - Используются звуковые эффекты и эффекты обзора через `EmitSoundOn` и `AddFOWViewer`.
+
+#### 2. Редактор
+
+- **Название программы**: Sublime Text
+- **Что открыто в редакторе**: Файл `chupakabra_mode.lua` из проекта Dota 2.
+- **Активные инструменты**: Нет явных активных инструментов, стандартный редактор кода.
+- **Настройки**: Видна структура папок проекта в левой части экрана.
+- **Панели/вкладки**: Открыта вкладка с кодом, видна структура проекта.
+
+#### 5. Связь с аудио
+
+- **Соотношение с аудио**: В аудио говорится о том, что данные полностью заменяются, а не дополняются. Это связано с использованием `CustomNetTables:SetTableValue`, где данные о "boss_kill" перезаписываются.
+- **Объяснение происходящего**: Аудио предупреждает о том, что при записи данных в таблицы, предыдущие данные стираются, что важно учитывать при разработке.
+
+Этот анализ поможет в создании документации, объясняющей, как работает данный скрипт и как он взаимодействует с игровыми событиями.

@@ -1,0 +1,71 @@
+Кадр 54
+Временная метка: 0:13:30
+Номер кадра: 48600
+Скриншот: frame_048600_810.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:19] Но при каждом убийстве не героев, а крипов нужно прибавлять.
+[0:13:23] То на самом деле здесь все то же самое, что и до этого мы изучали.
+[0:13:29] То есть, условно, в Ростокопе мы можем буквально вот это все перенести.
+[0:13:34] И просто добавить в наш дизолькастер.
+[0:13:36] И это все заработает.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с кодом на языке программирования Lua. 
+
+### Код:
+```lua
+LinkLuaModifier("modifier_item_desol_custom", "items/item_desol_custom", LUA_MODIFIER_MOTION_NONE)
+
+item_desol_custom = class({})
+
+function item_desol_custom:OnSpellStart()
+    self:SetCurrentCharges(self:GetCurrentCharges() + 1)
+end
+
+function item_desol_custom:GetIntrinsicModifierName()
+    return "modifier_item_desol_custom"
+end
+
+modifier_item_desol_custom = class({})
+
+function modifier_item_desol_custom:IsHidden()
+    return true
+end
+
+function modifier_item_desol_custom:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE
+end
+
+function modifier_item_desol_custom:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+    }
+end
+
+function modifier_item_desol_custom:GetModifierBonusStats_Strength()
+    return self:GetAbility():GetSpecialValueFor("str_bonus") * self:GetAbility():GetCurrentCharges()
+end
+```
+
+### Описание кода:
+- **Импорт модификатора**: `LinkLuaModifier` связывает модификатор с файлом.
+- **Класс `item_desol_custom`**: 
+  - Метод `OnSpellStart` увеличивает количество зарядов предмета на 1.
+  - Метод `GetIntrinsicModifierName` возвращает имя модификатора.
+- **Класс `modifier_item_desol_custom`**:
+  - Метод `IsHidden` возвращает `true`, скрывая модификатор.
+  - Метод `GetAttributes` возвращает атрибут `MODIFIER_ATTRIBUTE_MULTIPLE`.
+  - Метод `DeclareFunctions` возвращает список функций, которые модификатор изменяет, в данном случае бонус к силе.
+  - Метод `GetModifierBonusStats_Strength` вычисляет бонус к силе, умножая специальное значение на количество зарядов.
+
+### Важные детали:
+- **Файловая структура**: В левой панели видна структура папок, включая `scripts/vscripts/items`.
+- **Файлы**: Открыт файл `item_desol_custom.lua`.
+
+### Связь с аудио:
+- В аудио говорится о добавлении функционала в "дизолькастер", что соответствует коду, который увеличивает заряды и модифицирует бонусы.

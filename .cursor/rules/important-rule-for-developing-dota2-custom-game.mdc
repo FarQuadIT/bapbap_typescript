@@ -1,0 +1,186 @@
+---
+alwaysApply: true
+---
+# Overview
+
+Insert overview text here. The agent will only see this should they choose to apply the rule.
+---
+alwaysApply: true
+---
+# Dota 2 Custom Game Development - TypeScript → Lua
+
+## 🎯 Главное правило
+**ВСЕГДА проверяй документацию HELP_FOR_CLAUDE/ перед ответом.**
+Это не рекомендация - это обязательное требование. ЕСЛИ НЕ НАШЕЛ ОТВЕТ НА ВОПРОС - НЕ ВЫДУМЫВАЙ, ПРОСТО СКАЖИ "Я НЕ ЗНАЮ КАК ОТВЕТИТЬ НА ЭТОТ ВОПРОС И НЕ НАШЕЛ ИНФОРМАЦИЮ В ИНТЕРНЕТЕ, ВОТ ПРЕДЛАГАЕМОЕ РЕШЕНИЕ ЛИЧНО ОТ МЕНЯ", и предложи решение, но не применяй его, пока я не одобрю. 
+И ВТОРОЕ ВАЖНОЕ ПРАВИЛО - НИКОГДА НЕ СОЗДАВАЙ ДОКУМЕНТАЦИЮ К ПРОЕКТУ. МНЕ ЭТО НЕ НУЖНО.
+## 📚 Иерархия источников информации
+
+### 1. Проверка существования функций/API (КРИТИЧНО!)
+Перед использованием ЛЮБОЙ функции Dota 2 API:
+
+**Для Lua/VScripts функций:**
+- Проверь `HELP_FOR_CLAUDE/Documentation_api_and_functions_lua_and_panorama/moddota_api_lua.json`
+- Найди точное имя функции, параметры и return type
+- Убедись что функция существует в актуальной версии
+
+**Для Lua событий:**
+- Проверь `HELP_FOR_CLAUDE/Documentation_api_and_functions_lua_and_panorama/moddota_events.json`
+- Проверь структуру event data
+
+**Для Panorama API:**
+- Проверь `HELP_FOR_CLAUDE/Documentation_api_and_functions_lua_and_panorama/moddota_panorama_api.json`
+- Проверь доступность методов и свойств
+
+**Для Panorama событий:**
+- Проверь `HELP_FOR_CLAUDE/Documentation_api_and_functions_lua_and_panorama/moddota_panorama_events.json`
+
+### 2. Документация и туториалы
+- `HELP_FOR_CLAUDE/ModDota_Complete_Documentation.md` - полная документация ModDota, ТЫ ДОЛЖЕН ВСЕГДА ЕЙ ПОЛЬЗОВАТЬСЯ И ДЕРЖАТЬ В ГОЛОВЕ ПРИ ОТВЕТЕ НА ВОПРОСЫ
+- `HELP_FOR_CLAUDE/Valve_documentation_official_for_dota2_custom_games_developing/` - официальная документация Valve
+- `HELP_FOR_CLAUDE/Guides_from_videos/` - пошаговые туториалы с скриншотами
+
+### 3. MCP-серверы
+- Я сделал очень полезный MCP-сервер под названием `dota2-advanced`. Он имеет возможность получить доступ ко всем dota2 файлам игры, а именно моделям, particles и прочему, и даже вроде как умеет их декомпилировать. Поэтому если мой запрос требует поиска каких-то моделей или частиц или чего-либо подобного, что есть в файлах игры - ты обязан пользоваться этим MCP-сервером
+
+### 4. Примеры из реальных проектов
+**Когда искать примеры:**
+- Нужна архитектура системы → `HELP_FOR_CLAUDE/Examples_of_projects_custom_dota2_games/00_SUMMARY.md`
+- Нужен конкретный паттерн → анализы проектов (01-10_*.md)
+- Нужны Panorama UI практики → `PANORAMA_BEST_PRACTICES.md`
+- В общем всегда пользуйся документацией, а также поиском в интернете
+
+**Проекты по уровню сложности:**
+- ⭐ Beginner: Ashenvale Archers (13 файлов) - data-driven, простые способности
+- ⭐⭐ Intermediate: Dota Run, Trolls and Elves - mini-games, AI, волны
+- ⭐⭐⭐ Advanced: Warchasers - ARPG, loot systems
+- ⭐⭐⭐⭐⭐ Expert: DotaCraft (257 файлов) - RTS, DotaIMBA (196 файлов) - full modifications
+
+## 🔍 Стратегия поиска решения
+
+### Шаг 1: Определи тип задачи
+- VScripts/Lua логика → ищи в moddota_api_lua.json + ModDota_Complete_Documentation.md
+- Panorama UI → ищи в moddota_panorama_api.json + PANORAMA_BEST_PRACTICES.md
+- Архитектура/дизайн → ищи в 00_SUMMARY.md + конкретные проекты
+- Пошаговый гайд или не понятный вопрос, ответа на который нет ни в одной другой документации → ищи в Guides_from_videos/
+
+### Шаг 2: Проверь существование API
+**ОБЯЗАТЕЛЬНО читай JSON документацию перед использованием функций!**
+- Функция есть в документации? → используй
+- Функции нет? → ищи альтернативу или предупреди пользователя
+
+### Шаг 3: Найди примеры использования
+- Ищи в соответствующих разделах ModDota_Complete_Documentation.md
+- Ищи в анализах проектов (Examples_of_projects_custom_dota2_games/)
+- Если найден пример - адаптируй под задачу пользователя
+- Но обязательно проверь - а актуален ли этот пример или может он устарел и есть более свежие решения
+
+### Шаг 4: Проверь Best Practices
+- Есть ли лучший способ решить задачу?
+- Нет ли устаревших подходов? (например, Tutorial.AddBot больше не работает)
+- Проверь "Общие проблемы и решения" в 00_SUMMARY.md
+
+## 🚨 Критичные проверки
+
+### Перед использованием любой Dota 2 функции:
+1. **Найди её в JSON документации** - это обязательно!
+2. Проверь параметры и типы
+3. Проверь возвращаемое значение
+4. Убедись что она не deprecated
+
+### Известные несуществующие/deprecated функции:
+- `Tutorial.AddBot()` - больше не работает
+- Другие найдёшь в процессе проверки документации
+
+### Безопасность кода:
+```typescript
+// ВСЕГДА проверяй на undefined/null
+const hero = player.GetAssignedHero();
+if (hero && IsValidEntity(hero)) {
+    // безопасно использовать
+}
+```
+
+## 🔧 TypeScript → Lua специфика
+
+### Компиляция с typescript-to-lua (TSTL):
+- Проект использует TypeScript, который компилируется в Lua
+- **Декораторы обязательны:** `@registerModifier()`, `@registerAbility()`
+- **Избегай** сложных TS фич, которые плохо транспилятся
+- **Lua arrays** начинаются с 1 (TSTL обрабатывает автоматически)
+
+### Структура проекта:
+```
+src/vscripts/  → компилируется в → game/scripts/vscripts/*.lua
+src/panorama/  → компилируется в → content/panorama/scripts/custom_game/*.js
+```
+
+### Важные файлы проекта:
+- `src/vscripts/GameMode.ts` - главный game mode класс
+- `src/vscripts/lib/dota_ts_adapter.ts` - TypeScript адаптеры
+- `src/panorama/hud.ts` - UI логика
+- `src/common/events.d.ts` - типы событий (общие для VScripts и Panorama)
+
+## 🎨 Panorama UI Rules
+
+### Проверка CSS свойств:
+- **НЕ все CSS свойства работают** в Panorama!
+- Перед использованием проверь `PANORAMA_BEST_PRACTICES.md`
+- Особенно: transform, box-shadow, animations
+
+### Производительность:
+- `DOTAScenePanel` (3D модели) - тяжёлые, используй ограниченно
+- `DOTAHeroImage` (иконки) - лёгкие, используй для множественных элементов
+- Проверь секцию "Производительность" в PANORAMA_BEST_PRACTICES.md
+
+## 🐛 Debugging подход
+
+### IsInToolsMode() для дебага:
+```typescript
+if (IsInToolsMode()) {
+    // Весь дебаг код здесь
+}
+```
+
+### Консольные команды:
+- `script_reload` - перезагрузка VScripts без перезапуска игры
+- `dota_launch_custom_game` - запуск кастомки
+- Другие команды ищи в документации
+
+## 📋 Workflow при ответе на вопрос
+
+1. **Определи тип вопроса** (VScripts/Panorama/Architecture)
+2. **Прочитай соответствующий JSON** из Documentation_api_and_functions_lua_and_panorama/
+3. **Найди функции/API** и проверь их существование
+4. **Найди примеры** в ModDota_Complete_Documentation.md или проектах
+5. **Проверь Best Practices** (00_SUMMARY.md, PANORAMA_BEST_PRACTICES.md)
+6. **Адаптируй решение** под задачу пользователя
+7. **Укажи источник** информации в ответе
+
+## ⚠️ Что НЕЛЬЗЯ делать
+
+- ❌ Использовать функции без проверки в JSON документации
+- ❌ Давать примеры кода с устаревшими API
+- ❌ Игнорировать HELP_FOR_CLAUDE/ документацию
+- ❌ Предлагать решения без проверки их работоспособности в Dota 2
+- ❌ Использовать сложные TypeScript конструкции, которые плохо компилируются в Lua
+
+## ✅ Checklist перед каждым ответом
+
+- [ ] Проверил JSON документацию на существование функций?
+- [ ] Нашёл и прочитал релевантные разделы в ModDota_Complete_Documentation.md?
+- [ ] Проверил примеры в реальных проектах (если применимо)?
+- [ ] Проверил Best Practices (PANORAMA_BEST_PRACTICES.md или 00_SUMMARY.md)?
+- [ ] Убедился что предложенное решение актуально и не deprecated?
+- [ ] Учёл особенности TypeScript → Lua компиляции?
+- [ ] Указал источник информации в ответе?
+- [ ] Проверил что код не сломает существующую функциональность?
+
+## 🇷🇺 Язык общения
+
+- Пользователь предпочитает **русский язык** для объяснений
+- Код и комментарии в коде на английском
+- Технические термины можно оставлять на английском
+
+---
+
+**Помни**: Документация в HELP_FOR_CLAUDE/ - это не просто справка, это единственный надёжный источник истины для этого проекта. Всегда начинай с неё.

@@ -1,0 +1,75 @@
+Кадр 49
+Временная метка: 0:12:15
+Номер кадра: 44100
+Скриншот: frame_044100_735.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:03] Берем наш предмет, и делаем setCurrentCharges у него.
+[0:12:07] И после этого получаем текущее количество
+[0:12:09] charg на нем.
+[0:12:11] И
+[0:12:13] плюс 1 делаем.
+[0:12:15] Все довольно просто.
+[0:12:17] После этого тут вот
+[0:12:19] умножаем не на количество стаков модификатора,
+[0:12:21] а получаем сначала наш предмет.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+
+     ```lua
+     LinkLuaModifier("modifier_item_desol_custom", "items/item_desol_custom", LUA_MODIFIER_MOTION_NONE)
+
+     item_desol_custom = class({})
+
+     function item_desol_custom:OnSpellStart()
+         self:SetCurrentCharges(self:GetCurrentCharges() + 1)
+     end
+
+     function item_desol_custom:GetIntrinsicModifierName()
+         return "modifier_item_desol_custom"
+     end
+
+     modifier_item_desol_custom = class({})
+
+     function modifier_item_desol_custom:IsHidden()
+         return true
+     end
+
+     function modifier_item_desol_custom:GetAttributes()
+         return MODIFIER_ATTRIBUTE_MULTIPLE
+     end
+
+     function modifier_item_desol_custom:DeclareFunctions()
+         return {
+             MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+         }
+     end
+
+     function modifier_item_desol_custom:GetModifierBonusStats_Strength()
+         return self:GetAbility():GetSpecialValueFor("str_bonus") * self:GetStackCount()
+     end
+     ```
+
+   - **Описание кода:**
+     - Код определяет предмет и его модификатор в игре.
+     - `item_desol_custom` — класс предмета, который увеличивает количество зарядов при активации (`OnSpellStart`).
+     - `modifier_item_desol_custom` — класс модификатора, который скрыт (`IsHidden`) и имеет атрибуты, позволяющие его множественное наложение (`GetAttributes`).
+     - Модификатор увеличивает бонус к силе (`GetModifierBonusStats_Strength`) на основе специального значения и количества стаков.
+
+   - **Важные детали:**
+     - Используется функция `LinkLuaModifier` для связывания модификатора с предметом.
+     - Функции `SetCurrentCharges` и `GetCurrentCharges` управляют количеством зарядов предмета.
+     - `DeclareFunctions` возвращает список функций, которые модификатор будет использовать.
+
+2. **СВЯЗЬ С АУДИО:**
+
+   - В аудио говорится о добавлении зарядов к предмету, что соответствует функции `OnSpellStart`, где количество зарядов увеличивается на 1.
+   - Упоминается умножение на количество стаков, что связано с функцией `GetModifierBonusStats_Strength`, где бонус к силе зависит от количества стаков модификатора.

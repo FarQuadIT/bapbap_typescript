@@ -1,0 +1,84 @@
+Кадр 10
+Временная метка: 0:02:30
+Номер кадра: 9000
+Скриншот: frame_009000_150.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:22] То есть за каждый стак...
+[0:02:23] То есть за каждый удар нам дается...
+[0:02:25] За каждый стак мы наносим дополнительный урон.
+[0:02:28] В размере дэмэш в стак, в размере 5.
+[0:02:31] Увеличенное на стаке.
+[0:02:33] Давайте теперь с помощью таланта увеличим количество...
+[0:02:36] Длительность нашего эффекта на 120 секунд.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Этот файл, судя по пути, относится к модификации для игры Dota 2. 
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED)
+2. **Открытые файлы**:
+   - `npc_abilities_custom.txt`
+   - `npc_heroes_custom.txt`
+   - `npc_abilities.txt`
+
+3. **Структура папок**:
+   - Путь к файлу: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc`
+   - Видны папки: `chupakabra`, `maps`, `materials`, `particles`, `resource`, `scripts`, `soundevents`, `sounds`.
+
+4. **Содержимое файла `npc_abilities_custom.txt`**:
+   - Файл содержит описание способностей для модификации Dota 2.
+   - Пример структуры данных:
+     ```plaintext
+     "Version" "1"
+     "DOTAAbilities"
+     {
+         "cechens_armor"
+         {
+             "BaseClass" "ability_lua"
+             "ScriptFile" "abilities/cechens_armor"
+             "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+             "AbilityValues"
+             {
+                 "bonus_armor" "5 10 15 20"
+             }
+         }
+         "ursa_copy"
+         {
+             "BaseClass" "ability_lua"
+             "ScriptFile" "abilities/ursa_copy"
+             "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+             "AbilityValues"
+             {
+                 "duration" "5 8 12 20"
+                 "damage_per_stack" "5"
+             }
+         }
+         "healing_spell"
+         {
+             "BaseClass" "ability_lua"
+             "ScriptFile" "abilities/healing_spell"
+             "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+             "AbilityCastPoint" "0.45"
+             "AbilityManaCost" "75 80 85 90"
+             "AbilityValues"
+             {
+                 "heal" "150 300 450 600"
+                 "duration" "3 5 6 7 9"
+                 "radius" "350"
+                 "hp_regen" "20 40 60 80"
+             }
+         }
+     }
+     ```
+
+5. **Связь с аудио**:
+   - В аудио говорится о механике "стаков" и дополнительном уроне за каждый стак. Это соответствует способности `ursa_copy`, где указаны параметры `duration` и `damage_per_stack`, что связано с обсуждаемыми в аудио механиками.
+
+### Заключение:
+На экране показан процесс редактирования файла конфигурации способностей для модификации Dota 2. Видимые параметры и их значения соответствуют обсуждаемым в аудио механикам, таким как длительность и урон за стак.

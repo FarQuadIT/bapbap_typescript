@@ -1,0 +1,101 @@
+Кадр 80
+Временная метка: 0:20:00
+Номер кадра: 72000
+Скриншот: frame_072000_1200.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:19:51] То есть функция очень полезна.
+[0:19:53] И я вам рассказал, как ее сделать более лаконичней,
+[0:19:56] чем через то, что было...
+[0:19:58] Ну, что у нас дота в стандарте вывела.
+[0:20:02] И давайте на этом закончим.
+[0:20:04] Я думаю, дальше, если углубляться в примеры,
+[0:20:06] то это уже будет больше не про слушателей, а про примеры.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+local expTable = HeroExpTable[1] expTable[1] = 1
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(0)
+    GameRules:SetPreGameTime(10)
+    GameRules:SetPostGameTime(60)
+    GameRules:SetTreeRegrowTime(60)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+    GameRules:SetUseCustomHeroXPValues(true) -- установка кастомной системы уровней
+    GameRules:SetCustomHeroMaxLevel(#HeroExpTable)
+    GameRules:SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0)
+
+    GameRules:GetGameModeEntity():SetHudCombatEventsDisabled(true)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'chupakabrakilled'), self)
+    ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(self, 'chupakabrastatechange'), self)
+end
+
+function ChupakabraMode:chupakabrastatechange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        print("ChupakabraMode started")
+    end
+end
+
+local kobold_count = 0
+
+function ChupakabraMode:chupakabrakilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        print("Kobold killed at position: ", killed_unit:GetAbsOrigin())
+    end
+
+    if kobold_count >= 10 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+
+    if killed_unit:IsRealHero() then
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+
+function GiveGold(player, gold)
+    for index = 0, DOTA_MAX_PLAYERS - 1 do
+        if PlayerResource:IsValidPlayer(index) then
+            local hero = PlayerResource:GetSelectedHeroEntity(index)
+            if hero then
+                PlayerResource:ModifyGold(index, gold, true, DOTA_ModifyGold_Unspecified)
+                SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+            end
+        end
+    end
+end
+```
+
+### Описание кода:
+
+- **Инициализация режима игры**: Функция `InitGameMode` устанавливает начальные параметры игры, такие как стартовое золото, время выбора героя, максимальное количество игроков в командах и другие настройки.
+- **Обработка событий**: Используются функции `chupakabrastatechange` и `chupakabrakilled` для обработки изменений состояния игры и событий убийства сущностей.
+- **Подсчет убитых юнитов**: Ведется подсчет убитых "kobold", и если их количество достигает 10, игра завершается победой команды "GOODGUYS".
+- **Выдача золота**: Функция `GiveGold` распределяет золото между игроками.
+
+### Связь с аудио:
+
+В аудио говорится о полезности функции и о том, как сделать её более лаконичной. Видимый код демонстрирует реализацию различных игровых механик, что может быть связано с обсуждением оптимизации и улучшения кода.

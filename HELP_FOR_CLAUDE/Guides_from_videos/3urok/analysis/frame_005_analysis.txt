@@ -1,0 +1,97 @@
+Кадр 5
+Временная метка: 0:01:15
+Номер кадра: 4500
+Скриншот: frame_004500_75.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:05] Научились там, ну, полазили с другими обилками, посмотрели, как ей поменять иконку.
+[0:01:12] Здесь нам нужно для начала зайти в наш аддон, чупакабра, зайти в ресурсы, Flash 3.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+#### 1. Интерфейс/Редактор
+- **Название программы:** Sublime Text (UNREGISTERED)
+- **Открытый файл:** `npc_abilities_custom.txt`
+- **Путь к файлу:** `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\`
+- **Структура папок слева:**
+  - `chupakabra`
+    - `maps`
+    - `materials`
+    - `particles`
+    - `resource`
+    - `scripts`
+      - `npc`
+        - `npc_abilities_custom.txt` (открыт)
+        - `npc_heroes_custom.txt`
+        - `npc_items_custom.txt`
+        - `npc_units_custom.txt`
+    - `addoninfo.txt`
+    - `addon_game_mode.vcfg`
+    - `tools_asset_info.bin`
+    - `tools_thumbnail_cache.bin`
+
+#### 2. Код
+- **Язык программирования:** Текстовый файл конфигурации (форматирование в стиле JSON)
+- **Содержимое файла:**
+  ```plaintext
+  "Axe_Counter_Helix"
+  {
+      // General
+      "AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_PASSIVE"    // unique ID number for this ability. Do not change this once established or it will invalidate collected stats.
+      "SpellImmunityType"      "SPELL_IMMUNITY_ENEMIES_YES"
+      "AbilitySound"           "Hero_Axe.CounterHelix"
+
+      // Special
+      "AbilityValues"
+      {
+          "damage"
+          {
+              "value"         "100 200 300 400"
+              "special_bonus_unique_axe_2"    "30"
+          }
+          "radius"            "300"
+          "trigger_attacks"   "0"
+          "AbilityCooldown"
+          {
+              "value"         "0"
+              "special_bonus_shard"   "0.3"
+          }
+          "shard_debuff_duration"
+          {
+              "special_bonus_shard"   "6.0"
+          }
+          "shard_damage_reduction"
+          {
+              "special_bonus_shard"   "15"
+          }
+          "shard_max_stacks"
+          {
+              "special_bonus_shard"   "6"
+          }
+      }
+      "AbilityCastAnimation"   "ACT_DOTA_CAST_ABILITY_3"
+  }
+  ```
+
+- **Описание кода:**
+  - Конфигурация способности "Axe_Counter_Helix" для игры Dota 2.
+  - **Основные параметры:**
+    - `AbilityBehavior`: Указывает, что способность пассивная.
+    - `SpellImmunityType`: Способность действует на врагов с иммунитетом к заклинаниям.
+    - `AbilitySound`: Звук, проигрываемый при активации способности.
+  - **Специальные параметры:**
+    - `damage`: Значения урона на разных уровнях и бонус.
+    - `radius`: Радиус действия способности.
+    - `trigger_attacks`: Параметр, связанный с атаками.
+    - `AbilityCooldown`: Время перезарядки способности.
+    - `shard_*`: Параметры, связанные с улучшением способности с помощью шардов.
+    - `AbilityCastAnimation`: Анимация при использовании способности.
+
+#### 3. Связь с аудио
+- **Контекст аудио:** В аудио говорится о работе с аддоном "чупакабра" и изменении иконки способности.
+- **Связь с экраном:** На экране открыт файл конфигурации способностей, что соответствует упоминанию об изменении параметров в аддоне.

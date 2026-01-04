@@ -1,0 +1,76 @@
+Кадр 3
+Временная метка: 0:00:45
+Номер кадра: 2700
+Скриншот: frame_002700_45.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+HeroExpTable = {0, 200, 500, 900, 1400, 2000, 2600, 3200, 4400, 5400, 6000, 8200, 9000, 10400, 11900, 13500, 15200, 17000, 18900, 20900, 23000, 25200, 27500, 29900, 32400}
+expTable = {0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400}
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true) -- установка кастомной системы уровней
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel(#HeroExpTable)
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetHeroRespawnEnabled(true)
+
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        --print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+1. **Определение класса**: Проверяется, существует ли `ChupakabraMode`. Если нет, создается новый класс.
+2. **Таблицы опыта**: Определены таблицы `HeroExpTable` и `expTable`, которые содержат значения опыта для уровней героев.
+3. **Функция `InitGameMode`**:
+   - Устанавливает максимальное количество игроков для каждой команды.
+   - Включает кастомную систему уровней и задает максимальный уровень героев.
+   - Включает универсальный магазин и возрождение героев.
+   - Устанавливает значения для атрибутов ловкости.
+   - Устанавливает функцию `OnThink` для периодического выполнения.
+4. **Функция `OnThink`**: Проверяет состояние игры и выполняет действия в зависимости от него.
+
+### Важные детали:
+- Используются функции `GameRules` и `GameModeEntity` для настройки правил игры.
+- Кастомные уровни и атрибуты позволяют гибко настраивать игровой процесс.
+
+### Контекст:
+- Код предназначен для модификации игры Dota 2, вероятно, для создания пользовательского режима игры.
+- Аудио контекст отсутствует, поэтому связь с аудио не может быть установлена.

@@ -1,0 +1,78 @@
+Кадр 88
+Временная метка: 0:07:20
+Номер кадра: 26400
+Скриншот: frame_026400_440.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:16] Да, есть партиклы, которые могут пропадать сами по себе.
+[0:07:19] Однако, в данном случае, тучка реки, она не пропадает сама по себе.
+[0:07:22] Потому что она зависит от длительности, ну, тучки.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это скрипт на языке программирования Lua, используемый для модификации в игре Dota 2.
+
+### Видимый код:
+```lua
+function gold_hole:OnSpellStart()
+    local trigger = Entities:FindByName(nil, "teleport")
+    if (trigger:IsTouching(self:GetCaster())) then
+        local point = self:GetCursorPosition()
+        local caster = self:GetCaster()
+        local duration = self:GetSpecialValueFor("duration")
+
+        CreateModifierThinker(caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false)
+    end
+end
+
+modifier_gold_hole_thinker = {}
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    if not IsServer() then return end
+
+    self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+    ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self.effect_cast, 1, Vector(radius, radius, radius))
+
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+
+    for _, enemy in pairs(enemies) do
+        caster:ModifyGold(gold_per_unit, true, DOTA_ModifyGold_Unspecified)
+    end
+end
+```
+
+### Описание кода:
+- **Функция `gold_hole:OnSpellStart()`**: Проверяет, находится ли кастер в зоне триггера "teleport". Если да, создается модификатор `modifier_gold_hole_thinker` на определенной позиции с заданной длительностью.
+- **Модификатор `modifier_gold_hole_thinker`**: 
+  - **`IsHidden()`**: Возвращает `true`, скрывая модификатор.
+  - **`OnCreated()`**: Создает визуальный эффект с использованием партиклов и запускает интервал для периодического выполнения.
+  - **`OnDestroy()`**: Уничтожает партиклы при удалении модификатора.
+  - **`OnIntervalThink()`**: Каждую секунду проверяет наличие врагов в радиусе и добавляет золото кастеру за каждого врага.
+
+### Важные детали:
+- **Импорты и функции**: Используются функции для работы с партиклами и поиска юнитов.
+- **Переменные**: `radius`, `gold_per_unit`, `effect_cast` и другие управляют логикой и визуальными эффектами.
+
+### Связь с аудио:
+- В аудио говорится о партиклах, которые могут пропадать сами по себе, и о том, что "тучка реки" зависит от длительности. Это соответствует коду, где создаются и уничтожаются партиклы, а также управляется их длительность через модификатор.

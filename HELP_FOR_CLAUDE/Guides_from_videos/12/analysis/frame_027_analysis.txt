@@ -1,0 +1,66 @@
+Кадр 27
+Временная метка: 0:06:45
+Номер кадра: 24300
+Скриншот: frame_024300_405.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:36] Чтобы мне не лезть лиш...
+[0:06:38] Блять, ну, ну, ну, нет, блять.
+[0:06:41] Ага, я просто неправильно это написал.
+[0:06:43] Property.
+[0:06:44] Moosepeed.
+[0:06:45] Bonus constant.
+[0:06:46] То есть она, ну, констант.
+[0:06:47] То есть она, ну, констант.
+[0:06:48] Ну, константами будет.
+[0:06:49] Можно и процентами, чтобы еще Moosepeed спадал.
+[0:06:52] Но у нас пусть будет фиксированное значение.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE)
+
+strong_poison = class({})
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {duration = 0})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT,
+    }
+end
+```
+
+### Описание кода:
+1. **LinkLuaModifier**: Связывает модификатор `modifier_strong_poison` с файлом `abilities/strong_poison`.
+2. **strong_poison**: Класс, представляющий способность.
+   - **OnSpellStart**: Функция, вызываемая при активации способности. Добавляет модификатор `modifier_strong_poison` к цели.
+3. **modifier_strong_poison**: Класс модификатора.
+   - **IsHidden**: Возвращает `false`, что означает, что модификатор видим.
+   - **DeclareFunctions**: Определяет функции, которые модификатор будет изменять, в данном случае это `MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT`.
+
+### Важные детали:
+- **MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT**: Указывает на изменение скорости передвижения.
+- **Путь к файлу**: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities\strong_poison.lua`.
+
+### Связь с аудио:
+- В аудио говорится о неправильном написании и обсуждается использование констант для изменения скорости передвижения (`Moosepeed`), что соответствует видимому коду, где используется `MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT`.
+- Упоминается возможность использования процентов для изменения скорости, но в коде выбрано фиксированное значение, что также отражено в аудио.

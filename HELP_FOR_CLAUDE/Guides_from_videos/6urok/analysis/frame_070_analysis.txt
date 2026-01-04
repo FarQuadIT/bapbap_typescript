@@ -1,0 +1,102 @@
+Кадр 70
+Временная метка: 0:17:30
+Номер кадра: 63000
+Скриншот: frame_063000_1050.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:22] Вы, наверное, не понимаете, что это значит,
+[0:17:24] но как мы видим, у нас, кстати, в базовой функции onSync,
+[0:17:29] типа, есть некие такие стадии игры.
+[0:17:31] И что происходит тут у нас?
+[0:17:33] Лучше так не использовать.
+[0:17:34] Это cringe лютый.
+[0:17:36] Лучше использовать и так, потому что тогда вы чуть меньше нагружаете вашу кастомку
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+ia2,expTable = HeroExpTable[1] + HeroExpTable[2] + expTable[-1]
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(false)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(30.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetUseCustomHeroXPValues(true) -- установка кастомной системы уровней
+    GameRules:SetGoldPerTick(0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent('entity_killed', Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    ListenToGameEvent('dota_rune_activated_server', Dynamic_Wrap(self, 'OnRuneActivated'), self)
+    ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(self, 'ChupakabraStateChange'), self)
+
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        -- Do some stuff here
+    elseif GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+
+local kobold_count = 0
+
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        -- Do something when the game state changes to in progress
+    end
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        CreateDrop("test_lots_orb", killed_unit:GetAbsOrigin())
+
+        if kobold_count >= 10 then
+            kobold_count = 0
+            killed_unit:SetTeamNumber(DOTA_TEAM_GOODGUYS)
+            GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+        end
+    end
+end
+```
+
+### Описание кода:
+
+- **Функция `InitGameMode`:** Инициализирует параметры игры, такие как время выбора героя, время до начала игры, количество игроков в командах и кастомные атрибуты.
+- **Функция `OnThink`:** Проверяет состояние игры и выполняет действия, если игра в процессе.
+- **Функция `ChupakabraStateChange`:** Реагирует на изменение состояния игры.
+- **Функция `ChupakabraKilled`:** Обрабатывает событие убийства сущности, увеличивает счетчик убитых `kobold` и создает предмет, если убито 10 `kobold`.
+
+### Важные детали:
+
+- **Импорты и события:** Используются события `entity_killed`, `dota_rune_activated_server`, `game_rules_state_change`.
+- **Переменные:** `kobold_count` используется для подсчета убитых `kobold`.
+
+### Связь с аудио:
+
+- В аудио говорится о стадиях игры и о том, как лучше не использовать определенные методы. Видимо, это связано с обсуждением функций, которые управляют состоянием игры и обработкой событий, таких как `ChupakabraStateChange` и `ChupakabraKilled`.

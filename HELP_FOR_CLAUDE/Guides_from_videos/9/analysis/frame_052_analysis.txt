@@ -1,0 +1,63 @@
+Кадр 52
+Временная метка: 0:13:00
+Номер кадра: 46800
+Скриншот: frame_046800_780.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:45] с армором у нас смотрим какая функция есть у армора и от мотив or физик в армор бонус вот
+[0:12:53] все сейчас наш герой просто получит по 10 армора что же мы можем сделать вспоминаем наш рок мы
+[0:13:02] должны как-то обратиться к носителю модификатора ну то есть к нашему герою и взять у него текущее
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `cechens_armor.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier( "modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE )
+
+cechens_armor = class({})
+
+function cechens_armor:GetIntrinsicModifierName()
+    return "modifier_cechens_armor"
+end
+
+modifier_cechens_armor = class({})
+
+function modifier_cechens_armor:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+        MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE
+    }
+end
+
+function modifier_cechens_armor:GetModifierPreAttack_BonusDamage()
+    return 10
+end
+
+function modifier_cechens_armor:GetModifierPhysicalArmorBonus()
+    return 10
+end
+```
+
+### Описание кода:
+- **Импорт и регистрация модификатора**: `LinkLuaModifier` связывает модификатор `modifier_cechens_armor` с файлом `abilities/cechens_armor`.
+- **Класс `cechens_armor`**: Определяет способность, которая возвращает имя модификатора `modifier_cechens_armor`.
+- **Класс `modifier_cechens_armor`**: Определяет модификатор, который предоставляет бонусы.
+  - **`DeclareFunctions`**: Указывает, какие функции модификатора будут использоваться, в данном случае это бонус к физической броне и бонус к урону перед атакой.
+  - **`GetModifierPreAttack_BonusDamage`**: Возвращает бонус к урону перед атакой, равный 10.
+  - **`GetModifierPhysicalArmorBonus`**: Возвращает бонус к физической броне, равный 10.
+
+### Связь с аудио:
+- В аудио говорится о функции, которая добавляет 10 единиц брони герою. Это соответствует функции `GetModifierPhysicalArmorBonus`, которая возвращает 10.
+- Также упоминается обращение к носителю модификатора, что связано с использованием `GetIntrinsicModifierName` для применения модификатора к герою.
+
+### Важные детали:
+- **Импорты**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции**: `DeclareFunctions`, `GetModifierPreAttack_BonusDamage`, `GetModifierPhysicalArmorBonus`.
+- **Переменные**: `cechens_armor`, `modifier_cechens_armor`.
+
+Это описание поможет в создании документации для модификации игры.

@@ -1,0 +1,75 @@
+Кадр 71
+Временная метка: 0:17:45
+Номер кадра: 63900
+Скриншот: frame_063900_1065.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:38] Set Custom Game Team Max Player Dota Team Good Guys.
+[0:17:41] Типа, пять человек.
+[0:17:42] Ну, наша костомка, я не помню, на сколько, кстати.
+[0:17:44] Пусть будет пять.
+[0:17:46] А за вражеский штоп пусть, ну, никто не играл.
+[0:17:48] Типа, ноль человек.
+[0:17:49] И если мы сейчас запустим нашу костомочку, то мы увидим такой результат, что у нас, ну, силы тимы нету, потому что там ноль игроков играет.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для настройки кастомной игры в Dota 2.
+
+### Видимый код:
+```lua
+ChupakabraMode = nil
+
+ChupakabraMode = class({})
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetHeroSelectionTime(5.0)
+    GameRules:SetPreGameTime(0.0)
+    GameRules:SetPostGameTime(10.0)
+    GameRules:SetTreeRegrowTime(0.0)
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 0 )
+
+    GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+end
+
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        --print( "Template addon script is running." )
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+- **Класс `ChupakabraMode`**: Создается класс для настройки режима игры.
+- **Функция `InitGameMode`**: Инициализирует параметры игры:
+  - Устанавливает начальное золото (`SetStartingGold`) в 1500.
+  - Включает универсальный магазин (`SetUseUniversalShopMode`).
+  - Устанавливает время выбора героя, предыгровое и постигровое время.
+  - Устанавливает время восстановления деревьев.
+  - Настраивает максимальное количество игроков для команд: 5 для "хороших" и 0 для "плохих".
+  - Устанавливает функцию `OnThink` для периодического выполнения.
+  
+- **Функция `OnThink`**: Проверяет состояние игры:
+  - Если игра в процессе, выполняется определенная логика (закомментирована).
+  - Если игра завершена, функция возвращает `nil`, прекращая выполнение.
+
+### Связь с аудио:
+- В аудио говорится о настройке максимального количества игроков для команд, что соответствует строкам кода:
+  ```lua
+  GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+  GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 0 )
+  ```
+- Объясняется, что при запуске кастомной игры команда "плохих" не будет иметь игроков, так как их количество установлено в 0.
+
+### Важные детали:
+- **Путь к файлу**: Указан в заголовке окна, что файл находится в папке `scripts/vscripts` внутри директории Dota 2.
+- **Структура проекта**: В левой части экрана видна структура папок, включая `maps`, `materials`, `particles`, и другие, что типично для модификаций Dota 2.

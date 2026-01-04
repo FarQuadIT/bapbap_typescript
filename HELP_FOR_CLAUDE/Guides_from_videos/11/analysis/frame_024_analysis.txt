@@ -1,0 +1,64 @@
+Кадр 24
+Временная метка: 0:06:00
+Номер кадра: 21600
+Скриншот: frame_021600_360.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:51] А это делается все у нас отдельной функцией.
+[0:05:54] Из-за значки на голове отключается у нас глобальная функция sendOverheadEventMessage.
+[0:06:01] Можем ее загуглить на Modota.
+[0:06:03] Так будет проще всего.
+[0:06:04] И мы видим, что первым параметром она принимает игрока, к которому отправляется это сообщение.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `healing_spell.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities`.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    caster:Heal(self:GetSpecialValueFor("heal"), self)
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, self:GetParent(), self._damage, nil)
+
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+
+1. **Импорт модификатора**: Используется `LinkLuaModifier` для подключения модификатора `modifier_healing_spell`.
+
+2. **Класс `healing_spell`**:
+   - **Метод `OnSpellStart`**: 
+     - Получает кастера заклинания.
+     - Восстанавливает здоровье кастеру на значение, полученное из специального параметра `heal`.
+     - Отправляет сообщение о восстановлении здоровья с помощью `SendOverheadEventMessage`.
+     - Добавляет модификатор `modifier_healing_spell` кастеру на определенную длительность.
+
+3. **Класс `modifier_healing_spell`**:
+   - **Метод `DeclareFunctions`**: Возвращает список функций, которые модификатор будет изменять, в данном случае это постоянная регенерация здоровья.
+   - **Метод `GetModifierConstantHealthRegen`**: Возвращает значение регенерации здоровья, полученное из специального параметра `hp_regen`.
+
+### Связь с аудио:
+
+- В аудио говорится о функции `SendOverheadEventMessage`, которая используется в коде для отправки сообщения о восстановлении здоровья. Это соответствует строке в коде, где эта функция вызывается.
+- Упоминается, что функция принимает первым параметром игрока, что видно в коде, где первым параметром передается `nil`, что, вероятно, означает, что сообщение отправляется глобально или по умолчанию.

@@ -1,0 +1,65 @@
+Кадр 40
+Временная метка: 0:10:00
+Номер кадра: 36000
+Скриншот: frame_036000_600.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:50] спарить, нажимая вот сюда.
+[0:09:52] Следующий у нас параметр это
+[0:09:54] unitTargetFlag.
+[0:09:56] Flag, ну скорее всего у нас здесь
+[0:09:58] никакого флага
+[0:10:00] нету. Просто поставим
+[0:10:02] dota.unitTarget
+[0:10:04] flag
+[0:10:06] none.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Код:
+```lua
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        fDistance = self:GetCastRange(casterPoint, caster),
+        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+    })
+end
+```
+
+### Описание кода:
+- **Функция `OnSpellStart`:** Определяет поведение способности при её активации.
+- **Переменные:**
+  - `caster`: Получает объект, который применяет способность.
+  - `point`: Получает позицию курсора в момент активации способности.
+  - `casterPoint`: Получает текущую позицию объекта, применяющего способность.
+- **`ProjectileManager:CreateLinearProjectile`:** Создаёт линейный снаряд с заданными параметрами:
+  - `EffectName`: Путь к файлу эффекта.
+  - `Ability`: Ссылка на текущую способность.
+  - `Source`: Источник снаряда.
+  - `vSpawnOrigin`: Точка появления снаряда.
+  - `fStartRadius` и `fEndRadius`: Радиус начала и конца снаряда.
+  - `fDistance`: Дистанция полёта снаряда.
+  - `iUnitTargetTeam`: Указывает, что цель снаряда — вражеские юниты.
+
+### Связь с аудио:
+- В аудио говорится о параметре `unitTargetFlag`, который в коде представлен как `iUnitTargetTeam`. В коде используется значение `DOTA_UNIT_TARGET_TEAM_ENEMY`, что соответствует упомянутому в аудио контексту.
+
+### Дополнительные детали:
+- **Панель слева:** Показана структура папок и файлов, относящихся к модификации Dota 2.
+- **Вкладки:** Открыты несколько файлов, включая `mega_puper_stun.lua` и `npc_heroes_custom.txt`.
+- **Интерфейс:** Видны стандартные элементы управления Sublime Text, такие как меню и панель вкладок.

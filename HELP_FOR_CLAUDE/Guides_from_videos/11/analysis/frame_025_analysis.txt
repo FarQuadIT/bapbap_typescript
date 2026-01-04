@@ -1,0 +1,69 @@
+Кадр 25
+Временная метка: 0:06:15
+Номер кадра: 22500
+Скриншот: frame_022500_375.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:04] И мы видим, что первым параметром она принимает игрока, к которому отправляется это сообщение.
+[0:06:10] В данном случае мы напишем просто nil.
+[0:06:12] Скорее всего, оно будет видеться у всех игроков.
+[0:06:15] Дальше мы выбираем тип.
+[0:06:17] Можем посмотреть все типы.
+[0:06:18] И тип у нас это healing.
+[0:06:20] То есть именно такой зелененькая штучка.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `healing_spell.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier( "modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE )
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+
+    caster:Heal(self:GetSpecialValueFor("heal"), self)
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, self:GetParent(), self._damage, nil)
+
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:IsHidden()
+    return false
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+- **Импорт модификатора**: `LinkLuaModifier` связывает модификатор `modifier_healing_spell` с файлом `abilities/healing_spell`.
+- **Класс `healing_spell`**: Определяет способность, которая при активации:
+  - Исцеляет кастера на значение, полученное из специального параметра `heal`.
+  - Отправляет сообщение о лечении всем игрокам (параметр `nil`).
+  - Добавляет модификатор `modifier_healing_spell` к кастеру на определённое время.
+- **Класс `modifier_healing_spell`**: Определяет модификатор, который:
+  - Не скрыт (`IsHidden` возвращает `false`).
+  - Объявляет функцию `DeclareFunctions`, возвращающую константу регенерации здоровья.
+  - Реализует функцию `GetModifierConstantHealthRegen`, возвращающую значение регенерации здоровья из специального параметра `hp_regen`.
+
+### Связь с аудио:
+- В аудио говорится о параметрах функции, где первым параметром является игрок, которому отправляется сообщение. В коде это соответствует `nil`, что означает, что сообщение видят все игроки.
+- Упоминается тип `healing`, что соответствует коду, где происходит лечение (`Heal`) и отправка сообщения о лечении (`OVERHEAD_ALERT_HEAL`).
+
+### Важные детали:
+- Используются специальные значения (`GetSpecialValueFor`), которые, вероятно, определены в другом месте и задают параметры лечения и длительности.
+- Код связан с игровыми механиками Dota 2, такими как модификаторы и события.

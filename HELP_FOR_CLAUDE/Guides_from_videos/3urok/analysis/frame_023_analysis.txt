@@ -1,0 +1,81 @@
+Кадр 23
+Временная метка: 0:05:45
+Номер кадра: 20700
+Скриншот: frame_020700_345.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:30] То есть, мы, допустим, можем указать 5 уровень первоначальной прокачки и, допустим, указать число 10.
+[0:05:39] То есть, после этого каждые 10 левлов, после 5 левла, мы сможем прокачивать этот скилл.
+[0:05:47] Давайте лучше проверим на практике, а то так не очень понятно.
+[0:05:51] Смотрим на нашу абилку.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки способностей персонажей.
+
+### Детали экрана:
+
+1. **Программа**: Sublime Text (UNREGISTERED).
+2. **Файл**: `npc_abilities_custom.txt` расположен по пути `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\`.
+3. **Структура папок**: В левой части экрана видна структура папок, включая `chupakabra`, `maps`, `materials`, `particles`, `resource`, `scripts`, `npc`, и файлы внутри `npc`, такие как `npc_heroes_custom.txt`, `npc_units_custom.txt`.
+
+### Содержимое кода:
+
+```plaintext
+"axe_counter_helix"
+{
+    // General
+    "BaseClass"                     "ability_lua"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_YES"
+    "AbilityUnitTargetType"         "HERO, Axe_CounterHelix"
+    "AbilityTextureName"            "axe_counter_helix"
+    "MaxLevel"                      "1"
+    "RequiredLevel"                 "5"
+    "LevelSkipRequirements"         "10"
+    "HasShardUpgrade"               "1"
+
+    // Special
+    "AbilityValues"
+    {
+        "damage"
+        {
+            "value"                 "100 200 300 400 500 600 700"
+            "special_bonus_unique_axe_2" "30"
+        }
+        "radius"                    "300"
+        "trigger_attacks"           "1"
+        "AbilityCooldown"
+        {
+            "value"                 "0.3"
+            "special_bonus_shard"   "0.0"
+        }
+        "shard_debuff_duration"     "6.0"
+        "special_bonus_shard"       "15"
+        "shard_max_stacks"          "6"
+    }
+    "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_3"
+}
+```
+
+### Описание кода:
+
+- **Способность**: `axe_counter_helix` — пассивная способность героя Axe.
+- **Основные параметры**:
+  - `BaseClass`: Определяет базовый класс способности.
+  - `AbilityBehavior`: Указывает, что способность пассивная.
+  - `SpellImmunityType`: Способность действует на врагов с иммунитетом к магии.
+  - `RequiredLevel`: Уровень, с которого доступна способность (5).
+  - `LevelSkipRequirements`: Уровень, через который можно улучшать способность (каждые 10 уровней).
+  - `HasShardUpgrade`: Указывает, что способность имеет улучшение через Shard.
+- **Специальные параметры**:
+  - `damage`: Значения урона на разных уровнях.
+  - `radius`: Радиус действия способности.
+  - `AbilityCooldown`: Время перезарядки способности.
+
+### Связь с аудио:
+
+Аудио объясняет, как можно указать уровень первоначальной прокачки и число уровней, через которые способность может быть улучшена. Это соответствует параметрам `RequiredLevel` и `LevelSkipRequirements` в коде, которые установлены на 5 и 10 соответственно.

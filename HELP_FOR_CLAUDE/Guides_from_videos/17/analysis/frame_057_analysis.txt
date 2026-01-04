@@ -1,0 +1,83 @@
+Кадр 57
+Временная метка: 0:14:15
+Номер кадра: 51300
+Скриншот: frame_051300_855.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:05] Добавляем просто к нашему предмету эти данные все.
+[0:14:09] Эту штуку удалим.
+[0:14:11] Тут таланта нет никакого.
+[0:14:13] И давайте запустим, посмотрим.
+[0:14:16] Выпросил себе дизолькастер.
+[0:14:18] У нас эта штука осталась, соответственно.
+[0:14:21] Начинаю бить.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. Этот файл находится в директории, связанной с модификацией для игры Dota 2.
+
+### Код:
+- **Язык программирования**: Lua
+- **Файл**: `item_desol_custom.lua`
+- **Код**:
+  ```lua
+  LinkLuaModifier("modifier_item_desol_custom", "items/item_desol_custom", LUA_MODIFIER_MOTION_NONE)
+  LinkLuaModifier("modifier_item_desol_custom_debuff", "items/item_desol_custom", LUA_MODIFIER_MOTION_NONE)
+
+  item_desol_custom = class({})
+
+  function item_desol_custom:OnSpellStart()
+      self:SetCurrentCharges(self:GetCurrentCharges() + 1)
+  end
+
+  function item_desol_custom:GetIntrinsicModifierName()
+      return "modifier_item_desol_custom"
+  end
+
+  modifier_item_desol_custom = {}
+
+  function modifier_item_desol_custom:IsHidden()
+      return true
+  end
+
+  function modifier_item_desol_custom:DeclareFunctions()
+      return {
+          MODIFIER_EVENT_ON_ATTACK_LANDED
+      }
+  end
+
+  function modifier_item_desol_custom:OnAttackLanded(props)
+      if self:GetParent() == props.attacker then
+          local modif = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_item_desol_custom_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+          modif:IncrementStackCount()
+          ApplyDamage({
+              victim = props.target,
+              attacker = props.attacker,
+              damage = modif:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+              damage_type = DAMAGE_TYPE_PHYSICAL,
+              ability = self:GetAbility()
+          })
+      end
+  end
+
+  modifier_item_desol_custom_debuff = {}
+
+  function modifier_item_desol_custom_debuff:IsHidden()
+      return false
+  end
+  ```
+
+### Описание кода:
+- **Импорты**: Используются `LinkLuaModifier` для подключения модификаторов.
+- **Классы и функции**:
+  - `item_desol_custom`: Класс предмета, который увеличивает количество зарядов при активации.
+  - `modifier_item_desol_custom`: Модификатор, который скрыт и реагирует на событие атаки.
+  - `modifier_item_desol_custom_debuff`: Дебафф, который применяется к цели атаки и увеличивает урон в зависимости от количества стаков.
+- **Основная логика**: При атаке, если атакующий является владельцем предмета, на цель накладывается дебафф, увеличивающий урон.
+
+### Связь с аудио:
+- **Аудио**: В аудио говорится о добавлении данных к предмету, удалении чего-то ненужного и запуске для проверки.
+- **Соответствие**: Код соответствует описанию в аудио, где говорится о добавлении функциональности к предмету и проверке его работы в игре.

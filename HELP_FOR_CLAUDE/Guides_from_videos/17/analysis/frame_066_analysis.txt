@@ -1,0 +1,102 @@
+Кадр 66
+Временная метка: 0:16:30
+Номер кадра: 59400
+Скриншот: frame_059400_990.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:21] И ищем Mobility Russia.
+[0:16:23] В принципе, можно не только Russia.
+[0:16:25] Вообще, честно, без разницы. Давайте английский откроем.
+[0:16:28] И, допустим, от Ring.
+[0:16:30] Ну, давайте у нас, типа, на силу мы ищем.
+[0:16:32] Поэтому давайте найдем Тараску.
+[0:16:34] Heard of...
+[0:16:36] Блин, и не буква к Тараскам будет.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+#### Программа
+- **Название**: Sublime Text (UNREGISTERED)
+
+#### Открытые файлы и вкладки
+- **Файл**: `abilities_english.txt`
+- **Путь**: `C:\Users\Evgeniy\AppData\Local\Temp\abilities_english.txt`
+- **Другие вкладки**: `npc_heroes_custom.txt`, `npc_items_custom.txt`, `item_desc_custom.lua`, `addon_english.txt`, `zombie_invasion/scripts/npc`
+
+#### Структура папок
+- **Папки**:
+  - `maps`
+  - `materials`
+  - `panorama`
+  - `particles`
+  - `resource`
+  - `scripts`
+    - `npc`
+      - `npc_abilities_custom.txt`
+      - `npc_heroes_custom.txt`
+      - `npc_items_custom.txt`
+      - `npc_units_custom.txt`
+    - `vscripts`
+      - `abilities`
+        - `cenches_armor.lua`
+        - `gold_hohle.lua`
+        - `healing_spell.lua`
+        - `strong_poison.lua`
+        - `ursa_copy.lua`
+      - `items`
+      - `addon_game_mode.lua`
+      - `chupakabra_mode.lua`
+  - `soundevents`
+  - `soundevents_custom`
+  - `addoninfo.txt`
+  - `panorama_debugger.cfg`
+  - `tools_asset_info.txt`
+  - `tools_thumbnail_cache.bin`
+
+#### Видимый текст в файле `abilities_english.txt`
+```plaintext
+"DOTA_Tooltip_ability_default_attack" "Attacks"
+"DOTA_Tooltip_ability_default_attack_Description" "Damage done by direct attacks."
+//FOUNTAIN
+"DOTA_Tooltip_ability_fountain_glyph" "Glyph of Fortification {s:glyph_hotkey}"
+"DOTA_Tooltip_ability_fountain_glyph_Description" "Grant your structures and lane creeps invincibility.<br> Grants towers <multishot> (excludes tier 1 towers)</span>.<br> Refreshed whenever the first tower of each tier falls <span class=\"Footnote\">(excludes tier 4 towers)</span>."
+"DOTA_Tooltip_glyph_cooldown" "DURATION (STRUCTURES): <span class=\"GameplayValues\">%s</span> seconds</span>"
+"DOTA_Tooltip_ability_fountain_glyph_multishot_targets" "MULTISHOT ADDITIONAL TARGETS: <span class=\"GameplayValues\">%s</span>"
+"DOTA_Tooltip_glyph_cooldown_ready" "Ready"
+"DOTA_Tooltip_ability_fountain_buyback" "Buyback"
+"DOTA_Tooltip_ability_fountain_buyback_Description" "Respawns your hero immediately, for a price."
+"DOTA_Tooltip_ability_fountain_buyback_cost" "COST:"
+// Radar
+"DOTA_Tooltip_ability_radar" "Scan {s:scan_hotkey}"
+"DOTA_Tooltip_ability_radar_Description" "Scans a targeted 900 AoE for 8 seconds. Indicates whether there are enemy heroes in that area during the 8 seconds."
+"DOTA_Tooltip_radar_cooldown_ready" "Ready"
+"DOTA_Tooltip_radar_cooldown" "Cooldown: %s1"
+// Courier Tooltip
+"DOTA_Tooltip_courier_status" "Courier Status"
+"DOTA_Tooltip_courier_status_at_base" "No couriers found" // idle at the fountain,
+"DOTA_Tooltip_courier_status_idle_in_world" "Idle In The Field" // idle somewhere out in the world
+"DOTA_Tooltip_courier_status_moving" "On The Move" // moving somewhere
+"DOTA_Tooltip_courier_status_returning" "Returning to Base" // move dest is the fountain
+"DOTA_Tooltip_courier_status_delivering" "Delivering Items to %s1" // moving to a hero
+"DOTA_Tooltip_courier_respawn" "Dead\nRespawn in %s1"
+// Game mode modifiers
+"DOTA_Tooltip_modifier_turbo_courier_invulnerable" "Invulnerable"
+"DOTA_Tooltip_modifier_turbo_courier_invulnerable_Description" "The courier fears not your spells."
+"DOTA_Tooltip_modifier_turbo_courier_haste_Description" "Speedy Flyer"
+```
+
+#### Поиск
+- **Поисковый запрос**: `ring`
+- **Результаты**: 1 из 489 совпадений
+
+### Связь с аудио
+- **Аудио**: Упоминается поиск "Mobility Russia" и "Ring", что соответствует поисковому запросу `ring` в Sublime Text.
+- **Контекст**: Пользователь ищет текстовые строки, связанные с "Ring", возможно, для редактирования или анализа данных в файле `abilities_english.txt`.
+
+### Заключение
+На экране показан процесс поиска в текстовом редакторе Sublime Text, где пользователь ищет определенные строки в файле, связанном с настройками или описаниями способностей в игре. Это соответствует аудио, где обсуждается поиск и выбор определенных элементов.

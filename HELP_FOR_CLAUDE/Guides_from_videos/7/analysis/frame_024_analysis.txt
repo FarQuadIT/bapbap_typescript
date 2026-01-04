@@ -1,0 +1,81 @@
+Кадр 24
+Временная метка: 0:06:00
+Номер кадра: 21600
+Скриншот: frame_021600_360.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:51] Все. Теперь мы можем пользоваться нашей точкой.
+[0:05:55] Точнее, если мы объявим переменную.
+[0:05:59] То есть, если мы будем использовать это, то мы будем использовать это.
+[0:06:02] И, конечно, мы можем использовать это для того, чтобы создать нашу точку.
+[0:06:05] Вот, например, мы получили точку.
+[0:06:07] Дальше мы должны создать нашего кобальта.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `chupakabra_mode.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts`.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:ChupakabraStateChange(data)
+    if not data then return end
+    if not data.entindex_killed then return end
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+end
+
+function giveGoldToPlayers(gold)
+    for index, playerID in pairs(PlayerResource:GetAllTeamPlayerIDs()) do
+        if PlayerResource:IsValidPlayerID(playerID) then
+            local hero = PlayerResource:GetSelectedHeroEntity(playerID)
+            hero:ModifyGold(gold, false, DOTA_ModifyGold_Unspecified)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDrop(itemName, pos)
+    local newItem = CreateItem(itemName, nil, nil)
+    local dropRadius = RandomFloat(150, 200)
+    local dropPos = pos + RandomVector(dropRadius)
+    CreateItemOnPositionSync(dropPos, newItem)
+end
+
+function ChupakabraMode:Start()
+    local point = Entities:FindByName(nil, "bosses_point")
+end
+```
+
+### Описание кода:
+
+1. **Функция `ChupakabraMode:ChupakabraStateChange(data)`**:
+   - Проверяет наличие данных и идентификатора убитого объекта.
+   - Преобразует идентификатор убитого объекта в скриптовый объект.
+
+2. **Функция `giveGoldToPlayers(gold)`**:
+   - Проходит по всем игрокам команды.
+   - Проверяет валидность идентификатора игрока.
+   - Добавляет золото герою игрока.
+   - Отображает сообщение о получении золота.
+
+3. **Функция `CreateDrop(itemName, pos)`**:
+   - Создает новый предмет.
+   - Определяет случайный радиус для дропа.
+   - Создает предмет на случайной позиции в пределах радиуса.
+
+4. **Функция `ChupakabraMode:Start()`**:
+   - Находит точку с именем "bosses_point".
+
+### Связь с аудио:
+
+- В аудио говорится о создании и использовании точки. Это соответствует строке в функции `ChupakabraMode:Start()`, где используется `Entities:FindByName(nil, "bosses_point")` для нахождения точки.
+- Упоминается создание переменной, что связано с объявлением переменной `point` в функции `Start`.
+
+### Важные детали:
+
+- Код связан с модификацией для игры Dota 2.
+- Используются функции для работы с игровыми объектами и ресурсами.
+- Присутствуют функции для управления игровыми событиями, такими как получение золота и создание предметов.

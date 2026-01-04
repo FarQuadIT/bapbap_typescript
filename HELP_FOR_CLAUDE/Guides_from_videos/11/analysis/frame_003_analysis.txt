@@ -1,0 +1,74 @@
+Кадр 3
+Временная метка: 0:00:45
+Номер кадра: 2700
+Скриншот: frame_002700_45.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:00:36] Healing spell. Почему нет?
+[0:00:38] Base class оставляем ability.
+[0:00:40] Script file меняем.
+[0:00:42] И что следующее нам стоит поменять это ability behavior.
+[0:00:46] У нас он был указан пассив.
+[0:00:49] Нам нужен behavior no target.
+[0:00:51] То есть скилл, который не кастуется ни на одного таргета.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Этот файл используется для настройки способностей в модификации игры Dota 2.
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+2. **Путь к файлу**: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\npc_abilities_custom.txt`.
+3. **Структура папок**:
+   - `chupakabra`
+     - `maps`
+     - `materials`
+     - `particles`
+     - `resource`
+     - `scripts`
+       - `npc`
+         - `npc_abilities_custom.txt` (открыт)
+         - `npc_heroes_custom.txt`
+         - `npc_items_custom.txt`
+         - `npc_units_custom.txt`
+     - `soundevents`
+     - `sounds`
+
+### Содержимое файла:
+
+Файл содержит JSON-подобную структуру, описывающую способности:
+
+```plaintext
+"healing_spell"
+{
+    "BaseClass" "ability_lua"
+    "ScriptFile" "abilities/healing_spell"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityValues"
+    {
+        "duration" "5 12 20"
+        "damage_per_stack" "5"
+    }
+}
+```
+
+### Описание кода:
+
+- **"healing_spell"**: Имя способности.
+- **"BaseClass"**: Указывает на базовый класс способности, в данном случае `ability_lua`.
+- **"ScriptFile"**: Путь к скрипту, реализующему логику способности.
+- **"AbilityBehavior"**: Поведение способности, изначально указано как `DOTA_ABILITY_BEHAVIOR_PASSIVE`.
+- **"AbilityValues"**: Параметры способности, такие как `duration` и `damage_per_stack`.
+
+### Связь с аудио:
+
+- В аудио говорится о необходимости изменить `AbilityBehavior` с пассивного (`DOTA_ABILITY_BEHAVIOR_PASSIVE`) на `no target`, что соответствует изменению поведения способности на такую, которая не требует цели для активации.
+- Пользователь, вероятно, собирается изменить строку `"AbilityBehavior"` на `"DOTA_ABILITY_BEHAVIOR_NO_TARGET"`, чтобы соответствовать описанному в аудио поведению.
+
+### Действия пользователя:
+
+- Пользователь выделил строку `"DOTA_ABILITY_BEHAVIOR_PASSIVE"`, вероятно, для её изменения в соответствии с аудио инструкциями.

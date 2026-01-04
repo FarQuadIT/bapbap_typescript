@@ -1,0 +1,92 @@
+Кадр 68
+Временная метка: 0:17:00
+Номер кадра: 61200
+Скриншот: frame_061200_1020.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:50] сделаю true, посмотрим,
+[0:16:52] в чем он конвертирует ее.
+[0:16:54] И также введу npc какого-нибудь.
+[0:16:56] Ну, представим, что
+[0:16:58] это кастер. И посмотрим, какие из
+[0:17:00] этих параметров у нас появятся в консоли.
+[0:17:02] Итак, сделал
+[0:17:04] script reload, кастую и
+[0:17:06] смотрим. Первая строка у нас
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+
+     ```lua
+     wave_terorist = class({})
+
+     function wave_terorist:OnSpellStart()
+         local caster = self:GetCaster()
+         local point = self:GetCursorPosition()
+         local casterPoint = caster:GetOrigin()
+
+         local derction = point - casterPoint
+         local speed = 600
+         derction = derction:Normalized()
+
+         ProjectileManager:CreateLinearProjectile({
+             EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+             Ability = self,
+             Source = caster,
+             vSpawnOrigin = casterPoint,
+             fStartRadius = 200,
+             fEndRadius = 200,
+             vVelocity = derction * speed,
+             fDistance = 1200,
+             UnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+             UnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+             UnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
+             bProvidesVision = true,
+             iVisionTeamNumber = caster:GetTeamNumber(),
+             iVisionRadius = 500,
+             ExtraData = {
+                 counter = 0,
+                 name = "asdas",
+                 boolean = true,
+                 npc = caster
+             }
+         })
+     end
+
+     function wave_terorist:OnProjectileHit_ExtraData(target, _, extraData)
+         local caster = self:GetCaster()
+         DeepPrintTable(extraData)
+         if not target then return end
+         caster:Heal(9999, self)
+         ApplyDamage({
+             victim = target,
+             attacker = caster,
+             damage = 100,
+             damage_type = DAMAGE_TYPE_MAGICAL,
+             ability = self
+         })
+     end
+     ```
+
+   - **Описание кода:**
+     - Класс `wave_terorist` описывает способность, которая запускает линейный снаряд.
+     - Функция `OnSpellStart` инициализирует снаряд, задавая его направление, скорость и другие параметры.
+     - `CreateLinearProjectile` создает снаряд с заданными параметрами, включая визуальный эффект и цель.
+     - `OnProjectileHit_ExtraData` обрабатывает попадание снаряда, выводя дополнительные данные и нанося урон цели.
+
+   - **Важные детали:**
+     - Используется `ProjectileManager` для создания снаряда.
+     - Параметры снаряда включают радиус, скорость, дистанцию и типы целей.
+     - Дополнительные данные (`ExtraData`) передаются и обрабатываются при попадании.
+
+2. **СВЯЗЬ С АУДИО:**
+   - В аудио говорится о проверке параметров в консоли и изменении значений, таких как `true`.
+   - Код содержит параметр `boolean = true` в `ExtraData`, что соответствует упоминанию в аудио.
+   - Процесс кастования и перезагрузки скрипта также упоминается в аудио и соответствует функции `OnSpellStart`.

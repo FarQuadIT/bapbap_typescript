@@ -1,0 +1,93 @@
+Кадр 62
+Временная метка: 0:15:30
+Номер кадра: 55800
+Скриншот: frame_055800_930.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:20] передать счетчик, допустим,
+[0:15:22] от ульта лича.
+[0:15:24] То есть как вообще происходит ульт лича? Мы кидаем,
+[0:15:26] он когда стукается, ну,
+[0:15:28] tracking projectile кидаем,
+[0:15:30] он когда стукается об таргета,
+[0:15:32] все, у нас заканчивается,
+[0:15:34] чайник удаляется, создается
+[0:15:36] новый чайник и туда в extra data
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local drection = point - casterPoint
+    local speed = 600
+
+    drection = drection:Normalized()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        fDistance = 1200,
+        fVelocity = drection * speed,
+        bProvidesVision = true,
+        iVisionTeamNumber = caster:GetTeamNumber(),
+        iVisionRadius = 500,
+        ExtraData = {}
+    })
+end
+
+function wave_terorist:OnProjectileHit(target)
+    local caster = self:GetCaster()
+
+    if not target then
+        caster:Heal(9999, self)
+        return
+    end
+
+    ApplyDamage({
+        victim = target,
+        attacker = caster,
+        ability = self,
+        damage = 100,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+    })
+
+    target:AddNewModifier(caster, self, "modifier_stunned", {duration = 1})
+end
+```
+
+### Описание кода:
+
+1. **Класс и функции:**
+   - `wave_terorist = class({})`: Определение класса `wave_terorist`.
+   - `OnSpellStart()`: Функция, вызываемая при начале применения способности. Создает линейный снаряд.
+   - `OnProjectileHit(target)`: Функция, вызываемая при попадании снаряда в цель. Наносит урон и оглушает цель.
+
+2. **Переменные и параметры:**
+   - `caster`, `point`, `casterPoint`: Определяют местоположение и источник способности.
+   - `drection`, `speed`: Направление и скорость снаряда.
+   - `ProjectileManager:CreateLinearProjectile`: Создает линейный снаряд с заданными параметрами, такими как радиус, дистанция, скорость и визуальные эффекты.
+
+3. **Логика:**
+   - При попадании снаряда в цель, если цель не определена, исцеляет кастера.
+   - Если цель определена, наносит магический урон и оглушает её на 1 секунду.
+
+### Связь с аудио:
+
+Аудио объясняет механику работы снаряда, упоминая создание и удаление "чайника" (снаряда) и передачу данных в `extra data`. Это соответствует коду, где создается снаряд с использованием `ProjectileManager:CreateLinearProjectile` и передаются дополнительные данные через `ExtraData`.

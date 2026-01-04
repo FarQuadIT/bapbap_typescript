@@ -1,0 +1,89 @@
+Кадр 79
+Временная метка: 0:19:45
+Номер кадра: 71100
+Скриншот: frame_071100_1185.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:19:36] Опять же, можно, допустим, заспавнить некого босса.
+[0:19:39] Можно заспавнить...
+[0:19:43] Что угодно.
+[0:19:45] Что угодно можно сделать.
+[0:19:46] Спавнить босса.
+[0:19:47] Допустим, в доте начинают крипы выходить по лайнам,
+[0:19:49] появляются руны и так далее.
+[0:19:51] То есть функция очень полезна.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+function ChupakabraMode:ChupakabraStateChange(data)
+    if self.state == DATA_GUESSES_STATE_GAME_IN_PROGRESS then
+        return
+    end
+end
+
+local kobold_count = 0
+
+function ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        print("Kobold count: " .. kobold_count)
+        CreateDrop("item_lotus_orb", killed_unit:GetAbsOrigin())
+    end
+
+    if kobold_count >= 10 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+
+    if killed_unit:IsRealHero() then
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+
+function GiveGoldPlayers(gold)
+    for index = 0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:IsValidPlayer(index) then
+            local hero = PlayerResource:GetSelectedHeroEntity(index)
+            PlayerResource:ModifyGold(index, gold, true, DOTA_ModifyGold_Unspecified)
+            SendOverheadEventMessage(hero, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDrop(itemname, pos)
+    local dropRadius = RandomFloat(50, 100)
+    local newItem = CreateItem(itemname, nil, nil)
+    CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLootInitialHeight(false, 0, 150, 0.5, pos + RandomVector(dropRadius))
+end
+
+function ChupakabraMode:ChupakabraModeStart()
+    print("2")
+end
+```
+
+### Описание кода:
+- **Функции и переменные:**
+  - `ChupakabraMode:ChupakabraStateChange(data)`: Проверяет состояние игры и возвращает, если игра в процессе.
+  - `kobold_count`: Переменная для подсчета убитых юнитов "kobold".
+  - `ChupakabraKilled(data)`: Обрабатывает событие убийства юнита, увеличивает счетчик `kobold_count`, создает дроп и определяет победителя.
+  - `GiveGoldPlayers(gold)`: Раздает золото всем игрокам.
+  - `CreateDrop(itemname, pos)`: Создает предмет на позиции и запускает его в воздух.
+  - `ChupakabraMode:ChupakabraModeStart()`: Начинает режим "Chupakabra".
+
+### Связь с аудио:
+- В аудио говорится о возможности спавна боссов и других объектов, что соответствует функциям `CreateDrop` и `ChupakabraKilled`, где создаются предметы и обрабатываются события убийства юнитов.
+- Упоминание о "крипах" и "рунах" в аудио связано с игровыми механиками, которые могут быть реализованы через подобные скрипты.
+
+### Важные детали:
+- Код содержит функции для управления игровыми событиями, такими как убийства юнитов и раздача золота.
+- Используются функции для создания и управления предметами в игре.
+- Код ориентирован на обработку игровых событий и изменение состояния игры.

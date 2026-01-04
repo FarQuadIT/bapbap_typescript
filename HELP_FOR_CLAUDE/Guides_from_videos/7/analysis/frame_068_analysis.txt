@@ -1,0 +1,100 @@
+Кадр 68
+Временная метка: 0:17:00
+Номер кадра: 61200
+Скриншот: frame_061200_1020.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:52] Я не знаю.
+[0:16:53] Я не знаю.
+[0:16:54] Я не знаю.
+[0:16:55] Я не знаю.
+[0:16:56] Я не знаю.
+[0:16:57] Я не знаю.
+[0:16:58] Я не знаю.
+[0:16:59] Я не знаю.
+[0:17:00] Я не знаю.
+[0:17:01] Я не знаю.
+[0:17:02] Я не знаю.
+[0:17:03] Я не знаю.
+[0:17:04] Я не знаю.
+[0:17:05] Я не знаю.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Анализ кадра из видео-туториала
+
+#### 1. Код
+- **Язык программирования**: Lua
+- **Видимый код**:
+  ```lua
+  if Killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+      GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+  end
+
+  function GiveGoldToPlayers()
+      for index=0, DOTA_MAX_TEAM_PLAYERS-1 do
+          if PlayerResource:IsValidPlayer(index) then
+              local hero = PlayerResource:GetSelectedHeroEntity(index)
+              hero:ModifyGold(100, true, DOTA_ModifyGold_Unspecified)
+              SendOverheadEventMessage(hero, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+          end
+      end
+  end
+
+  function CreateDrop(tItemName, pos)
+      local newItem = CreateItem(tItemName, nil, nil)
+      CreateItemOnPositionSync(pos, newItem)
+      newItem:LaunchLootInitialHeight(false, 150, 0.5, pos + RandomVector( dropRadius ) )
+  end
+
+  function ChupakabraMode:StartEvent()
+      local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+      CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+      
+      local tEnemies = Entities:FindAllByName("enemies")
+      for _, tEnemy in pairs(tEnemies) do
+          local tEnemy_point = tEnemy:GetAbsOrigin()
+          CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", tEnemy_point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+      end
+  end
+
+  function ChupakabraMode:WaveBoss()
+      local point = Entities:FindByName(nil, "enemy_path1")
+      CreateUnitByName()
+  end
+  ```
+- **Описание кода**:
+  - Код предназначен для модификации игрового режима в Dota 2.
+  - **Функции**:
+    - `GiveGoldToPlayers`: Раздаёт золото всем игрокам.
+    - `CreateDrop`: Создаёт предмет на указанной позиции.
+    - `ChupakabraMode:StartEvent`: Создаёт юнита на определённой позиции и спавнит врагов.
+    - `ChupakabraMode:WaveBoss`: Начинает волну с боссом.
+  - **Детали**:
+    - Используются функции для создания юнитов и предметов.
+    - Присутствуют проверки на валидность игроков.
+
+#### 2. Редактор
+- **Название программы**: Sublime Text
+- **Открытые файлы**:
+  - `chupakabra_mode.lua`
+  - Другие файлы, такие как `npc_units_custom.txt`, `item_drop.lua`, и т.д.
+- **Инструменты и настройки**:
+  - Видна структура папок слева.
+  - Открыто несколько вкладок с файлами.
+  - Используется не зарегистрированная версия Sublime Text.
+
+#### 3. Интерфейс/GUI
+- **Название приложения**: Sublime Text
+- **Открытые окна и вкладки**: Несколько вкладок с различными файлами.
+- **Видимые настройки**: Стандартные настройки редактора кода.
+
+#### 4. Текст/Документация
+- **Форматирование**: Код отформатирован с отступами для лучшей читаемости.
+
+#### 5. Связь с аудио
+- **Соотношение с аудио**: Аудио не предоставляет информации о происходящем на экране. Повторяется фраза "Я не знаю", что не связано с видимым кодом.
+- **Объяснение происходящего**: Аудио не объясняет код или действия в редакторе.

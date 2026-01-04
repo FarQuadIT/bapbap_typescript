@@ -1,0 +1,80 @@
+Кадр 45
+Временная метка: 0:11:15
+Номер кадра: 40500
+Скриншот: frame_040500_675.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:06] Для этого существует.
+[0:11:07] Такое свойство как.
+[0:11:08] RequireShard.
+[0:11:09] RequireSpider.
+[0:11:10] Вот так они выглядят.
+[0:11:11] Но RequireScepter давайте я вот раз уже не буду показывать.
+[0:11:16] Просто покажу на примере шарда.
+[0:11:18] С аганимом будет буквально то же самое.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки способностей персонажей.
+
+### Детали экрана:
+
+1. **Программа**: Sublime Text (UNREGISTERED).
+2. **Файл**: `npc_abilities_custom.txt`.
+3. **Путь к файлу**: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\abilities_custom.txt`.
+4. **Структура папок**:
+   - `scripts`
+     - `abilities`
+       - `gold_hole.lua`
+       - `healing_spell.lua`
+       - `strong_poison.lua`
+     - `vscripts`
+     - `sounds`
+   - Другие файлы и папки также видны в структуре.
+
+### Содержимое кода:
+
+```plaintext
+"gold_hole"
+{
+    "BaseClass"             "ability_lua"
+    "ScriptFile"            "abilities/gold_hole"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+    "HasScepterUpgrade"     "1"
+    "HasShardUpgrade"       "1"
+    "AbilityValues"
+    {
+        "duration"          "4 6 8 9 10"
+        "radius"            "300 500 700 900"
+                            "special_bonus_shard"    "+1000"
+        "gold_per_unit"
+        {
+            "value"         "10 15 20 25"
+                            "special_bonus_scepter"  "+1000"
+        }
+        "damage"
+        {
+            "value"         "100 200 300 400"
+                            "RequiresShard"          "1"
+                            "RequiresScepter"        "1"
+        }
+    }
+}
+```
+
+### Описание кода:
+
+- **Способность**: `gold_hole`
+  - **BaseClass**: `ability_lua` — указывает, что это способность, написанная на Lua.
+  - **ScriptFile**: путь к Lua-скрипту, реализующему логику способности.
+  - **AbilityBehavior**: определяет поведение способности (направленная, с областью действия).
+  - **HasScepterUpgrade** и **HasShardUpgrade**: указывают на наличие улучшений с помощью Aghanim's Scepter и Aghanim's Shard.
+  - **AbilityValues**: содержит параметры способности, такие как длительность, радиус, золото за единицу и урон.
+  - **RequiresShard** и **RequiresScepter**: указывают, что для активации определённых эффектов требуется наличие соответствующих улучшений.
+
+### Связь с аудио:
+
+- В аудио говорится о свойствах `RequireShard` и `RequireScepter`, которые видны в коде. Это объясняет, как они используются для определения необходимости улучшений для активации определённых эффектов способности.

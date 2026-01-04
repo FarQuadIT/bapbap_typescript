@@ -1,0 +1,93 @@
+Кадр 53
+Временная метка: 0:13:15
+Номер кадра: 47700
+Скриншот: frame_047700_795.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:06] Вот реально, что ваша фантазия хочет,
+[0:13:08] что и выдумывайте.
+[0:13:10] Ну, допустим, я просто некую функцию написал,
+[0:13:13] function giveGoldPlayer,
+[0:13:16] я просто взял ее со своей кастомки,
+[0:13:18] можете ее переписать, на самом деле,
+[0:13:20] здесь единственное, что может вам показаться сложным,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 1)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 1)
+
+GameRules:SetUseCustomHeroXPValues( true ) -- установка кастомной системы уровней
+GameRules:SetCustomXPRequiredToReachNextLevel( HeroXPTable )
+GameRules:SetUseCustomHeroLevels(true)
+GameRules:SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+GameRules:SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+
+-- function ChupakabraKilled
+function ChupakabraKilled(event)
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        local running = true
+    elseif GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+
+    return 1
+end
+
+local kobold_count = 0
+
+function ChupakabraKilled(event)
+    local killed_unit = EntIndexToHScript(event.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        SendToAllClients()
+    end
+
+    if kobold_count == 100 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+
+    if killed_unit:IsRealHero() then
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+
+function giveGoldPlayers( gold )
+    for index = 0, PlayerResource:GetPlayerCount() - 1 do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = player:GetAssignedHero()
+            hero:ModifyGold(gold, true, 0)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+```
+
+### Описание кода:
+
+1. **Настройка команд**: Устанавливается максимальное количество игроков для каждой команды.
+2. **Кастомные значения**: Включаются кастомные значения опыта и уровней для героев.
+3. **События**: Подписка на событие убийства сущности и установка функции `OnThink`.
+4. **Функция `ChupakabraKilled`**: Обрабатывает события убийства. Если убитый юнит — "kobold", увеличивается счетчик. Если счетчик достигает 100, выигрывает команда "GOODGUYS". Если убит герой, выигрывает команда "BADGUYS".
+5. **Функция `giveGoldPlayers`**: Раздает золото всем игрокам.
+
+### Связь с аудио:
+
+В аудио говорится о создании функции `giveGoldPlayer`, которая присутствует в коде. Объясняется, что функция взята из кастомной игры и может быть изменена. Это соответствует видимой функции `giveGoldPlayers`, которая раздает золото игрокам.

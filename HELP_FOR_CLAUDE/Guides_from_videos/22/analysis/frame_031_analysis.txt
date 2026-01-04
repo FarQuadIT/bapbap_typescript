@@ -1,0 +1,54 @@
+Кадр 31
+Временная метка: 0:07:45
+Номер кадра: 27900
+Скриншот: frame_027900_465.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:36] просто source как кастер, то есть
+[0:07:38] как у нас тут работало здесь, у нас мы прописываем
+[0:07:40] источник, и источник, и источника
+[0:07:42] буквально вылетает наш particle.
+[0:07:44] Тут же нам надо нарочно
+[0:07:46] указать, откуда
+[0:07:48] вылетит particle, то есть
+[0:07:50] with spawn origin.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `wave_terorist.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities\`.
+
+### Код:
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+    })
+end
+```
+
+### Описание кода:
+- **Класс `wave_terorist`:** Создается класс для способности.
+- **Функция `OnSpellStart`:** Определяет поведение способности при её активации.
+  - `local caster = self:GetCaster()`: Получает объект, который применяет способность.
+  - `local point = self:GetCursorPosition()`: Получает позицию курсора, куда направлена способность.
+  - `ProjectileManager:CreateLinearProjectile`: Создает линейный снаряд с заданными параметрами.
+    - `EffectName`: Указывает путь к файлу эффекта частицы.
+    - `Ability`: Ссылка на саму способность.
+    - `Source`: Источник снаряда, в данном случае это кастер.
+
+### Важные детали:
+- **Импорты и зависимости:** Не указаны, но используется `ProjectileManager`.
+- **Функции и переменные:** `GetCaster`, `GetCursorPosition`, `CreateLinearProjectile`.
+
+### Связь с аудио:
+- В аудио говорится о необходимости указания источника (`source`) для снаряда, что соответствует строке `Source = caster` в коде. Это объясняет, как снаряд "вылетает" из источника, что связано с обсуждаемой темой в аудио.

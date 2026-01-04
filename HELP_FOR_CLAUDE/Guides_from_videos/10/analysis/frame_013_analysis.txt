@@ -1,0 +1,59 @@
+Кадр 13
+Временная метка: 0:03:15
+Номер кадра: 11700
+Скриншот: frame_011700_195.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:03:08] Function Modifier Урсокопия, две точки, OnAttackLanded.
+[0:03:17] Итак, что же сейчас вообще происходит?
+[0:03:21] Давайте напишем сюда Print.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в модификациях игры Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded()
+    -- body
+end
+```
+
+### Описание кода:
+1. **LinkLuaModifier**: Связывает Lua-модификатор `modifier_ursa_copy` с файлом `abilities/ursa_copy`.
+2. **ursa_copy**: Класс, представляющий способность.
+   - **GetIntrinsicModifierName**: Возвращает имя модификатора, связанного с этой способностью.
+3. **modifier_ursa_copy**: Класс модификатора.
+   - **IsHidden**: Возвращает `true`, что означает, что модификатор скрыт.
+   - **DeclareFunctions**: Объявляет функции, которые будут использоваться модификатором, в данном случае `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+   - **OnAttackLanded**: Пустая функция, которая будет вызываться при событии `ON_ATTACK_LANDED`.
+
+### Важные детали:
+- **Импорты и ссылки**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции и классы**: Определены классы `ursa_copy` и `modifier_ursa_copy` с соответствующими методами.
+
+### Связь с аудио:
+- В аудио говорится о функции `OnAttackLanded`, которая упоминается в коде. Ведущий предлагает добавить `Print` в эту функцию, чтобы отладить или проверить её работу. Это соответствует текущему состоянию кода, где функция `OnAttackLanded` пока пустая и готова для добавления логики.

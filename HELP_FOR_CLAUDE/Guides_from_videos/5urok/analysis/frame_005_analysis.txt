@@ -1,0 +1,70 @@
+Кадр 5
+Временная метка: 0:01:15
+Номер кадра: 4500
+Скриншот: frame_004500_75.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:05] ну давайте все по порядку
+[0:01:08] окей мы видим здесь addon template game mode
+[0:01:11] и что нам нужно с ним сделать
+[0:01:13] нам нужно его как-то переименовать
+[0:01:14] мы конечно можем его так оставить
+[0:01:16] типа вообще no problems
+[0:01:17] но чтобы нам легче было обращаться к нему в будущем
+[0:01:22] давайте придумаем ему название
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `addon_game_mode.lua`. Это файл на языке программирования Lua, используемый для разработки модов в игре Dota 2.
+
+### Видимый код:
+
+```lua
+if CAddonTemplateGameMode == nil then
+    CAddonTemplateGameMode = class({})
+end
+
+function Precache(context)
+    -- Precache things we know we'll use. Possible file types include (but not limited to):
+    -- PrecacheResource("model", "*.vmdl", context)
+    -- PrecacheResource("soundfile", "*.vsndevts", context)
+    -- PrecacheResource("particle", "*.vpcf", context)
+    -- PrecacheResource("particle_folder", "particles/folder", context)
+end
+
+-- Create the game mode when we activate
+function Activate()
+    GameRules.AddonTemplate = CAddonTemplateGameMode()
+    GameRules.AddonTemplate:InitGameMode()
+end
+
+function CAddonTemplateGameMode:InitGameMode()
+    print("Template addon is loaded.")
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function CAddonTemplateGameMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        --print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+1. **Определение класса**: Проверяется, существует ли `CAddonTemplateGameMode`. Если нет, создается новый класс.
+2. **Функция `Precache`**: Подготовка ресурсов, которые будут использоваться в игре. Комментарии указывают на типы ресурсов, которые можно кэшировать.
+3. **Функция `Activate`**: Создает экземпляр `CAddonTemplateGameMode` и инициализирует игровой режим.
+4. **Функция `InitGameMode`**: Выводит сообщение в консоль и устанавливает функцию `OnThink` для периодического выполнения.
+5. **Функция `OnThink`**: Проверяет состояние игры. Если игра в процессе, выполняется код (закомментирован). Если игра завершена, функция возвращает `nil`.
+
+### Связь с аудио:
+
+В аудио говорится о необходимости переименования `addon template game mode` для удобства в будущем. На экране видно, что используется шаблонный код, который, вероятно, будет изменен в соответствии с рекомендациями из аудио.

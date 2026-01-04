@@ -1,0 +1,65 @@
+Кадр 18
+Временная метка: 0:04:30
+Номер кадра: 16200
+Скриншот: frame_016200_270.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:00] ДОТА 8
+[0:04:30] ДОТА 8
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Этот файл находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc`.
+
+### Содержимое файла:
+Файл содержит JSON-подобную структуру, которая описывает способности в игре Dota 2. 
+
+#### Код:
+```plaintext
+"DOTAAbilities"
+{
+    "Version"        "1"
+    "echcen_aura"
+    {
+        "BaseClass"        "ability_datadriven"
+        "Modifiers"
+        {
+            "modifier_hidden_passive"
+            {
+                "Passive"        "1"
+                "States"
+                {
+                    "MODIFIER_STATE_INVULNERABLE"        "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_MAGIC_IMMUNE"        "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_DISARMED"            "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_NO_HEALTH_BAR"       "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_NOT_ON_MINIMAP"      "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_NO_UNIT_COLLISION"   "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_UNSELECTABLE"        "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_COMMAND_RESTRICTED"  "MODIFIER_STATE_VALUE_ENABLED"
+                }
+            }
+        }
+    }
+}
+```
+
+### Описание кода:
+- **"DOTAAbilities"**: Корневой объект, содержащий описание способностей.
+- **"Version"**: Версия формата файла.
+- **"echcen_aura"**: Имя способности.
+  - **"BaseClass"**: Указывает, что способность основана на `ability_datadriven`.
+  - **"Modifiers"**: Содержит модификаторы, применяемые способностью.
+    - **"modifier_hidden_passive"**: Название модификатора.
+      - **"Passive"**: Указывает, что модификатор пассивный.
+      - **"States"**: Определяет состояния, которые применяются модификатором, такие как неуязвимость, магическая неуязвимость и другие.
+
+### Важные детали:
+- Файл находится в папке, связанной с модификацией для Dota 2.
+- Используется структура данных, характерная для настройки способностей в игре.
+
+### Связь с аудио:
+В аудио упоминается "ДОТА 8", что может быть связано с обсуждением модификаций или версий игры Dota 2. Видимое на экране может быть частью объяснения, как создавать или изменять способности в игре.

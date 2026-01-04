@@ -1,0 +1,80 @@
+Кадр 54
+Временная метка: 0:13:30
+Номер кадра: 48600
+Скриншот: frame_048600_810.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:19] Ставим сюда просто.
+[0:13:24] И имеем в виду, что первый аргумент у нас это просто наше название таблицы.
+[0:13:29] Не очень понятно, зачем это вообще сделано.
+[0:13:31] Поэтому можем просто вот таким значком ее пометить и пропустить.
+[0:13:35] Второй аргумент у нас уже как раз то, что нам надо.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан код в редакторе Visual Studio Code. Это JavaScript-код, связанный с разработкой модификации для игры Dota 2, судя по упоминанию "dota_addons" в пути к файлу.
+
+### Видимый код:
+```javascript
+$.GetContextPanel().SetDialogVariable("counter", CustomNetTables.GetTableValue("boss_kill", `${Players.GetLocalPlayer()}`).boss_killed);
+$.Msg(CustomNetTables.GetTableValue("boss_kill", `${Players.GetLocalPlayer()}`).boss_killed);
+
+function CreateAbilityPanel(event) {
+    const arrayAbilities = Object.values(event.abilities);
+    const rootPanel = $.CreatePanel("Panel", $.GetContextPanel(), "black-cube");
+    rootPanel.BLoadLayoutSnippet("AbilityPanel");
+    const panelBody = rootPanel.FindChildTraverse("black-cube_body");
+    arrayAbilities.map((element) => {
+        const ability = $.CreatePanel("DOTAAbilityImage", panelBody, "", {
+            class: "black-cube_ability",
+            abilityname: element,
+            showtooltip: "true",
+        });
+        ability.SetPanelEvent("onactivate", () => {
+            GameEvents.SendCustomGameEventToServer("add_ability", {
+                player: Players.GetLocalPlayer(),
+                ability: element,
+            });
+        });
+    });
+    rootPanel.RemoveClass("IsActive");
+    rootPanel.DeleteAsync(0.4);
+}
+
+function UpdateBossCounter(args) {
+    CustomNetTables.SubscribeNetTableListener("boss_kill", UpdateBossCounter);
+    GameEvents.Subscribe("show_ability_panel", CreateAbilityPanel);
+}
+
+const dotaHud = {
+    let panel = $.GetContextPanel();
+    while (panel) {
+        if (panel.id === "DotaHud") return panel;
+        panel = panel.GetParent();
+    }
+    return panel;
+};
+
+const talent = dotaHud.FindChildTraverse("StatBranch");
+const levels = dotaHud.FindChildTraverse("level_stats_frame");
+talent.style.opacity = "0";
+levels.style.opacity = "0";
+```
+
+### Описание кода:
+- **Функция `CreateAbilityPanel`**: Создает панель с изображениями способностей, которые можно активировать. При активации способности отправляется событие на сервер.
+- **Функция `UpdateBossCounter`**: Подписывается на обновления таблицы "boss_kill" и события "show_ability_panel".
+- **Объект `dotaHud`**: Используется для поиска панели "DotaHud" и изменения стилей видимости для элементов "StatBranch" и "level_stats_frame".
+
+### Важные детали:
+- **Импорты и библиотеки**: Используются функции и объекты, специфичные для среды разработки модов Dota 2, такие как `$.GetContextPanel()`, `GameEvents`, `CustomNetTables`.
+- **Переменные и функции**: `CreateAbilityPanel`, `UpdateBossCounter`, `dotaHud`, `talent`, `levels`.
+
+### Связь с аудио:
+- В аудио упоминается "первый аргумент" и "второй аргумент", что может относиться к аргументам функций или вызовов методов в коде, например, в `CustomNetTables.GetTableValue`.
+- Упоминание о "значке" и "пометке" может относиться к визуальным элементам, создаваемым в функции `CreateAbilityPanel`.
+
+Этот код и аудио связаны с созданием и управлением пользовательским интерфейсом в модификации для Dota 2.

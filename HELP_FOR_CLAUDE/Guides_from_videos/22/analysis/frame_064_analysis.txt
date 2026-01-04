@@ -1,0 +1,93 @@
+Кадр 64
+Временная метка: 0:16:00
+Номер кадра: 57600
+Скриншот: frame_057600_960.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:50] projectile, летит опять в ближайшего юнита, стало
+[0:15:52] 2. И так он постепенно прибавляется.
+[0:15:56] Следственно, extra data может быть
+[0:15:58] очень-очень полезно. Туда пихаем, что
+[0:16:00] хотим, но не забываем, только числа
+[0:16:02] и строки будут работать.
+[0:16:04] И для того, чтобы мы могли использовать
+[0:16:06] наши параметры отсюда,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+1. **КОД:**
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+
+     ```lua
+     wave_terorist = class({})
+
+     function wave_terorist:OnSpellStart()
+         local caster = self:GetCaster()
+         local point = self:GetCursorPosition()
+         local casterPoint = caster:GetOrigin()
+
+         local drection = point - casterPoint
+         local speed = 600
+
+         drection = drection:Normalized()
+
+         ProjectileManager:CreateLinearProjectile({
+             EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+             Ability = self,
+             Source = caster,
+             vSpawnOrigin = casterPoint,
+             fStartRadius = 200,
+             fEndRadius = 200,
+             fDistance = 1200,
+             vVelocity = drection * speed,
+             bProvidesVision = true,
+             iVisionTeamNumber = caster:GetTeamNumber(),
+             iVisionRadius = 500,
+             ExtraData = {}
+         })
+     end
+
+     function wave_terorist:OnProjectileHit(target)
+         local caster = self:GetCaster()
+
+         if not target then
+             caster:Heal(9999, self)
+             return
+         end
+
+         ApplyDamage({
+             victim = target,
+             attacker = caster,
+             ability = self,
+             damage = 100,
+             damage_type = DAMAGE_TYPE_MAGICAL,
+         })
+
+         target:AddNewModifier(caster, self, "modifier_stunned", {duration = 1})
+     end
+     ```
+
+   - **Описание кода:**
+     - Код описывает класс `wave_terorist`, который реализует способность в игре.
+     - Функция `OnSpellStart` запускает линейный снаряд с определёнными параметрами, такими как скорость, радиус и дистанция.
+     - Функция `OnProjectileHit` обрабатывает попадание снаряда, нанося магический урон и оглушая цель. Если цель не найдена, исцеляет кастера.
+
+   - **Важные детали:**
+     - Используется `ProjectileManager` для создания снаряда.
+     - Параметры снаряда включают визуальные эффекты, радиус, дистанцию и скорость.
+     - Обработка попадания включает нанесение урона и добавление модификатора оглушения.
+
+2. **РЕДАКТОР:**
+   - **Название программы:** Sublime Text
+   - **Что открыто в редакторе:** Файл `wave_terorist.lua` из папки `scripts/abilities`.
+   - **Активные инструменты:** Панель поиска внизу.
+   - **Панели/вкладки:** Открыты несколько вкладок с файлами `.lua` и `.txt`.
+
+3. **СВЯЗЬ С АУДИО:**
+   - В аудио говорится о параметре `ExtraData`, который может быть полезен для передачи чисел и строк. В коде `ExtraData` используется в функции `CreateLinearProjectile`, что соответствует объяснению в аудио.

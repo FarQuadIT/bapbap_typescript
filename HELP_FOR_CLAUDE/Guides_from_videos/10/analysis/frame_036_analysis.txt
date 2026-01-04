@@ -1,0 +1,73 @@
+Кадр 36
+Временная метка: 0:09:00
+Номер кадра: 32400
+Скриншот: frame_032400_540.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:50] И четвертым параметром.
+[0:08:52] Передаются какие-то у нас значения.
+[0:08:55] И сюда мы должны передать таблицу.
+[0:08:58] С какими-то значениями.
+[0:09:00] Ключ значения.
+[0:09:01] Есть то, что нам нужно в данном конкретной ситуации.
+[0:09:06] Просто написать duration.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл скрипта, написанный на языке программирования Lua. 
+
+### Код:
+```lua
+LinkLuaModifier( "modifier_ursa_copy", "abilities/ursa_copy.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_ursa_copy_debuff", "abilities/ursa_copy.lua", LUA_MODIFIER_MOTION_NONE )
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded( props )
+    if self:GetParent() == props.attacker then
+        props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", {})
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+```
+
+### Описание кода:
+- **Импорты:** Используются функции `LinkLuaModifier` для подключения модификаторов `modifier_ursa_copy` и `modifier_ursa_copy_debuff`.
+- **Классы и функции:**
+  - `ursa_copy` — класс, который возвращает имя модификатора `modifier_ursa_copy`.
+  - `modifier_ursa_copy` — класс, который скрыт и обрабатывает событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+  - `OnAttackLanded` — функция, которая добавляет модификатор `modifier_ursa_copy_debuff` к цели, если атакующий — это родительский объект.
+  - `modifier_ursa_copy_debuff` — класс, который не скрыт.
+
+### Связь с аудио:
+- В аудио говорится о передаче таблицы с ключами и значениями. В коде это может относиться к передаче пустой таблицы `{}` в функцию `AddNewModifier` в `OnAttackLanded`.
+
+### Важные детали:
+- Код связан с модификаторами в игре, вероятно, для Dota 2, что видно из пути к файлу.
+- Используются стандартные функции Lua для работы с модификаторами и событиями в игровом движке.
+
+На экране также видна структура папок проекта, что может быть полезно для навигации и понимания контекста разработки.

@@ -1,0 +1,60 @@
+Кадр 33
+Временная метка: 0:08:15
+Номер кадра: 29700
+Скриншот: frame_029700_495.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:06] RandomFloat
+[0:08:08] И будем ролить с 0 до 99
+[0:08:10] Почему RandomFloat
+[0:08:12] RandomFloat это флоат значение
+[0:08:14] Это который с точкой
+[0:08:16] 1.50 0.30
+[0:08:18] Int значение
+[0:08:20] Это цельные значения
+[0:08:22] 1 2 3 4
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `item_drop_manager.lua`. Это файл на языке программирования Lua, используемый в модификации для игры Dota 2.
+
+### Видимый код:
+```lua
+require("tables/item_drop")
+
+if ItemDropManager == nil then
+    ItemDropManager = class({})
+end
+
+function ItemDropManager:Init()
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'EntityKilled'), self)
+end
+
+function ItemDropManager:EntityKilled(event)
+    local killedUnit = EntIndexToHScript(event.entindex_killed)
+    local items = ITEM_DROP[killedUnit:GetUnitName()]
+
+    if not items then return end
+
+    local randomNumber = RandomFloat(0, 99)
+end
+```
+
+### Описание кода:
+- **Импорт**: Используется `require` для подключения модуля `tables/item_drop`.
+- **Класс**: Определяется класс `ItemDropManager`.
+- **Функции**:
+  - `Init`: Регистрирует обработчик события `entity_killed`, который вызывает метод `EntityKilled`.
+  - `EntityKilled`: Обрабатывает событие убийства сущности. Получает убитую сущность и проверяет, есть ли для неё предметы в таблице `ITEM_DROP`. Если предметы есть, генерируется случайное число от 0 до 99 с помощью `RandomFloat`.
+
+### Важные детали:
+- **Переменные**:
+  - `killedUnit`: Ссылка на убитую сущность.
+  - `items`: Список предметов, связанных с убитой сущностью.
+  - `randomNumber`: Случайное число от 0 до 99.
+  
+### Связь с аудио:
+- В аудио объясняется использование функции `RandomFloat` для генерации случайного числа с плавающей точкой в диапазоне от 0 до 99. Это соответствует строке кода `local randomNumber = RandomFloat(0, 99)`, где происходит генерация случайного числа.

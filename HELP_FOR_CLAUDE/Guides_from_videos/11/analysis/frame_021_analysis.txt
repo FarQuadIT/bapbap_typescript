@@ -1,0 +1,67 @@
+Кадр 21
+Временная метка: 0:05:15
+Номер кадра: 18900
+Скриншот: frame_018900_315.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:07] Это у нас modifier.HiddenSpell.
+[0:05:09] И дальше идет таблица с какими-то значениями.
+[0:05:12] Duration.
+[0:05:13] И мы берем значение это из нашей обилки.
+[0:05:17] Как бы все.
+[0:05:18] Давайте проверять.
+[0:05:19] Вот.
+[0:05:20] Вот.
+[0:05:21] Давайте проверять.
+[0:05:22] Итак, проверяем нашу обилку.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. Файл называется `healing_spell.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities`.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    caster:Heal(self:GetSpecialValueFor("heal"), self)
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:IsHidden()
+    return false
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает модификатор `modifier_healing_spell` с файлом `healing_spell`.
+- **healing_spell**: Класс, представляющий способность.
+  - **OnSpellStart**: Метод, который вызывается при активации способности. Он исцеляет кастера и добавляет ему модификатор `modifier_healing_spell` на определенную длительность.
+- **modifier_healing_spell**: Класс, представляющий модификатор.
+  - **IsHidden**: Определяет, виден ли модификатор. Возвращает `false`.
+  - **DeclareFunctions**: Возвращает список функций, которые модификатор изменяет. В данном случае это постоянная регенерация здоровья.
+  - **GetModifierConstantHealthRegen**: Возвращает значение регенерации здоровья, полученное из способности.
+
+### Связь с аудио:
+- В аудио говорится о модификаторе `HiddenSpell` и таблице значений, таких как `Duration`. На экране видно, как в коде используется `self:GetSpecialValueFor("duration")`, что соответствует упоминанию в аудио.
+- Также упоминается проверка способности, что соответствует коду, где происходит исцеление и добавление модификатора.
+
+### Важные детали:
+- Используются методы `GetCaster`, `Heal`, `AddNewModifier`, `GetSpecialValueFor`.
+- Класс `healing_spell` и `modifier_healing_spell` определяют логику способности и модификатора соответственно.

@@ -1,0 +1,110 @@
+Кадр 26
+Временная метка: 0:06:30
+Номер кадра: 23400
+Скриншот: frame_023400_390.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:21] И сюда как раз.
+[0:06:23] Здесь используем нашу InitBossKill.
+[0:06:27] И после этого.
+[0:06:28] Чтобы проверить, что у нас все отлично работает.
+[0:06:31] При старте игры в Chupacabra.
+[0:06:33] Mod.
+[0:06:33] Start.
+[0:06:34] Давайте также пройдемся по всем игрокам.
+[0:06:37] Как мы это сделали тут.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+
+```lua
+local hero = Player:GetAssignedHero()
+hero:ModifyGold(START_GOLD, true, 13)
+
+function ChupakabraMode:OnNPCSpawned(data)
+    local player = PlayerResource:GetPlayer(data.player)
+    local hero = Player:GetAssignedHero()
+    hero:AddAbility(data.ability)
+end
+
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
+        ChupakabraMode:InitBossKill()
+    end
+end
+
+function ChupakabraMode:DamageFilter(data)
+    return true
+end
+
+function ChupakabraMode:OrderFilter(data)
+    local type = data.order_type
+    local playerId = data.issuer_player_id_const
+
+    if type == DOTA_UNIT_ORDER_PICKUP_ITEM then
+        local target = EntIndexToHScript(data.entindex_target)
+
+        if target:GetContainedItem():GetCost() > 500 then
+            CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "ShowError", {message = "Не трогай, а то сожрет"})
+            return false
+        end
+    end
+
+    return true
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        EmitSoundOn("Hero_Abaddon.AphoticShield.Cast", killed_unit)
+        AddItemAndNotifyForAll()
+    end
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_centaur_outrunner_boss" then
+        local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_beast_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+        AddRandomAbilityForUnit()
+    end
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+        GameRules:SetCustomGameEndTime(DOTA_TEAM_GOODGUYS)
+    end
+end
+
+function ChupakabraMode:ChupakabraModeStart()
+    local hero = PlayerResource:GetPlayer()
+    local player = PlayerResource:GetPlayer()
+    local hero = Player:GetAssignedHero()
+    hero:AddAbility("ability_custom")
+end
+```
+
+### Описание кода:
+
+- **Импорты и переменные:** Код использует стандартные функции и объекты Dota 2 для работы с игроками и юнитами.
+- **Функции:**
+  - `OnNPCSpawned`: Добавляет способность герою при его появлении.
+  - `ChupakabraStateChange`: Инициализирует убийство босса при изменении состояния игры.
+  - `DamageFilter`: Возвращает `true`, что позволяет всем повреждениям проходить без изменений.
+  - `OrderFilter`: Проверяет заказы игроков, запрещая подбирать предметы дороже 500 золота.
+  - `ChupakabraKilled`: Обрабатывает события убийства различных боссов, вызывая звуки, создавая новых юнитов и завершая игру.
+  - `ChupakabraModeStart`: Добавляет способность герою при старте режима.
+
+### Связь с аудио:
+
+- В аудио упоминается использование `InitBossKill`, что соответствует вызову этой функции в `ChupakabraStateChange`.
+- Обсуждается проверка работы при старте игры, что связано с функцией `ChupakabraModeStart`.
+
+### Дополнительные детали:
+
+- **Панель слева:** Показана структура папок и файлов, относящихся к модификации Dota 2.
+- **Активные вкладки:** Открыты файлы `chupakabra_mode.lua` и `custom_net_tables.txt`.
+- **Настройки Sublime Text:** Видны стандартные элементы интерфейса, такие как строка состояния и вкладки.

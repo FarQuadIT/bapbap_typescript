@@ -1,0 +1,83 @@
+Кадр 40
+Временная метка: 0:10:00
+Номер кадра: 36000
+Скриншот: frame_036000_600.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:52] Я говорил Apply Damage.
+[0:09:54] Правильнее Apply.
+[0:09:56] И тут просто заменим атрибуты.
+[0:10:01] То есть, withSteam...
+[0:10:03] Блять, идите нахуй, короче, если кто-то на произношение будет ругаться.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+
+```lua
+LinkLuaModifier("modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE)
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {duration = 0})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT
+    }
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+
+function modifier_strong_poison:OnCreated()
+    self:StartIntervalThink(1)
+end
+
+function modifier_strong_poison:OnIntervalThink()
+    ApplyDamage({
+        victim = self:GetParent(),
+        attacker = self:GetCaster(),
+        damage = self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+        damage_type = DAMAGE_TYPE_PHYSICAL,
+        ability = self:GetAbility()
+    })
+end
+```
+
+### Описание кода:
+
+- **Импорт модификатора**: `LinkLuaModifier` связывает Lua-модификатор с именем `modifier_strong_poison`.
+- **Функция `OnSpellStart`**: Активируется при начале заклинания, добавляет модификатор `modifier_strong_poison` к цели.
+- **Класс `modifier_strong_poison`**: Определяет поведение модификатора.
+  - **`IsHidden`**: Возвращает `false`, модификатор видим.
+  - **`DeclareFunctions`**: Объявляет функции, влияющие на скорость передвижения.
+  - **`GetModifierMoveSpeedBonus_Constant`**: Уменьшает скорость на 150.
+  - **`OnCreated`**: Запускает интервал проверки каждую секунду.
+  - **`OnIntervalThink`**: Применяет физический урон, используя значение `damage_per_stack`.
+
+### Важные детали:
+
+- **Функции и переменные**: `ApplyDamage`, `GetCursorTarget`, `GetCaster`, `AddNewModifier`.
+- **Пути и файлы**: Указан путь к файлу в структуре проекта Dota 2.
+
+### Связь с аудио:
+
+- В аудио говорится о функции `Apply Damage`, которая действительно используется в коде для нанесения урона.
+- Упоминается замена атрибутов, что может относиться к изменению значений в функции `ApplyDamage`.
+- Комментарий о произношении не имеет прямого отношения к коду, но показывает, что автор видео обсуждает детали реализации и произношение терминов.

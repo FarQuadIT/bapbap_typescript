@@ -1,0 +1,77 @@
+Кадр 4
+Временная метка: 0:01:00
+Номер кадра: 3600
+Скриншот: frame_003600_60.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:00:43] пакью и берна 00 благодаря вам видосики выходит в принципе выходят спасибо вам большое реально ну и
+[0:00:53] начинаем
+[0:00:55] так вот наш айтем кастом да если что если вы еще не забыли с прошлых уроков предметы мы меняем в
+[0:01:02] этом кастами в скрипт mpc айтем кастом и тут вот допустим у нас с прошлых уроков также остался
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `npc_items_custom.txt`. Этот файл находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\`.
+
+### Содержимое файла:
+
+Файл содержит описание кастомного предмета для игры Dota 2. Код написан в формате конфигурационного файла, который используется для настройки игровых элементов.
+
+#### Видимый код:
+
+```plaintext
+// Recipe
+"ItemRecipe" "1"
+"ItemResult" "item_motus_orb"
+"ItemRequirements"
+{
+    "01" "item_lotus_orb;item_lotus_orb"
+}
+
+"item_motus_orb"
+{
+    // General
+    "BaseClass" "item_lotus_orb" // unique ID number for this item. Do not change this once established or it will invalidate collected stats.
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+    "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
+    "FightRecapLevel" "1"
+
+    "AbilityTextureName" "motus"
+    "AbilityCooldown" "15.0"
+    "AbilityCastRange" "900"
+    "AbilityManaCost" "175"
+
+    // Item Info
+    "ItemCost" "3850"
+    "ItemShopTags" "regen_health;regen_mana;str;agi;int;hard_to_tag"
+    "ItemQuality" "epic"
+    "ItemAliases" "l;lotus orb"
+    "ItemDeclarations" "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+    "ItemDisassembleRule" "DOTA_ITEM_DISASSEMBLE_ALWAYS"
+    "ShouldBeSuggested" "1"
+
+    // Special
+    "AbilitySpecial"
+    {
+        "01"
+        {
+            "var_type" "FIELD_INTEGER"
+            "bonus_armor" "10"
+        }
+        "02"
+```
+
+### Описание кода:
+
+- **Recipe**: Определяет рецепт предмета `item_motus_orb`, который требует два `item_lotus_orb`.
+- **General**: Основные параметры предмета, такие как класс, поведение способности, цели и визуальные элементы.
+- **Item Info**: Информация о предмете, включая стоимость, теги магазина, качество и правила разборки.
+- **Special**: Специальные параметры способности, такие как бонус к броне.
+
+### Связь с аудио:
+
+В аудио говорится о том, что предметы меняются в этом кастомном скрипте `npc_items_custom`. Видимый код соответствует этому описанию, так как демонстрирует процесс настройки кастомного предмета в игре.

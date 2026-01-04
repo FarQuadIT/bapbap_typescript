@@ -1,0 +1,82 @@
+Кадр 129
+Временная метка: 0:10:45
+Номер кадра: 38700
+Скриншот: frame_038700_645.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:42] Owner нам не обязателен.
+[0:10:44] Nil.
+[0:10:45] И главное, плеера.
+[0:10:46] То есть мы просто, скажите, получим селл getCaster.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Код:
+```lua
+local point = self:GetCursorPosition()
+local caster = self:GetCaster()
+local duration = self:GetSpecialValueFor("duration")
+
+CreateModifierThinker( caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false )
+end
+
+modifier_gold_hole_thinker = class({})
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    if not IsServer() then return end
+
+    self.effect_cast = ParticleManager:CreateParticleForPlayer("particles/winter_fx/weather_frostivus_snow.vpcf", PATTACH_EYES_FOLLOW, nil)
+    ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self.effect_cast, 1, Vector(radius, radius, radius))
+
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local parent = self:GetParent()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+    local gold = gold_per_unit * #enemies
+
+    caster:ModifyGold(gold, true, 13)
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, caster, gold, caster)
+end
+```
+
+### Описание кода:
+- **Функции и классы**:
+  - `modifier_gold_hole_thinker`: класс, который управляет созданием и уничтожением эффекта, а также начислением золота.
+  - `OnCreated`, `OnDestroy`, `OnIntervalThink`: методы, управляющие поведением модификатора.
+
+- **Основные действия**:
+  - Создание эффекта частицы при создании модификатора.
+  - Уничтожение эффекта при уничтожении модификатора.
+  - Начисление золота за каждую вражескую единицу в радиусе действия модификатора.
+
+- **Важные детали**:
+  - Используются функции `ParticleManager` для управления визуальными эффектами.
+  - `FindUnitsInRadius` используется для поиска вражеских единиц в радиусе.
+  - `ModifyGold` и `SendOverheadEventMessage` используются для начисления золота и отображения уведомления.
+
+### Связь с аудио:
+- В аудио говорится о том, что "Owner нам не обязателен" и упоминается `nil`. Это соответствует использованию `nil` в коде, например, в `CreateParticleForPlayer`.
+- Упоминание `getCaster` в аудио связано с использованием `self:GetCaster()` в коде для получения объекта, который применяет способность.
+
+Этот код и аудио объясняют, как создается и управляется модификатор, который начисляет золото за вражеские единицы в радиусе действия.

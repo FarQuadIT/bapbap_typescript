@@ -1,0 +1,65 @@
+Кадр 66
+Временная метка: 0:16:30
+Номер кадра: 59400
+Скриншот: frame_059400_990.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:20] Поэтому, чтобы такого не было, по-хорошему, вынесите обилку сейчас в отдельную переменную,
+[0:16:25] для того, чтобы несколько раз не вызывать одно и то же.
+[0:16:28] ability, вот так вот.
+[0:16:31] И здесь пишем то, что проверочку на...
+[0:16:34] Что наша обилка полностью кастуемая.
+[0:16:35] isFullCastAbil.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ai_kobold.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+function Spawn()
+    if not thisEntity then return nil end
+
+    thisEntity:SetContextThink("KoboldThink", KoboldThink, 1)
+end
+
+function KoboldThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME or not thisEntity:IsAlive() then
+        return nil
+    end
+
+    if thisEntity:GetHealth() < thisEntity:GetMaxHealth() * 0.5 then
+        local ability = thisEntity:FindAbilityByName("alchemist_chemical_rage")
+        ExecuteOrderFromTable({
+            UnitIndex = thisEntity:entindex(),
+            OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+            AbilityIndex = thisEntity:FindAbilityByName("alchemist_chemical_rage"):entindex(),
+        })
+    end
+
+    print("dsds")
+    return 1
+end
+```
+
+### Описание кода:
+- **Функция `Spawn`:** Инициализирует процесс мышления для сущности `thisEntity`, если она существует.
+- **Функция `KoboldThink`:** Проверяет состояние игры и здоровье сущности. Если здоровье меньше 50%, она использует способность `alchemist_chemical_rage`.
+- **Переменные и функции:**
+  - `thisEntity`: текущая сущность.
+  - `SetContextThink`: устанавливает функцию мышления.
+  - `FindAbilityByName`: находит способность по имени.
+  - `ExecuteOrderFromTable`: выполняет команду для сущности.
+  - `entindex`: возвращает индекс сущности.
+
+### Связь с аудио:
+- В аудио говорится о вынесении способности в отдельную переменную, чтобы не вызывать её несколько раз. Это отражено в коде строкой `local ability = thisEntity:FindAbilityByName("alchemist_chemical_rage")`, что соответствует рекомендациям из аудио.
+
+### Важные детали:
+- **Импорты:** отсутствуют, так как Lua не требует явных импортов для встроенных функций.
+- **Файловая структура:** в левой части экрана видна структура папок, относящихся к модификации Dota 2.
+
+Этот код управляет поведением сущности в игре, используя её способности в зависимости от состояния здоровья.

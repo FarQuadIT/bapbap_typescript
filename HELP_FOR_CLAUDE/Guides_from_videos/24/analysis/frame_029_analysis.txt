@@ -1,0 +1,82 @@
+Кадр 29
+Временная метка: 0:07:15
+Номер кадра: 26100
+Скриншот: frame_026100_435.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:08] Число.
+[0:07:08] Мы обязательно должны превращать его в строку.
+[0:07:10] Запомните обязательное правило.
+[0:07:12] Я забыл.
+[0:07:13] Завернуть все это дело в print.
+[0:07:14] Поэтому давайте вернем в DeepPrintTable.
+[0:07:16] Для того, чтобы увидеть.
+[0:07:18] Сразу нашу таблицу.
+[0:07:20] А не тейбл.
+[0:07:21] И место в памяти.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text. 
+
+### 1. Код:
+- **Язык программирования:** Lua
+- **Файл:** `chupakabra_mode.lua`
+- **Код:**
+  ```lua
+  function ChupakabraMode:ChupakabraKilled(data)
+      local killed_unit = EntIndexToHScript(data.entindex_killed)
+      if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+          CreateUnitByName("npc_dota_neutral_centaur_outrunner_boss", Entities:FindByName(nil, "bosses_point"):GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+          AddRandomAbilityAndRename(killed_unit)
+      end
+      if killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+          GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+      end
+  end
+
+  function ChupakabraMode:ChupakabraModeStart()
+      local player = PlayersResource:GetPlayer(0)
+      local hero = player:GetAssignedHero()
+      local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+      CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+  end
+
+  function ChupakabraMode:WaveMobs(isCenter)
+      local point
+      if isCenter then
+          point = Vector(0, 0, 0)
+      else
+          point = Entities:FindByName(nil, "enemy_path1"):GetAbsOrigin()
+      end
+      for i=1, 10 do
+          local unit = CreateUnitByName("npc_dota_neutral_kobold", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+          unit:SetInitialGoalEntity(point)
+      end
+  end
+  ```
+
+- **Описание:**
+  - Код управляет игровым режимом в Dota 2, создавая и управляя юнитами в зависимости от событий.
+  - Функции обрабатывают убийства, начало режима и создание волн мобов.
+
+- **Важные детали:**
+  - Используются функции `CreateUnitByName`, `EntIndexToHScript`, `GameRules:SetGameWinner`.
+  - Переменные `killed_unit`, `player`, `hero`, `point` используются для управления логикой игры.
+
+### 2. Редактор:
+- **Название программы:** Sublime Text
+- **Открыто:** Файл `chupakabra_mode.lua` из папки `scripts/vscripts/chupakabra`.
+- **Панели/вкладки:** 
+  - Слева видна файловая структура проекта, включая папки `maps`, `materials`, `particles`, `scripts`.
+  - Справа открыта вкладка с кодом.
+
+### 5. Связь с аудио:
+- В аудио говорится о необходимости преобразования числа в строку и использовании `print`.
+- В коде видно использование `tostring(i)`, что соответствует преобразованию числа в строку.
+- Упоминается `DeepPrintTable`, но в видимом коде этого нет, возможно, это часть другого кода или контекста.
+
+Этот анализ помогает понять, как код и аудио связаны, и какие действия выполняются в редакторе.

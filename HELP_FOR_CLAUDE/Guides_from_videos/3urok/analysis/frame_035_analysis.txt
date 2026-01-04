@@ -1,0 +1,83 @@
+Кадр 35
+Временная метка: 0:08:45
+Номер кадра: 31500
+Скриншот: frame_031500_525.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:35] И, допустим, урон 50 оставить.
+[0:08:37] И Trigger's Attack 10.
+[0:08:39] И это никак не повлияет на эту абилку.
+[0:08:41] Она существует сама по себе.
+[0:08:43] Вот так вот. Довольно интересно.
+[0:08:45] Давайте теперь узнаем, как менять описание абилки.
+[0:08:48] Точнее, в данном случае нам нужно добавить Cox Helix к какой-либо описанию.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Этот файл относится к модификации для игры Dota 2, и в нем описаны пользовательские способности.
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+
+2. **Открытые файлы**:
+   - `npc_abilities_custom.txt`
+   - `npc_heroes_custom.txt`
+   - `Новый текстовый документ.txt`
+   - `update.txt`
+   - `npc_items_custom.txt`
+
+3. **Структура папок**:
+   - Путь к файлу: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\npc_abilities_custom.txt`
+   - Видны папки: `chupakabra`, `maps`, `materials`, `particles`, `resource`, `scripts`, `npc`.
+
+4. **Код**:
+   - Язык: JSON-подобный формат, используемый для конфигурации в Dota 2.
+   - Пример кода:
+     ```plaintext
+     "ccock_counter_helix"
+     {
+         // General
+         "BaseClass"                     "ability_lua"
+         "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         "AbilityUnitDamageType"         "DAMAGE_TYPE_PURE"
+         "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_YES"
+         "AbilitySound"                  "Hero_Axe.CounterHelix"
+         "AbilityTextureName"            "axe/dub"
+         "MaxLevel"                      "1"
+         "HasShardUpgrade"               "1"
+         // Special
+         "AbilityValues"
+         {
+             "damage"
+             {
+                 "value"                 "special_bonus_unique_axe_4"  "30"
+                 "radius"                "300"
+                 "trigger_attacks"       "10"
+                 "AbilityCooldown"       "0"
+             }
+             "special_bonus_shard"
+             {
+                 "value"                 "0.3"
+             }
+             "shard_debuff_duration"     "special_bonus_shard" "6.0"
+             "shard_damage_reduction"    "special_bonus_shard" "15"
+             "shard_max_stacks"          "special_bonus_shard" "6"
+         }
+         "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_3"
+     }
+     ```
+
+5. **Описание кода**:
+   - Описывается способность `ccock_counter_helix`.
+   - Способность пассивная, наносит чистый урон, имеет звуковой эффект и текстуру.
+   - Имеет специальные значения, такие как урон, радиус, количество атак для срабатывания, кулдаун и улучшения через Shard.
+
+6. **Связь с аудио**:
+   - В аудио говорится о параметрах урона и триггере атак, что соответствует параметрам `damage` и `trigger_attacks` в коде.
+   - Упоминается добавление `Cox Helix` к описанию, что связано с редактированием способности `ccock_counter_helix`.
+
+Этот кадр демонстрирует процесс редактирования и настройки пользовательских способностей в Dota 2, что соответствует обсуждаемым в аудио параметрам и изменениям.

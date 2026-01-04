@@ -1,0 +1,67 @@
+Кадр 22
+Временная метка: 0:05:30
+Номер кадра: 19800
+Скриншот: frame_019800_330.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:19] Итак, я по-быстрому реализовал наш предметикс.
+[0:05:23] Единственное, на что может вас смутить, что мы тут получаем обилку, как и в случае обилок, но не беспокойтесь.
+[0:05:29] Ну, getAbility подразумевает получить предмет. По факту предметы на уровне доты в каком-то смысле обилки, на самом деле.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. Файл называется `item_desol_custom.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\items`.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_item_desol_custom", "items/item_desol_custom", LUA_MODIFIER_MOTION_NONE)
+
+item_desol_custom = class({})
+
+function item_desol_custom:OnSpellStart()
+    print("123123")
+end
+
+function item_desol_custom:GetIntrinsicModifierName()
+    return "modifier_item_desol_custom"
+end
+
+modifier_item_desol_custom = class({})
+
+function modifier_item_desol_custom:IsHidden()
+    return true
+end
+
+function modifier_item_desol_custom:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+    }
+end
+
+function modifier_item_desol_custom:GetModifierBonusStats_Strength()
+    return self:GetAbility():GetSpecialValueFor("str_bonus")
+end
+```
+
+### Описание кода:
+
+1. **Импорт и регистрация модификатора:**
+   - `LinkLuaModifier` связывает Lua-модификатор `modifier_item_desol_custom` с файлом `item_desol_custom`.
+
+2. **Класс `item_desol_custom`:**
+   - Определяет предмет с методом `OnSpellStart`, который выводит в консоль строку "123123".
+   - Метод `GetIntrinsicModifierName` возвращает имя модификатора `modifier_item_desol_custom`.
+
+3. **Класс `modifier_item_desol_custom`:**
+   - Метод `IsHidden` возвращает `true`, скрывая модификатор.
+   - Метод `DeclareFunctions` возвращает таблицу с функцией `MODIFIER_PROPERTY_STATS_STRENGTH_BONUS`, которая добавляет бонус к силе.
+   - Метод `GetModifierBonusStats_Strength` возвращает значение бонуса силы, полученное через `GetAbility():GetSpecialValueFor("str_bonus")`.
+
+### Связь с аудио:
+
+- В аудио говорится о реализации предмета и использовании метода `getAbility`, который в коде используется для получения специального значения бонуса силы (`str_bonus`). Это соответствует строке `return self:GetAbility():GetSpecialValueFor("str_bonus")` в коде.
+- Объясняется, что предметы в Dota 2 могут рассматриваться как способности, что отражено в коде через использование метода `GetAbility`.

@@ -1,0 +1,89 @@
+Кадр 7
+Временная метка: 0:01:45
+Номер кадра: 6300
+Скриншот: frame_006300_105.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:34] И чтобы его впендюрить нужно написать GameRules и GetGameModeEntity
+[0:01:41] После этого уже вставить наш фильтр
+[0:01:43] И через DynamicFrap мы инсталлизируем нашу функцию
+[0:01:49] То есть вот так вот
+[0:01:51] И здесь давайте напишем как будет называться функция
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+60300,50,50,100,500,60050,50,50,100,500,60050,50,50,100,500,60050,50,50,100,500,600,
+100,500,60050,50,50,100,500,60050,50,50,100,500,60050,50,50,100,500,600
+
+for i=2,#expTable do
+    HeroExpTable[i] = HeroExpTable[i-1] + expTable[i-1]
+end
+
+START_GOLD = 1500
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(START_GOLD)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetHeroSelectionTime(10)
+    GameRules:SetPreGameTime(10)
+    GameRules:SetPostGameTime(10)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 5 )
+    GameRules:SetUseCustomHeroLevels( true ) -- установка кастомной системы уровней
+    GameRules:SetCustomXPRequiredToReachNextLevel( HeroExpTable )
+    GameRules:GetGameModeEntity():SetUnseenFogOfWarEnabled(true)
+
+    ListenToGameEvent('entity_killed', Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(self, 'ChupakabraStateChange'), self)
+    GameRules:GetGameModeEntity():SetDamageFilter()
+    CustomGameEventManager:RegisterListener("action", Dynamic_Wrap(self, 'OnAction'), self)
+end
+
+function ChupakabraMode:OnSpawnCobalt(data)
+    local player = PlayerResource:GetPlayer(data.PlayerID)
+    local hero = player:GetAssignedHero()
+
+    hero:ModifyGold(START_GOLD, true, 0)
+end
+
+function ChupakabraMode:OnChoiceAbility(data)
+    local player = PlayerResource:GetPlayer(data.PlayerID)
+    local hero = player:GetAssignedHero()
+
+    hero:AddAbility(data.ability)
+end
+```
+
+### Описание кода:
+
+- **Переменные и Константы:**
+  - `START_GOLD = 1500`: Устанавливает начальное количество золота для игроков.
+  - `HeroExpTable`: Таблица опыта для уровней героев.
+
+- **Функции:**
+  - `InitGameMode()`: Инициализирует параметры игры, такие как начальное золото, время выбора героев, и другие настройки.
+  - `OnSpawnCobalt(data)`: Добавляет золото герою при его появлении.
+  - `OnChoiceAbility(data)`: Добавляет способность герою.
+
+- **Используемые методы:**
+  - `GameRules:SetStartingGold()`, `GameRules:SetUseUniversalShopMode()`, и другие методы `GameRules` для настройки параметров игры.
+  - `ListenToGameEvent()`: Подписка на игровые события.
+  - `Dynamic_Wrap()`: Используется для обертки функций в динамические события.
+
+### Связь с аудио:
+
+- В аудио говорится о необходимости использования `GameRules` и `GetGameModeEntity`, что соответствует коду, где эти методы применяются для настройки параметров игры.
+- Упоминается вставка фильтра, что видно в строке `GameRules:GetGameModeEntity():SetDamageFilter()`.
+- Использование `Dynamic_Wrap` также обсуждается в аудио и видно в коде для обертки функций событий.
+
+Этот код и аудио вместе объясняют, как настроить и управлять игровым режимом в Dota 2 с помощью Lua скриптов.

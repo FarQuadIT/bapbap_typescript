@@ -1,0 +1,81 @@
+Кадр 124
+Временная метка: 0:14:28
+Номер кадра: 52080
+Скриншот: frame_052080_868.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:22] Ну это урон понятно.
+[0:14:24] Ну, сколько атак нужно для того, чтобы сработало.
+[0:14:27] Можно поставить 1.
+[0:14:29] Ability cooldown можно сразу поставить 0.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+1. **Редактор:**
+   - **Название программы:** Sublime Text
+   - **Открытый файл:** `npc_abilities_custom.txt`
+   - **Путь к файлу:** `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\npc_abilities_custom.txt`
+
+2. **Содержимое файла:**
+   - **Формат:** Текстовый файл конфигурации для игры Dota 2.
+   - **Структура:** JSON-подобный формат, используемый для настройки способностей персонажей.
+
+3. **Код:**
+   ```plaintext
+   "axe_counter_helix"
+   {
+       // General
+       "ID"                            "5000"    // unique ID number for this ability. Do not change this once established or it will invalidate collected stats.
+       "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+       "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_TYPE_BASIC"
+       "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_YES"
+       "AbilityTextureName"            "axe_counter_helix"
+       "HasScepterUpgrade"             "0"
+
+       // Special
+       "AbilityValues"
+       {
+           "damage"
+           {
+               "value"                 "100 200 300 400"
+               "special_bonus_unique_axe_7"  "350"
+           }
+           "radius"                    "300"
+           "trigger_attacks"           "3"
+           "AbilityCooldown"
+           {
+               "value"                 "0.3"
+               "special_bonus_shard"   "0.3"
+           }
+           "shard_debuff_duration"
+           {
+               "special_bonus_shard"   "6.0"
+           }
+           "shard_damage_reduction"
+           {
+               "special_bonus_shard"   "15"
+           }
+           "shard_max_stacks"
+           {
+               "special_bonus_shard"   "6"
+           }
+       }
+       "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_3"
+   }
+   ```
+
+4. **Описание кода:**
+   - **ID:** Уникальный идентификатор способности.
+   - **AbilityBehavior:** Способность пассивная.
+   - **AbilityUnitTargetType:** Целевые юниты — базовые.
+   - **SpellImmunityType:** Способность действует на юнитов с иммунитетом к магии.
+   - **AbilityValues:** Настройки значений способности, включая урон, радиус, количество атак для срабатывания, кулдаун и эффекты от шардов.
+
+5. **Связь с аудио:**
+   - **Аудио контекст:** Обсуждается количество атак для срабатывания способности и кулдаун.
+   - **Связь:** В коде указано `trigger_attacks` со значением `3`, что соответствует обсуждению количества атак. Также упоминается `AbilityCooldown` со значением `0.3`, что связано с обсуждением кулдауна в аудио.

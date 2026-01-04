@@ -1,0 +1,92 @@
+Кадр 27
+Временная метка: 0:06:45
+Номер кадра: 24300
+Скриншот: frame_024300_405.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:37] Как мы это сделали тут.
+[0:06:40] И получим значение GetTableValue.
+[0:06:44] Со стороны здесь указываем название таблицы.
+[0:06:47] И.
+[0:06:48] i.
+[0:06:49] Однако.
+[0:06:50] Тут.
+[0:06:51] Мы обязательно должны i превратить в таблицу.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:OnEntityKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        CreateUnitByName("npc_dota_neutral_centaur_outrunner_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+        AddRandomAbilityForName(npc)
+    end
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+        CreateUnitByName("npc_dota_neutral_fel_beast_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+        AddRandomAbilityForName(npc)
+    end
+end
+
+function ChupakabraMode:ChupakabraModeStart()
+    local player = PlayerResource:GetPlayer(0)
+    local hero = PlayerResource:GetSelectedHeroEntity(0)
+    print(hero:GetAbilityCount())
+
+    AddRandomAbilityForName(npc)
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+
+    for i=0,PlayerResource:GetPlayerCount() - 1 do
+        local temates = Entities:FindAllByName("temates")
+        local customTable = CustomNetTables:GetTableValue(stringTableName, stringKeyName) or {boss_kill = 0, boss_killed = 0}
+
+        for i=1,#temates do
+            local temate = temates[i]
+            local temate_point = temate:GetAbsOrigin()
+
+            temate:ForceKill(false)
+            CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", temate_point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+        end
+    end
+end
+
+function ChupakabraMode:HaveWobs(isCenter)
+    local point
+
+    if isCenter then
+        point = Vector(0,0,0)
+    else
+        point = Entities:FindByName(nil, "enemy_path1"):GetAbsOrigin()
+    end
+
+    CreateUnitByName("npc_dota_neutral_kobold", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+    unit:SetInitialGoalEntity(point)
+end
+```
+
+### Описание кода:
+
+- **Функция `OnEntityKilled`**: Обрабатывает событие убийства сущности. Если убитый юнит имеет определенное имя, создается новый юнит и добавляется случайная способность.
+  
+- **Функция `ChupakabraModeStart`**: Инициализирует режим игры, создавая юниты и добавляя способности. Использует таблицы для хранения данных о количестве убитых боссов.
+
+- **Функция `HaveWobs`**: Создает юнита в зависимости от переданного параметра `isCenter`, определяющего позицию.
+
+### Важные детали:
+
+- **Импорты и библиотеки**: Используются функции из API Dota 2, такие как `EntIndexToHScript`, `CreateUnitByName`, `PlayerResource`, `Entities`, и `CustomNetTables`.
+  
+- **Переменные и функции**: `killed_unit`, `point`, `temates`, `customTable`, `temate_point`.
+
+### Связь с аудио:
+
+- В аудио говорится о получении значения `GetTableValue` и преобразовании `i` в таблицу. Это соответствует использованию `CustomNetTables:GetTableValue` в коде, где извлекаются данные из таблицы для дальнейшей обработки.

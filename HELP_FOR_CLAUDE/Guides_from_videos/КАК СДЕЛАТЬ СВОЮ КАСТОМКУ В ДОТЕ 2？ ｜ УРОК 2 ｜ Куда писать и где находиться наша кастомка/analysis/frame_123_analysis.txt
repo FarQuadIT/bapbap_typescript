@@ -1,0 +1,87 @@
+Кадр 123
+Временная метка: 0:14:21
+Номер кадра: 51660
+Скриншот: frame_051660_861.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:16] И можем менять любые значения.
+[0:14:18] То есть.
+[0:14:20] Допустим damage.
+[0:14:22] Ну это урон понятно.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Этот файл используется для настройки способностей в игре Dota 2. 
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+2. **Открытый файл**: `npc_abilities_custom.txt`.
+3. **Путь к файлу**: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\`.
+4. **Другие открытые вкладки**: `addon_english.txt`, `heroList.txt`, `npc_heroes_custom.txt`, `npc_items_custom.txt`, `npc_units_custom.txt`, `addoninfo.txt`, `npc_abilities.txt`.
+
+### Содержимое файла:
+
+```plaintext
+"DOTAAbilities"
+{
+    "Version"        "1"
+    "axe_counter_helix"
+    {
+        // General
+        "ID"                    "5000"                            // unique ID number for this ability. Do not change this once established or it will invalidate collected stats.
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityUnitDamageType" "DAMAGE_TYPE_PURE"
+        "SpellImmunityType"     "SPELL_IMMUNITY_ENEMIES_YES"
+        "AbilitySound"          "Hero_Axe.CounterHelix"
+        
+        // Special
+        "AbilityValues"
+        {
+            "damage"
+            {
+                "value"             "100 200 300 400"
+                "special_bonus_unique_axe_4"    "100"
+            }
+            "radius"                "300"
+            "trigger_attacks"       "7 6 5 4"
+            "AbilityCooldown"
+            {
+                "value"             "0.3"
+                "special_bonus_shard"   "0.0"
+            }
+            "shard_debuff_duration"
+            {
+                "special_bonus_shard"   "+6.0"
+            }
+            "shard_damage_reduction"
+            {
+                "special_bonus_shard"   "+15"
+            }
+            "shard_max_stacks"
+            {
+                "special_bonus_shard"   "+5"
+            }
+        }
+        "AbilityCastAnimation"   "ACT_DOTA_CAST_ABILITY_3"
+    }
+}
+```
+
+### Описание кода:
+
+- **Язык**: Конфигурационный файл в формате Key-Value, используемый в Dota 2.
+- **Назначение**: Настройка способности "axe_counter_helix" для героя Axe.
+- **Ключевые параметры**:
+  - `ID`: Уникальный идентификатор способности.
+  - `AbilityBehavior`: Указывает, что способность пассивная.
+  - `AbilityUnitDamageType`: Тип урона — чистый.
+  - `SpellImmunityType`: Способность действует на врагов с иммунитетом к заклинаниям.
+  - `AbilityValues`: Содержит параметры способности, такие как урон, радиус, количество атак для срабатывания, кулдаун и эффекты от шардов.
+
+### Связь с аудио:
+
+- В аудио говорится о возможности изменения значений, таких как "damage" (урон), что соответствует редактируемым параметрам в файле. Пользователь может изменять значения урона и других параметров, что демонстрируется на экране.

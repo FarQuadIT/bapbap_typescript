@@ -1,0 +1,78 @@
+Кадр 54
+Временная метка: 0:13:30
+Номер кадра: 48600
+Скриншот: frame_048600_810.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:20] вражеского и они оба останутся.
+[0:13:22] Классно. Я считаю, очень классно.
+[0:13:24] Однако в чем здесь
+[0:13:26] прикол? Вдруг нам
+[0:13:28] нужен
+[0:13:30] не только, чтобы оно
+[0:13:32] наносило урон
+[0:13:34] чувакам, а еще нужно,
+[0:13:36] чтобы, допустим, оно в конце взрывалось.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Этот код относится к скриптам для игры Dota 2, что видно из пути к файлу и используемых функций.
+
+### Код:
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local derction = point - casterPoint
+    local speed = 1000
+    derction = derction:Normalized()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        vVelocity = derction * speed,
+        fDistance = 1000,
+        UnitBehavior = PROJECTILES_NOTHING,
+        UnitTest = function(self, unit) return unit:GetTeamNumber() ~= caster:GetTeamNumber() end,
+        OnUnitHit = function(self, unit)
+            ApplyDamage({
+                victim = unit,
+                attacker = caster,
+                damage = 100,
+                damage_type = DAMAGE_TYPE_MAGICAL,
+            })
+            unit:AddNewModifier(caster, self, "modifier_stunned", {duration = 1})
+        end,
+    })
+end
+```
+
+### Описание кода:
+- **Класс `wave_terorist`:** Определяет новый класс для способности.
+- **Функция `OnSpellStart`:** Вызывается при активации способности.
+  - Получает объект, который применяет способность (`caster`), и позицию курсора (`point`).
+  - Вычисляет направление (`derction`) и нормализует его.
+  - Создает линейный снаряд с помощью `ProjectileManager:CreateLinearProjectile`.
+  - Снаряд наносит магический урон и оглушает цель на 1 секунду при попадании.
+
+### Важные детали:
+- **Имя эффекта:** `"particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf"`.
+- **Скорость снаряда:** 1000.
+- **Радиус начала и конца:** 200.
+- **Дистанция:** 1000.
+- **Урон:** 100 магического типа.
+- **Модификатор:** `modifier_stunned` с длительностью 1 секунда.
+
+### Связь с аудио:
+Аудио описывает ситуацию, когда способность должна не только наносить урон, но и, возможно, взрываться в конце. В коде показано, как способность наносит урон и оглушает, но нет упоминания о взрыве, что может быть темой для дальнейшего обсуждения или улучшения способности.

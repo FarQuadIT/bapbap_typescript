@@ -1,0 +1,75 @@
+Кадр 15
+Временная метка: 0:01:15
+Номер кадра: 4500
+Скриншот: frame_004500_75.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:12] effect name и просто на нем будет висеть нужен тебе модификатор и все однако что делать если
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier( "modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE )
+
+strong_poison = class({})
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {duration = 8})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT
+    }
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+
+function modifier_strong_poison:OnCreated()
+    self:StartIntervalThink(0.5)
+end
+
+function modifier_strong_poison:OnIntervalThink()
+    ApplyDamage({
+        victim = self:GetParent(),
+        attacker = self:GetCaster(),
+        damage = 50,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+        ability = self:GetAbility()
+    })
+end
+
+function modifier_strong_poison:GetEffectName()
+    return "particles/econ/items/viper/viper_ti7_immortal/viper_poison_debuff_ti7.vpcf"
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает модификатор `modifier_strong_poison` с файлом `abilities/strong_poison`.
+- **strong_poison:OnSpellStart**: При активации способности добавляет модификатор `modifier_strong_poison` к цели на 8 секунд.
+- **modifier_strong_poison**: Класс, описывающий поведение модификатора.
+  - **IsHidden**: Возвращает `false`, модификатор видим.
+  - **DeclareFunctions**: Указывает, что модификатор изменяет скорость передвижения.
+  - **GetModifierMoveSpeedBonus_Constant**: Уменьшает скорость передвижения на 150.
+  - **OnCreated**: Запускает периодическое действие каждые 0.5 секунды.
+  - **OnIntervalThink**: Наносит 50 магического урона цели.
+  - **GetEffectName**: Возвращает путь к визуальному эффекту модификатора.
+
+### Связь с аудио:
+В аудио говорится о "модификаторе", который "висит" на цели. Это соответствует коду, где модификатор `modifier_strong_poison` применяется к цели и оказывает на нее эффекты, такие как уменьшение скорости и нанесение урона.

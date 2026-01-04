@@ -1,0 +1,70 @@
+Кадр 55
+Временная метка: 0:13:45
+Номер кадра: 49500
+Скриншот: frame_049500_825.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:37] getAppsOrigin.
+[0:13:39] Получили point.
+[0:13:41] Передали point.
+[0:13:43] Дальше у нас ищем свободное пространство.
+[0:13:45] Нет, не является никаким ничьей собакой и dota team goodguys.
+[0:13:52] Он за нас, чувачок.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+function CreateDrop(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    newItem:SetPurchaseTime(0)
+    newItem:SetPurchaser(nil)
+    CreateItemOnPositionSync(pos, newItem)
+end
+
+function chupakabra:ChupakabraOnStart()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+
+    local temates = Entities:FindAllByName("temates")
+
+    for i=1, #temates do
+        local temate = temates[i]
+        local temate_point = temate:GetAbsOrigin()
+
+        temate:ForceKill(false)
+        CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", temate_point, true, nil, DOTA_TEAM_GOODGUYS)
+    end
+end
+```
+
+### Описание кода:
+
+1. **Функция `CreateDrop`:**
+   - Создает предмет в игре.
+   - Параметры: `itemname` (название предмета), `pos` (позиция).
+   - Создает предмет и синхронизирует его позицию.
+
+2. **Функция `ChupakabraOnStart`:**
+   - Инициализирует процесс создания юнитов.
+   - Находит точку `bosses_point` и создает юнита "npc_dota_neutral_kobold_boss" для команды плохих парней.
+   - Находит все сущности с именем "temates", убивает их и создает нового юнита "npc_dota_neutral_forest_troll_high_priest_stronger" для команды хороших парней.
+
+### Важные детали:
+
+- **Импорты и библиотеки:** Не указаны, так как Lua обычно не требует явных импортов для стандартных функций.
+- **Переменные:** `point`, `newItem`, `temates`, `temate`, `temate_point`.
+- **Функции:** `CreateDrop`, `ChupakabraOnStart`.
+
+### Связь с аудио:
+
+- В аудио упоминается `getAppsOrigin`, что может быть связано с получением позиции `point` в коде.
+- Упоминание "ищем свободное пространство" может относиться к логике размещения юнитов на карте.
+- "Он за нас, чувачок" может относиться к созданию юнита для команды хороших парней (`DOTA_TEAM_GOODGUYS`).

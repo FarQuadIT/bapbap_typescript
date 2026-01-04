@@ -1,0 +1,59 @@
+Кадр 20
+Временная метка: 0:05:00
+Номер кадра: 18000
+Скриншот: frame_018000_300.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:47] И нам уже нужно как-то обрабатывать то, что нам, ну, кто именно совершил эту атаку.
+[0:04:53] В данном случае нам нужно сказать, чтобы эта функция выполнялась только тогда, когда атаку наносит не кто, не кто-то там, не союзник, а именно наш герой, то есть владелец способности.
+[0:05:07] Для этого, так же, как и со слушателями, нам передается некоторая таблица.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded()
+    print("Bameoch")
+end
+```
+
+### Описание кода:
+1. **Импорт модификатора**: `LinkLuaModifier` связывает модификатор `modifier_ursa_copy` с файлом `abilities/ursa_copy`.
+2. **Класс `ursa_copy`**: Определяет способность, которая возвращает имя модификатора `modifier_ursa_copy`.
+3. **Класс `modifier_ursa_copy`**:
+   - `IsHidden()`: Возвращает `true`, что делает модификатор скрытым.
+   - `DeclareFunctions()`: Возвращает таблицу с функцией `MODIFIER_EVENT_ON_ATTACK_LANDED`, которая будет вызываться при успешной атаке.
+   - `OnAttackLanded()`: Печатает "Bameoch" в консоль при срабатывании события атаки.
+
+### Важные детали:
+- **Импорт**: `LinkLuaModifier` связывает модификатор с файлом.
+- **Функции**: `GetIntrinsicModifierName`, `IsHidden`, `DeclareFunctions`, `OnAttackLanded`.
+- **Событие**: `MODIFIER_EVENT_ON_ATTACK_LANDED` используется для обработки атак.
+
+### Связь с аудио:
+Аудио объясняет, что функция должна выполняться только при атаке, совершенной героем, а не союзником. Код на экране показывает, как это реализовано через модификатор, который реагирует на событие атаки.

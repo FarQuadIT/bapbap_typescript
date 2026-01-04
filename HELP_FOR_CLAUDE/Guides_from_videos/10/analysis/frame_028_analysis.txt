@@ -1,0 +1,63 @@
+Кадр 28
+Временная метка: 0:07:00
+Номер кадра: 25200
+Скриншот: frame_025200_420.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:52] осталось...
+[0:06:53] Ну, интересует только таргет.
+[0:06:55] Из оставшихся.
+[0:06:56] То есть урон нас там не интересует.
+[0:06:58] Окей, что мы тогда сейчас делаем?
+[0:07:02] Мы создадем еще один модификатор, который назовем UrsaCopyDebuff.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в модах для игры Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+    end
+end
+```
+
+### Описание кода:
+1. **Импорт модификатора**: `LinkLuaModifier` связывает Lua-модификатор `modifier_ursa_copy` с файлом `abilities/ursa_copy`.
+2. **Класс `ursa_copy`**: Определяет способность, возвращающую имя модификатора `modifier_ursa_copy`.
+3. **Класс `modifier_ursa_copy`**:
+   - **`IsHidden`**: Возвращает `true`, что делает модификатор скрытым.
+   - **`DeclareFunctions`**: Определяет, что модификатор реагирует на событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+   - **`OnAttackLanded`**: Функция, которая вызывается при событии атаки. Проверяет, является ли атакующий родителем модификатора.
+
+### Важные детали:
+- **Импорт**: `LinkLuaModifier` используется для связывания модификатора с файлом.
+- **Функции**: `GetIntrinsicModifierName`, `IsHidden`, `DeclareFunctions`, `OnAttackLanded`.
+- **Переменные**: `ursa_copy`, `modifier_ursa_copy`.
+
+### Связь с аудио:
+Аудио говорит о создании модификатора `UrsaCopyDebuff`, что соответствует коду, где создается и настраивается модификатор `modifier_ursa_copy`. Пользователь, вероятно, объясняет, как модификатор будет использоваться для обработки атак, что видно в функции `OnAttackLanded`.

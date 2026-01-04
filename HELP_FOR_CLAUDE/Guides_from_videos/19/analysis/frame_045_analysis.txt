@@ -1,0 +1,83 @@
+Кадр 45
+Временная метка: 0:11:15
+Номер кадра: 40500
+Скриншот: frame_040500_675.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:08] И получается если триггер Istouching
+[0:11:10] То тогда мы выполняем
+[0:11:12] Все что ниже
+[0:11:14] Если нет то соответственно
+[0:11:16] Типа
+[0:11:18] Тикаем с города
+[0:11:20] Все все довольно просто
+[0:11:22] Можем тестировать
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `gold_hole.lua` и находится в директории, связанной с модификацией для игры Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier( "modifier_gold_hole_thinker", "abilities/gold_hole", LUA_MODIFIER_MOTION_NONE )
+
+gold_hole = {}
+
+function gold_hole:GetAOERadius()
+    return self:GetSpecialValueFor("radius")
+end
+
+function gold_hole:OnSpellStart()
+    local trigger = Entities:FindByName(nil, "teleport")
+    if (trigger:IsTouching(self:GetCaster())) then
+        local point = self:GetCursorPosition()
+        local caster = self:GetCaster()
+        local duration = self:GetSpecialValueFor("duration")
+
+        CreateModifierThinker(caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false)
+    end
+end
+
+modifier_gold_hole_thinker = {}
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+
+    self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+    ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self.effect_cast, 1, Vector(radius, 0, 0))
+
+    self:StartIntervalThink(0.1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local parent = self:GetParent()
+    local origin = parent:GetOrigin()
+    -- Additional logic here
+end
+```
+
+### Описание кода:
+- **Импорт модификатора**: `LinkLuaModifier` связывает Lua-модификатор с именем `modifier_gold_hole_thinker`.
+- **Функция `GetAOERadius`**: Возвращает радиус действия способности.
+- **Функция `OnSpellStart`**: Проверяет, касается ли триггер `teleport` кастера. Если да, создается модификатор `modifier_gold_hole_thinker` в указанной точке.
+- **Модификатор `modifier_gold_hole_thinker`**:
+  - **`IsHidden`**: Возвращает `true`, скрывая модификатор.
+  - **`OnCreated`**: Создает визуальный эффект с использованием `ParticleManager`.
+  - **`OnDestroy`**: Уничтожает созданный эффект.
+  - **`OnIntervalThink`**: Выполняется периодически, возможно, для обновления состояния.
+
+### Связь с аудио:
+- В аудио говорится о проверке условия `IsTouching` и выполнении действий, если условие истинно. Это соответствует коду в функции `OnSpellStart`, где проверяется условие `trigger:IsTouching(self:GetCaster())`, и если оно истинно, создается модификатор.

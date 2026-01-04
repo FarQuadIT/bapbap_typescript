@@ -1,0 +1,83 @@
+Кадр 135
+Временная метка: 0:11:15
+Номер кадра: 40500
+Скриншот: frame_040500_675.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:10] И также нам все-таки третьим аргументом придется указать owner.
+[0:11:13] Иначе у нас ничего не заработает.
+[0:11:15] Не знаю, честно, в чем прикол.
+[0:11:17] Потому что, по touch и вес follow не обязательно будет для определенного юнита.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+function gold_hole:OnSpellStart()
+    local caster = Entities:FindByName(nil, "teleport")
+    if (trigger:IsTouching(caster)) then
+        local point = self:GetCursorPosition()
+        local caster = self:GetCaster()
+        local duration = self:GetSpecialValueFor("duration")
+
+        CreateModifierThinker(caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false)
+    end
+end
+
+modifier_gold_hole_thinker = class({})
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    if not IsServer() then return end
+
+    self.effect_cast = ParticleManager:CreateParticleForPlayer("particles/winter_fx/weather_frostivus_snow.vpcf", PATTACH_EYES_FOLLOW, self:GetCaster(), self:GetCaster():GetPlayerOwner())
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local parent = self:GetParent()
+    local caster = self:GetCaster()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+    local gold = gold_per_unit * #enemies
+
+    caster:ModifyGold(gold, true, 13)
+    SendOverheadEventMessage(caster:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, caster, gold, caster)
+end
+```
+
+### Описание кода:
+
+- **Функция `gold_hole:OnSpellStart()`**: Инициализирует заклинание, проверяет, касается ли триггер объекта `teleport`, и создает модификатор `modifier_gold_hole_thinker` с заданной длительностью.
+  
+- **Класс `modifier_gold_hole_thinker`**: 
+  - **Метод `IsHidden()`**: Возвращает `true`, скрывая модификатор.
+  - **Метод `OnCreated()`**: Создает визуальный эффект и запускает интервал для периодического выполнения.
+  - **Метод `OnDestroy()`**: Уничтожает созданный визуальный эффект.
+  - **Метод `OnIntervalThink()`**: Находит врагов в радиусе, вычисляет количество золота на основе их числа и добавляет золото кастеру.
+
+### Важные детали:
+
+- Используются функции для работы с частицами (`ParticleManager:CreateParticleForPlayer`) и для управления золотом (`ModifyGold`).
+- Присутствуют проверки на серверную часть (`IsServer()`).
+- В коде используются специальные значения, получаемые через `GetSpecialValueFor`.
+
+### Связь с аудио:
+
+- В аудио говорится о необходимости указания третьего аргумента `owner`, что соответствует строке, где используется `self:GetCaster():GetPlayerOwner()` в методе `OnCreated`. Это объясняет, почему важно указать владельца для корректной работы функции создания частиц.

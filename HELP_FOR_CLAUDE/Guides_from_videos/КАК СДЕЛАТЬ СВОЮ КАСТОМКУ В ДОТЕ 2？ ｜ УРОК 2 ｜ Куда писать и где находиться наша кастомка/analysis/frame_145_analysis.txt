@@ -1,0 +1,125 @@
+Кадр 145
+Временная метка: 0:16:55
+Номер кадра: 60900
+Скриншот: frame_060900_1015.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:50] все.
+[0:16:51] Вообще почти всё тут.
+[0:16:53] Допустим вот это вот удаляем.
+[0:16:56] Главное на самом деле не удалить лишнюю скобочку.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_heroes_custom.txt`. Это файл конфигурации, вероятно, связанный с модификацией игры Dota 2, так как путь к файлу указывает на директорию Steam с игрой Dota 2.
+
+### Детали экрана:
+
+1. **Редактор:**
+   - **Название:** Sublime Text (UNREGISTERED)
+   - **Открытые вкладки:** 
+     - `npc_heroes_custom.txt`
+     - `npc_items_custom.txt`
+     - `npc_units_custom.txt`
+     - `addoninfo.txt`
+     - `npc_abilities.txt`
+     - `npc_abilities_custom.txt`
+
+2. **Содержимое файла:**
+   - **Формат:** JSON-подобная структура, используемая для конфигурации.
+   - **Код:**
+     ```plaintext
+     "npc_dota_hero_axe"
+     {
+         "BaseClass" "npc_dota_hero"
+         "Model" "models/heroes/axe/axe.mdl"
+         "SoundSet" "Hero_Axe"
+         "Enabled" "1"
+         "HeroUnlockOrder" "0"
+         "Role" "Durable,Initiator,Disabler,Jungler"
+         "Rolelevels" "3,2,1,1"
+         "Team" "Good"
+         "HeroID" "2"
+         "ModelScale" "0.74"
+         "HeroGlowColor" "255 0 0"
+         "CMEnabled" "1"
+         "PickSound" "axe_axe_spawn_01"
+         "BanSound" "axe_axe_anger_01"
+         "url" "Axe"
+         "Ability1" "axe_berserkers_call"
+         "Ability2" "axe_battle_hunger"
+         "Ability3" "axe_counter_helix"
+         "Ability4" "axe_culling_blade"
+         "Ability5" "special_bonus_unique_axe"
+         "Ability6" "special_bonus_unique_axe_2"
+         "Ability7" "special_bonus_unique_axe_3"
+         "Ability8" "special_bonus_unique_axe_4"
+         "Ability9" "special_bonus_unique_axe_5"
+         "Ability10" "special_bonus_unique_axe_6"
+         "ArmorPhysical" "0"
+         "AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
+         "AttackDamageMin" "27"
+         "AttackDamageMax" "31"
+         "AttackRate" "1.7"
+         "AttackAnimationPoint" "0.5"
+         "AttackAcquisitionRange" "600"
+         "AttackRange" "150"
+         "ProjectileSpeed" "0"
+         "MovementSpeed" "310"
+         "MovementTurnRate" "0.6"
+         "AttributePrimary" "DOTA_ATTRIBUTE_STRENGTH"
+         "AttributeBaseStrength" "25"
+         "AttributeStrengthGain" "2.8"
+         "AttributeBaseIntelligence" "18"
+         "AttributeIntelligenceGain" "1.6"
+         "AttributeBaseAgility" "20"
+         "AttributeAgilityGain" "2.2"
+         "StatusHealthRegen" "2"
+         "MovementSpeedActivityModifiers"
+         {
+             "walk" "340"
+         }
+         "BoundsHullName" "DOTA_HULL_SIZE_HERO"
+         "ItemSlots"
+         {
+             "0"
+             {
+                 "SlotIndex" "0"
+                 "SlotName" "weapon"
+                 "SlotText" "#LoadoutSlot_Weapon"
+                 "TextureWidth" "256"
+                 "TextureHeight" "256"
+                 "MaxPolygonsLOD0" "650"
+                 "MaxPolygonsLOD1" "300"
+             }
+             "1"
+             {
+                 "SlotIndex" "1"
+                 "SlotName" "head"
+                 "SlotText" "#LoadoutSlot_Head_Accessory"
+                 "TextureWidth" "256"
+                 "TextureHeight" "256"
+                 "MaxPolygonsLOD0" "550"
+                 "MaxPolygonsLOD1" "300"
+             }
+         }
+     }
+     ```
+
+3. **Описание кода:**
+   - **Язык:** JSON-подобный формат.
+   - **Назначение:** Конфигурация героя "Axe" в игре Dota 2.
+   - **Ключевые параметры:**
+     - **BaseClass:** Базовый класс героя.
+     - **Model:** Модель героя.
+     - **Abilities:** Способности героя.
+     - **Attributes:** Основные атрибуты и их прирост.
+     - **ItemSlots:** Слоты для предметов и их параметры.
+
+4. **Связь с аудио:**
+   - В аудио говорится о необходимости удаления элементов, но с осторожностью, чтобы не удалить лишнюю скобку. Это соответствует редактированию JSON-подобной структуры, где важно соблюдать синтаксис, чтобы не нарушить целостность данных.
+
+Этот кадр демонстрирует процесс редактирования конфигурации героя, что может быть частью модификации или настройки игры.

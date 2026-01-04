@@ -1,0 +1,55 @@
+Кадр 49
+Временная метка: 0:12:15
+Номер кадра: 44100
+Скриншот: frame_044100_735.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:06] Да
+[0:12:08] Да
+[0:12:10] Да
+[0:12:12] Да
+[0:12:14] Да
+[0:12:16] Не
+[0:12:17] Да
+[0:12:19] Да
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `cechens_armor.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities`.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+cechens_armor = class({})
+
+function cechens_armor:GetIntrinsicModifierName()
+    return "modifier_cechens_armor"
+end
+
+modifier_cechens_armor = class({})
+
+function modifier_cechens_armor:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
+    }
+end
+```
+
+### Описание кода:
+1. **LinkLuaModifier**: Связывает Lua-модификатор `modifier_cechens_armor` с файлом `abilities/cechens_armor`.
+2. **cechens_armor = class({})**: Создает класс `cechens_armor`.
+3. **GetIntrinsicModifierName**: Метод, возвращающий имя модификатора `modifier_cechens_armor`.
+4. **modifier_cechens_armor = class({})**: Создает класс `modifier_cechens_armor`.
+5. **DeclareFunctions**: Метод, возвращающий таблицу с функцией `MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS`, которая, вероятно, отвечает за бонус к физической броне.
+
+### Важные детали:
+- **Импорты**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции**: `GetIntrinsicModifierName`, `DeclareFunctions`.
+- **Классы**: `cechens_armor`, `modifier_cechens_armor`.
+
+### Связь с аудио:
+Аудио контекст, в котором несколько раз повторяется "Да" и один раз "Не", не имеет явной связи с кодом на экране. Возможно, это подтверждение или отклонение действий, которые не видны на экране, или это часть объяснения, не связанная напрямую с кодом.

@@ -1,0 +1,55 @@
+Кадр 138
+Временная метка: 0:16:06
+Номер кадра: 57960
+Скриншот: frame_057960_966.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:03] Live нижнее подчёркивание drain.
+[0:16:06] То есть здесь пробелов нет.
+[0:16:07] Здесь используется, я даже не знаю как это называть.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities.txt`. Это файл конфигурации, вероятно, связанный с игрой Dota 2, так как он содержит описание способностей героев.
+
+### Детали:
+
+1. **Редактор**: Sublime Text
+   - Открыто несколько вкладок: `addon_english.txt`, `heroList.txt`, `npc_heroes.txt`, `npc_heroes_custom.txt`, `npc_items_custom.txt`, `npc_units_custom.txt`, `addoninfo.txt`, `npc_abilities.txt`, `npc_abilities_custom.txt`.
+
+2. **Содержимое файла**:
+   - Файл содержит описание способностей героев, таких как `Juggernaut Blade Dance` и `Juggernaut Blade Fury`.
+   - Используется формат JSON-подобной структуры для описания параметров способностей.
+
+3. **Пример кода**:
+   ```plaintext
+   // Ability: Juggernaut Blade Dance
+   "juggernaut_blade_dance"
+   {
+       // General
+       "ID" "5027" // unique ID number for this ability. Do not change this once established or it will invalidate collected stats.
+       "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+       // Special
+       "AbilityValues"
+       {
+           "blade_dance_crit_chance" "20 25 30 35"
+           "blade_dance_crit_mult" "180 190 200 210"
+           "blade_dance_lifesteal"
+           {
+               "value" "special_bonus_unique_juggernaut_blade_dance_lifesteal"
+           }
+       }
+       "AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_3"
+   }
+   ```
+
+4. **Аудио контекст**:
+   - В аудио говорится о том, что используется нижнее подчёркивание в именах, и что пробелов нет. Это соответствует стилю именования в файле, где используются нижние подчёркивания для разделения слов в именах способностей и параметров.
+
+5. **Связь с аудио**:
+   - Аудио объясняет, что в именах параметров и способностей используются нижние подчёркивания, что видно в коде (`juggernaut_blade_dance`, `blade_dance_crit_chance` и т.д.).
+
+Этот файл важен для настройки и изменения параметров способностей героев в игре, и аудио помогает понять, как правильно именовать и структурировать данные в этом контексте.

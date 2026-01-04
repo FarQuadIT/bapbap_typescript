@@ -1,0 +1,98 @@
+Кадр 43
+Временная метка: 0:10:45
+Номер кадра: 38700
+Скриншот: frame_038700_645.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:36] Находится ли юнит
+[0:10:38] В триггере
+[0:10:40] Можем допустим сделать на бетон
+[0:10:42] Типовом сплстарте
+[0:10:44] Допустим если нам нужно найти триггер
+[0:10:46] Не забываем local trigger
+[0:10:48] Как мы его будем искать
+[0:10:50] Будем искать через любимый наш энтитис
+[0:10:52] FindByName
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+- **Импорт и объявление:**
+  ```lua
+  LinkLuaModifier("modifier_gold_hole_thinker", "abilities/gold_hole", LUA_MODIFIER_MOTION_NONE)
+  ```
+
+- **Функция `gold_hole:GetAOERadius`:**
+  ```lua
+  function gold_hole:GetAOERadius()
+      return self:GetSpecialValueFor("radius")
+  end
+  ```
+
+- **Функция `gold_hole:OnSpellStart`:**
+  ```lua
+  function gold_hole:OnSpellStart()
+      local point = self:GetCursorPosition()
+      local caster = self:GetCaster()
+      local duration = self:GetSpecialValueFor("duration")
+      CreateModifierThinker(caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false)
+  end
+  ```
+
+- **Объявление `modifier_gold_hole_thinker`:**
+  ```lua
+  modifier_gold_hole_thinker = {}
+  ```
+
+- **Функция `modifier_gold_hole_thinker:IsHidden`:**
+  ```lua
+  function modifier_gold_hole_thinker:IsHidden()
+      return true
+  end
+  ```
+
+- **Функция `modifier_gold_hole_thinker:OnCreated`:**
+  ```lua
+  function modifier_gold_hole_thinker:OnCreated()
+      local radius = self:GetAbility():GetSpecialValueFor("radius")
+      self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+      ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+      ParticleManager:SetParticleControl(self.effect_cast, 1, Vector(radius, 0, 0))
+      self:StartIntervalThink(1)
+  end
+  ```
+
+- **Функция `modifier_gold_hole_thinker:OnDestroy`:**
+  ```lua
+  function modifier_gold_hole_thinker:OnDestroy()
+      ParticleManager:DestroyParticle(self.effect_cast, false)
+  end
+  ```
+
+- **Функция `modifier_gold_hole_thinker:OnIntervalThink`:**
+  ```lua
+  function modifier_gold_hole_thinker:OnIntervalThink()
+      local caster = self:GetCaster()
+      local radius = self:GetAbility():GetSpecialValueFor("radius")
+      local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+  end
+  ```
+
+### Описание кода:
+- **Импорт:** Подключается модификатор `modifier_gold_hole_thinker`.
+- **Функции:** 
+  - `GetAOERadius` возвращает радиус действия способности.
+  - `OnSpellStart` активирует способность, создавая модификатор в указанной точке.
+  - `modifier_gold_hole_thinker` управляет визуальными эффектами и логикой модификатора.
+  
+### Связь с аудио:
+- В аудио говорится о поиске триггера и использовании `FindByName`. На экране показан код, который создает модификатор, что может быть связано с поиском и использованием триггеров в игре.
+
+### Важные детали:
+- Используются функции для управления частицами и интервалами.
+- Код связан с игровыми механиками, такими как радиус действия и длительность способности.

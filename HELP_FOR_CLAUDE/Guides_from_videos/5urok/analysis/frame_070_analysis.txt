@@ -1,0 +1,67 @@
+Кадр 70
+Временная метка: 0:17:30
+Номер кадра: 63000
+Скриншот: frame_063000_1050.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:21] Первое, это установка количества команд.
+[0:17:24] Ну, не команд, а количество человек в команде.
+[0:17:27] То есть, обычно, в хвоешной костомке какой-нибудь там World Defense, нам нужно, чтобы там в вражеской тиме было ноль человек, а в союзниках пять человек.
+[0:17:36] Ну, и просто пишем вот так вот, типа...
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для настройки игровой модификации в Dota 2.
+
+### Видимый код:
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetHeroSelectionTime(5.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetPreGameTime(0.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 0 )
+
+    GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+end
+
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        --print( "Template addon script is running." )
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+- **Класс `ChupakabraMode`:** Создается класс для настройки игрового режима.
+- **Функция `InitGameMode`:** Инициализирует параметры игры:
+  - Устанавливает начальное золото (`SetStartingGold`) в 1500.
+  - Включает универсальный магазин (`SetUseUniversalShopMode`).
+  - Устанавливает время выбора героя, стратегии, показа и предигровое время в 0 или 5 секунд.
+  - Устанавливает время после игры в 60 секунд.
+  - Задает максимальное количество игроков в командах: 5 для союзников и 0 для врагов.
+  - Устанавливает функцию `OnThink` для периодического выполнения.
+- **Функция `OnThink`:** Проверяет состояние игры и выполняет действия в зависимости от него. Если игра в процессе, функция продолжает выполняться, если игра завершена, функция прекращает выполнение.
+
+### Связь с аудио:
+- В аудио говорится о настройке количества человек в командах, что соответствует строкам кода, где устанавливается количество игроков в командах (`SetCustomGameTeamMaxPlayers`).
+
+### Важные детали:
+- **Импорты:** Отсутствуют, так как Lua не требует явных импортов для стандартных функций.
+- **Переменные и функции:** Используются функции `GameRules` для настройки параметров игры.
+
+Этот код и аудио объясняют, как настроить команды в пользовательской игре Dota 2, что соответствует обсуждаемой теме в видео.

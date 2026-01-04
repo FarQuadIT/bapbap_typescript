@@ -1,0 +1,73 @@
+Кадр 35
+Временная метка: 0:08:45
+Номер кадра: 31500
+Скриншот: frame_031500_525.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:36] Я сработал.
+[0:08:40] Что у нас тут происходит?
+[0:08:42] То есть мы в onCreated, когда модификатор у нас навесился,
+[0:08:45] мы говорим модификатору, чтобы он эту функцию вызывал каждые 0,5 секунд.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE)
+
+strong_poison = class({})
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {duration = 8})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return {MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT}
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+
+function modifier_strong_poison:OnCreated()
+    self:StartIntervalThink(0.5)
+end
+
+function modifier_strong_poison:OnIntervalThink()
+    print("Я сработал")
+end
+```
+
+### Описание кода:
+- **Импорт модификатора**: `LinkLuaModifier` связывает модификатор `modifier_strong_poison` с файлом.
+- **Класс `strong_poison`**: Определяет способность, которая при активации (`OnSpellStart`) накладывает модификатор на цель.
+- **Модификатор `modifier_strong_poison`**:
+  - **`IsHidden`**: Возвращает `false`, модификатор видим.
+  - **`DeclareFunctions`**: Указывает, что модификатор изменяет скорость передвижения.
+  - **`GetModifierMoveSpeedBonus_Constant`**: Уменьшает скорость на 150 единиц.
+  - **`OnCreated`**: Устанавливает интервал выполнения функции `OnIntervalThink` каждые 0,5 секунды.
+  - **`OnIntervalThink`**: Выводит в консоль сообщение "Я сработал".
+
+### Связь с аудио:
+- В аудио говорится о том, что модификатор вызывает функцию каждые 0,5 секунд, что соответствует коду в `OnCreated` и `OnIntervalThink`.
+- Фраза "Я сработал" из аудио совпадает с текстом, выводимым в консоль в функции `OnIntervalThink`.
+
+### Важные детали:
+- **Импорт**: `LinkLuaModifier` связывает модификатор с файлом.
+- **Функции**: `OnSpellStart`, `OnCreated`, `OnIntervalThink`.
+- **Переменные**: `target`, `caster`.
+
+Редактор показывает структуру проекта в левой панели, где видны другие файлы скриптов и ресурсов.

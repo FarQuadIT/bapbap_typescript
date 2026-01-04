@@ -1,0 +1,76 @@
+Кадр 82
+Временная метка: 0:20:30
+Номер кадра: 73800
+Скриншот: frame_073800_1230.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:20:19] базовую реализацию сделаем вот мы указали useNaturalCreateBehaviour и сейчас у нас
+[0:20:25] все должно заработать к тому же всему прочему я лучше сделаю вот так вот то
+[0:20:31] есть i равно 1 пусть будет 20 doEnd что мы сейчас сделали мы сейчас просто
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с расширением `.lua`, что указывает на использование языка программирования Lua. Файл называется `chupakabra_mode.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts`.
+
+### Видимый код:
+
+```lua
+function GiveGoldToPlayers()
+    for index = 0, DOTA_MAX_TEAM_PLAYERS-1 do
+        local hero = PlayerResource:GetSelectedHeroEntity(index)
+        if hero then
+            hero:ModifyGold(OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDrop(nTeam, pos)
+    local newItem = CreateItem("item_bag_of_gold", nil, nil)
+    CreateItemOnPositionSync(pos, newItem)
+    newItem:SetPurchaseTime(0)
+    newItem:SetCurrentCharges(RandomInt(50, 150) * 0.5, pos + RandomVector( dropRadius ) )
+end
+
+function ChupakabraMode:ChupakabraModeStart()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+    local temates = Entities:FindAllByName("temates")
+    for _, temate in pairs(temates) do
+        local temate_point = temate:GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", temate_point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+    end
+end
+
+function ChupakabraMode:WaveSpawn()
+    local point = Entities:FindByName(nil, "enemy_path1")
+
+    for
+```
+
+### Описание кода:
+
+1. **Функция `GiveGoldToPlayers`:**
+   - Проходит по всем игрокам в команде и добавляет золото их героям.
+
+2. **Функция `CreateDrop`:**
+   - Создает предмет "мешок золота" на указанной позиции и задает ему случайное количество зарядов.
+
+3. **Функция `ChupakabraMode:ChupakabraModeStart`:**
+   - Создает юнита "kobold boss" в определенной точке и нескольких "forest troll high priest" в других точках.
+
+4. **Функция `ChupakabraMode:WaveSpawn`:**
+   - Начало функции, которая, вероятно, отвечает за спавн волн врагов.
+
+### Важные детали:
+
+- Используются функции для создания юнитов и предметов в игре Dota 2.
+- Присутствуют вызовы методов для получения позиций объектов в игровом мире.
+- Код связан с модификацией игрового режима в Dota 2.
+
+### Связь с аудио:
+
+- В аудио говорится о реализации и использовании `useNaturalCreateBehaviour`, однако в видимом коде это не упоминается.
+- Возможно, это обсуждение относится к другой части кода или к концепции, которая будет реализована позже.

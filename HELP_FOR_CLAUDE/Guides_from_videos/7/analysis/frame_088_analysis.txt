@@ -1,0 +1,77 @@
+Кадр 88
+Временная метка: 0:22:00
+Номер кадра: 79200
+Скриншот: frame_079200_1320.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:21:51] информацией ну а с вами был кустаре боб ждите завтра следующего гайда да вот так
+[0:21:59] резко такую вас гайд и
+[0:22:01] но не бойтесь потом опять заброшу вас на месяц с вами был кустаре боб всем пока
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+if KilledUnit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+    GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+end
+
+function GiveGoldToPlayers()
+    for index=0, DOTA_MAX_TEAM_PLAYERS-1 do
+        if PlayerResource:IsValidPlayer(index) then
+            local hero = PlayerResource:GetSelectedHeroEntity(index)
+            hero:ModifyGold(OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDrop(pos)
+    local newItem = CreateItem("item_bag_of_gold", nil, nil)
+    local dropRadius = RandomFloat(150, 250)
+    CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLoot(false, 150, 0.5, pos + RandomVector(dropRadius))
+end
+
+function ChupakabraGameMode:Start()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+
+    local temates = Entities:FindAllByName("temates")
+    for i, temate in pairs(temates) do
+        local temate_point = temate:GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", temate_point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+    end
+    self:WaveBoss()
+end
+
+function ChupakabraGameMode:WaveBoss()
+    local point = Entities:FindByName(nil, "enemy_path1")
+    local unit = CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+    unit:SetInitialGoalEntity(point)
+end
+```
+
+### Описание кода:
+
+1. **Проверка победы**: Если убитый юнит имеет имя `npc_dota_neutral_fel_beast_boss`, то команда `DOTA_TEAM_GOODGUYS` объявляется победителем.
+   
+2. **Функция `GiveGoldToPlayers`**: Раздаёт золото всем игрокам в команде, проверяя каждого игрока на валидность и добавляя золото их героям.
+
+3. **Функция `CreateDrop`**: Создаёт предмет "мешок золота" на указанной позиции и запускает его в случайном радиусе от этой позиции.
+
+4. **Функция `ChupakabraGameMode:Start`**: 
+   - Создаёт юнита "kobold boss" в определённой точке.
+   - Создаёт юнитов "forest troll high priest stronger" в точках, где находятся объекты с именем "temates".
+   - Вызывает функцию `WaveBoss`.
+
+5. **Функция `ChupakabraGameMode:WaveBoss`**: Создаёт юнита "kobold" в точке "enemy_path1" и устанавливает его начальную цель.
+
+### Связь с аудио:
+
+Аудио контекст указывает на завершение гайда и прощание с аудиторией. Видимый код может быть частью гайда по созданию или модификации игрового режима в Dota 2. Код и аудио не имеют прямой связи, так как аудио больше сосредоточено на завершении видео.

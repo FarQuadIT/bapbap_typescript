@@ -1,0 +1,70 @@
+Кадр 23
+Временная метка: 0:05:45
+Номер кадра: 20700
+Скриншот: frame_020700_345.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:36] При скипетре
+[0:05:37] Нам нужно
+[0:05:38] Уведомление
+[0:05:39] Что у нас будет
+[0:05:40] При скипетре
+[0:05:41] То есть
+[0:05:42] У нас будет
+[0:05:43] Уведомление
+[0:05:44] Что мы будем
+[0:05:45] Всплескать
+[0:05:46] И соответственно для шарда это isGrindedByShard.
+[0:05:51] Чеченский армор вроде у нас есть на аксе.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Этот файл находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc`.
+
+### Содержимое файла:
+
+Файл содержит описание способностей для игры Dota 2 в формате JSON. Вот основные элементы:
+
+1. **cechens_armor**:
+   - `BaseClass`: "ability_lua"
+   - `ScriptFile`: "abilities/cechens_armor"
+   - `AbilityBehavior`: "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+   - `AbilityValues`: 
+     - `bonus_armor`: "5 10 15 20"
+
+2. **ursa_copy**:
+   - `BaseClass`: "ability_lua"
+   - `ScriptFile`: "abilities/ursa_copy"
+   - `AbilityBehavior`: "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+   - `IsGrantedByScepter`: "1"
+   - `AbilityValues`: 
+     - `duration`: 
+       - `value`: "5 8 12 20"
+       - `special_bonus_unique_ursa_duration`: "+100"
+     - `damage_per_stack`: "5"
+
+3. **healing_spell**:
+   - `BaseClass`: "ability_lua"
+   - `ScriptFile`: "abilities/healing_spell"
+   - `AbilityBehavior`: "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+   - `AbilityCastPoint`: "0.45"
+   - `AbilityManaCost`: "75 80 85 90"
+   - `AbilityValues`: 
+     - `heal`: "150 300 450 600"
+     - `duration`: "3 6 7 9"
+
+### Связь с аудио:
+
+- В аудио упоминается "скипетр" и "уведомление", что соответствует параметру `IsGrantedByScepter` в способности `ursa_copy`.
+- Также упоминается "чеченский армор", который соответствует способности `cechens_armor`, описанной в файле.
+
+### Важные детали:
+
+- Файл описывает способности, которые могут быть использованы в модификации для Dota 2.
+- Используются специфические параметры, такие как `BaseClass`, `ScriptFile`, и `AbilityBehavior`, которые определяют поведение и характеристики способностей.
+- Параметр `IsGrantedByScepter` указывает, что способность активируется при наличии определенного предмета (скипетра).
+
+Этот файл является частью модификации, и его структура позволяет добавлять или изменять способности героев в игре.

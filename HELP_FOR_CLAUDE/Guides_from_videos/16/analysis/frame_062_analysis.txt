@@ -1,0 +1,65 @@
+Кадр 62
+Временная метка: 0:15:30
+Номер кадра: 55800
+Скриншот: frame_055800_930.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:17] И, естественно, видим, что здесь ability index.
+[0:15:22] Не забываем и пишем getindex.
+[0:15:24] Получаем его.
+[0:15:26] Теперь, сейчас он будет просто кастовать ее бездумно.
+[0:15:29] Нам такое не надо, такое не надо.
+[0:15:33] И давайте вынесем это в то, что...
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ai_kobold.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Код:
+```lua
+function Spawn()
+    if not thisEntity then return nil end
+    thisEntity:SetContextThink("KoboldThink", KoboldThink, 1)
+end
+
+function KoboldThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME or not thisEntity:IsAlive() then
+        return nil
+    end
+
+    ExecuteOrderFromTable({
+        UnitIndex = thisEntity:entindex(),
+        OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+        AbilityIndex = thisEntity:FindAbilityByName("alchemist_chemical_rage"):entindex(),
+    })
+
+    print("dsds")
+    return 1
+end
+```
+
+### Описание кода:
+- **Функция `Spawn`:** Инициализирует процесс мышления для сущности `thisEntity`, если она существует.
+- **Функция `KoboldThink`:** Проверяет состояние игры и жив ли объект. Если игра окончена или объект мертв, возвращает `nil`. В противном случае, выполняет приказ для сущности использовать способность без цели.
+- **Используемые функции и методы:**
+  - `SetContextThink`: Устанавливает функцию, которая будет периодически вызываться.
+  - `GameRules:State_Get()`: Получает текущее состояние правил игры.
+  - `IsAlive()`: Проверяет, жива ли сущность.
+  - `ExecuteOrderFromTable`: Выполняет приказ для сущности.
+  - `FindAbilityByName`: Находит способность по имени.
+  - `entindex()`: Возвращает индекс сущности или способности.
+
+### Важные детали:
+- **Переменные и функции:** `thisEntity`, `Spawn`, `KoboldThink`.
+- **Используемые методы:** `SetContextThink`, `State_Get`, `IsAlive`, `ExecuteOrderFromTable`, `FindAbilityByName`, `entindex`.
+
+### Связь с аудио:
+- В аудио говорится о `ability index` и `getindex`, что соответствует строке кода, где используется `AbilityIndex` и метод `entindex()`. Это связано с тем, как способность выбирается и используется в коде.
+
+### Интерфейс редактора:
+- **Открытые файлы:** `ai_kobold.lua`, `npc_units_custom.txt`, `npc_heroes.txt`, `npc_classic_monsters.kv`.
+- **Панель слева:** Структура папок и файлов проекта, включая `scripts`, `sounds`, и другие директории.
+- **Активные инструменты:** Поиск текста в файле, указанный внизу окна редактора.

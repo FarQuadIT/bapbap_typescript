@@ -1,0 +1,80 @@
+Кадр 9
+Временная метка: 0:02:15
+Номер кадра: 8100
+Скриншот: frame_008100_135.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:00] верху этом херво надо я не следaras
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_items_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки пользовательских предметов.
+
+### Детали экрана:
+
+1. **Программа:**
+   - Sublime Text (UNREGISTERED).
+
+2. **Открытые файлы:**
+   - `npc_items_custom.txt`
+   - `npc_abilities_custom.txt`
+   - `npc_units_custom.txt`
+   - `zombie_invasion_script.npc`
+
+3. **Структура папок:**
+   - Путь: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc`
+   - Папки: `scripts`, `sounds`, `addon_game_mode.lua`, `chupakabra_mode.lua`.
+
+4. **Код:**
+   - Язык: JSON-подобный формат, используемый для конфигурации.
+   - Пример кода:
+     ```json
+     "ItemQuality": "epic",
+     "ItemAliases": "ls;lotus orb",
+     "ItemDeclarations": "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS",
+     "ItemDisassembleRule": "DOTA_ITEM_DISASSEMBLE_ALWAYS",
+     "ShouldBeSuggested": "1",
+     // Special
+     "AbilitySpecial"
+     {
+         "01"
+         {
+             "var_type" "FIELD_INTEGER"
+             "bonus_armor" "10"
+         }
+         "02"
+         {
+             "var_type" "FIELD_FLOAT"
+             "bonus_health_regen" "6.5"
+         }
+         "03"
+         {
+             "var_type" "FIELD_FLOAT"
+             "bonus_mana_regen" "4.0"
+         }
+         "04"
+         {
+             "var_type" "FIELD_INTEGER"
+             "bonus_mana" "250"
+         }
+         "05"
+         {
+             "var_type" "FIELD_FLOAT"
+             "active_duration" "6"
+         }
+     }
+     ```
+
+5. **Описание кода:**
+   - Конфигурация предмета с качеством "epic".
+   - Определены бонусы: броня, регенерация здоровья и маны, бонус маны, длительность действия.
+   - Используются специальные правила для разборки предмета и его предложений.
+
+6. **Связь с аудио:**
+   - Аудио не имеет прямого отношения к видимому коду. Возможно, это комментарий автора, не связанный с текущим содержимым экрана.
+
+### Заключение:
+На экране показана работа с конфигурационным файлом для настройки предметов в Dota 2, с акцентом на параметры и бонусы предмета.

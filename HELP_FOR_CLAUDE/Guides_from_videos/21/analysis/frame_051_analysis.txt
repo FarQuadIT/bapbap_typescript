@@ -1,0 +1,102 @@
+Кадр 51
+Временная метка: 0:12:45
+Номер кадра: 45900
+Скриншот: frame_045900_765.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:36] Ивент
+[0:12:37] Вы
+[0:12:38] Знаете
+[0:12:39] Это
+[0:12:40] Кастом
+[0:12:41] Гейм
+[0:12:42] Нельзя
+[0:12:43] Ну
+[0:12:44] Давайте
+[0:12:45] Назовем
+[0:12:46] Не
+[0:12:47] Трогай
+[0:12:48] А то
+[0:12:49] Сожрет
+[0:12:50] Отлично
+[0:12:51] Единственное
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Видимый код:
+
+```lua
+CustomGameEventManager:RegisterListener("spawn-cobold", Dynamic_Wrap(self, 'OnSpawnCobold'))
+CustomGameEventManager:RegisterListener("add_ability", Dynamic_Wrap(self, 'OnChoiceAbility'))
+
+function ChupakabraMode:OnSpawnCobold(data)
+    local player = PlayerResource:GetPlayer(data.id)
+    local hero = player:GetAssignedHero()
+
+    hero:ModifyGold(START_GOLD, true, 13)
+end
+
+function ChupakabraMode:OnChoiceAbility(data)
+    local player = GetPlayer(data.player)
+    local hero = player:GetAssignedHero()
+
+    hero:AddAbility(data.ability)
+end
+
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        self:ChupakabraModeStart()
+    end
+end
+
+function ChupakabraMode:DamageFilter(data)
+    return true
+end
+
+function ChupakabraMode:OrderFilter(data)
+    local orderType = data.order_type
+
+    if type == DOTA_UNIT_ORDER_PICKUP_ITEM then
+        local target = EntIndexToHScript(data.entindex_target)
+
+        if target:GetContainedItem():GetCost() >= 500 then
+            CustomGameEventManager:Send_ServerToPlayer(EntityPlayer, "ShowError", {message = "Не трогай"})
+            return false
+        end
+    end
+
+    return true
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+end
+```
+
+### Описание кода:
+
+1. **Регистрация событий:**
+   - `spawn-cobold` и `add_ability` регистрируются для обработки соответствующих событий.
+
+2. **Функции:**
+   - `OnSpawnCobold`: Добавляет золото герою, когда вызывается событие.
+   - `OnChoiceAbility`: Добавляет способность герою.
+   - `ChupakabraStateChange`: Проверяет состояние игры и запускает режим, если игра в процессе.
+   - `DamageFilter`: Возвращает `true`, что может означать отсутствие фильтрации урона.
+   - `OrderFilter`: Проверяет тип приказа. Если это приказ на поднятие предмета, проверяет стоимость предмета и выводит сообщение об ошибке, если стоимость превышает 500.
+   - `ChupakabraKilled`: Обрабатывает событие убийства юнита.
+
+### Важные детали:
+
+- **Импорты и библиотеки:** Используются функции из API Dota 2, такие как `PlayerResource`, `GameRules`, `EntIndexToHScript`.
+- **Переменные:** `START_GOLD`, `data`, `player`, `hero`, `orderType`, `target`.
+
+### Связь с аудио:
+
+Аудио контекст говорит о кастомной игре и упоминает фразу "Не трогай, а то сожрет", что соответствует коду в функции `OrderFilter`, где выводится сообщение "Не трогай" при попытке поднять дорогой предмет. Это объясняет, как код реализует игровую механику, упомянутую в аудио.

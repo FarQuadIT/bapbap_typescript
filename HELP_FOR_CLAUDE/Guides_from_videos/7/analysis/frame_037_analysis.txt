@@ -1,0 +1,57 @@
+Кадр 37
+Временная метка: 0:09:15
+Номер кадра: 33300
+Скриншот: frame_033300_555.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:04] Мы уже разбирали на прошлом уроке listening game слушателей.
+[0:09:08] Поэтому я думаю вы сможете это все делать сами.
+[0:09:10] Я для вас это все промотаю.
+[0:09:12] Получилось у нас что-то такое.
+[0:09:14] Просто если умирает кобальт, то появляется на его месте outrunner босс.
+[0:09:18] Если умирает outrunner босс, то появляется на нем feltbest босс.
+[0:09:20] И если feltbest босс умирает, то игра заканчивается.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_centaur_outrunner_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+    end
+    if killed_unit:GetUnitName() == "npc_dota_neutral_centaur_outrunner_boss" then
+        local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_fel_beast_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+    end
+    if killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+end
+```
+
+### Описание кода:
+
+- **Функция `ChupakabraKilled`**: Обрабатывает событие убийства юнита.
+- **Переменная `killed_unit`**: Получает ссылку на убитый юнит.
+- **Логика**:
+  - Если убит юнит с именем `"npc_dota_neutral_kobold_boss"`, создается новый юнит `"npc_dota_neutral_centaur_outrunner_boss"` в определенной точке.
+  - Если убит `"npc_dota_neutral_centaur_outrunner_boss"`, создается `"npc_dota_neutral_fel_beast_boss"`.
+  - Если убит `"npc_dota_neutral_fel_beast_boss"`, игра завершается победой команды `DOTA_TEAM_GOODGUYS`.
+
+### Важные детали:
+
+- **Импорты и функции**: Используются функции `EntIndexToHScript`, `Entities:FindByName`, `CreateUnitByName`, `GameRules:SetGameWinner`.
+- **Переменные и объекты**: `killed_unit`, `point`.
+
+### Связь с аудио:
+
+- Аудио объясняет логику последовательного появления боссов, что соответствует коду на экране. Упоминается, что при смерти одного босса появляется следующий, а при смерти последнего игра заканчивается, что отражено в коде.

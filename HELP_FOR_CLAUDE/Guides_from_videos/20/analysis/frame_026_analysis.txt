@@ -1,0 +1,80 @@
+Кадр 26
+Временная метка: 0:02:10
+Номер кадра: 7800
+Скриншот: frame_007800_130.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:02] В целом умельцы могли сами разобраться, но давайте теперь более подробнее это все разберем.
+[0:02:08] То есть как мы можем создать particle.
+[0:02:10] Создать particle можно с помощью обычной функции createParticle, которая есть только у глобального класса ParticleManager.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+function gold_hole:OnSpellStart()
+    local trigger = Entities:FindByName(nil, "teleport")
+    if trigger:IsTouching(self:GetCaster()) then
+        local point = self:GetCursorPosition()
+        local caster = self:GetCaster()
+        local duration = self:GetSpecialValueFor("duration")
+
+        CreateModifierThinker(caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false)
+    end
+end
+
+modifier_gold_hole_thinker = {}
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+
+    self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+    ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self.effect_cast, 1, Vector(radius, 0, 0))
+
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local parent = self:GetParent()
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+
+    caster:ModifyGold(gold_per_unit * #enemies, true, 13)
+end
+```
+
+### Описание кода:
+
+- **Функция `gold_hole:OnSpellStart()`**: Проверяет, находится ли кастер в зоне триггера "teleport". Если да, создается модификатор `modifier_gold_hole_thinker` с определенной длительностью.
+  
+- **Модификатор `modifier_gold_hole_thinker`**:
+  - **`IsHidden()`**: Возвращает `true`, скрывая модификатор.
+  - **`OnCreated()`**: Создает визуальный эффект частицы с использованием `ParticleManager`. Устанавливает радиус и запускает интервал проверки.
+  - **`OnDestroy()`**: Уничтожает созданную частицу.
+  - **`OnIntervalThink()`**: Каждую секунду проверяет количество врагов в радиусе и добавляет золото кастеру за каждого врага.
+
+### Важные детали:
+
+- **Импорты и классы**: Используются классы и функции из API Dota 2, такие как `Entities`, `ParticleManager`, `FindUnitsInRadius`.
+- **Переменные**: `trigger`, `point`, `caster`, `duration`, `radius`, `effect_cast`, `enemies`.
+
+### Связь с аудио:
+
+- В аудио говорится о создании частицы с помощью функции `createParticle`, что соответствует коду в функции `OnCreated`, где используется `ParticleManager:CreateParticle`. Это объясняет, как создается и управляется визуальный эффект в игре.

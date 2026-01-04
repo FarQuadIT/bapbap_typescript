@@ -1,0 +1,60 @@
+Кадр 64
+Временная метка: 0:16:00
+Номер кадра: 57600
+Скриншот: frame_057600_960.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:50] Сейчас он будет кастовать просто, когда у него не будет хп-шек.
+[0:15:56] Что не очень.
+[0:15:58] Ну, то есть, хп будет меньше, чем максимально.
+[0:16:03] Нам такое не надо.
+[0:16:04] И умножаем на процент, который нам нужен.
+[0:16:06] То есть 0.5.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+
+     ```lua
+     function Spawn()
+         if not thisEntity then return nil end
+         thisEntity:SetContextThink("KoboldThink", KoboldThink, 1)
+     end
+
+     function KoboldThink()
+         if GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME or not thisEntity:IsAlive() then
+             return nil
+         end
+
+         if thisEntity:GetHealth() < thisEntity:GetMaxHealth() then
+             ExecuteOrderFromTable({
+                 UnitIndex = thisEntity:entindex(),
+                 OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+                 AbilityIndex = thisEntity:FindAbilityByName("alchemist_chemical_rage"):entindex(),
+             })
+         end
+
+         print("dsds")
+         return 1
+     end
+     ```
+
+   - **Описание кода:**
+     - Функция `Spawn` инициализирует процесс, проверяя наличие `thisEntity` и устанавливая контекст для функции `KoboldThink`.
+     - Функция `KoboldThink` проверяет состояние игры и здоровье сущности. Если здоровье сущности меньше максимального, она выполняет команду на использование способности без цели.
+     - Используется способность `alchemist_chemical_rage`.
+
+   - **Важные детали:**
+     - Используются функции `SetContextThink`, `State_Get`, `IsAlive`, `GetHealth`, `GetMaxHealth`, `ExecuteOrderFromTable`, `FindAbilityByName`.
+     - Переменные и функции связаны с игровыми правилами Dota 2.
+
+2. **СВЯЗЬ С АУДИО:**
+
+   - В аудио говорится о кастовании способности, когда здоровье меньше максимального. Это соответствует условию в коде `if thisEntity:GetHealth() < thisEntity:GetMaxHealth()`, где выполняется команда на использование способности.
+   - Упоминается умножение на процент, но в коде это не отражено. Возможно, это часть более широкого контекста, не видимого на экране.

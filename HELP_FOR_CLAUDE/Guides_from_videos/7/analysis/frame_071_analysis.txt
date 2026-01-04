@@ -1,0 +1,83 @@
+Кадр 71
+Временная метка: 0:17:45
+Номер кадра: 63900
+Скриншот: frame_063900_1065.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:36] New link.
+[0:17:37] мил и dota team bad guys соответственно после этого у нам нашему нейтральному
+[0:17:45] кобальту нужно задать путь по которому он пойдет то есть сейчас он просто
+[0:17:51] заспавнится на этом месте так вот он заспавнится на этом месте и типа ничего
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+
+     ```lua
+     if Killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+         GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+     end
+
+     function GiveGold(players)
+         for index=0, DOTA_MAX_TEAM_PLAYERS-1 do
+             if PlayerResource:IsValidPlayer(index) then
+                 local hero = PlayerResource:GetSelectedHeroEntity(index)
+                 hero:ModifyGold(1000, true, DOTA_ModifyGold_Unspecified)
+                 SendOverheadEventMessage(hero, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+             end
+         end
+     end
+
+     function CreateDrop(name, pos)
+         local newItem = CreateItem(name, nil, nil)
+         local dropRadius = RandomFloat(150, 200)
+         CreateItemOnPositionSync(pos, newItem)
+         newItem:LaunchLoot(false, 150, 0.5, pos + RandomVector(dropRadius))
+     end
+
+     function ChupakabraMode:start()
+         local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+         CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+         local teamates = Entities:FindAllByName("teamates")
+         for _, teamate in pairs(teamates) do
+             local teamate_point = teamate:GetAbsOrigin()
+             CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", teamate_point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+         end
+     end
+
+     function ChupakabraMode:HaveKob()
+         local point = Entities:FindByName(nil, "enemy_path1")
+         CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+     end
+     ```
+
+   - **Описание кода:**
+     - Код определяет поведение в игре Dota 2, связанное с созданием и управлением юнитами.
+     - Функция `GiveGold` раздает золото всем игрокам.
+     - Функция `CreateDrop` создает предмет на позиции и запускает его в воздух.
+     - Функция `ChupakabraMode:start` создает юнита "kobold boss" и других юнитов на определенных позициях.
+     - Функция `ChupakabraMode:HaveKob` создает юнита "kobold" на заданной позиции.
+
+   - **Важные детали:**
+     - Используются функции для создания юнитов и предметов.
+     - Присутствуют проверки на валидность игроков.
+     - Используются константы `DOTA_TEAM_GOODGUYS` и `DOTA_TEAM_BADGUYS` для определения команд.
+
+2. **РЕДАКТОР:**
+
+   - **Название программы/редактора:** Sublime Text
+   - **Что открыто в редакторе:** Файл `chupakabra_mode.lua`
+   - **Активные инструменты:** Нет явных активных инструментов, стандартный интерфейс Sublime Text.
+   - **Настройки:** Видна структура папок слева, открыты несколько вкладок с файлами Lua и текстовыми файлами.
+   - **Панели/вкладки:** Открыты вкладки с различными Lua-скриптами и текстовыми файлами.
+
+5. **СВЯЗЬ С АУДИО:**
+
+   - В аудио говорится о создании пути для нейтрального кобальта. Это связано с функцией `ChupakabraMode:HaveKob`, которая создает юнита "kobold" на определенной позиции.
+   - Упоминается создание юнитов и их поведение, что соответствует функциям `start` и `HaveKob` в коде.

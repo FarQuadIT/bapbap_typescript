@@ -1,0 +1,80 @@
+Кадр 12
+Временная метка: 0:03:00
+Номер кадра: 10800
+Скриншот: frame_010800_180.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:48] предмета shop.txt теги в магазине который мы гуглим quality это ну когда мы альтом зажимаем
+[0:02:58] и на предмет нажимаем то там типа item каким-то шрифтом возможно не только в этом отличие но это
+[0:03:06] самое ярое отличие которое я находил так ну самый главный параметр ability behavior без
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `npc_items_custom.txt`. Этот файл находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc`.
+
+### Детали кода:
+
+- **Язык программирования**: JSON-подобный формат, используемый для настройки предметов в игре Dota 2.
+- **Код**:
+  ```plaintext
+  "BaseClass" "item_lotus_orb"
+  "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+  "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+  "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
+  "FightRecapLevel" "1"
+  "AbilityTextureName" "motus"
+  "AbilityCooldown" "15.0"
+  "AbilityCastRange" "1150"
+  "AbilityManaCost" "175"
+
+  // Item Info
+  "ItemCost" "3850"
+  "ItemShopTags" "regen_health;regen_mana;str;agi;int;hard_to_tag"
+  "ItemQuality" "epic"
+  "ItemAliases" "ls;lotus orb"
+  "ItemDeclarations" "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+  "ItemDisassembleRule" "DOTA_ITEM_DISASSEMBLE_ALWAYS"
+  "ShouldBeSuggested" "1"
+
+  // Special
+  "AbilitySpecial"
+  {
+      "01"
+      {
+          "var_type" "FIELD_INTEGER"
+          "bonus_armor" "10"
+      }
+      "02"
+      {
+          "var_type" "FIELD_FLOAT"
+          "bonus_health_regen" "6.5"
+      }
+      "03"
+      {
+          "var_type" "FIELD_FLOAT"
+          "bonus_mana_regen" "4.0"
+      }
+      "04"
+      {
+          "var_type" "FIELD_INTEGER"
+          "bonus_mana" "250"
+      }
+  }
+  ```
+
+### Описание кода:
+
+- **Основной класс**: `item_lotus_orb` — базовый класс предмета.
+- **Параметры способности**: Определяют поведение и характеристики способности предмета, такие как цель, команда, тип, иконка, время перезарядки, дальность применения и стоимость маны.
+- **Информация о предмете**: Включает стоимость, теги магазина, качество, псевдонимы, правила разборки и рекомендации.
+- **Специальные параметры**: Дополнительные бонусы, которые предмет предоставляет, такие как броня, регенерация здоровья и маны.
+
+### Связь с аудио:
+
+- В аудио упоминается файл `shop.txt` и теги качества предметов, что соответствует параметру `ItemQuality` в коде. Это объясняет, как качество предмета отображается в игре.
+- Также обсуждается поведение предмета при нажатии с зажатым альтом, что может быть связано с параметрами `AbilityBehavior` и `AbilityUnitTargetType`.
+
+Этот анализ помогает понять, как настроены предметы в игре и как они взаимодействуют с игровым интерфейсом.

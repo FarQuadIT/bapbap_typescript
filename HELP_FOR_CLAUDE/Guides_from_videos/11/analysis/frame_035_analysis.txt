@@ -1,0 +1,65 @@
+Кадр 35
+Временная метка: 0:08:45
+Номер кадра: 31500
+Скриншот: frame_031500_525.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:34] Какой-нибудь такой партикл тоже очень коряло сработает.
+[0:08:38] Поэтому старайтесь выбирать партиклы, которые вы уже знаете, что они типа следуют за героем.
+[0:08:44] И нормально на нем могут отображаться.
+[0:08:47] Что мы еще можем сделать интересное в обилке?
+[0:08:50] Давайте сделаем так, что модификатор и сил накладывается не только на нас, а на еще близлежащих союзных юнитов.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `healing_spell.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    local heal = self:GetSpecialValueFor("heal")
+    local duration = self:GetSpecialValueFor("duration")
+    caster:Heal(heal, self)
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, caster, heal, nil)
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:GetEffectName()
+    return "particles/econ/items/blink_dagger/blink_dagger_start.vpcf"
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает модификатор `modifier_healing_spell` с файлом `abilities/healing_spell`.
+- **healing_spell**: Класс, представляющий заклинание.
+  - **OnSpellStart**: Функция, вызываемая при активации заклинания. Она исцеляет кастера и добавляет ему модификатор.
+- **modifier_healing_spell**: Класс модификатора.
+  - **GetEffectName**: Возвращает путь к визуальному эффекту.
+  - **DeclareFunctions**: Объявляет функции, которые модификатор будет использовать.
+  - **GetModifierConstantHealthRegen**: Возвращает значение регенерации здоровья.
+
+### Важные детали:
+- **Импорты**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции**: `OnSpellStart`, `GetEffectName`, `DeclareFunctions`, `GetModifierConstantHealthRegen`.
+- **Переменные**: `caster`, `heal`, `duration`.
+
+### Связь с аудио:
+В аудио говорится о том, как партиклы должны следовать за героем и отображаться корректно. Код на экране показывает, как создается и применяется модификатор, который может включать такие партиклы. Также упоминается возможность наложения эффектов на союзников, что может быть связано с функцией `OnSpellStart`, где исцеление применяется к кастеру.

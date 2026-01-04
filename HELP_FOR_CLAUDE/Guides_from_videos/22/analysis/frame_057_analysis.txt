@@ -1,0 +1,99 @@
+Кадр 57
+Временная метка: 0:14:15
+Номер кадра: 51300
+Скриншот: frame_051300_855.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:06] полегче было в реализации.
+[0:14:08] Давайте
+[0:14:10] напишем, кастера вынесем повыше,
+[0:14:12] чтобы я мог его использовать.
+[0:14:14] Кастер, давайте
+[0:14:16] просто хиляем кастера в конце этого
+[0:14:18] действия. 999 и
+[0:14:20] второй аргумент, как я помню, просто
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local drection = point - casterPoint
+    local speed = 6000
+    drection = drection:Normalized()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fDistance = 1000,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        bHasFrontalCone = false,
+        bReplaceExisting = false,
+        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+        iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+        iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
+        fExpireTime = GameRules:GetGameTime() + 10.0,
+        bDeleteOnHit = false,
+        vVelocity = drection * speed,
+        bProvidesVision = true,
+        iVisionTeamNumber = caster:GetTeamNumber(),
+        iVisionRadius = 500,
+    })
+end
+
+function wave_terorist:OnProjectileHit(target)
+    local caster = self:GetCaster()
+
+    if not target then
+        casty
+        return
+    end
+
+    ApplyDamage({
+        victim = target,
+        attacker = caster,
+        ability = self,
+        damage = 100,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+    })
+
+    target:AddNewModifier(caster, self, "modifier_stunned", {duration = 1})
+end
+```
+
+### Описание кода:
+
+1. **Класс и функции:**
+   - `wave_terorist = class({})`: Создание класса `wave_terorist`.
+   - `OnSpellStart`: Функция, вызываемая при начале заклинания. Создает линейный снаряд.
+   - `OnProjectileHit`: Функция, вызываемая при попадании снаряда в цель. Наносит магический урон и оглушает цель.
+
+2. **Переменные и параметры:**
+   - `caster`: Объект, который использует заклинание.
+   - `point`: Позиция курсора, куда направлено заклинание.
+   - `drection`: Направление движения снаряда.
+   - `speed`: Скорость снаряда.
+   - `ProjectileManager:CreateLinearProjectile`: Создает линейный снаряд с заданными параметрами.
+
+3. **Важные детали:**
+   - Используется `ProjectileManager` для управления снарядами.
+   - Снаряд наносит 100 единиц магического урона и оглушает цель на 1 секунду.
+
+### Связь с аудио:
+
+В аудио говорится о "кастере", который выносится выше для использования. Это соответствует коду, где `caster` используется в обеих функциях. Также упоминается "хиляем кастера", что может относиться к будущим изменениям в коде, так как в текущем коде хила нет.

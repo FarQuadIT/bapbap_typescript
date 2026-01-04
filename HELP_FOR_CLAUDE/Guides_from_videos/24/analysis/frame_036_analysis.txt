@@ -1,0 +1,73 @@
+Кадр 36
+Временная метка: 0:09:00
+Номер кадра: 32400
+Скриншот: frame_032400_540.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:52] И.
+[0:08:53] И.
+[0:08:54] И.
+[0:08:55] И.
+[0:08:56] Отлично.
+[0:08:57] После этого.
+[0:08:58] В BossKilled.
+[0:08:59] Берём.
+[0:09:00] BossKilled.
+[0:09:01] Берём его значение.
+[0:09:02] And.
+[0:09:03] knock out.
+[0:09:04] А.
+[0:09:05] The.
+[0:09:06] I.
+[0:09:07] Buxan.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+    local attacker = EntIndexToHScript(data.entindex_attacker)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        local bossKilled = CustomNetTables:GetTableValue("boss_kill", tostring(attacker:GetPlayerOwnerID()))
+        bossKilled = bossKilled + 1
+        CustomNetTables:SetTableValue("boss_kill", tostring(attacker:GetPlayerOwnerID()), bossKilled)
+
+        EmitSoundOn("Hero_LegionCommander.Duel.Victory", attacker)
+        AddFOWViewer(attacker:GetTeamNumber(), killed_unit:GetAbsOrigin(), 500, 3, false)
+
+        if killed_unit:IsAlive() then
+            killed_unit:RemoveSelf()
+        end
+    end
+end
+```
+
+### Описание кода:
+
+- **Функция `ChupakabraKilled`**: Обрабатывает событие убийства юнита.
+- **Переменные `killed_unit` и `attacker`**: Получают объекты убитого юнита и атакующего.
+- **Проверка имени юнита**: Если убитый юнит — "npc_dota_neutral_kobold_boss", выполняются дальнейшие действия.
+- **Работа с `CustomNetTables`**: Увеличивается счетчик убийств босса для игрока.
+- **Звуковой эффект**: Проигрывается звук победы.
+- **Обзор области**: Добавляется обзор на 500 единиц вокруг убитого юнита на 3 секунды.
+- **Удаление юнита**: Если юнит еще жив, он удаляется.
+
+### Важные детали:
+
+- **Импорты и функции**: Используются функции `EntIndexToHScript`, `GetUnitName`, `GetPlayerOwnerID`, `EmitSoundOn`, `AddFOWViewer`, `RemoveSelf`.
+- **Работа с таблицами**: Используются `CustomNetTables` для хранения и обновления данных.
+
+### Связь с аудио:
+
+- В аудио говорится о работе с `BossKilled` и его значением, что соответствует коду, где происходит увеличение счетчика убийств босса (`bossKilled`).
+- Упоминается использование `CustomNetTables`, что также отражено в коде.
+
+Этот кадр демонстрирует процесс обработки событий в игре, связанный с убийством босса и обновлением соответствующих данных.

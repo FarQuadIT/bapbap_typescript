@@ -1,0 +1,80 @@
+Кадр 9
+Временная метка: 0:02:15
+Номер кадра: 8100
+Скриншот: frame_008100_135.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:06] Такой функции нету
+[0:02:08] И нам придется приходить с вами кастелями все делать
+[0:02:11] То есть мы смотрим на наличие модификатора
+[0:02:15] То есть если у кастера есть модификатор
+[0:02:17] Который называется Shard
+[0:02:19] Давайте найдем его
+[0:02:21] Во всех шардах
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+modifier_gold_hole_thinker = class({})
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+
+    self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+    ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self.effect_cast, 1, Vector( radius, 0, 0 ) )
+
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local parent = self:GetParent()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    if caster:HasModifier() then
+        gold_per_unit = 1000
+    end
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
+    local gold = gold_per_unit * #enemies
+
+    caster:ModifyGold(gold, true, 13)
+    EmitSoundOnClient("General.Coins", caster)
+    SendOverheadEventMessage(caster:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, caster, gold, caster)
+end
+```
+
+### Описание кода:
+
+- **Класс `modifier_gold_hole_thinker`**: Определяет модификатор, который управляет созданием и уничтожением эффекта, а также начислением золота.
+- **Функция `IsHidden`**: Возвращает `true`, скрывая модификатор.
+- **Функция `OnCreated`**: Создает визуальный эффект и запускает периодическое выполнение функции `OnIntervalThink`.
+- **Функция `OnDestroy`**: Уничтожает созданный эффект.
+- **Функция `OnIntervalThink`**: Проверяет наличие модификатора у кастера и начисляет золото за каждую вражескую единицу в радиусе.
+
+### Важные детали:
+
+- **Импорты и зависимости**: Используются функции и классы из API Dota 2, такие как `ParticleManager`, `FindUnitsInRadius`, `ModifyGold`.
+- **Переменные**: `radius`, `gold_per_unit`, `enemies`, `gold`.
+- **Условия**: Проверка наличия модификатора у кастера для изменения значения `gold_per_unit`.
+
+### Связь с аудио:
+
+- В аудио говорится о необходимости проверки наличия модификатора `Shard`. В коде это отражено в условии `if caster:HasModifier() then`, где проверяется наличие модификатора у кастера, что соответствует обсуждаемой теме в аудио.

@@ -1,0 +1,91 @@
+Кадр 43
+Временная метка: 0:10:45
+Номер кадра: 38700
+Скриншот: frame_038700_645.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:36] У нас
+[0:10:37] Ничего
+[0:10:38] Не
+[0:10:39] Получится
+[0:10:40] И
+[0:10:41] Можно
+[0:10:42] Еще
+[0:10:43] Подписать
+[0:10:44] Какую-нибудь
+[0:10:45] Данную
+[0:10:46] Ошибку
+[0:10:47] Просто
+[0:10:48] С
+[0:10:49] С
+[0:10:50] Помощью
+[0:10:51] Одной
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+
+```lua
+GameRules:SetStrategyTime(0.0)
+GameRules:SetShowcaseTime(0.0)
+GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 0 )
+GameRules:GetGameModeEntity():SetUseCustomHeroLevels( true ) -- установка кастомной системы уровней
+GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel( HeroXPTable )
+GameRules:GetGameModeEntity():SetUseCustomFogOfWarEnabled(true)
+
+ListenToGameEvent('entity_killed', Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(self, 'ChupakabraStateChange'), self)
+GameRules:GetGameModeEntity():SetDamageFilter(Dynamic_Wrap(self, 'DamageFilter'), self)
+GameRules:GetGameModeEntity():SetExecuteOrderFilter(Dynamic_Wrap(self, 'OrderFilter'), self)
+CustomGameEventManager:RegisterListener("spawn_cobold", Dynamic_Wrap(self, 'OnSpawnCobold'))
+CustomGameEventManager:RegisterListener("add_ability", Dynamic_Wrap(self, 'OnChoiceAbility'))
+
+function ChupakabraMode:OnSpawnCobold(data)
+    local player = PlayerResource:GetPlayer(data.id)
+    local hero = player:GetAssignedHero()
+
+    hero:ModifyGold(START_GOLD, true, 13)
+end
+
+function ChupakabraMode:OnChoiceAbility(data)
+    local player = PlayerResource:GetPlayer(data.player)
+    local hero = player:GetAssignedHero()
+
+    hero:AddAbility(data.ability)
+end
+
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        self:ChupakabraModeStart()
+    end
+end
+
+function ChupakabraMode:DamageFilter(data)
+    return true
+end
+
+function ChupakabraMode:OrderFilter(data)
+    local orderType = data.order_type
+```
+
+### Описание кода:
+
+- **Настройка правил игры**: Устанавливаются параметры времени стратегии и демонстрации, а также максимальное количество игроков для каждой команды.
+- **Кастомизация уровней героев**: Включается использование кастомной системы уровней и таблицы опыта.
+- **События и фильтры**: Подписка на события, такие как убийство сущности и изменение состояния правил игры. Устанавливаются фильтры для урона и выполнения приказов.
+- **Функции**:
+  - `OnSpawnCobold`: Добавляет золото герою при спавне.
+  - `OnChoiceAbility`: Добавляет способность герою.
+  - `ChupakabraStateChange`: Запускает режим игры при изменении состояния.
+  - `DamageFilter` и `OrderFilter`: Фильтры для обработки урона и приказов.
+
+### Связь с аудио:
+
+Аудио говорит о возможности подписать ошибку с помощью одной функции. Это может относиться к использованию функций и событий в коде, где подписка на события и обработка ошибок могут быть реализованы через функции, такие как `Dynamic_Wrap` и `RegisterListener`.

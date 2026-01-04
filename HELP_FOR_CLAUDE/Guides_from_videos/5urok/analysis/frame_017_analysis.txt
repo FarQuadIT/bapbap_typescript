@@ -1,0 +1,79 @@
+Кадр 17
+Временная метка: 0:04:15
+Номер кадра: 15300
+Скриншот: frame_015300_255.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:05] И тут уже, типа, сразу, так сказать, написано.
+[0:04:08] И мы можем, вот видите, вот этот, in-game.
+[0:04:13] Его по факту можно как угодно называть, но, типа, здесь, чтобы было понятно, что...
+[0:04:19] Ну, короче, понятно, да?
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `addon_game_mode.lua`. Это файл на языке программирования Lua, используемый для разработки модов в игре Dota 2.
+
+### Видимый код:
+
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+function Precache(context)
+    PrecacheResource("model", "models/heroes/vend1.vmdl", context)
+    PrecacheResource("soundfile", "vs.vsndevts", context)
+    PrecacheResource("particle", "particles/folder", context)
+end
+
+function Activate()
+    GameRules.AddonTemplate = CAddonTemplateGameMode()
+    GameRules.AddonTemplate:InitGameMode()
+end
+
+function ChupakabraMode:InitGameMode()
+    print("Template addon is loaded.")
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+1. **Класс `ChupakabraMode`:** 
+   - Проверяется, существует ли `ChupakabraMode`. Если нет, создается новый класс.
+   
+2. **Функция `Precache`:**
+   - Предварительно загружает ресурсы, такие как модели, звуки и частицы, необходимые для игры.
+
+3. **Функция `Activate`:**
+   - Создает экземпляр `CAddonTemplateGameMode` и инициализирует игровой режим.
+
+4. **Функция `InitGameMode`:**
+   - Выводит сообщение в консоль о загрузке шаблона аддона.
+   - Устанавливает функцию `OnThink` для периодического выполнения.
+
+5. **Функция `OnThink`:**
+   - Проверяет состояние игры. Если игра в процессе, выводит сообщение.
+   - Если игра завершена, возвращает `nil`, иначе возвращает `1` для продолжения выполнения.
+
+### Связь с аудио:
+
+- В аудио говорится о том, что можно называть что-то как угодно, но важно, чтобы было понятно. Это может относиться к именованию переменных или функций в коде, например, `ChupakabraMode`.
+- Упоминается "in-game", что может быть связано с функцией `InitGameMode`, которая инициализирует игровой режим.
+
+### Дополнительные детали:
+
+- В левой части экрана видна структура папок проекта, включая папки `maps`, `materials`, `particles`, `scripts`, и другие.
+- В верхней части окна видны вкладки с открытыми файлами, включая `addon_game_mode.lua` и `invasion_classic.lua`.

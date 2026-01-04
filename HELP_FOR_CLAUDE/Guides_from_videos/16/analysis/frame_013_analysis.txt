@@ -1,0 +1,72 @@
+Кадр 13
+Временная метка: 0:03:15
+Номер кадра: 11700
+Скриншот: frame_011700_195.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:56] Потому что, как сказать, я забыл, как называется, приоритет use natural creep behavior намного важнее, чем то, что мы сейчас выдадим ему что-либо, в принципе.
+[0:03:13] Пишем дальше v scripts.
+[0:03:17] И здесь мы должны указать путь, который начинается от, соответственно, v scripts.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_units_custom.txt`. Этот файл находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc`.
+
+### Содержимое файла:
+Файл содержит конфигурацию для юнита в игре Dota 2. Это текстовый файл, форматированный в виде JSON-подобной структуры.
+
+#### Видимый код:
+```plaintext
+"npc_dota_neutral_kobold_boss"
+{
+    // General
+    "vscripts"               ""
+    "Model"                  "models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl"    // Model.
+    "BaseClass"              "npc_dota_creature"
+    "SoundSet"               "n_creep_Melee"
+    "Level"                  "10"
+    "ModelScale"             "1.9"
+    "UseNeutralCreepBehavior"    "0"
+
+    // Abilities
+    "Ability1"               "slark_pounce"    // Ability 1
+    "Ability2"               ""                // Ability 2
+    "Ability3"               ""                // Ability 3
+    "Ability4"               ""                // Ability 4
+
+    // Armor
+    "ArmorPhysical"          "10"              // Physical protection.
+
+    // Attack
+    "AttackCapabilities"     "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackDamageMin"        "100"             // Damage range min.
+    "AttackDamageMax"        "150"             // Damage range max.
+    "AttackRate"             "1.2"             // Speed of attack.
+    "BaseAttackSpeed"        "200"
+    "AttackAnimationPoint"   "0.38"            // Normalized time in animation cycle to attack.
+    "AttackAcquisitionRange" "100"             // Range within a target can be acquired.
+    "AttackRange"            "100"             // Range within a target can be attacked.
+    "ProjectileModel"        ""                // Particle system model for projectile.
+    "ProjectileSpeed"        "0"               // Speed of projectile.
+}
+```
+
+### Описание кода:
+- **Общие параметры**: Указаны модель, базовый класс, набор звуков, уровень, масштаб модели и поведение нейтрального крипа.
+- **Способности**: У юнита есть одна активная способность `slark_pounce`.
+- **Броня**: Физическая защита установлена на 10.
+- **Атака**: Описаны возможности атаки, минимальный и максимальный урон, скорость атаки и другие параметры, связанные с атакой.
+
+### Связь с аудио:
+- В аудио говорится о важности параметра `UseNeutralCreepBehavior`, который действительно присутствует в коде и установлен в "0".
+- Также упоминается работа с `vscripts`, что соответствует пустому значению в коде, где, возможно, нужно указать путь к скриптам.
+
+### Интерфейс редактора:
+- **Панель слева**: Дерево папок, где видно структуру проекта.
+- **Открытые файлы**: Вкладка `npc_units_custom.txt` активна.
+- **Строка состояния**: Показывает текущую строку и столбец курсора (Line 223, Column 18).
+
+Этот кадр демонстрирует настройку юнита в Dota 2, что соответствует обсуждаемым в аудио аспектам конфигурации и приоритетов поведения.

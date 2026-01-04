@@ -1,0 +1,79 @@
+Кадр 8
+Временная метка: 0:02:00
+Номер кадра: 7200
+Скриншот: frame_007200_120.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:49] Здесь лишь позволяет разгуляться ваша фантазия
+[0:01:53] Вы сейчас наверное думаете
+[0:01:54] Раз есть функция Has Skeptor
+[0:01:56] То наверное есть функция Has Shard
+[0:01:58] Но вы ошибаетесь
+[0:01:59] Валвы нам не завезли такую функцию
+[0:02:01] По крайней мере на сегодняшний момент
+[0:02:02] До сих пор этой функции нет
+[0:02:04] Сколько вот шарды в игре есть
+[0:02:06] Такой функции нету
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+modifier_gold_hole_thinker = class({})
+
+function modifier_gold_hole_thinker:IsHidden()
+    return true
+end
+
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+
+    self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, self:GetParent())
+    ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self.effect_cast, 1, Vector( radius, 0, 0 ) )
+
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self.effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local parent = self:GetParent()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    if caster:HasScepter() then
+        gold_per_unit = 1000
+    end
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, 0, 0, false)
+    local gold = gold_per_unit * #enemies
+
+    caster:ModifyGold(gold, true, 13)
+    EmitSoundOnClient("General.Coins", caster)
+    SendOverheadEventMessage(caster:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, caster, gold, caster)
+end
+```
+
+### Описание кода:
+- **Класс `modifier_gold_hole_thinker`:** Определяет модификатор, который управляет созданием и уничтожением частицы, а также начислением золота.
+- **Функция `IsHidden`:** Возвращает `true`, скрывая модификатор.
+- **Функция `OnCreated`:** Создает эффект частицы с заданным радиусом и запускает интервал для периодического выполнения.
+- **Функция `OnDestroy`:** Уничтожает созданную частицу.
+- **Функция `OnIntervalThink`:** Выполняется периодически, проверяет наличие скипетра у кастера и начисляет золото за каждого врага в радиусе.
+
+### Важные детали:
+- **Использование `ParticleManager`:** Управляет визуальными эффектами.
+- **Функция `FindUnitsInRadius`:** Находит врагов в заданном радиусе.
+- **Проверка `HasScepter`:** Изменяет количество золота за врага, если у кастера есть скипетр.
+
+### Связь с аудио:
+Аудио объясняет, что функция `HasScepter` существует, но аналогичной функции для `Shard` нет. Это связано с кодом, где проверяется наличие скипетра у кастера, но нет проверки на наличие шарда.

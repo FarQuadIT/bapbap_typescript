@@ -1,0 +1,81 @@
+Кадр 39
+Временная метка: 0:09:45
+Номер кадра: 35100
+Скриншот: frame_035100_585.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:36] 38.
+[0:09:37] 39.
+[0:09:38] 40.
+[0:09:39] 41.
+[0:09:40] 42.
+[0:09:41] 43.
+[0:09:42] 44.
+[0:09:43] 44.
+[0:09:44] 45.
+[0:09:45] 46.
+[0:09:46] 47.
+[0:09:47] 48.
+[0:09:48] 49.
+[0:09:49] 50.
+[0:09:50] 51.
+[0:09:51] 52.
+[0:09:52] 52.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier( "modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+        props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает Lua-модификаторы с их именами и файлами.
+- **ursa_copy**: Класс способности, который возвращает имя модификатора `modifier_ursa_copy`.
+- **modifier_ursa_copy**: Модификатор, который скрыт и реагирует на событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+- **OnAttackLanded**: Функция, которая добавляет дебафф `modifier_ursa_copy_debuff` цели, если атакующий — это родитель модификатора.
+- **modifier_ursa_copy_debuff**: Дебафф, который не скрыт.
+
+### Важные детали:
+- **Импорты**: Используются для связывания модификаторов.
+- **Функции**: `GetIntrinsicModifierName`, `IsHidden`, `DeclareFunctions`, `OnAttackLanded`.
+- **Классы**: `ursa_copy`, `modifier_ursa_copy`, `modifier_ursa_copy_debuff`.
+
+### Связь с аудио:
+Аудио, вероятно, связано с объяснением кода, так как в нем перечисляются числа, которые могут соответствовать строкам кода или шагам в объяснении логики работы модификаторов.

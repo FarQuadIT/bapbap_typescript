@@ -1,0 +1,449 @@
+{
+  "metadata": {
+    "source": "moddota.com/api/#!/panorama/events",
+    "parsed_at": "2025-12-27 23:20:55",
+    "total_events": 88
+  },
+  "panorama_events": [
+    {
+      "name": "AddStyle",
+      "url": "https://moddota.com/api/#!/panorama/events/AddStyle",
+      "content": "AddStyle(\nclass\n:\npanoramasymbol\n):\nvoid\n#\nAdd a CSS class to a panel."
+    },
+    {
+      "name": "AddStyleAfterDelay",
+      "url": "https://moddota.com/api/#!/panorama/events/AddStyleAfterDelay",
+      "content": "AddStyleAfterDelay(\nclass\n:\npanoramasymbol\n,\npreDelay\n:\nfloat\n):\nvoid\n#\nAdd a CSS class to a panel after a specified delay."
+    },
+    {
+      "name": "AddStyleToEachChild",
+      "url": "https://moddota.com/api/#!/panorama/events/AddStyleToEachChild",
+      "content": "AddStyleToEachChild(\nclass\n:\npanoramasymbol\n):\nvoid\n#\nAdd a CSS class to all children of this panel."
+    },
+    {
+      "name": "AddTimedStyle",
+      "url": "https://moddota.com/api/#!/panorama/events/AddTimedStyle",
+      "content": "AddTimedStyle(\nclass\n:\npanoramasymbol\n,\nduration\n:\nfloat\n,\npreDelay\n:\nfloat\n):\nvoid\n#\nAdd a class for a specified duration, with optional pre-delay; clears existing timers when called with same class."
+    },
+    {
+      "name": "AsyncEvent",
+      "url": "https://moddota.com/api/#!/panorama/events/AsyncEvent",
+      "content": "AsyncEvent(\ndelay\n:\nfloat\n,\neventToFire\n:\nevent\n):\nvoid\n#\nFire another event after a delay (in seconds)."
+    },
+    {
+      "name": "BrowserGoToURL",
+      "url": "https://moddota.com/api/#!/panorama/events/BrowserGoToURL",
+      "content": "BrowserGoToURL(\nurl\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "DOTADisplayDashboardTip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTADisplayDashboardTip",
+      "content": "DOTADisplayDashboardTip(\nstring\n:\nstring\n,\noptional\n:\nstring\n):\nvoid\n#\nTip to display, panel to attach to (default 'DefaultTipAttachment')"
+    },
+    {
+      "name": "DOTAHUDGameDisconnect",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHUDGameDisconnect",
+      "content": "DOTAHUDGameDisconnect():\nvoid\n#"
+    },
+    {
+      "name": "DOTAHideAbilityTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideAbilityTooltip",
+      "content": "DOTAHideAbilityTooltip():\nvoid\n#\nHide the ability tooltip"
+    },
+    {
+      "name": "DOTAHideBuffTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideBuffTooltip",
+      "content": "DOTAHideBuffTooltip():\nvoid\n#\nHide the buff tooltip"
+    },
+    {
+      "name": "DOTAHideDroppedItemTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideDroppedItemTooltip",
+      "content": "DOTAHideDroppedItemTooltip():\nvoid\n#\nHide the dropped item tooltip"
+    },
+    {
+      "name": "DOTAHideEconItemTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideEconItemTooltip",
+      "content": "DOTAHideEconItemTooltip():\nvoid\n#\nHide the econ item tooltip."
+    },
+    {
+      "name": "DOTAHideFacetTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideFacetTooltip",
+      "content": "DOTAHideFacetTooltip():\nvoid\n#\nHides the variant tooltip"
+    },
+    {
+      "name": "DOTAHideProfileCardTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideProfileCardTooltip",
+      "content": "DOTAHideProfileCardTooltip():\nvoid\n#\nHide the profile card tooltip."
+    },
+    {
+      "name": "DOTAHideRankTierTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideRankTierTooltip",
+      "content": "DOTAHideRankTierTooltip():\nvoid\n#\nHide the rank tier tooltip."
+    },
+    {
+      "name": "DOTAHideRuneTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideRuneTooltip",
+      "content": "DOTAHideRuneTooltip():\nvoid\n#\nHide the rune tooltip"
+    },
+    {
+      "name": "DOTAHideTI10EventGameTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideTI10EventGameTooltip",
+      "content": "DOTAHideTI10EventGameTooltip():\nvoid\n#\nHide the ti10 event game tooltip"
+    },
+    {
+      "name": "DOTAHideTextTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideTextTooltip",
+      "content": "DOTAHideTextTooltip():\nvoid\n#\nHide the text tooltip"
+    },
+    {
+      "name": "DOTAHideTitleImageTextTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideTitleImageTextTooltip",
+      "content": "DOTAHideTitleImageTextTooltip():\nvoid\n#\nHide the title image text tooltip."
+    },
+    {
+      "name": "DOTAHideTitleTextTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAHideTitleTextTooltip",
+      "content": "DOTAHideTitleTextTooltip():\nvoid\n#\nHide the title text tooltip."
+    },
+    {
+      "name": "DOTALiveStreamUpcoming",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTALiveStreamUpcoming",
+      "content": "DOTALiveStreamUpcoming(\ntime\n:\nuint32\n):\nvoid\n#\nNotify change in RTime32 we expect the stream to start"
+    },
+    {
+      "name": "DOTALiveStreamVideoLive",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTALiveStreamVideoLive",
+      "content": "DOTALiveStreamVideoLive(\nisLive\n:\nbool\n):\nvoid\n#\nNotify change in stream state (we detected the stream going live)"
+    },
+    {
+      "name": "DOTALiveStreamVideoPlaying",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTALiveStreamVideoPlaying",
+      "content": "DOTALiveStreamVideoPlaying(\nisShowingVideo\n:\nbool\n):\nvoid\n#\nNotify change in video state (is it pointing at a live stream page or not)"
+    },
+    {
+      "name": "DOTAShowAbilityInventoryItemTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowAbilityInventoryItemTooltip",
+      "content": "DOTAShowAbilityInventoryItemTooltip(\nentityIndex\n:\nint32\n,\ninventorySlot\n:\nint32\n):\nvoid\n#\nShow tooltip for an item in the entityIndex NPC's inventory."
+    },
+    {
+      "name": "DOTAShowAbilityShopItemTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowAbilityShopItemTooltip",
+      "content": "DOTAShowAbilityShopItemTooltip(\nabilityName\n:\nstring\n,\nguideName\n:\nstring\n,\nentityIndex\n:\nint32\n):\nvoid\n#\nShow tooltip for an item in the entityIndex NPC's shop."
+    },
+    {
+      "name": "DOTAShowAbilityTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowAbilityTooltip",
+      "content": "DOTAShowAbilityTooltip(\nabilityName\n:\nstring\n):\nvoid\n#\nShow an ability tooltip."
+    },
+    {
+      "name": "DOTAShowAbilityTooltipForEntityIndex",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowAbilityTooltipForEntityIndex",
+      "content": "DOTAShowAbilityTooltipForEntityIndex(\nabilityName\n:\nstring\n,\nentityIndex\n:\nint32\n):\nvoid\n#\nShow an ability tooltip. Level information comes from the entity specified by the entityIndex."
+    },
+    {
+      "name": "DOTAShowAbilityTooltipForFacet",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowAbilityTooltipForFacet",
+      "content": "DOTAShowAbilityTooltipForFacet(\nabilityName\n:\nstring\n,\nfacetName\n:\nCUtlStringToken\n,\nshowVideo\n:\nbool\n):\nvoid\n#\nShow an ability tooltip for a specific facet."
+    },
+    {
+      "name": "DOTAShowAbilityTooltipForGuide",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowAbilityTooltipForGuide",
+      "content": "DOTAShowAbilityTooltipForGuide(\nabilityName\n:\nstring\n,\nguideName\n:\nstring\n,\narg3\n:\nHeroID_t\n,\narg4\n:\nbool\n):\nvoid\n#\nShow an ability tooltip annotated with a particular guide's info."
+    },
+    {
+      "name": "DOTAShowAbilityTooltipForHero",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowAbilityTooltipForHero",
+      "content": "DOTAShowAbilityTooltipForHero(\nabilityName\n:\nstring\n,\nheroid\n:\nHeroID_t\n,\nheroVariant\n:\nHeroFacetID_t\n,\narg4\n:\nbool\n,\narg5\n:\nbool\n):\nvoid\n#\nShow an ability tooltip for the specified hero."
+    },
+    {
+      "name": "DOTAShowAbilityTooltipForLevel",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowAbilityTooltipForLevel",
+      "content": "DOTAShowAbilityTooltipForLevel(\nlevel\n:\nstring\n,\narg2\n:\nint32\n):\nvoid\n#\nShow an ability tooltip for a specific level."
+    },
+    {
+      "name": "DOTAShowBuffTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowBuffTooltip",
+      "content": "DOTAShowBuffTooltip(\nentityIndex\n:\nint32\n,\nbuffSerial\n:\nint32\n,\nonEnemy\n:\nbool\n):\nvoid\n#\nShow a buff tooltip for the specified entityIndex + buff serial."
+    },
+    {
+      "name": "DOTAShowEconItemTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowEconItemTooltip",
+      "content": "DOTAShowEconItemTooltip(\nitemDef\n:\nitem_definition_index_t\n,\nstyleIndex\n:\nstyle_index_t\n,\nheroId\n:\nHeroID_t\n):\nvoid\n#\nShow the econ item tooltip for a given item, style, and hero. Use 0 for the default style, and 0 for the default hero."
+    },
+    {
+      "name": "DOTAShowFacetTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowFacetTooltip",
+      "content": "DOTAShowFacetTooltip(\nfacetKey\n:\nHeroFacetKey_t\n):\nvoid\n#\nShows a variant tooltip for the given hero facet key"
+    },
+    {
+      "name": "DOTAShowMatchDetails",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowMatchDetails",
+      "content": "DOTAShowMatchDetails(\nmatchId\n:\nint32\n):\nvoid\n#"
+    },
+    {
+      "name": "DOTAShowProfileCardTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowProfileCardTooltip",
+      "content": "DOTAShowProfileCardTooltip(\nsteamId\n:\nuint64\n,\nuseProName\n:\nbool\n):\nvoid\n#\nShow a user's profile card. Use pro name determines whether to use their professional team name if applicable."
+    },
+    {
+      "name": "DOTAShowProfileCardTooltipForPartyMember",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowProfileCardTooltipForPartyMember",
+      "content": "DOTAShowProfileCardTooltipForPartyMember(\nsteamId\n:\nuint64\n,\nuseProName\n:\nbool\n):\nvoid\n#\nShow a user's profile card including their hero ban choices. Use pro name determines whether to use their professional team name if applicable."
+    },
+    {
+      "name": "DOTAShowRankTierTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowRankTierTooltip",
+      "content": "DOTAShowRankTierTooltip(\nsteamId\n:\nuint64\n):\nvoid\n#\nShow the rank tier tooltip for a user"
+    },
+    {
+      "name": "DOTAShowRuneTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowRuneTooltip",
+      "content": "DOTAShowRuneTooltip(\nx\n:\nint32\n,\ny\n:\nint32\n,\nruneType\n:\nint32\n):\nvoid\n#\nShow a rune tooltip in the X Y location for the rune type"
+    },
+    {
+      "name": "DOTAShowTI10EventGameTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowTI10EventGameTooltip",
+      "content": "DOTAShowTI10EventGameTooltip(\nti10EventGameTooltipInfoT\n:\nstruct\n):\nvoid\n#\nShow a ti10 event game tooltip"
+    },
+    {
+      "name": "DOTAShowTextTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowTextTooltip",
+      "content": "DOTAShowTextTooltip(\ntext\n:\nstring\n):\nvoid\n#\nShow a tooltip with the given text."
+    },
+    {
+      "name": "DOTAShowTextTooltipStyled",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowTextTooltipStyled",
+      "content": "DOTAShowTextTooltipStyled(\ntext\n:\nstring\n,\nstyle\n:\npanoramasymbol\n):\nvoid\n#\nShow a tooltip with the given text. Also apply a CSS class named \"style\" to allow custom styling."
+    },
+    {
+      "name": "DOTAShowTitleImageTextTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowTitleImageTextTooltip",
+      "content": "DOTAShowTitleImageTextTooltip(\ntitle\n:\nstring\n,\nimagePath\n:\nstring\n,\ntext\n:\nstring\n):\nvoid\n#\nShow a tooltip with the given title, image, and text."
+    },
+    {
+      "name": "DOTAShowTitleImageTextTooltipStyled",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowTitleImageTextTooltipStyled",
+      "content": "DOTAShowTitleImageTextTooltipStyled(\ntitle\n:\nstring\n,\nimagePath\n:\nstring\n,\ntext\n:\nstring\n,\nstyle\n:\npanoramasymbol\n):\nvoid\n#\nShow a tooltip with the given title, image, and text. Also apply a CSS class named \"style\" to allow custom styling."
+    },
+    {
+      "name": "DOTAShowTitleTextTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowTitleTextTooltip",
+      "content": "DOTAShowTitleTextTooltip(\ntitle\n:\nstring\n,\ntext\n:\nstring\n):\nvoid\n#\nShow a tooltip with the given title and text."
+    },
+    {
+      "name": "DOTAShowTitleTextTooltipStyled",
+      "url": "https://moddota.com/api/#!/panorama/events/DOTAShowTitleTextTooltipStyled",
+      "content": "DOTAShowTitleTextTooltipStyled(\ntitle\n:\nstring\n,\ntext\n:\nstring\n,\nstyle\n:\npanoramasymbol\n):\nvoid\n#\nShow a tooltip with the given title and text. Also apply a CSS class named \"style\" to allow custom styling."
+    },
+    {
+      "name": "DismissAllContextMenus",
+      "url": "https://moddota.com/api/#!/panorama/events/DismissAllContextMenus",
+      "content": "DismissAllContextMenus():\nvoid\n#"
+    },
+    {
+      "name": "DropInputFocus",
+      "url": "https://moddota.com/api/#!/panorama/events/DropInputFocus",
+      "content": "DropInputFocus():\nvoid\n#\nDrop focus entirely from the window containing this panel."
+    },
+    {
+      "name": "ExternalBrowserGoToURL",
+      "url": "https://moddota.com/api/#!/panorama/events/ExternalBrowserGoToURL",
+      "content": "ExternalBrowserGoToURL(\nurl\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "IfHasClassEvent",
+      "url": "https://moddota.com/api/#!/panorama/events/IfHasClassEvent",
+      "content": "IfHasClassEvent(\nclass\n:\npanoramasymbol\n,\neventToFire\n:\nevent\n):\nvoid\n#\nFire another event if this panel has a given class."
+    },
+    {
+      "name": "IfHoverOtherEvent",
+      "url": "https://moddota.com/api/#!/panorama/events/IfHoverOtherEvent",
+      "content": "IfHoverOtherEvent(\notherPanelId\n:\nstring\n,\neventToFire\n:\nevent\n):\nvoid\n#\nFire another event if currently hovering over a panel with the given ID."
+    },
+    {
+      "name": "IfNotHasClassEvent",
+      "url": "https://moddota.com/api/#!/panorama/events/IfNotHasClassEvent",
+      "content": "IfNotHasClassEvent(\nclass\n:\npanoramasymbol\n,\neventToFire\n:\nevent\n):\nvoid\n#\nFire another event if this panel does not have a given class."
+    },
+    {
+      "name": "IfNotHoverOtherEvent",
+      "url": "https://moddota.com/api/#!/panorama/events/IfNotHoverOtherEvent",
+      "content": "IfNotHoverOtherEvent(\notherPanelId\n:\nstring\n,\neventToFire\n:\nevent\n):\nvoid\n#\nFire another event if not currently hovering over a panel with the given ID."
+    },
+    {
+      "name": "MovePanelDown",
+      "url": "https://moddota.com/api/#!/panorama/events/MovePanelDown",
+      "content": "MovePanelDown(\nrepeatCount\n:\nint32\n):\nvoid\n#\nMove down from the panel. By default, this will change the focus position, but other panel types may implement this differently."
+    },
+    {
+      "name": "MovePanelLeft",
+      "url": "https://moddota.com/api/#!/panorama/events/MovePanelLeft",
+      "content": "MovePanelLeft(\nrepeatCount\n:\nint32\n):\nvoid\n#\nMove left from the panel. By default, this will change the focus position, but other panel types may implement this differently."
+    },
+    {
+      "name": "MovePanelRight",
+      "url": "https://moddota.com/api/#!/panorama/events/MovePanelRight",
+      "content": "MovePanelRight(\nrepeatCount\n:\nint32\n):\nvoid\n#\nMove right from the panel. By default, this will change the focus position, but other panel types may implement this differently."
+    },
+    {
+      "name": "MovePanelUp",
+      "url": "https://moddota.com/api/#!/panorama/events/MovePanelUp",
+      "content": "MovePanelUp(\nrepeatCount\n:\nint32\n):\nvoid\n#\nMove up from the panel. By default, this will change the focus position, but other panel types may implement this differently."
+    },
+    {
+      "name": "PageDown",
+      "url": "https://moddota.com/api/#!/panorama/events/PageDown",
+      "content": "PageDown():\nvoid\n#\nScroll the panel down by one page."
+    },
+    {
+      "name": "PageLeft",
+      "url": "https://moddota.com/api/#!/panorama/events/PageLeft",
+      "content": "PageLeft():\nvoid\n#\nScroll the panel left by one page."
+    },
+    {
+      "name": "PagePanelDown",
+      "url": "https://moddota.com/api/#!/panorama/events/PagePanelDown",
+      "content": "PagePanelDown():\nvoid\n#\nScroll the panel down by one page."
+    },
+    {
+      "name": "PagePanelLeft",
+      "url": "https://moddota.com/api/#!/panorama/events/PagePanelLeft",
+      "content": "PagePanelLeft():\nvoid\n#\nScroll the panel left by one page."
+    },
+    {
+      "name": "PagePanelRight",
+      "url": "https://moddota.com/api/#!/panorama/events/PagePanelRight",
+      "content": "PagePanelRight():\nvoid\n#\nScroll the panel left by one page."
+    },
+    {
+      "name": "PagePanelUp",
+      "url": "https://moddota.com/api/#!/panorama/events/PagePanelUp",
+      "content": "PagePanelUp():\nvoid\n#\nScroll the panel up by one page."
+    },
+    {
+      "name": "PageRight",
+      "url": "https://moddota.com/api/#!/panorama/events/PageRight",
+      "content": "PageRight():\nvoid\n#\nScroll the panel right by one page."
+    },
+    {
+      "name": "PageUp",
+      "url": "https://moddota.com/api/#!/panorama/events/PageUp",
+      "content": "PageUp():\nvoid\n#\nScroll the panel up by one page."
+    },
+    {
+      "name": "RemoveStyle",
+      "url": "https://moddota.com/api/#!/panorama/events/RemoveStyle",
+      "content": "RemoveStyle(\nclass\n:\npanoramasymbol\n):\nvoid\n#\nRemove a CSS class from a panel."
+    },
+    {
+      "name": "RemoveStyleAfterDelay",
+      "url": "https://moddota.com/api/#!/panorama/events/RemoveStyleAfterDelay",
+      "content": "RemoveStyleAfterDelay(\nclass\n:\npanoramasymbol\n,\npreDelay\n:\nfloat\n):\nvoid\n#\nRemove a CSS class from a panel after a specified delay."
+    },
+    {
+      "name": "RemoveStyleFromEachChild",
+      "url": "https://moddota.com/api/#!/panorama/events/RemoveStyleFromEachChild",
+      "content": "RemoveStyleFromEachChild(\nclass\n:\npanoramasymbol\n):\nvoid\n#\nRemove a CSS class from all children of this panel."
+    },
+    {
+      "name": "ScrollDown",
+      "url": "https://moddota.com/api/#!/panorama/events/ScrollDown",
+      "content": "ScrollDown():\nvoid\n#\nScroll the panel down by one line."
+    },
+    {
+      "name": "ScrollLeft",
+      "url": "https://moddota.com/api/#!/panorama/events/ScrollLeft",
+      "content": "ScrollLeft():\nvoid\n#\nScroll the panel left by one line."
+    },
+    {
+      "name": "ScrollPanelDown",
+      "url": "https://moddota.com/api/#!/panorama/events/ScrollPanelDown",
+      "content": "ScrollPanelDown():\nvoid\n#\nScroll the panel down by one line."
+    },
+    {
+      "name": "ScrollPanelLeft",
+      "url": "https://moddota.com/api/#!/panorama/events/ScrollPanelLeft",
+      "content": "ScrollPanelLeft():\nvoid\n#\nScroll the panel left by one line."
+    },
+    {
+      "name": "ScrollPanelRight",
+      "url": "https://moddota.com/api/#!/panorama/events/ScrollPanelRight",
+      "content": "ScrollPanelRight():\nvoid\n#\nScroll the panel right by one line."
+    },
+    {
+      "name": "ScrollPanelUp",
+      "url": "https://moddota.com/api/#!/panorama/events/ScrollPanelUp",
+      "content": "ScrollPanelUp():\nvoid\n#\nScroll the panel up by one line."
+    },
+    {
+      "name": "ScrollRight",
+      "url": "https://moddota.com/api/#!/panorama/events/ScrollRight",
+      "content": "ScrollRight():\nvoid\n#\nScroll the panel right by one line."
+    },
+    {
+      "name": "ScrollToBottom",
+      "url": "https://moddota.com/api/#!/panorama/events/ScrollToBottom",
+      "content": "ScrollToBottom():\nvoid\n#\nScroll this panel to the bottom."
+    },
+    {
+      "name": "ScrollToTop",
+      "url": "https://moddota.com/api/#!/panorama/events/ScrollToTop",
+      "content": "ScrollToTop():\nvoid\n#\nScroll this panel to the top."
+    },
+    {
+      "name": "ScrollUp",
+      "url": "https://moddota.com/api/#!/panorama/events/ScrollUp",
+      "content": "ScrollUp():\nvoid\n#\nScroll the panel up by one line."
+    },
+    {
+      "name": "SetChildPanelsSelected",
+      "url": "https://moddota.com/api/#!/panorama/events/SetChildPanelsSelected",
+      "content": "SetChildPanelsSelected(\nselected\n:\nbool\n):\nvoid\n#\nSet whether any child panels are :selected."
+    },
+    {
+      "name": "SetInputFocus",
+      "url": "https://moddota.com/api/#!/panorama/events/SetInputFocus",
+      "content": "SetInputFocus():\nvoid\n#\nSet focus to this panel."
+    },
+    {
+      "name": "SetPanelEnabled",
+      "url": "https://moddota.com/api/#!/panorama/events/SetPanelEnabled",
+      "content": "SetPanelEnabled(\nenabled\n:\nbool\n):\nvoid\n#\nSets whether the given panel is enabled"
+    },
+    {
+      "name": "SetPanelSelected",
+      "url": "https://moddota.com/api/#!/panorama/events/SetPanelSelected",
+      "content": "SetPanelSelected(\nselected\n:\nbool\n):\nvoid\n#\nSet whether this panel is :selected."
+    },
+    {
+      "name": "SwitchStyle",
+      "url": "https://moddota.com/api/#!/panorama/events/SwitchStyle",
+      "content": "SwitchStyle(\nslot\n:\npanoramasymbol\n,\nclass\n:\npanoramasymbol\n):\nvoid\n#\nSwitch which class the panel has for a given attribute slot. Allows easily changing between multiple states."
+    },
+    {
+      "name": "TogglePanelSelected",
+      "url": "https://moddota.com/api/#!/panorama/events/TogglePanelSelected",
+      "content": "TogglePanelSelected():\nvoid\n#\nToggle whether this panel is :selected."
+    },
+    {
+      "name": "ToggleStyle",
+      "url": "https://moddota.com/api/#!/panorama/events/ToggleStyle",
+      "content": "ToggleStyle(\nclass\n:\npanoramasymbol\n):\nvoid\n#\nToggle whether a panel has the given CSS class."
+    },
+    {
+      "name": "TriggerStyle",
+      "url": "https://moddota.com/api/#!/panorama/events/TriggerStyle",
+      "content": "TriggerStyle(\nclass\n:\npanoramasymbol\n):\nvoid\n#\nRemove then immediately add back a CSS class from a panel. Useful to re-trigger events like animations or sound effects."
+    },
+    {
+      "name": "UIHideCustomLayoutTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/UIHideCustomLayoutTooltip",
+      "content": "UIHideCustomLayoutTooltip(\nname\n:\nstring\n):\nvoid\n#"
+    },
+    {
+      "name": "UIShowCustomLayoutParametersTooltip",
+      "url": "https://moddota.com/api/#!/panorama/events/UIShowCustomLayoutParametersTooltip",
+      "content": "UIShowCustomLayoutParametersTooltip(\nname\n:\nstring\n,\nlayoutPath\n:\nstring\n,\nparameters\n:\nstring\n):\nvoid\n#"
+    }
+  ]
+}

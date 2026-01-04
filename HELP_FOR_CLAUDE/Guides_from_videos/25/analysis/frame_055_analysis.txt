@@ -1,0 +1,76 @@
+Кадр 55
+Временная метка: 0:13:45
+Номер кадра: 49500
+Скриншот: frame_049500_825.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:36] А летел типа куда то может влево вправо
+[0:13:38] Наискосок
+[0:13:40] Чтобы был какой то мем
+[0:13:42] И сделаем значение 75 150
+[0:13:44] Чтобы
+[0:13:46] Он в принципе не мог заспаунится внутри
+[0:13:48] Только в радиусе 75
+[0:13:50] И до 150
+[0:13:52] Но можете с этим значением поиграться
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `item_drop_manager.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts`.
+
+### Видимый код:
+```lua
+require("tables/item_drop")
+
+if ItemDropManager == nil then
+    ItemDropManager = class({})
+end
+
+function ItemDropManager:Init()
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'EntityKilled'), self)
+end
+
+function ItemDropManager:EntityKilled(event)
+    local killedUnit = EntIndexToHScript(event.entindex_killed)
+    local items = ITEM_DROP[killedUnit:GetUnitName()]
+
+    if not items then return end
+
+    local randomNumber = RandomFloat(0, 0.99)
+    local cumulativeProbability = 0
+
+    for _, item in ipairs(items) do
+        cumulativeProbability = cumulativeProbability + item.chance
+        if randomNumber < cumulativeProbability then
+            dropItem = item
+            break
+        end
+    end
+
+    if not dropItem then return end
+
+    local spawnPoint = killedUnit:GetAbsOrigin()
+    local newItem = CreateItem(dropItem.item, nil, nil)
+    CreateItemOnPositionForLaunch(spawnPoint, newItem)
+    newItem:LaunchLootInitialHeight(false, 0, 150, 0.5, spawnPoint + RandomVector(75, 150))
+end
+```
+
+### Описание кода:
+- **Импорт**: Подключается модуль `tables/item_drop`.
+- **Класс**: Создается класс `ItemDropManager`.
+- **Функция Init**: Регистрирует обработчик события `entity_killed`, который вызывает метод `EntityKilled`.
+- **Функция EntityKilled**: 
+  - Получает убитую сущность и находит соответствующие предметы из таблицы `ITEM_DROP`.
+  - Генерирует случайное число и определяет, выпадает ли предмет на основе вероятности.
+  - Если предмет выпадает, создается новый предмет и запускается в случайном направлении с помощью `LaunchLootInitialHeight`.
+
+### Важные детали:
+- **Переменные**: `killedUnit`, `items`, `randomNumber`, `cumulativeProbability`, `dropItem`, `spawnPoint`, `newItem`.
+- **Функции**: `RandomFloat`, `EntIndexToHScript`, `CreateItem`, `CreateItemOnPositionForLaunch`, `LaunchLootInitialHeight`.
+
+### Связь с аудио:
+- В аудио говорится о значениях 75 и 150, которые используются в функции `LaunchLootInitialHeight` для определения радиуса и направления запуска предмета. Это соответствует строке кода `newItem:LaunchLootInitialHeight(false, 0, 150, 0.5, spawnPoint + RandomVector(75, 150))`, где эти значения задают параметры для случайного вектора.

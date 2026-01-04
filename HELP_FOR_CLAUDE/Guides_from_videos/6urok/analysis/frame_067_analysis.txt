@@ -1,0 +1,77 @@
+Кадр 67
+Временная метка: 0:16:45
+Номер кадра: 60300
+Скриншот: frame_060300_1005.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:36] Ну, типа, и читабельно, и удобно.
+[0:16:39] А вот эта функция уже, типа, проходится по всей этой таблице
+[0:16:42] и выполняет, короче, что надо.
+[0:16:44] Но это мы можем в будущих уроках разобрать.
+[0:16:47] Пока что мы просто изучаем базированную базу, так сказать.
+[0:16:52] Ну и еще один примерчик докину в довесок к вам.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua.
+
+### Видимый код:
+
+```lua
+local kobold_count = 0
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        CreateParticle("particles/units/heroes/hero_lotus_orb.vpcf", killed_unit:GetAbsOrigin() + RandomVector(RandomFloat(50, 200)))
+    end
+
+    if kobold_count >= 10 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+
+    if killed_unit:IsRealHero() then
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+
+function GiveGoldToPlayers(gold)
+    for index = 0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = player:GetAssignedHero()
+            hero:ModifyGold(gold, false, DOTA_ModifyGold_Unspecified)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDrop(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLoot(false, 300, 0.75, pos + RandomVector(RandomFloat(50, 350)))
+end
+```
+
+### Описание кода:
+
+1. **Переменные и функции:**
+   - `kobold_count`: Переменная, отслеживающая количество убитых юнитов типа "kobold".
+   - `ChupakabraMode:ChupakabraKilled(data)`: Функция, вызываемая при убийстве юнита. Увеличивает счетчик `kobold_count` и создает частицы, если убит "kobold". Если убито 10 "kobold", команда "GOODGUYS" выигрывает. Если убит реальный герой, выигрывает команда "BADGUYS".
+   - `GiveGoldToPlayers(gold)`: Функция, раздающая золото всем игрокам.
+   - `CreateDrop(itemname, pos)`: Функция, создающая предмет на позиции и запускающая его в воздух.
+
+2. **Импорты и библиотеки:**
+   - Используются функции из API Dota 2, такие как `EntIndexToHScript`, `CreateParticle`, `GameRules:SetGameWinner`, и другие.
+
+### Связь с аудио:
+
+- В аудио говорится о функции, которая "проходится по всей таблице и выполняет, что надо". Это может относиться к функции `GiveGoldToPlayers`, которая проходит по всем игрокам и раздает золото.
+- Упоминается изучение базовых элементов, что соответствует объяснению простых функций, таких как `CreateDrop`.
+
+Этот код и аудио связаны через объяснение базовых механик и функций в игровом моде для Dota 2.

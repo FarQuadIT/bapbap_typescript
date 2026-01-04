@@ -1,0 +1,64 @@
+Кадр 51
+Временная метка: 0:12:45
+Номер кадра: 45900
+Скриншот: frame_045900_765.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:19] Да
+[0:12:45] с армором у нас смотрим какая функция есть у армора и от мотив or физик в армор бонус вот
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Анализ кадра из видео-туториала
+
+#### 1. Код
+- **Язык программирования**: Lua
+- **Видимый код**:
+  ```lua
+  LinkLuaModifier("modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+  cechens_armor = class({})
+
+  function cechens_armor:GetIntrinsicModifierName()
+      return "modifier_cechens_armor"
+  end
+
+  modifier_cechens_armor = class({})
+
+  function modifier_cechens_armor:DeclareFunctions()
+      return {
+          MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+          MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE
+      }
+  end
+
+  function modifier_cechens_armor:GetModifierPreAttack_BonusDamage()
+      return 10
+  end
+  ```
+- **Описание кода**:
+  - Код определяет модификатор для способности в игре, вероятно, Dota 2.
+  - Используется функция `LinkLuaModifier` для связывания модификатора `modifier_cechens_armor` с файлом `abilities/cechens_armor`.
+  - Класс `cechens_armor` возвращает имя модификатора через метод `GetIntrinsicModifierName`.
+  - Класс `modifier_cechens_armor` определяет функции, которые модификатор будет использовать, такие как бонус к физической броне и бонус к урону перед атакой.
+  - Метод `GetModifierPreAttack_BonusDamage` возвращает значение бонуса урона перед атакой, равное 10.
+
+- **Важные детали**:
+  - Используется функция `LinkLuaModifier` для связывания модификатора.
+  - Определены функции `DeclareFunctions` и `GetModifierPreAttack_BonusDamage`.
+
+#### 2. Редактор
+- **Название программы/редактора**: Sublime Text (UNREGISTERED)
+- **Что открыто в редакторе**: Файл `cechens_armor.lua`
+- **Активные инструменты**: Нет явных активных инструментов, стандартный вид редактора.
+- **Настройки**: Видна структура папок слева, файл открыт в режиме редактирования.
+
+#### 5. Связь с аудио
+- **Соответствие с аудио**:
+  - В аудио упоминается "армор" и "функция", что соответствует коду, где определяется модификатор для брони и функции, связанные с бонусами.
+  - Обсуждается "армор бонус", что отражено в функции `DeclareFunctions`, возвращающей `MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS`.
+
+Этот анализ поможет в создании документации, связанной с разработкой модификаторов в играх на движке Source, таких как Dota 2.

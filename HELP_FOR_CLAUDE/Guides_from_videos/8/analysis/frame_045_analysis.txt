@@ -1,0 +1,54 @@
+Кадр 45
+Временная метка: 0:11:15
+Номер кадра: 40500
+Скриншот: frame_040500_675.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:00] ДОТА 8
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:WaveBoss()
+    local point = Entities:FindByName(nil, "enemy_path3")
+
+    for i=1, 4 do
+        local unit = CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+        unit:SetInitialGoalEntity(point)
+    end
+
+    Timers:CreateTimer(0.0, function()
+        for i=1, 6 do
+            local unit = CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+            unit:SetInitialGoalEntity(point)
+        end
+        return 10
+    end)
+end
+```
+
+### Описание кода:
+
+- **Функция `ChupakabraMode:WaveBoss()`**: Создает волну врагов в игре.
+- **Переменная `point`**: Находит точку на карте с именем `"enemy_path3"`.
+- **Цикл `for`**: Создает 4 юнита типа `"npc_dota_neutral_kobold"` в указанной точке и задает им начальную цель.
+- **Таймер `Timers:CreateTimer`**: Каждые 10 секунд создает еще 6 юнитов того же типа в той же точке.
+
+### Важные детали:
+
+- **Импорты и библиотеки**: Используются функции `Entities:FindByName`, `CreateUnitByName`, `Timers:CreateTimer`.
+- **Переменные и функции**: `point`, `unit`, `CreateUnitByName`, `SetInitialGoalEntity`.
+
+### Связь с аудио:
+
+- В аудио упоминается "ДОТА 8", что может быть связано с обсуждением модификации или версии игры, в которой используется данный код.
+- Видимый код соответствует созданию игровых элементов, что может быть частью объяснения в видео.
+
+Это описание может быть использовано для создания документации по модификации игры Dota 2.

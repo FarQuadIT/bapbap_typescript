@@ -1,0 +1,71 @@
+Кадр 31
+Временная метка: 0:07:45
+Номер кадра: 27900
+Скриншот: frame_027900_465.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:36] Потому что вот такая вот серая ячейка игроку ничего не говорит об этом.
+[0:07:43] И вот для того, чтобы как-то обозвать талант.
+[0:07:46] Здесь на самом деле все довольно предсказуемо.
+[0:07:48] Мы также пишем dotAlt.Ability.
+[0:07:51] После этого пишем название абилки.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `addon_english.txt`. Это файл конфигурации для игры Dota 2, содержащий локализацию и описание различных элементов игры.
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+
+2. **Открытые файлы**:
+   - `addon_english.txt`
+   - `ursa_copy.lua`
+   - `addon_russian.txt`
+   - `npc_heroes_custom.txt`
+   - `npc_abilities.txt`
+   - `npc_dota_hero_batrider.txt`
+
+3. **Структура папок**:
+   - Путь к файлу: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\resource\addon_english.txt`
+   - Папки: `maps`, `materials`, `resource`, `flash`, `overviews`, `scripts`, `soundevents`, `sounds`.
+
+4. **Содержимое файла `addon_english.txt`**:
+   ```plaintext
+   "lang"
+   {
+       "Language"        "English"
+       "Tokens"
+       {
+           "addon_game_name"                "CHUPAKABRA"
+           "DOTA_GoodGuys"                  "g"
+           "DOTA_BadGuys"                   "en"
+           "DOTA_Custom1"                   "собак"
+           "DOTA_Custom2"                   "каждый"
+           "DOTA_Custom3"                   "бобик"
+           "DOTA_Custom4"                   "день"
+           "DOTA_Custom5"                   "спасите меня"
+           "DOTA_Tooltip_ability_cockx_counter_helix"        "Cockx helix"
+           "DOTA_Tooltip_ability_cockx_counter_helix_Description"    "Я кручусь <font color=\"#ffffff\"> как джагернаут </font>"
+           "DOTA_Tooltip_ability_cockx_counter_helix_damage"         "УРОН:"
+           "DOTA_Tooltip_ability_cockx_counter_helix_radius"         "РАДИУС:"
+           "DOTA_Tooltip_ability_cockx_counter_helix_lore"           "asdasdasdasd"
+           "DOTA_Tooltip_ability_item_motus_orb"                     "Motus bobus dsads"
+           "DOTA_Tooltip_ability_item_motus_orb_Description"         "<h1>Мечитваная: Пошук</h1> фывафывафывафыва"
+           "DOTA_Tooltip_ability_item_motus_orb_Lore"                "asdasdasdasd"
+           "DOTA_Tooltip_ability_special_bonus_unique_"              "+{s:bonus_} "
+       }
+   }
+   ```
+
+5. **Связь с аудио**:
+   - В аудио говорится о том, что серая ячейка игроку ничего не говорит, и нужно как-то обозвать талант. В коде видно, что используются токены для описания способностей и их характеристик, что соответствует объяснению в аудио о добавлении описаний и названий для способностей.
+
+6. **Важные детали**:
+   - Файл содержит локализацию для различных элементов игры, таких как названия команд, способностей и их описания.
+   - Используются HTML-теги для форматирования текста в описаниях способностей.
+
+Это описание помогает понять, как текстовые данные используются для локализации и настройки интерфейса в игре.

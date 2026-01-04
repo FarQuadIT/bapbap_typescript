@@ -1,0 +1,79 @@
+Кадр 30
+Временная метка: 0:07:30
+Номер кадра: 27000
+Скриншот: frame_027000_450.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:20] Очень просто, очень простая схема того, как можно использовать таланты прямо в код.
+[0:07:26] То есть проверяйте на наличие таланта.
+[0:07:28] Очень просто.
+[0:07:29] Здесь вы просто подумываете буквально что хотите.
+[0:07:31] Теперь поговорим про не менее важную часть.
+[0:07:34] Это локализация талантов.
+[0:07:36] Потому что вот такая вот серая ячейка игроку ничего не говорит об этом.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+        local modif = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+        modif:IncrementStackCount()
+        if self:GetParent():HasAbility("special_bonus_unique_ursa_duration") then
+            ApplyDamage({
+                victim = props.target,
+                attacker = props.attacker,
+                damage = modif:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+                damage_type = DAMAGE_TYPE_PHYSICAL,
+                ability = self:GetAbility()
+            })
+        end
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+- **Импорты:** Используются функции `LinkLuaModifier` для подключения модификаторов.
+- **Функции и классы:**
+  - `ursa_copy:GetIntrinsicModifierName`: Возвращает имя модификатора `modifier_ursa_copy`.
+  - `modifier_ursa_copy`: Класс, содержащий методы `IsHidden`, `DeclareFunctions`, и `OnAttackLanded`.
+  - `OnAttackLanded`: Обрабатывает событие атаки, добавляет модификатор цели и применяет урон, если у героя есть определённая способность.
+  - `modifier_ursa_copy_debuff`: Класс, определяющий дебафф, который не скрыт и является дебаффом.
+
+### Связь с аудио:
+- В аудио говорится о проверке наличия таланта и локализации талантов. Код на экране показывает, как проверяется наличие способности `special_bonus_unique_ursa_duration` и как это влияет на применение урона, что соответствует обсуждаемой теме в аудио.

@@ -1,0 +1,61 @@
+Кадр 10
+Временная метка: 0:02:30
+Номер кадра: 9000
+Скриншот: frame_009000_150.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:02:20] Слушатель
+[0:02:22] Слушатель
+[0:02:25] Слушатель
+[0:02:28] Слушатель
+[0:02:29] возьмем вот такого слушателя,
+[0:02:33] entity killed,
+[0:02:34] да, его тоже тут можно найти, вот он.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан веб-интерфейс сайта, связанного с разработкой модов и кастомных игр для Dota 2. Видна страница с заголовком "Слушатели / Listeners: Я слежу за тобой - Разработка модов и кастомки Dota 2 - Custom Games". 
+
+### Интерфейс/GUI:
+- **Название сайта:** customgames.ru
+- **Открытые вкладки:** Главная, Форумы, Пользователи, Scripting API
+- **Пользователь:** Jendos (в правом верхнем углу)
+
+### Содержимое страницы:
+- **Текст и код:**
+  - Приведены примеры использования функции `ListenToGameEvent` для различных игровых событий.
+  - **Язык программирования:** Lua (используется в скриптинге для Dota 2)
+  - **Код:**
+    ```lua
+    ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(GameMode, 'OnPlayerLevelUp'), self) // Получение уровня
+    ListenToGameEvent('dota_ability_channel_finished', Dynamic_Wrap(GameMode, 'OnAbilityChannelFinished'), self) // Конец каста способности
+    ListenToGameEvent('dota_player_learned_ability', Dynamic_Wrap(GameMode, 'OnPlayerLearnedAbility'), self) // Изучение способности
+    ListenToGameEvent('entity_killed', Dynamic_Wrap(GameMode, 'OnEntityKilled'), self) // Убийство юнита
+    ListenToGameEvent('player_connect_full', Dynamic_Wrap(GameMode, 'OnConnectFull'), self) // Подключение игрока
+    ListenToGameEvent('player_disconnect', Dynamic_Wrap(GameMode, 'OnDisconnect'), self) // Отключение игрока
+    ListenToGameEvent('dota_item_purchased', Dynamic_Wrap(GameMode, 'OnItemPurchased'), self) // Покупка предмета
+    ListenToGameEvent('dota_item_picked_up', Dynamic_Wrap(GameMode, 'OnItemPickedUp'), self) // Взятие предмета
+    ListenToGameEvent('last_hit', Dynamic_Wrap(GameMode, 'OnLastHit'), self) // Последний удар
+    ListenToGameEvent('dota_non_player_used_ability', Dynamic_Wrap(GameMode, 'OnNonPlayerUsedAbility'), self) // Не игрок использовал способность
+    ListenToGameEvent('player_changename', Dynamic_Wrap(GameMode, 'OnPlayerChangeName'), self) // Игрок сменил имя
+    ListenToGameEvent('dota_rune_activated_server', Dynamic_Wrap(GameMode, 'OnRuneActivated'), self) // Взятие руны
+    ListenToGameEvent('dota_player_take_tower_damage', Dynamic_Wrap(GameMode, 'OnPlayerTakeTowerDamage'), self) // Получение урона от башни
+    ListenToGameEvent('tree_cut', Dynamic_Wrap(GameMode, 'OnTreeCut'), self) // Дерево срублено
+    ListenToGameEvent('entity_hurt', Dynamic_Wrap(GameMode, 'OnEntityHurt'), self) // Получение урона
+    ListenToGameEvent('player_connect', Dynamic_Wrap(GameMode, 'PlayerConnect'), self) // Подключение
+    ListenToGameEvent('player_used_ability', Dynamic_Wrap(GameMode, 'OnPlayerUsedAbility'), self) // Использование способности
+    ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(GameMode, 'OnGameRulesStateChange'), self) // Стадия игры
+    ListenToGameEvent('npc_spawned', Dynamic_Wrap(GameMode, 'OnNPCSpawned'), self) // Юнит появился
+    ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(GameMode, 'OnPlayerPickHero'), self) // Героя пикнут
+    ListenToGameEvent('dota_team_kill_credit', Dynamic_Wrap(GameMode, 'OnTeamKillCredit'), self) // Увеличение счетчика убийств ?
+    ListenToGameEvent('player_reconnected', Dynamic_Wrap(GameMode, 'OnPlayerReconnect'), self) // Переподключение
+    ```
+
+- **Связь с аудио:**
+  - В аудио упоминается "entity killed", что соответствует строке в коде: `ListenToGameEvent('entity_killed', Dynamic_Wrap(GameMode, 'OnEntityKilled'), self) // Убийство юнита`. Это событие связано с убийством юнита в игре, что объясняется в видео.
+
+### Дополнительные детали:
+- Приведены примеры использования слушателей для двух событий, с пояснениями, что происходит в игре при этих событиях.

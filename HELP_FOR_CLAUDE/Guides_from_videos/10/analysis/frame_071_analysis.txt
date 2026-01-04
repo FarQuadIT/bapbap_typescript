@@ -1,0 +1,88 @@
+Кадр 71
+Временная метка: 0:17:45
+Номер кадра: 63900
+Скриншот: frame_063900_1065.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:35] Флаги мы не будем никакие указывать.
+[0:17:37] Потому что это опциональная фигня.
+[0:17:39] И не обязательно ее взять.
+[0:17:41] И получается, у нас сейчас все должно работать.
+[0:17:43] Давайте проверять.
+[0:17:45] Итак, я специально назначил 0 урона у нашего Акса.
+[0:17:48] И 1000 сил ему дал.
+[0:17:50] Давайте смотреть.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier( "modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return { MODIFIER_EVENT_ON_ATTACK_LANDED }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+        local modifier = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+        modifier:IncrementStackCount()
+        ApplyDamage({
+            victim = props.target,
+            attacker = props.attacker,
+            damage = modifier:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+            damage_type = DAMAGE_TYPE_PHYSICAL,
+            ability = self:GetAbility()
+        })
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+
+1. **Импорты и модификаторы**: 
+   - `LinkLuaModifier` связывает Lua-модификаторы с их именами и файлами.
+   - `ursa_copy` и `modifier_ursa_copy` — это классы, определяющие способности и модификаторы.
+
+2. **Функции**:
+   - `GetIntrinsicModifierName`: Возвращает имя модификатора, связанного с этой способностью.
+   - `IsHidden`: Определяет, скрыт ли модификатор.
+   - `DeclareFunctions`: Объявляет события, на которые реагирует модификатор.
+   - `OnAttackLanded`: Обрабатывает событие атаки, добавляя дебафф и нанося урон.
+
+3. **Детали**:
+   - `ApplyDamage`: Функция, наносящая физический урон цели.
+   - `IncrementStackCount`: Увеличивает количество стаков дебаффа.
+
+### Связь с аудио:
+
+- В аудио говорится о проверке работы кода, где у персонажа "Акс" назначен 0 урона и 1000 силы. Это может быть связано с тестированием способности, описанной в коде, чтобы проверить, как она работает в игре.

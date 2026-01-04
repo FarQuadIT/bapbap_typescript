@@ -1,0 +1,77 @@
+Кадр 7
+Временная метка: 0:01:45
+Номер кадра: 6300
+Скриншот: frame_006300_105.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:35] И как можно заставить чувака её кастовать у нас?
+[0:01:41] Есть несколько вариантов.
+[0:01:43] Если мы хотим, чтобы просто наш крип нажимал способность, как только она откатывается,
+[0:01:48] то это можно сделать очень просто, даже без прописывания в отдельном файле его поведения.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_units_custom.txt`. Этот файл находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\`.
+
+### Код:
+
+Файл содержит описание кастомного юнита для игры Dota 2. Язык, на котором написан код, представляет собой конфигурационный формат, используемый для настройки юнитов в игре.
+
+#### Видимый код:
+
+```plaintext
+// Team
+"TeamName" "DOTA_TEAM_NEUTRALS" // Team name.
+"UnitRelationshipClass" "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+"npc_dota_neutral_kobold_boss"
+{
+    // General
+    "Model" "models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl" // Model.
+    "BaseClass" "npc_dota_creature"
+    "SoundSet" "n_creep_Melee"
+    "Level" "10"
+    "ModelScale" "1.9"
+    "UseNeutralCreepBehavior" "1"
+
+    // Abilities
+    "Ability1" "slark_pounce" // Ability 1
+    "Ability2" "" // Ability 2
+    "Ability3" "" // Ability 3
+    "Ability4" "" // Ability 4
+
+    // Armor
+    "ArmorPhysical" "10" // Physical protection.
+
+    // Attack
+    "AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackDamageMin" "100" // Damage range min.
+    "AttackDamageMax" "150" // Damage range max.
+    "AttackRate" "2" // Speed of attack.
+    "BaseAttackSpeed" "200"
+    "AttackAnimationPoint" "0.38" // Normalized time in animation cycle to attack.
+    "AttackAcquisitionRange" "500" // Range within a target can be acquired.
+    "AttackRange" "100" // Range within a target can be attacked.
+    "ProjectileModel" "" // Particle system model for projectile.
+    "ProjectileSpeed" "0" // Speed of projectile.
+
+    // Bounds
+    "RingRadius" "40"
+    "HealthBarOffset" "130"
+}
+```
+
+### Описание кода:
+
+- **Общие параметры**: Определены модель, базовый класс, звуковой набор, уровень и масштаб модели юнита.
+- **Способности**: У юнита есть одна способность `slark_pounce`, остальные слоты для способностей пусты.
+- **Броня**: Указана физическая защита в размере 10.
+- **Атака**: Описаны параметры атаки, включая минимальный и максимальный урон, скорость атаки, а также радиус и дальность атаки.
+- **Границы**: Указаны радиус кольца и смещение полоски здоровья.
+
+### Связь с аудио:
+
+В аудио говорится о том, как заставить юнита использовать способность. На экране видно, что у юнита задана способность `slark_pounce`, что соответствует обсуждаемой теме в аудио. Это может быть примером того, как настроить юнита для автоматического использования способности.

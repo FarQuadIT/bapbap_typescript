@@ -1,0 +1,84 @@
+Кадр 33
+Временная метка: 0:08:15
+Номер кадра: 29700
+Скриншот: frame_029700_495.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:07] Бл**ть, как они заебали, пиздец.
+[0:08:09] Мы не перезапускаем саму доту, и у нас обновилась функция.
+[0:08:13] Это очень круто, это экономит просто кучу времени,
+[0:08:16] поэтому вот, ну, обязательно оборачивайте все в dynamicWrap,
+[0:08:20] все ваши listenToGameEvent.
+[0:08:22] Так, теперь насчет skilledUnit'ов.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Код:
+```lua
+if not ChupakabraMode then
+    ChupakabraMode = class({})
+end
+
+HeroXPTable = {}
+for i = 1, 30 do
+    HeroXPTable[i] = i * 100
+end
+expTable = {0, 200, 300, 400, 500}
+HeroXPTable[0] = expTable[1]
+HeroXPTable[1] = expTable[2]
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(0.0)
+    GameRules:SetPostGameTime(0.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 1)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 1)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 1)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 1)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_5, 1)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_6, 1)
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true) -- Установка кастомной системы уровней
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel(#HeroXPTable)
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroXPTable)
+    GameRules:GetGameModeEntity():SetTopBarTeamValuesOverride(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0)
+
+    ListenToGameEvent("entity_killed", dynamic_wrap(self, 'ChupakabraKilled'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    print(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+    print(killed_unit)
+end
+```
+
+### Описание кода:
+- **Класс `ChupakabraMode`:** Создается класс для управления игровым режимом.
+- **Таблица опыта `HeroXPTable`:** Определяет количество опыта, необходимого для достижения каждого уровня.
+- **Функция `InitGameMode`:** Инициализирует параметры игры, такие как начальное золото, время выбора героя, максимальное количество игроков в команде и т.д.
+- **Событие `entity_killed`:** Устанавливает обработчик событий для убийства сущностей, который вызывает функцию `ChupakabraKilled`.
+
+### Важные детали:
+- **Импорты:** Не указаны, так как это Lua-скрипт для Dota 2, где импорты не требуются.
+- **Функции и переменные:** Основные функции — `InitGameMode` и `ChupakabraKilled`. Важные переменные — `HeroXPTable`, `expTable`.
+
+### Связь с аудио:
+- В аудио говорится о необходимости оборачивать все в `dynamicWrap`, что видно в коде при использовании `ListenToGameEvent`.
+- Обсуждается обновление функции без перезапуска Dota 2, что связано с изменениями в коде.
+
+На панели слева видна структура папок, относящихся к модификации Dota 2, включая файлы `addon_game_mode.lua` и `chupakabra_mode.lua`.

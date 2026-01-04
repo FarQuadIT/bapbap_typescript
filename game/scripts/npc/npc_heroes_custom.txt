@@ -1,0 +1,23 @@
+// Dota Heroes File
+// NOTE: This is for overriding existing hero parameters, not for enabling/disabling heroes.
+// Use herolist.txt to limit which heroes are available for selection.
+"DOTAHeroes"
+{
+	//=================================================================================================================
+	// HERO: Drow Ranger - Modified
+	// Ability 1 changed from frost_arrows to Viper's poison_attack
+	//=================================================================================================================
+	"npc_dota_hero_drow_ranger"
+	{
+		"Ability1"		"viper_poison_attack"		// Replaced with Viper's ability
+	}
+	
+	//=================================================================================================================
+	// HERO: Axe - Modified
+	// Ability 1 changed to custom Charge + Call combo
+	//=================================================================================================================
+	"npc_dota_hero_axe"
+	{
+		"Ability1"		"axe_charge_and_call"		// New composite ability: dash + taunt
+	}
+}

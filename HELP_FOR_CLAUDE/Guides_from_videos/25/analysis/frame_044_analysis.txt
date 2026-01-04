@@ -1,0 +1,69 @@
+Кадр 44
+Временная метка: 0:11:00
+Номер кадра: 39600
+Скриншот: frame_039600_660.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:52] Перед этим не забудем добавить
+[0:10:54] Что если dropItem ничему не равно
+[0:10:56] То тогда
+[0:10:58] Мы соответственно функцию дальше не выполняем
+[0:11:00] На этом заканчиваем
+[0:11:02] То есть нам просто ничего не делается
+[0:11:04] Однако если dropItem существует
+[0:11:06] У нас предложение мы создаем предмет
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     require("tables/item_drop")
+
+     if ItemDropManager == nil then
+         ItemDropManager = class({})
+     end
+
+     function ItemDropManager:Init()
+         ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'EntityKilled'), self)
+     end
+
+     function ItemDropManager:EntityKilled(event)
+         local killedUnit = EntIndexToHScript(event.entindex_killed)
+         local items = ITEM_DROP[killedUnit:GetUnitName()]
+
+         if not items then return end
+
+         local randomNumber = RandomFloat(0,99)
+         local cumulativeProbability = 0
+         local dropItem
+
+         for _,item in ipairs(items) do
+             cumulativeProbability = cumulativeProbability + item.chance
+             if randomNumber <= cumulativeProbability then
+                 dropItem = item
+                 break
+             end
+         end
+
+         if not dropItem then return end
+         local newItem = CreateItem(itemName: string, owner: CDOTAPlayerController | nil, purchaser: CDOTA_BaseNPC_Hero | nil)
+     end
+     ```
+   - **Описание кода:**
+     Код реализует менеджер выпадения предметов в игре. Он слушает событие убийства сущности и, если убитая сущность имеет определенные предметы, случайным образом выбирает один из них для выпадения на основе вероятности.
+   - **Важные детали:**
+     - Импортируется модуль `tables/item_drop`.
+     - Определяется класс `ItemDropManager`.
+     - Функция `Init` подписывается на событие `entity_killed`.
+     - Функция `EntityKilled` обрабатывает выпадение предметов.
+
+2. **СВЯЗЬ С АУДИО:**
+
+   - В аудио говорится о проверке переменной `dropItem`. Если она равна `nil`, функция завершает выполнение, что соответствует строке `if not dropItem then return end` в коде.
+   - Также упоминается создание предмета, что соответствует строке `local newItem = CreateItem(...)`.

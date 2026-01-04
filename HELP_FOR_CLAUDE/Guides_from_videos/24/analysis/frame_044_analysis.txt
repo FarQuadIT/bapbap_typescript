@@ -1,0 +1,78 @@
+Кадр 44
+Временная метка: 0:11:00
+Номер кадра: 39600
+Скриншот: frame_039600_660.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:48] И вторым значением у нас должен быть custom net tables.
+[0:10:53] Для tables.
+[0:10:57] Get table value.
+[0:11:01] И здесь у нас наш boss-kill.
+[0:11:04] И вторым аргументом передаем player ID.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Visual Studio Code. Открыт файл с расширением `.js`, что указывает на использование языка программирования JavaScript. 
+
+### Видимый код:
+```javascript
+$.GetContextPanel().SetDialogVariable("counter", CustomNetTables.GetTableValue);
+
+function CreateAbilityPanel(event) {
+  const arrayAbilities = Object.values(event.abilities);
+  const rootPanel = $.CreatePanel("Panel", $.GetContextPanel(), "black-cube");
+  rootPanel.BLoadLayoutSnippet("abilityPanel");
+  rootPanel.AddClass("IsActive");
+  arrayAbilities.map((element) => {
+    const ability = $.CreatePanel("DOTAAbilityImage", panelBody, "", {
+      class: "black-cube__ability",
+      abilityname: element,
+      showtooltip: "true"
+    });
+
+    ability.SetPanelEvent("onactivate", () => {
+      GameEvents.SendCustomGameEventToServer("add_ability", {
+        player: Players.GetLocalPlayer(),
+        ability: element
+      });
+      rootPanel.RemoveClass("IsActive");
+      rootPanel.DeleteAsync(0.4);
+    });
+  });
+}
+
+GameEvents.Subscribe("show_ability_panel", CreateAbilityPanel);
+
+const dotaHud = (() => {
+  let panel = $.GetContextPanel();
+  while (panel) {
+    if (panel.id === "DotaHud") return panel;
+    panel = panel.GetParent();
+  }
+  return panel;
+})();
+
+const talent = dotaHud.FindChildTraverse("StatBranch");
+const levels = dotaHud.FindChildTraverse("level_stats_frame");
+talent.style.opacity = "0";
+talent.enabled = false;
+levels.style.opacity = "0";
+```
+
+### Описание кода:
+- **Функция `CreateAbilityPanel`**: Создает панель с изображениями способностей, которые можно активировать. При активации способности отправляется событие на сервер.
+- **Подписка на событие**: `GameEvents.Subscribe` подписывается на событие `show_ability_panel`, вызывая `CreateAbilityPanel`.
+- **Поиск панели DotaHud**: Используется для изменения видимости и доступности элементов интерфейса, таких как таланты и уровни.
+
+### Важные детали:
+- **Использование `CustomNetTables.GetTableValue`**: Это соответствует аудио, где упоминается использование `GetTableValue` для работы с таблицами.
+- **Классы и функции**: Используются методы для создания и управления панелями интерфейса в игре.
+
+### Связь с аудио:
+- В аудио говорится о необходимости использования `CustomNetTables.GetTableValue`, что видно в первой строке кода.
+- Упоминается передача `player ID`, что реализовано в функции `CreateAbilityPanel` при отправке события на сервер.
+
+Этот код, вероятно, является частью модификации для игры Dota 2, где используется API для создания пользовательских интерфейсов и взаимодействия с сервером.

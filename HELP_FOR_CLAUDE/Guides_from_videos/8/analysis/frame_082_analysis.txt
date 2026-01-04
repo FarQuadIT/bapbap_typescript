@@ -1,0 +1,64 @@
+Кадр 82
+Временная метка: 0:20:30
+Номер кадра: 73800
+Скриншот: frame_073800_1230.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:20:21] Вот так вот прописано у нас.
+[0:20:23] Только это где-то на внутреннем уровне.
+[0:20:26] self.
+[0:20:27] Получаем обилку у нас getAbility.
+[0:20:29] Опять же функцию берем мы cdotaBuff.
+[0:20:32] То есть это все функции модификаторов getAbility.
+[0:20:36] Мы получили сейчас вот эту обилку.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `eechens_armor.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_eechens_armor", "abilities/eechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+eechens_armor = class({})
+
+function eechens_armor:GetIntrinsicModifierName()
+    return "modifier_eechens_armor"
+end
+
+modifier_eechens_armor = class({})
+
+function modifier_eechens_armor:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
+    }
+end
+
+function modifier_eechens_armor:GetModifierPhysicalArmorBonus()
+    return self:GetAbility():GetSpecialValueFor("armor_bonus")
+end
+```
+
+### Описание кода:
+1. **LinkLuaModifier**: Связывает модификатор `modifier_eechens_armor` с файлом `abilities/eechens_armor`.
+2. **eechens_armor = class({})**: Определяет новый класс `eechens_armor`.
+3. **GetIntrinsicModifierName**: Возвращает имя модификатора, который будет применяться автоматически.
+4. **modifier_eechens_armor = class({})**: Определяет класс модификатора.
+5. **DeclareFunctions**: Указывает, какие функции модификатора будут использоваться. В данном случае это `MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS`.
+6. **GetModifierPhysicalArmorBonus**: Возвращает значение бонуса к физической броне, полученное из способности.
+
+### Важные детали:
+- **Импорты и функции**: Используется функция `LinkLuaModifier` для связывания модификатора.
+- **Классы и переменные**: Определены классы `eechens_armor` и `modifier_eechens_armor`.
+
+### Связь с аудио:
+- В аудио говорится о получении способности через `self.getAbility`, что соответствует строке `return self:GetAbility():GetSpecialValueFor("armor_bonus")` в коде. Это объясняет, как модификатор получает значение бонуса к броне из способности.
+
+### Интерфейс редактора:
+- **Открытые вкладки**: Несколько файлов открыто, включая `eechens_armor.lua`, `chupakabra_mode.lua`, и другие.
+- **Панель слева**: Показывает структуру папок и файлов, связанных с модами Dota 2.
+
+Этот код и его объяснение соответствуют аудиоконтексту, где обсуждаются функции и модификаторы в скриптах игры.

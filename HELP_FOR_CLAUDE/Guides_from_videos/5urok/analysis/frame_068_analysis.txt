@@ -1,0 +1,67 @@
+Кадр 68
+Временная метка: 0:17:00
+Номер кадра: 61200
+Скриншот: frame_061200_1020.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:52] Set Show Case Time, это отвечает за демонстрацию.
+[0:16:55] Типа, когда там пять чуваков показываются за Radiant и пять чуваков за Dire.
+[0:17:00] Поэтому, типа, must have просто эти настроечки ставим себе.
+[0:17:05] Ну, если вам, конечно, нужно какие-то стратегические время.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для настройки игрового режима в Dota 2.
+
+### Видимый код:
+
+```lua
+if chupakabraMode == nil then
+    chupakabraMode = class({})
+end
+
+function chupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(300)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetHeroSelectionTime(5)
+    GameRules:SetGoldTickTime(0)
+    GameRules:SetGoldPerTick(0)
+    GameRules:SetShowcaseTime(0)
+    GameRules:SetStrategyTime(0)
+
+    GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+end
+
+function chupakabraMode:OnThink()
+    -- Evaluate the state of the game
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        --print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+- **Класс `chupakabraMode`:** Определяется класс для игрового режима.
+- **Функция `InitGameMode`:** Настраивает параметры игры:
+  - `SetStartingGold(300)`: Устанавливает начальное количество золота.
+  - `SetUseUniversalShopMode(true)`: Включает универсальный режим магазина.
+  - `SetHeroSelectionTime(5)`: Устанавливает время выбора героев.
+  - `SetGoldTickTime(0)` и `SetGoldPerTick(0)`: Настройки золота.
+  - `SetShowcaseTime(0)` и `SetStrategyTime(0)`: Настройки времени демонстрации и стратегии.
+- **Функция `OnThink`:** Проверяет состояние игры и выполняет действия в зависимости от него.
+
+### Важные детали:
+
+- **Импорты:** Не видны, но используются функции из API Dota 2.
+- **Переменные и функции:** Используются функции для настройки правил игры.
+
+### Связь с аудио:
+
+В аудио говорится о настройке времени демонстрации (`SetShowcaseTime`), что соответствует строке в коде `GameRules:SetShowcaseTime(0)`. Это подтверждает, что видео объясняет, как настраивать параметры игрового режима в Dota 2.

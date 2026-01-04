@@ -1,0 +1,78 @@
+Кадр 29
+Временная метка: 0:07:15
+Номер кадра: 26100
+Скриншот: frame_026100_435.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:06] То есть мы, ну, типа вроде бонус.
+[0:07:08] Но можно вернуть бонус минус 150.
+[0:07:11] И тогда бонус будет минус 150 Moosepeed.
+[0:07:15] Вот это, блять, бонус.
+[0:07:16] Спасибо, папаша.
+[0:07:18] И, ну, сейчас у нас по-любому сработает Moosepeed.
+[0:07:21] Я в этом почти на 100% уверен.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `strong_poison.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities`.
+
+### Видимый код:
+```lua
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:IsDebuff()
+    return true
+end
+
+function modifier_strong_poison:IsPurgable()
+    return true
+end
+
+function modifier_strong_poison:OnCreated(kv)
+    if IsServer() then
+        self:SetStackCount(1)
+    end
+end
+
+function modifier_strong_poison:OnRefresh(kv)
+    if IsServer() then
+        self:IncrementStackCount()
+    end
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    local funcs = {
+        MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT,
+    }
+    return funcs
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+```
+
+### Описание кода:
+- **Класс `modifier_strong_poison`**: Определяет модификатор, который, судя по названию, связан с эффектом "сильного яда".
+- **Методы**:
+  - `IsHidden()`: Возвращает `false`, что означает, что модификатор видим.
+  - `IsDebuff()`: Возвращает `true`, указывая, что это дебафф.
+  - `IsPurgable()`: Возвращает `true`, что позволяет снять модификатор.
+  - `OnCreated(kv)`: Устанавливает начальное количество стаков в 1 при создании.
+  - `OnRefresh(kv)`: Увеличивает количество стаков при обновлении.
+  - `DeclareFunctions()`: Возвращает список функций, которые модификатор изменяет, в данном случае это `MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT`.
+  - `GetModifierMoveSpeedBonus_Constant()`: Возвращает значение `-150`, что уменьшает скорость передвижения на 150 единиц.
+
+### Связь с аудио:
+- В аудио говорится о бонусе, который может быть отрицательным, и конкретно упоминается значение `-150` для Moosepeed. Это соответствует функции `GetModifierMoveSpeedBonus_Constant()`, которая возвращает `-150`, что объясняет, как модификатор влияет на скорость передвижения.
+
+### Дополнительные детали:
+- В левой части экрана видна структура папок и файлов, где открыты несколько файлов Lua, что может указывать на работу с модами или скриптами для игры Dota 2.
+- Вкладки в верхней части редактора показывают, что открыты и другие файлы, такие как `modifier_viper_poison_attack_lua.lua`, `healing_spell.lua`, и `axe_culling_blade_lua.lua`, что может свидетельствовать о работе над несколькими модификаторами или способностями одновременно.

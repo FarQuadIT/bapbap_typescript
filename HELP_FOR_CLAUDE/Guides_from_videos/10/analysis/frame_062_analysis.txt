@@ -1,0 +1,88 @@
+Кадр 62
+Временная метка: 0:15:30
+Номер кадра: 55800
+Скриншот: frame_055800_930.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:22] Что нам осталось указать?
+[0:15:24] DamageType.
+[0:15:26] Как мы видим, это...
+[0:15:27] Да.
+[0:15:28] Надо указать.
+[0:15:29] DamageType.
+[0:15:30] И Dota.
+[0:15:31] DamageType.
+[0:15:34] Вы это можете подсмотреть...
+[0:15:35] Ну, блять, ладно.
+[0:15:36] Мне придется с вами, походу, подсматривать.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+        local modifier = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+        modifier:IncrementStackCount()
+        ApplyDamage({
+            victim = props.target,
+            attacker = props.attacker,
+            damage = modifier:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+            damage_type = 
+        })
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+
+- **Импорты и модификаторы**: Используются функции `LinkLuaModifier` для подключения модификаторов `modifier_ursa_copy` и `modifier_ursa_copy_debuff`.
+- **Класс `ursa_copy`**: Определяет способность, возвращающую имя модификатора `modifier_ursa_copy`.
+- **Модификатор `modifier_ursa_copy`**:
+  - **Функция `IsHidden`**: Возвращает `false`, модификатор видим.
+  - **Функция `DeclareFunctions`**: Определяет, что модификатор реагирует на событие `ON_ATTACK_LANDED`.
+  - **Функция `OnAttackLanded`**: При атаке добавляет дебафф цели, увеличивает его стеки и наносит урон, зависящий от количества стеков.
+- **Модификатор `modifier_ursa_copy_debuff`**:
+  - **Функция `IsHidden`**: Возвращает `false`, дебафф видим.
+  - **Функция `IsDebuff`**: Возвращает `true`, это дебафф.
+
+### Связь с аудио:
+
+- В аудио говорится о необходимости указать `DamageType`. В коде видно, что в функции `ApplyDamage` отсутствует указание типа урона (`damage_type`), что соответствует обсуждаемой проблеме в аудио.

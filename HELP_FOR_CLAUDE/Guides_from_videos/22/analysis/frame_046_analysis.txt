@@ -1,0 +1,74 @@
+Кадр 46
+Временная метка: 0:11:30
+Номер кадра: 41400
+Скриншот: frame_041400_690.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:20] Я на всякий случай, чтобы вам было
+[0:11:22] более понятнее, вынесу это в отдельную
+[0:11:24] переменную. Ну пусть будет
+[0:11:26] скорость 600 у нас, больше.
+[0:11:28] И
+[0:11:30] все. Вот такая вот короткая формула,
+[0:11:32] которая даст нам и скорость
+[0:11:34] одновременно и
+[0:11:36] направление, куда должен двигаться
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Код:
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local point = self:GetCursorPosition()
+    local caster = self:GetCaster()
+    local casterPoint = caster:GetOrigin()
+
+    local derction = point - casterPoint
+    local speed = 600
+    derction:Normalize()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        vVelocity = derction * speed,
+        fDistance = 2000,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        bHasFrontalCone = false,
+        bReplaceExisting = false,
+        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+        iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+        iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
+        fExpireTime = GameRules:GetGameTime() + 10.0,
+    })
+end
+```
+
+### Описание кода:
+- **Класс и функция:** Определяется класс `wave_terorist` и его метод `OnSpellStart`, который вызывается при активации способности.
+- **Переменные:**
+  - `point`: позиция курсора.
+  - `caster`: объект, который использует способность.
+  - `casterPoint`: начальная позиция кастера.
+  - `derction`: направление от кастера к точке курсора.
+  - `speed`: скорость снаряда, равная 600.
+- **Функция `CreateLinearProjectile`:** Создает линейный снаряд с заданными параметрами, такими как эффект, источник, скорость, радиус и типы целей.
+
+### Важные детали:
+- **Импорты:** Не указаны, но используются функции и классы, специфичные для Dota 2 API.
+- **Переменные и функции:** Используются методы `GetCursorPosition`, `GetCaster`, `GetOrigin`, `Normalize`, и `CreateLinearProjectile`.
+
+### Связь с аудио:
+- В аудио говорится о вынесении скорости в отдельную переменную и её значении 600, что соответствует строке `local speed = 600` в коде.
+- Объясняется, как формула дает скорость и направление, что отражено в коде через нормализацию направления и умножение на скорость.
+
+Этот код создает снаряд, который движется в направлении курсора с заданной скоростью и параметрами.

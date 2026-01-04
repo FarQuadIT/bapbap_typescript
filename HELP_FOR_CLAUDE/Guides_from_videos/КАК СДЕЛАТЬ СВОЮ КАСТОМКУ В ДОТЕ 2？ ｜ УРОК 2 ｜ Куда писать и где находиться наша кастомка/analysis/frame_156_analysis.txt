@@ -1,0 +1,77 @@
+Кадр 156
+Временная метка: 0:18:12
+Номер кадра: 65520
+Скриншот: frame_065520_1092.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:18:07] И допустим мы ещё хотим ему Attack Range сделать там поменьше.
+[0:18:11] И хотим ему урон сразу впендюрить 5000.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_heroes_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки параметров героев.
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+2. **Открытые вкладки**: 
+   - `addon_english.txt`
+   - `heroList.txt`
+   - `npc_heroes_custom.txt` (активная вкладка)
+   - `npc_items_custom.txt`
+   - `npc_units_custom.txt`
+   - `addoninfo.txt`
+   - `npc_abilities.txt`
+   - `npc_abilities_custom.txt`
+
+3. **Содержимое файла**:
+   - Файл содержит настройки для героя `npc_dota_hero_axe`.
+   - Видны параметры, такие как `AttackCapabilities`, `AttackDamageMin`, `AttackDamageMax`, `AttackRange`, `AttackRate`, `AttributeBaseStrength`, и другие.
+
+4. **Код**:
+   ```plaintext
+   "npc_dota_hero_axe"
+   {
+       "Ability1"        "axe_berserkers_call"
+       "Ability2"        "axe_battle_hunger"
+       "Ability3"        "axe_counter_helix"
+       "Ability4"        "generic_hidden"
+       "Ability5"        "special_bonus_unique_axe_7"
+       "Ability6"        "special_bonus_unique_axe_2"
+       "Ability7"        "special_bonus_unique_axe_3"
+       "Ability8"        "special_bonus_unique_axe_4"
+       "Ability9"        "special_bonus_unique_axe_5"
+       "Ability10"       "special_bonus_unique_axe_6"
+       "Ability11"       "special_bonus_unique_axe"
+       "Ability12"       "special_bonus_unique_axe_8"
+       "Ability13"       "special_bonus_unique_axe_9"
+       "Ability14"       "special_bonus_unique_axe_10"
+       "Ability15"       "special_bonus_unique_axe_11"
+       "Ability16"       "special_bonus_unique_axe_12"
+       "AttackCapabilities"  "DOTA_UNIT_CAP_MELEE_ATTACK"
+       "AttackDamageMin"     "1"
+       "AttackDamageMax"     "1"
+       "AttackAnimationPoint" "0.3"
+       "AttackAcquisitionRange" "600"
+       "AttackRange"         "150"
+       "AttackRate"          "1.7"
+       "AttributePrimary"    "DOTA_ATTRIBUTE_AGILITY"
+       "AttributeBaseStrength" "25"
+       "AttributeBaseAgility" "20"
+       "AttributeBaseIntelligence" "18"
+       "AttributeStrengthGain" "2.8"
+       "AttributeAgilityGain" "2.2"
+       "AttributeIntelligenceGain" "1.6"
+       "StatusHealth"        "200"
+       "MovementSpeed"       "315"
+   }
+   ```
+
+5. **Связь с аудио**:
+   - В аудио говорится о настройке `Attack Range` и уроне (`AttackDamage`). На экране видно, что `AttackRange` установлен на `150`, а `AttackDamageMin` и `AttackDamageMax` на `1`. Вероятно, в процессе видео эти значения изменяются в соответствии с аудио.
+
+### Заключение:
+Экран демонстрирует процесс редактирования конфигурационного файла для настройки параметров героя в Dota 2. Аудио объясняет изменения, которые вносятся в параметры атаки героя.

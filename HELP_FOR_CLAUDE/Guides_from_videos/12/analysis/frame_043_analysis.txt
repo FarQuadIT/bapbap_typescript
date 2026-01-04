@@ -1,0 +1,73 @@
+Кадр 43
+Временная метка: 0:10:45
+Номер кадра: 38700
+Скриншот: frame_038700_645.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:36] Caster это мы, получается, кто скристовали эту способность.
+[0:10:39] А Parent тот, на ком навешан модификатор.
+[0:10:41] Вот здесь вот разница прям как никогда видна.
+[0:10:44] Наносить урон давайте будем в размере 50 единиц.
+[0:10:48] И урон пусть будет магический.
+[0:10:51] DamageType Magical.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE)
+
+strong_poison = class({})
+
+function strong_poison:GetIntrinsicModifierName()
+    return "modifier_strong_poison"
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:DeclareFunctions()
+    return { MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT }
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+
+function modifier_strong_poison:OnCreated()
+    self:StartIntervalThink(1)
+end
+
+function modifier_strong_poison:OnIntervalThink()
+    ApplyDamage({
+        victim = self:GetParent(),
+        attacker = self:GetCaster(),
+        damage = self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+        damage_type = DAMAGE_TYPE_PHYSICAL,
+        ability = self:GetAbility()
+    })
+end
+```
+
+### Описание кода:
+- **Импорт модификатора**: `LinkLuaModifier` связывает модификатор `modifier_strong_poison` с файлом.
+- **Класс `strong_poison`**: Определяет способность, возвращающую имя модификатора.
+- **Модификатор `modifier_strong_poison`**:
+  - **Функции**: Объявляет функции, влияющие на скорость передвижения.
+  - **Снижение скорости**: Уменьшает скорость на 150 единиц.
+  - **Интервальный урон**: Каждую секунду наносит физический урон, значение которого берется из специального параметра способности.
+
+### Важные детали:
+- **Функции**: `DeclareFunctions`, `GetModifierMoveSpeedBonus_Constant`, `OnCreated`, `OnIntervalThink`.
+- **Переменные**: `victim`, `attacker`, `damage`, `damage_type`, `ability`.
+- **Пути**: Указан путь к файлу модификатора.
+
+### Связь с аудио:
+- В аудио говорится о `Caster` и `Parent`, что соответствует `attacker` и `victim` в коде.
+- Упоминается нанесение урона и его тип, что отражено в `ApplyDamage` с параметрами `damage` и `damage_type`.
+
+Этот код и аудио объясняют, как работает способность, наносящая урон и замедляющая цель.

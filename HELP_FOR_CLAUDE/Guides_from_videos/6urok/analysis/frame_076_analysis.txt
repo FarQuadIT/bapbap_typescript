@@ -1,0 +1,100 @@
+Кадр 76
+Временная метка: 0:19:00
+Номер кадра: 68400
+Скриншот: frame_068400_1140.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:18:51] и от 0 уже дальше до бесконечности.
+[0:18:53] И вот как раз-то, когда с 30 до 0 доходит,
+[0:18:55] до 0 доходит, выполняется у нас все, что внутри.
+[0:18:58] И что я вам тут советую?
+[0:19:00] Я вам советую тут назначить какую-то свотчу.
+[0:19:02] Чупакабра.Mod.Start.
+[0:19:05] Назначить такую функцию.
+[0:19:07] Можно вот так сделать.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+local HeroXPTable = {}
+HeroXPTable[0] = 0
+expTable[1] = expTable[1-1]
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_5, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_6, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_7, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_8, 3)
+    GameRules:SetUseCustomHeroXPValues(true) -- установка кастомной системы уровней
+    GameRules:SetCustomHeroMaxLevel( HeroXPTable )
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetHeroAttributeBonusValuesTable({
+        DOTA_ATTRIBUTE_AGILITY_ARMOR: 10.0,
+        DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED: 50.0
+    })
+    ListenToGameEvent('entity_killed', Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(self, 'ChupakabraStateChange'), self)
+end
+
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        ChupakabraMode:InvasionStart()
+    end
+end
+
+local kobold_count = 0
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        print("Kobold count: " .. kobold_count)
+        CreateDrop("item_lotus_orb", killed_unit:GetAbsOrigin())
+    end
+
+    if kobold_count >= 10 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+
+    if killed_unit:IsRealHero() then
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+
+function DividePlayers(gold)
+    for index = 0, PlayerResource:GetPlayerCount() do
+        local player = PlayerResource:GetPlayer(index)
+        local hero = PlayerResource:GetSelectedHeroEntity(index)
+        if player and hero then
+            hero:ModifyGold(gold, true, DOTA_ModifyGold_Unspecified)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+```
+
+### Описание кода:
+
+- **Инициализация режима игры**: Функция `InitGameMode` задает параметры игры, такие как максимальное количество игроков в командах и использование кастомных значений опыта и атрибутов героев.
+- **Обработка событий**: Используются функции `ListenToGameEvent` для обработки событий убийства сущностей и изменения состояния игры.
+- **Изменение состояния игры**: Функция `ChupakabraStateChange` запускает инвазию, когда игра переходит в состояние "в процессе".
+- **Управление убийствами**: Функция `ChupakabraKilled` увеличивает счетчик убитых кобольдов и завершает игру, если убито 10 кобольдов или герой.
+- **Разделение золота**: Функция `DividePlayers` распределяет золото между игроками.
+
+### Связь с аудио:
+
+Аудио объясняет, что происходит, когда счетчик доходит до нуля, и советует назначить функцию, что соответствует логике в коде, где выполняются действия при достижении определенных условий (например, `kobold_count >= 10`).

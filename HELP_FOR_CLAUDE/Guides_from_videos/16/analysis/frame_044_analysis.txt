@@ -1,0 +1,64 @@
+Кадр 44
+Временная метка: 0:11:00
+Номер кадра: 39600
+Скриншот: frame_039600_660.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:50] Не уверен, что все у вас на самом деле будут работать.
+[0:10:52] Потому что дота...
+[0:10:54] Доту делали очень интересные люди.
+[0:10:57] Однако самые базовые, по типу, подвинуться куда-то.
+[0:11:01] Куда-нибудь что-нибудь скастовать.
+[0:11:03] Точно 100% будет работать.
+[0:11:05] Давайте сейчас скажем нашему чуваку идти за нами.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+#### 1. Интерфейс/GUI:
+- **Название приложения:** Веб-сайт ModDota API.
+- **Открытые окна и вкладки:** Вкладка "Lua API" на сайте moddota.com.
+- **Видимые настройки:** Список констант `dotaunitorder_t` с их значениями.
+- **Что делает пользователь:** Пользователь, вероятно, изучает документацию по API для создания модов в Dota 2.
+
+#### 2. Видимый контент:
+- **Список констант:**
+  - `DOTA_UNIT_ORDER_NONE = 0`
+  - `DOTA_UNIT_ORDER_MOVE_TO_POSITION = 1`
+  - `DOTA_UNIT_ORDER_MOVE_TO_TARGET = 2`
+  - `DOTA_UNIT_ORDER_ATTACK_MOVE = 3`
+  - `DOTA_UNIT_ORDER_ATTACK_TARGET = 4`
+  - `DOTA_UNIT_ORDER_CAST_POSITION = 5`
+  - `DOTA_UNIT_ORDER_CAST_TARGET = 6`
+  - `DOTA_UNIT_ORDER_CAST_TARGET_TREE = 7`
+  - `DOTA_UNIT_ORDER_CAST_NO_TARGET = 8`
+  - `DOTA_UNIT_ORDER_CAST_TOGGLE = 9`
+  - `DOTA_UNIT_ORDER_HOLD_POSITION = 10`
+  - `DOTA_UNIT_ORDER_TRAIN_ABILITY = 11`
+  - `DOTA_UNIT_ORDER_DROP_ITEM = 12`
+  - `DOTA_UNIT_ORDER_GIVE_ITEM = 13`
+  - `DOTA_UNIT_ORDER_PICKUP_ITEM = 14`
+  - `DOTA_UNIT_ORDER_PICKUP_RUNE = 15`
+  - `DOTA_UNIT_ORDER_PURCHASE_ITEM = 16`
+  - `DOTA_UNIT_ORDER_SELL_ITEM = 17`
+  - `DOTA_UNIT_ORDER_DISASSEMBLE_ITEM = 18`
+  - `DOTA_UNIT_ORDER_MOVE_ITEM = 19`
+  - `DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO = 20`
+  - `DOTA_UNIT_ORDER_STOP = 21`
+  - `DOTA_UNIT_ORDER_TAUNT = 22`
+  - `DOTA_UNIT_ORDER_BUYBACK = 23`
+  - `DOTA_UNIT_ORDER_GLYPH = 24`
+  - `DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH = 25`
+  - `DOTA_UNIT_ORDER_CAST_RUNE = 26`
+  - `DOTA_UNIT_ORDER_PING_ABILITY = 27`
+  - `DOTA_UNIT_ORDER_MOVE_TO_DIRECTION = 28`
+
+#### 3. Связь с аудио:
+- **Соответствие с аудио:** В аудио говорится о том, что не все команды могут работать, но базовые команды, такие как движение или каст, будут работать. На экране показан список таких команд, что соответствует обсуждаемой теме.
+
+### Заключение
+Кадр из видео демонстрирует документацию API для моддинга Dota 2, что помогает пользователю понять, какие команды доступны и как они могут быть использованы в игре. Это соответствует обсуждаемой теме в аудио о базовых командах и их надежности.

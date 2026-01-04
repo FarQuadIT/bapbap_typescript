@@ -1,0 +1,102 @@
+Кадр 17
+Временная метка: 0:04:15
+Номер кадра: 15300
+Скриншот: frame_015300_255.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:06] Который наносит нам
+[0:04:07] Больше 100
+[0:04:08] Он не проходит
+[0:04:09] Все работает
+[0:04:10] Отлично
+[0:04:11] Однако это не все преимущества фильтра
+[0:04:12] Мы помимо того
+[0:04:13] Что можем запретить что либо
+[0:04:14] И ну
+[0:04:15] Разрешить
+[0:04:16] Там проходить
+[0:04:17] Урону
+[0:04:18] Мы можем его
+[0:04:19] Увеличить
+[0:04:20] Да
+[0:04:21] То есть
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+
+```lua
+GameRules:GetGameModeEntity():SetUseCustomHeroLevels( true ) -- установка кастомной системы уровней
+GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel( HeroExpTable )
+
+GameRules:GetGameModeEntity():SetUnseenFogOfWarEnabled(true)
+
+ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(self, 'ChupakabraStateChange'), self)
+GameRules:GetGameModeEntity():SetDamageFilter(Dynamic_Wrap(self, 'DamageFilter'), self)
+CustomGameEventManager:RegisterListener("spawn_cobold", Dynamic_Wrap(self, 'OnSpawnCobold'))
+CustomGameEventManager:RegisterListener("add_ability", Dynamic_Wrap(self, 'OnChoiceAbility'))
+
+function ChupakabraMode:OnSpawnCobold(data)
+    local player = PlayerResource:GetPlayer(data.id)
+    local hero = player:GetAssignedHero()
+
+    hero:ModifyGold(START_GOLD, true, 13)
+end
+
+function ChupakabraMode:OnChoiceAbility(data)
+    local player = PlayerResource:GetPlayer(data.player)
+    local hero = player:GetAssignedHero()
+
+    hero:AddAbility(data.ability)
+end
+
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        self:ChupakabraModeStart()
+    end
+end
+
+function ChupakabraMode:DamageFilter(data)
+    if data.damage > 100 then
+        return false
+    end
+
+    return true
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        EmitSoundOn("Hero_Abaddon.AphoticShield.Cast", killed_unit)
+        AddRandomAbilityFromPanel(8)
+    end
+end
+```
+
+### Описание кода:
+
+- **Импорты и настройки:** 
+  - Устанавливается кастомная система уровней и таблица опыта `HeroExpTable`.
+  - Включается "невидимый туман войны".
+
+- **События и слушатели:**
+  - Обработка событий убийства сущностей, изменения состояния игры, фильтрации урона, появления кобольда и выбора способности.
+
+- **Функции:**
+  - `OnSpawnCobold`: Добавляет золото герою при появлении кобольда.
+  - `OnChoiceAbility`: Добавляет выбранную способность герою.
+  - `ChupakabraStateChange`: Запускает режим "Chupakabra" при начале игры.
+  - `DamageFilter`: Фильтрует урон, блокируя его, если он больше 100.
+  - `ChupakabraKilled`: Обрабатывает убийство кобольда-босса, проигрывая звук и добавляя случайную способность.
+
+### Связь с аудио:
+
+Аудио объясняет, что фильтр урона может не только блокировать урон выше 100, но и увеличивать его, что соответствует функции `DamageFilter`, где урон больше 100 блокируется.

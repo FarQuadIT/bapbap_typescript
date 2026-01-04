@@ -1,0 +1,58 @@
+Кадр 39
+Временная метка: 0:09:45
+Номер кадра: 35100
+Скриншот: frame_035100_585.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:36] Скажу что короче что просто
+[0:09:38] Короче когда мы пишем так
+[0:09:40] У нас появляется self
+[0:09:42] То есть автоматически появляется
+[0:09:44] Если мы напишем через точку
+[0:09:46] Типа как то объявим
+[0:09:48] Или как у нас было до этого
+[0:09:50] Вот тут вот
+[0:09:52] Сейчас покажу вот так вот
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `cechens_armor.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+modifier_cechens_armor = class({})
+
+function modifier_cechens_armor:GetIntrinsicModifierName()
+    return "modifier_cechens_armor"
+end
+
+function modifier_cechens_armor:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
+    }
+end
+
+function modifier_cechens_armor:GetModifierPhysicalArmorBonus()
+    return self:GetParent():GetModifierPhysicalArmorBonus()
+end
+```
+
+### Описание кода:
+1. **LinkLuaModifier**: Связывает Lua-модификатор с именем `modifier_cechens_armor` с файлом `abilities/cechens_armor`.
+2. **modifier_cechens_armor = class({})**: Создает класс `modifier_cechens_armor`.
+3. **GetIntrinsicModifierName**: Возвращает имя модификатора, который будет применен.
+4. **DeclareFunctions**: Объявляет функции, которые модификатор будет использовать, в данном случае это `MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS`.
+5. **GetModifierPhysicalArmorBonus**: Возвращает бонус к физической броне, используя метод `GetModifierPhysicalArmorBonus` объекта `self:GetParent()`.
+
+### Важные детали:
+- **Импорты**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции**: `GetIntrinsicModifierName`, `DeclareFunctions`, `GetModifierPhysicalArmorBonus`.
+- **Переменные**: `modifier_cechens_armor`.
+
+### Связь с аудио:
+Аудио объясняет, как автоматически появляется `self` при написании кода, что видно в функции `GetModifierPhysicalArmorBonus`, где используется `self:GetParent()`. Это соответствует объяснению в аудио о том, как `self` используется в методах класса.

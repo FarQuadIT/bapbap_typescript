@@ -1,0 +1,97 @@
+Кадр 38
+Временная метка: 0:09:30
+Номер кадра: 34200
+Скриншот: frame_034200_570.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:21] Предмета
+[0:09:22] С помощью которой
+[0:09:23] Мы сможем
+[0:09:24] Получить
+[0:09:25] Голду
+[0:09:26] Нам нужно
+[0:09:27] Использовать
+[0:09:28] Просто
+[0:09:29] GetContainedItem
+[0:09:30] Функцию
+[0:09:31] Поэтому
+[0:09:32] Пишем
+[0:09:33] Если
+[0:09:34] Таргет
+[0:09:35] GetContainedItem
+[0:09:36] Получаем
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+CustomGameEventManager:RegisterListener("spawn-cobold", Dynamic_Wrap(self, 'OnSpawnCobold'))
+CustomGameEventManager:RegisterListener("add_ability", Dynamic_Wrap(self, 'OnChoiceAbility'))
+
+function ChupakabraMode:OnSpawnCobold(data)
+    local player = PlayerResource:GetPlayer(data.id)
+    local hero = player:GetAssignedHero()
+
+    hero:ModifyGold(START_GOLD, true, 13)
+end
+
+function ChupakabraMode:OnChoiceAbility(data)
+    local player = GetPlayer(data.player)
+    local hero = player:GetAssignedHero()
+
+    hero:AddAbility(data.ability)
+end
+
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        self:ChupakabraModeStart()
+    end
+end
+
+function ChupakabraMode:DamageFilter(data)
+    return true
+end
+
+function ChupakabraMode:OrderFilter(data)
+    local orderType = data.order_type
+
+    if type == DOTA_UNIT_ORDER_PICKUP_ITEM then
+        local target = EntIndexToHScript(data.entindex_target)
+        
+        return false
+    end
+
+    return true
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        EmitSoundOn("Hero_Abaddon.AphoticShield.Cast", killed_unit)
+    end
+end
+```
+
+### Описание кода:
+- **Регистрация событий:** Используются функции `RegisterListener` для регистрации событий `spawn-cobold` и `add_ability`.
+- **Функции:**
+  - `OnSpawnCobold`: Получает игрока и героя, добавляет золото герою.
+  - `OnChoiceAbility`: Добавляет способность герою.
+  - `ChupakabraStateChange`: Проверяет состояние игры и запускает режим.
+  - `DamageFilter`: Возвращает `true`, фильтр урона.
+  - `OrderFilter`: Проверяет тип приказа, если это поднятие предмета, возвращает `false`.
+  - `ChupakabraKilled`: Проверяет имя убитого юнита и воспроизводит звук, если это определенный юнит.
+
+### Важные детали:
+- **Импорты и функции:** Используются функции для работы с игроками и героями, такие как `PlayerResource:GetPlayer` и `GetAssignedHero`.
+- **Переменные:** `START_GOLD`, `data`, `player`, `hero`, `newState`, `orderType`, `target`, `killed_unit`.
+
+### Связь с аудио:
+- В аудио говорится о функции `GetContainedItem`, но в видимом коде она не используется. Возможно, это часть объяснения, как можно было бы использовать эту функцию в контексте работы с предметами.

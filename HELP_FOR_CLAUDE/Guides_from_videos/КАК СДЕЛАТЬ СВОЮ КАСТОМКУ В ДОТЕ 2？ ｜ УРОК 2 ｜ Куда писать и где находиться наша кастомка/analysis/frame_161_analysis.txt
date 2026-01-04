@@ -1,0 +1,73 @@
+Кадр 161
+Временная метка: 0:18:47
+Номер кадра: 67620
+Скриншот: frame_067620_1127.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:18:37] Ну и вот так очень просто мы можем менять базовые обилки доты.
+[0:18:44] В принципе на этом всё что хотел сказать.
+[0:18:49] Также кстати можно найти NPC Items.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_heroes_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки параметров героев.
+
+### Детали:
+
+1. **Язык программирования**: 
+   - Это не код в традиционном смысле, а конфигурационный файл в формате, похожем на JSON, но с некоторыми отличиями.
+
+2. **Содержимое файла**:
+   ```plaintext
+   "DOTAHeroes"
+   {
+       // HERO: Templar Assassin
+       "npc_dota_hero_alchemist"
+       {
+           "Ability1"             ""                              // Ability 1
+           "VisionNighttimeRange" "9999"                          // Range of vision at night time.
+           "npc_dota_hero_axe"
+           {
+               "Ability1"         "axe_berserkers_call"
+               "Ability2"         "axe_battle_hunger"
+               "Ability3"         "axe_counter_helix"
+               "Ability4"         "generic_hidden"
+               "Ability5"         "generic_hidden"
+               "Ability6"         "axe_culling_blade"
+               "Ability10"        "special_bonus_unique_axe"
+               "Ability11"        "special_bonus_unique_axe_2"
+               "Ability12"        "special_bonus_unique_axe_3"
+               "Ability13"        "special_bonus_unique_axe_4"
+               "Ability14"        "special_bonus_unique_axe_5"
+               "Ability15"        "special_bonus_unique_axe_6"
+               "ArmorPhysical"    "0"
+               "AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
+               "AttackDamageMin"  "24"
+               "AttackDamageMax"  "28"
+               "AttackRange"      "150"
+               "AttackRate"       "1.700000"
+               "AttributePrimary" "DOTA_ATTRIBUTE_AGILITY"
+               "AttributeBaseStrength" "25"
+               "AttributeStrengthGain" "2.5"
+               "AttributeBaseIntelligence" "18"
+               "AttributeIntelligenceGain" "1.6"
+               "AttributeBaseAgility" "20"
+               "AttributeAgilityGain" "2.2"
+               "MovementSpeed"    "315"
+           }
+       }
+   }
+   ```
+
+3. **Описание**:
+   - Файл содержит настройки для героев Dota 2, включая их способности, параметры атаки и атрибуты.
+   - Пример: для героя `npc_dota_hero_axe` указаны способности, такие как `axe_berserkers_call`, и параметры, такие как `AttackDamageMin` и `MovementSpeed`.
+
+4. **Связь с аудио**:
+   - В аудио говорится о том, как можно менять базовые способности героев в Dota 2. На экране как раз показан пример изменения таких параметров, что соответствует объяснению в аудио.
+   - Упоминание о возможности найти NPC Items также связано с редактированием конфигурационных файлов, подобных этому.
+
+Таким образом, экран демонстрирует процесс настройки героев в Dota 2 через редактирование конфигурационных файлов, что соответствует обсуждаемой теме в аудио.

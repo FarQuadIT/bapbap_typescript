@@ -1,0 +1,94 @@
+Кадр 149
+Временная метка: 0:17:23
+Номер кадра: 62580
+Скриншот: frame_062580_1043.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:16] Можно модельку в принципе удалить.
+[0:17:20] Зачем нам менять модельку.
+[0:17:21] Акса.
+[0:17:22] То есть если мы тут не указываем что-то в файле.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_heroes_custom.txt`. Это файл конфигурации, вероятно, связанный с модификацией игры Dota 2.
+
+### Детали экрана:
+
+1. **Название программы:**
+   - Sublime Text (UNREGISTERED)
+
+2. **Открытые вкладки:**
+   - `addon_english.txt`
+   - `heroist.txt`
+   - `npc_heroes.txt`
+   - `npc_heroes_custom.txt` (активная вкладка)
+   - `npc_items_custom.txt`
+   - `npc_units_custom.txt`
+   - `addoninfo.txt`
+   - `npc_abilities.txt`
+   - `npc_abilities_custom.txt`
+
+3. **Содержимое файла `npc_heroes_custom.txt`:**
+   - Это текстовый файл, содержащий данные о герое из игры.
+   - Пример структуры данных:
+     ```plaintext
+     "DOTAHeroes"
+     {
+         // HERO: Templar Assassin
+         "npc_dota_hero_alchemist"
+         {
+             "Ability1"        ""
+             "VisionNighttimeRange"    "9999"    // Range of vision at night time.
+             "npc_dota_hero_axe"
+             {
+                 "Ability1"        "axe_berserkers_call"
+                 "Ability2"        "axe_battle_hunger"
+                 "Ability3"        "axe_culling_blade"
+                 "Ability4"        "generic_hidden"
+                 "Ability5"        "generic_hidden"
+                 "Ability6"        "generic_hidden"
+                 "Ability10"       "special_bonus_unique_axe_2"
+                 "Ability11"       "special_bonus_unique_axe_3"
+                 "Ability12"       "special_bonus_unique_axe_5"
+                 "Ability13"       "special_bonus_unique_axe_6"
+                 "Ability14"       "special_bonus_unique_axe_7"
+                 "Ability15"       "special_bonus_unique_axe_8"
+                 "Ability16"       "special_bonus_unique_axe"
+                 "ArmorPhysical"   "0"
+                 "AttackCapabilities"   "DOTA_UNIT_CAP_MELEE_ATTACK"
+                 "AttackDamageMin"      "27"
+                 "AttackDamageMax"      "31"
+                 "AttackRate"           "1.700000"
+                 "AttackAnimationPoint" "0.500000"
+                 "AttackAcquisitionRange" "600"
+                 "AttackRange"          "150"
+                 "AttackSpeedActivityModifiers" 
+                 {
+                     "fast" "170"
+                 }
+                 "AttributePrimary"     "DOTA_ATTRIBUTE_STRENGTH"
+                 "AttributeStrength"    "25"
+                 "AttributeStrengthGain" "2.500000"
+                 "AttributeIntelligence" "18"
+                 "AttributeIntelligenceGain" "1.600000"
+                 "AttributeAgility"     "20"
+                 "AttributeAgilityGain" "2.200000"
+                 "StatusHealth"         "200"
+                 "MovementSpeed"        "315"
+             }
+         }
+     }
+     ```
+
+4. **Связь с аудио:**
+   - В аудио говорится о возможности удаления или изменения модели, что может быть связано с редактированием данных героя в файле. Возможно, обсуждается изменение параметров героя, таких как способности или характеристики, что видно в коде.
+
+5. **Интерфейс и настройки:**
+   - Внизу экрана видны настройки редактора: размер табуляции (Tab Size: 4) и режим отображения текста (Plain Text).
+   - Панель поиска внизу показывает, что активен поиск по слову "lifeDrain".
+
+Этот кадр демонстрирует процесс редактирования конфигурационных файлов для модификации героев в игре, что соответствует обсуждаемым в аудио изменениям.

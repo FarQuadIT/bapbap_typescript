@@ -1,0 +1,59 @@
+Кадр 58
+Временная метка: 0:14:30
+Номер кадра: 52200
+Скриншот: frame_052200_870.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:21] А точнее лучше сделать будет, если не равен, то мы просто возвращаем функцию и функция дальше не идет.
+[0:14:27] Однако, если же player ID равен ключу, то мы делаем просто то же самое, что и тут.
+[0:14:35] Только вместо того, чтобы получать лишний раз getAbleValue, мы просто можем воспользоваться value.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Visual Studio Code. Видимый код написан на языке JavaScript и относится к разработке модификации для игры Dota 2.
+
+### Видимый код:
+```javascript
+$.GetContextPanel().SetDialogVariable("counter", CustomNetTables.GetTableValue("boss_kill", `${Players.GetLocalPlayer()}`).boss_killed);
+
+if (Players.GetLocalPlayer() !== key) return;
+
+CustomNetTables.SubscribeNetTableListener("boss_kill", UpdateBossCounter);
+GameEvents.Subscribe("show_ability_panel", CreateAbilityPanel);
+
+const dotaHud = () => {
+    let panel = $.GetContextPanel();
+    while (panel) {
+        if (panel.id === "DotaHud") return panel;
+        panel = panel.GetParent();
+    }
+};
+
+const talent = dotaHud().FindChildTraverse("StatBranch");
+const levels = dotaHud().FindChildTraverse("level_stats_frame");
+```
+
+### Описание кода:
+1. **Функции и переменные:**
+   - `UpdateBossCounter`: Функция, которая обновляет счетчик убийств босса. Она проверяет, совпадает ли идентификатор локального игрока с переданным ключом.
+   - `CreateAbilityPanel`: Функция, которая создает панель способностей.
+   - `dotaHud`: Функция, которая возвращает панель интерфейса Dota 2, если она найдена.
+
+2. **Подписки на события:**
+   - `CustomNetTables.SubscribeNetTableListener`: Подписка на изменения в таблице `boss_kill`.
+   - `GameEvents.Subscribe`: Подписка на событие `show_ability_panel`.
+
+3. **Использование API Dota 2:**
+   - `$.GetContextPanel()`: Получение текущей панели контекста.
+   - `FindChildTraverse`: Поиск дочернего элемента в панели.
+
+### Связь с аудио:
+- В аудио говорится о проверке идентификатора игрока и использовании значения напрямую, что соответствует строке `if (Players.GetLocalPlayer() !== key) return;`. Это подтверждает, что код проверяет идентификатор игрока и возвращает, если он не совпадает, что соответствует объяснению в аудио.
+
+### Важные детали:
+- Код использует API Dota 2 для взаимодействия с пользовательским интерфейсом.
+- Используются функции для работы с панелями и событиями в игре.
+- Код предназначен для обновления интерфейса на основе данных из сетевых таблиц.

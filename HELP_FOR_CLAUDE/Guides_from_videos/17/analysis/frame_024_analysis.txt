@@ -1,0 +1,66 @@
+Кадр 24
+Временная метка: 0:06:00
+Номер кадра: 21600
+Скриншот: frame_021600_360.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:51] То есть пишем буквально точно так же, как и обилки.
+[0:05:55] Отлично, отлично.
+[0:05:57] Однако, с таким кодом у нас, да, будет выдаваться сейчас сила, но мы заметим одну... один кукольку прикольчик.
+[0:06:05] Так, выдаем себе наш дизель custom.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `item_desol_custom.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_item_desol_custom", "items/item_desol_custom", LUA_MODIFIER_MOTION_NONE)
+
+item_desol_custom = class({})
+
+function item_desol_custom:OnSpellStart()
+    print("123123")
+end
+
+function item_desol_custom:GetIntrinsicModifierName()
+    return "modifier_item_desol_custom"
+end
+
+modifier_item_desol_custom = class({})
+
+function modifier_item_desol_custom:IsHidden()
+    return true
+end
+
+function modifier_item_desol_custom:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+    }
+end
+
+function modifier_item_desol_custom:GetModifierBonusStats_Strength()
+    return self:GetAbility():GetSpecialValueFor("str_bonus")
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает Lua-модификатор с именем `modifier_item_desol_custom` с файлом `items/item_desol_custom`.
+- **item_desol_custom**: Класс предмета, содержащий методы:
+  - `OnSpellStart`: Выводит в консоль строку "123123" при активации способности.
+  - `GetIntrinsicModifierName`: Возвращает имя модификатора `modifier_item_desol_custom`.
+- **modifier_item_desol_custom**: Класс модификатора, содержащий методы:
+  - `IsHidden`: Возвращает `true`, что делает модификатор скрытым.
+  - `DeclareFunctions`: Объявляет функции модификатора, в данном случае бонус к силе.
+  - `GetModifierBonusStats_Strength`: Возвращает значение бонуса к силе, полученное из способности.
+
+### Важные детали:
+- **Импорты**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции и классы**: Основные классы — `item_desol_custom` и `modifier_item_desol_custom`.
+- **Переменные**: Используются для определения и возврата значений модификаторов.
+
+### Связь с аудио:
+- В аудио говорится о выдаче силы и возможных "прикольчиках" в коде. Это соответствует функции `GetModifierBonusStats_Strength`, которая возвращает бонус к силе, и упоминанию о выводе в консоль, что связано с `OnSpellStart`.

@@ -1,0 +1,65 @@
+Кадр 38
+Временная метка: 0:09:30
+Номер кадра: 34200
+Скриншот: frame_034200_570.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:20] И eachTarget у нас будет
+[0:09:22] также castRange. И теперь у нас
+[0:09:24] дистанция
+[0:09:26] projectile будет зависеть от castRange.
+[0:09:28] Найс, найс.
+[0:09:30] Следующее, что тоже очень важно для нас, это
+[0:09:32] отличие.
+[0:09:34] IUnitTargetTeam, то есть по кому может
+[0:09:36] бить наш projectile.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        fDistance = self:GetCastRange(casterPoint, caster)
+    })
+end
+```
+
+### Описание кода:
+- **Класс `wave_terorist`**: Определяет новый класс для способности.
+- **Функция `OnSpellStart`**: Вызывается при начале применения способности.
+  - **`local caster`**: Получает объект, который применяет способность.
+  - **`local point`**: Получает позицию курсора, куда направлена способность.
+  - **`local casterPoint`**: Получает текущую позицию кастера.
+  - **`ProjectileManager:CreateLinearProjectile`**: Создает линейный снаряд с заданными параметрами.
+    - **`EffectName`**: Указывает путь к визуальному эффекту снаряда.
+    - **`Ability`**: Ссылка на текущую способность.
+    - **`Source`**: Источник снаряда (кастер).
+    - **`vSpawnOrigin`**: Начальная точка появления снаряда.
+    - **`fStartRadius` и `fEndRadius`**: Радиус снаряда в начале и в конце.
+    - **`fDistance`**: Дистанция полета снаряда, вычисляется с помощью `GetCastRange`.
+
+### Важные детали:
+- **Импорты и зависимости**: Не видны в данном фрагменте.
+- **Переменные**: `caster`, `point`, `casterPoint`.
+- **Функции**: `GetCaster`, `GetCursorPosition`, `GetOrigin`, `CreateLinearProjectile`, `GetCastRange`.
+
+### Связь с аудио:
+- В аудио говорится о `castRange` и зависимости дистанции снаряда от него, что соответствует строке `fDistance = self:GetCastRange(casterPoint, caster)` в коде. Это объясняет, как дистанция снаряда определяется в зависимости от диапазона применения способности.

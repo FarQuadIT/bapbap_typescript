@@ -1,0 +1,55 @@
+Кадр 57
+Временная метка: 0:14:15
+Номер кадра: 51300
+Скриншот: frame_051300_855.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:03] нам осталось только пройти по ней по этому массиву и выполнить все то же
+[0:14:07] самое что мы делали с кастером ok давайте for нам первый аргумент не нужен
+[0:14:15] поэтому мы его просто черточки назовем и дальше или in i pairs
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `healing_spell.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    local heal = self:GetSpecialValueFor("heal")
+    local radius = self:GetSpecialValueFor("radius")
+    local allies = FindUnitsInRadius(caster:GetTeamNumber(), caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS, FIND_ANY_ORDER, false)
+
+    for _, ally in ipairs(allies) do
+        ally:Heal(heal, self)
+    end
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает модификатор `modifier_healing_spell` с файлом `abilities/healing_spell`.
+- **healing_spell**: Класс, представляющий заклинание.
+- **OnSpellStart**: Функция, вызываемая при активации заклинания. Она:
+  - Получает кастера заклинания.
+  - Извлекает значения `heal` и `radius` из специальных параметров.
+  - Находит союзников в радиусе действия.
+  - Лечит каждого найденного союзника на величину `heal`.
+- **modifier_healing_spell**: Модификатор, который возвращает постоянное восстановление здоровья (`hp_regen`).
+
+### Важные детали:
+- **Импорты и функции**: Используются стандартные функции Lua и API Dota 2 для работы с юнитами и их параметрами.
+- **Переменные**: `caster`, `heal`, `radius`, `allies` — ключевые переменные для выполнения логики заклинания.
+
+### Связь с аудио:
+- В аудио говорится о прохождении по массиву и выполнении действий, что соответствует циклу `for` в коде, где происходит лечение союзников.

@@ -1,0 +1,87 @@
+Кадр 88
+Временная метка: 0:22:00
+Номер кадра: 79200
+Скриншот: frame_079200_1320.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:21:50] Если мы запишем gameRules, которые вот тут находятся, типа.
+[0:21:53] Все, что, типа, вот, отвечает за gameRules.
+[0:21:56] А функции, которые, типа, пишем gateGameModeEntity, как мы это можем определить?
+[0:22:02] Бля, честно, не то.
+[0:22:04] Вон.
+[0:22:05] А, ну, допустим, я вам дал пример с атрибутами.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `invasion_classic.lua`. Это файл на языке программирования Lua, используемый для настройки игрового режима в модификации для игры Dota 2.
+
+### Видимый код:
+
+```lua
+witch_killed = 0
+Boss_killed = 0
+
+model_lookup["npc_dota_hero_phantom_lancer"] = "models/units/sara/sara.vmdl"
+model_lookup["npc_dota_hero_treant"] = "models/hero_shinobu/shinobu_gl.vmdl"
+
+function InvasionMode:InvasionMap()
+
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 0 )
+
+    GameRules:SetSameHeroSelectionEnabled(false)
+
+    GameRules:SetStrategyTime( 0.0 )
+    GameRules:SetShowcaseTime( 0.0 )
+
+    GameRules:GetGameModeEntity():SetCustomBuybackCostEnabled( true )
+
+    PlayerResource:SetCustomBuybackCost(0,1000)
+
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels( true ) -- установка кастомной системы уровней
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel (HeroMaxLevel)
+
+    GameRules:GetGameModeEntity():SetRemoveIllusionsOnDeath( true )
+    GameRules:GetGameModeEntity():SetTopBarTeamValuesOverride( true )
+    GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
+    GameRules:GetGameModeEntity():SetRecommendedItemsDisabled( true )
+
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR,0.050)
+    GameRules:GetGameModeEntity():SetWeatherEffectsDisabled( false )
+    GameRules:GetGameModeEntity():SetCustomWeatherEffect( "particles/main_fx/econ_snow.vpcf" )
+
+    ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(InvasionMode, 'OnPlayerLevelUp'), self)
+    ListenToGameEvent('entity_killed', Dynamic_Wrap(InvasionMode, 'OnEntityKilled'), self)
+    ListenToGameEvent('dota_item_picked_up', Dynamic_Wrap(InvasionMode, 'OnItemPickedUp'), self)
+    ListenToGameEvent('npc_spawned', Dynamic_Wrap(InvasionMode, 'OnNPCSpawn'), self)
+
+    LinkLuaModifier("modifier_health", "modifiers/modifier_health", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_health_2", "modifiers/modifier_health_2", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_health_3", "modifiers/modifier_health_3", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_health_4", "modifiers/modifier_health_4", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_health_5", "modifiers/modifier_health_5", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_damage", "modifiers/modifier_damage", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_damage_2", "modifiers/modifier_damage_2", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_damage_3", "modifiers/modifier_damage_3", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_damage_4", "modifiers/modifier_damage_4", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_damage_5", "modifiers/modifier_damage_5", LUA_MODIFIER_MOTION_NONE)
+```
+
+### Описание кода:
+
+- **Переменные**: `witch_killed` и `Boss_killed` инициализированы нулем.
+- **Модели**: `model_lookup` используется для замены моделей героев.
+- **Функция `InvasionMode:InvasionMap`**: Настраивает параметры игрового режима, такие как максимальное количество игроков в командах, параметры стратегии, стоимость выкупа, уровни героев и другие настройки.
+- **События**: Используются функции `ListenToGameEvent` для обработки различных игровых событий.
+- **Модификаторы**: `LinkLuaModifier` связывает Lua-модификаторы с файлами.
+
+### Связь с аудио:
+
+- В аудио упоминаются `gameRules` и `gateGameModeEntity`, что соответствует настройкам в коде, где используются `GameRules` и `GameModeEntity` для конфигурации игрового режима.
+- Пример с атрибутами, упомянутый в аудио, может относиться к строке, где устанавливается значение `SetCustomAttributeDerivedStatValue`.
+
+Этот код и аудио связаны через обсуждение настройки игровых правил и параметров в моде для Dota 2.

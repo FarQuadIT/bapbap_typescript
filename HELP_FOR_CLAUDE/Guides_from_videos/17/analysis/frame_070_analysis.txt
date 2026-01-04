@@ -1,0 +1,70 @@
+Кадр 70
+Временная метка: 0:17:30
+Номер кадра: 63000
+Скриншот: frame_063000_1050.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:21] То просто вначале ставим плюсик.
+[0:17:23] И дальше пишем, ну, естественно, наш параметр.
+[0:17:26] То есть, получится плюс 20 к горению жопы.
+[0:17:29] Выглядит мемно. Выглядит мемно.
+[0:17:32] Если вот так вот сделать, в целом без разницы будет.
+[0:17:35] Вот так просто пишем и все.
+[0:17:37] Однако, если мы хотим использовать Valve-скую заготовочку.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `addon_english.txt`. Это файл конфигурации, используемый для локализации в модах для игры Dota 2. 
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+
+2. **Открытые файлы**:
+   - `npc_items_custom.txt`
+   - `item_desol_custom.lua`
+   - `addon_english.txt` (активный)
+   - `abilities_english.txt`
+   - `npc_items_custom.txt` (в другой директории)
+
+3. **Структура папок**:
+   - Путь к файлу: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\resource\addon_english.txt`
+   - Видны папки: `maps`, `materials`, `panorama`, `particles`, `resource`, `scripts`, `soundevents`.
+
+4. **Содержимое файла `addon_english.txt`**:
+   ```plaintext
+   "lang"
+   {
+       "Language"        "English"
+       "Tokens"
+       {
+           "addon_game_name"            "CHUPAKEBRA"
+           "DOTA_BadGuys"               "зл"
+           "DOTA_GoodGuys"              "д"
+           "DOTA_Custom1"               "еж"
+           "DOTA_Custom2"               "каждый"
+           "DOTA_Custom3"               "меня"
+           "DOTA_Custom4"               "спасите меню"
+           "DOTA_Tooltip_ability_cockx_counter_helix" "Сосck helix"
+           "DOTA_Tooltip_ability_cockx_counter_helix_Description" "Я кручусь <font color=\"#ffffff\"> как джагернаут </font>"
+           "DOTA_Tooltip_ability_cockx_counter_helix_damage" "УРОН: "
+           "DOTA_Tooltip_ability_cockx_counter_helix_radius" "РАДИУС: "
+           "DOTA_Tooltip_ability_cockx_counter_helix_lore" "asdasdasdasd"
+           "DOTA_Tooltip_ability_item_motus_orb" "Motus bobus dsadads"
+           "DOTA_Tooltip_ability_item_motus_orb_Description" "<h1>Мечтания: Поук</h1> фывафывафывафывафывафывафывафыва \n\n<h1>DAFFDSA: "
+           "DOTA_Tooltip_ability_item_motus_orb_Lore" "asdasdasdasd"
+           "DOTA_Tooltip_ability_item_desol_custom_str_bonus" "+ к горению жопы"
+           "DOTA_Tooltip_ability_special_bonus_unique_ursa_duration" "+{s:bonus_duration} сек. к Ursa Copy"
+       }
+   }
+   ```
+
+5. **Связь с аудио**:
+   - В аудио говорится о добавлении параметра с плюсом, что отражено в строке `"DOTA_Tooltip_ability_item_desol_custom_str_bonus" "+ к горению жопы"`.
+   - Упоминается использование "Valve-ской заготовочки", что может относиться к стандартным шаблонам или форматам, используемым в Dota 2 для локализации.
+
+### Заключение:
+На экране показан процесс редактирования файла локализации для мода Dota 2, где добавляются и изменяются текстовые строки, используемые в игре. Аудио объясняет, как добавлять параметры и использовать шаблоны.

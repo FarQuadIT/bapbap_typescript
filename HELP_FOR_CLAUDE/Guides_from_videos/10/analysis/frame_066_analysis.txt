@@ -1,0 +1,79 @@
+Кадр 66
+Временная метка: 0:16:30
+Номер кадра: 59400
+Скриншот: frame_059400_990.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:20] В журнале боев будет обозначаться, что с помощью этого скилла нанесся урон.
+[0:16:27] И там еще, допустим, при смерти, когда герой смотрит, там, типа, показано, от какой Ability он получил какое-то количество урона.
+[0:16:35] И, на самом деле, давайте разберем еще DamageFlags.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `ursa_copy.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities`.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier( "modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE )
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return { MODIFIER_EVENT_ON_ATTACK_LANDED }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if IsServer() then
+        local modif = props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+        modif:IncrementStackCount()
+        ApplyDamage({
+            victim = props.target,
+            attacker = self:GetParent(),
+            damage = modif:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+            damage_type = DAMAGE_TYPE_PHYSICAL,
+            ability = self:GetAbility()
+        })
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+
+function modifier_ursa_copy_debuff:IsDebuff()
+    return true
+end
+```
+
+### Описание кода:
+
+- **Импорт модификаторов**: Используются `LinkLuaModifier` для подключения модификаторов `modifier_ursa_copy` и `modifier_ursa_copy_debuff`.
+- **Класс `ursa_copy`**: Определяет способность, которая возвращает имя модификатора `modifier_ursa_copy`.
+- **Модификатор `modifier_ursa_copy`**:
+  - **Скрыт**: Метод `IsHidden` возвращает `true`, что делает модификатор невидимым.
+  - **Функции**: Объявляет событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+  - **Обработка атаки**: При попадании атаки добавляется новый модификатор `modifier_ursa_copy_debuff` к цели, увеличивается счетчик стаков, и наносится физический урон, зависящий от количества стаков.
+- **Модификатор `modifier_ursa_copy_debuff`**:
+  - **Не скрыт**: Метод `IsHidden` возвращает `false`.
+  - **Является дебаффом**: Метод `IsDebuff` возвращает `true`.
+
+### Связь с аудио:
+
+В аудио говорится о журнале боев и нанесении урона с помощью скилла. Код на экране как раз реализует логику нанесения урона через модификаторы, что соответствует обсуждаемой теме в аудио. Упоминается, что при смерти героя показывается, от какой способности он получил урон, что также связано с функциональностью, реализованной в коде.

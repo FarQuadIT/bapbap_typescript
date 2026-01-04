@@ -1,0 +1,87 @@
+Кадр 49
+Временная метка: 0:12:15
+Номер кадра: 44100
+Скриншот: frame_044100_735.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:07] Teammates.
+[0:12:10] И здесь нам не нужно ничего узнавать, git apps.region никаких.
+[0:12:14] Мы получили, так сказать, таблицы четырех наших чуваков.
+[0:12:19] Нам нужно пройтись по ним.
+[0:12:21] Как мы это можем сделать?
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:OnNPCSpawned(data)
+    local npc = EntIndexToHScript(data.entindex)
+    local nState = GameRules:State_Get()
+    if nState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        ChupakabraWaveStart()
+    end
+end
+
+function ChupakabraMode:OnEntityKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_centaur_outrunner_boss", point , true, nil, nil, DOTA_TEAM_BADGUYS)
+    end
+    if killed_unit:GetUnitName() == "npc_dota_neutral_centaur_outrunner_boss" then
+        local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_beast_boss", point , true, nil, nil, DOTA_TEAM_BADGUYS)
+    end
+    if killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+end
+
+function GiveGoldPlayers(gold)
+    for index = 0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = player:GetAssignedHero()
+            hero:ModifyGold(gold, true, DOTA_ModifyGold_Unspecified)
+            SendOverheadEventMessage( player, OVERHEAD_ALERT_GOLD, hero, gold, nil )
+        end
+    end
+end
+
+function CreateDropItem(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    local drop = CreateItemOnPositionSync( pos, newItem )
+    newItem:LaunchLootInitialHeight( false, 0, 150, 0.5, pos + RandomVector( RandomFloat( 50, 150 ) ) )
+end
+
+function ChupakabraMode:ChupakabraOrder()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point , true, nil, nil, DOTA_TEAM_BADGUYS)
+
+    local temates = Entities:FindAllByName("teammates")
+end
+```
+
+### Описание кода:
+
+1. **Функции**:
+   - `OnNPCSpawned`: Вызывается при появлении NPC. Проверяет состояние игры и запускает волну `ChupakabraWaveStart`, если игра в процессе.
+   - `OnEntityKilled`: Обрабатывает события убийства сущностей. Создает новых боссов в зависимости от убитого юнита и завершает игру, если убит определенный босс.
+   - `GiveGoldPlayers`: Раздает золото всем игрокам.
+   - `CreateDropItem`: Создает предмет и размещает его на карте.
+   - `ChupakabraOrder`: Создает босса в определенной точке.
+
+2. **Переменные и объекты**:
+   - `npc`, `killed_unit`: Представляют сущности в игре.
+   - `point`: Координаты точки на карте.
+   - `temates`: Список сущностей с именем "teammates".
+
+### Связь с аудио:
+
+Аудио говорит о "таблицах четырех наших чуваков" и необходимости пройтись по ним. В коде упоминается переменная `temates`, которая может быть связана с этой задачей, так как она ищет сущности с именем "teammates". Это может быть частью логики, связанной с обработкой данных о союзниках или других игровых объектах.

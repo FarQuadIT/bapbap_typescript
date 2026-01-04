@@ -1,0 +1,75 @@
+Кадр 21
+Временная метка: 0:05:15
+Номер кадра: 18900
+Скриншот: frame_018900_315.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:06] и Valve находит нашу функцию
+[0:05:08] и где-то вызывает ее там у себя, где-то.
+[0:05:11] И она вызывает его не просто так,
+[0:05:13] а с неким аргументом.
+[0:05:15] То есть мы не видим этот аргумент,
+[0:05:17] он там где-то вызывается.
+[0:05:19] И мы можем, ну, естественно, назвать его как угодно.
+[0:05:21] Давайте допустим data.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+expTable = {0, 200, 500, 900, 1400, 2000, 2600, 3200, 4400, 5400, 6000, 8200, 9000, 10400, 11900, 13500, 15200, 17000, 18900, 20900, 23000, 25200, 27500, 29900, 32400, 35000}
+HeroExpTable = {}
+HeroExpTable[0] = expTable[0]
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(10.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_5, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_6, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_7, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_8, 2)
+    GameRules:SetUseCustomHeroXPValues(true) -- установка кастомной системы уровней
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function ChupakabraMode:ChupakabraKilled()
+    print("чупак сдох")
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`**: Создается класс для режима игры.
+- **Таблицы `expTable` и `HeroExpTable`**: Определяют опыт, необходимый для достижения каждого уровня.
+- **Функция `InitGameMode`**: Инициализирует параметры игры, такие как стартовое золото, время выбора героя, максимальное количество игроков в командах и кастомные значения опыта и атрибутов.
+- **Событие `entity_killed`**: Привязывается к функции `ChupakabraKilled`, которая выводит сообщение в консоль.
+
+### Связь с аудио:
+
+В аудио говорится о функции, которая вызывается с аргументом, который не виден. На экране показана функция `ChupakabraKilled`, которая может быть связана с обсуждаемым контекстом, так как она вызывается при событии `entity_killed`. Однако, в текущем коде аргументы не указаны, что соответствует упоминанию в аудио о невидимом аргументе.

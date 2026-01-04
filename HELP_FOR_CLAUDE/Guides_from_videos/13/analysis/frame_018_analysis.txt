@@ -1,0 +1,91 @@
+Кадр 18
+Временная метка: 0:04:30
+Номер кадра: 16200
+Скриншот: frame_016200_270.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:17] Не зря мы использовали Ability Values, потому что тут с талантами работать очень удобно.
+[0:04:23] Что мы делаем?
+[0:04:24] Делаем...
+[0:04:25] Duration.
+[0:04:27] То есть мы удаляем привычную нашу запись.
+[0:04:30] Duration.
+[0:04:31] Открываем скобки.
+[0:04:33] Здесь пишем Value.
+[0:04:35] И здесь уже вставляем наше значение.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+1. **Редактор:**
+   - **Название программы:** Sublime Text
+   - **Открытый файл:** `npc_abilities_custom.txt`
+   - **Путь к файлу:** `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\npc_abilities_custom.txt`
+
+2. **Код:**
+   - **Язык программирования:** Формат конфигурационного файла, вероятно, для игры Dota 2.
+   - **Видимый код:**
+     ```plaintext
+     "Version" "1"
+     "cechens_armor"
+     {
+         "BaseClass" "ability_lua"
+         "ScriptFile" "abilities/cechens_armor"
+         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         "AbilityValues"
+         {
+             "bonus_armor" "5 10 15 20"
+         }
+     }
+     "ursa_copy"
+     {
+         "BaseClass" "ability_lua"
+         "ScriptFile" "abilities/ursa_copy"
+         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         "AbilityValues"
+         {
+             "duration" "5"
+             "damage_per_stack" "5"
+         }
+     }
+     "healing_spell"
+     {
+         "BaseClass" "ability_lua"
+         "ScriptFile" "abilities/healing_spell"
+         "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+         "AbilityCastPoint" "0.45"
+         "AbilityManaCost" "75 80 85 90"
+         "AbilityValues"
+         {
+             "heal" "150 300 450 600"
+             "duration" "3 5 6 7 9"
+             "radius" "350"
+             "hp_regen" "20 40 60 80"
+         }
+     }
+     ```
+
+3. **Описание кода:**
+   - **Назначение:** Конфигурация способностей для модификации игры Dota 2.
+   - **Структура:**
+     - **"cechens_armor":** Пассивная способность, добавляющая бонус к броне.
+     - **"ursa_copy":** Пассивная способность с параметрами `duration` и `damage_per_stack`.
+     - **"healing_spell":** Способность без цели, с параметрами `heal`, `duration`, `radius`, `hp_regen`.
+
+4. **Связь с аудио:**
+   - В аудио говорится о работе с `Ability Values`, что соответствует видимому коду, где используются параметры `duration` и другие значения в блоках `AbilityValues`.
+   - Упоминается удаление и вставка значений, что может относиться к редактированию параметров, таких как `duration`.
+
+### Важные детали
+- **Панели и вкладки:**
+  - Открыты несколько вкладок, включая `npc_heroes_custom.txt`, `npc_abilities.txt`, `npc_dota_hero_batrider.txt`.
+- **Интерфейс:**
+  - Видна структура папок слева, что позволяет быстро переключаться между файлами.
+- **Настройки:**
+  - Внизу экрана указаны настройки редактора: `Tab Size: 4`, `Plain Text`.
+
+Этот анализ поможет в создании документации, связанной с модификацией способностей в игре Dota 2.

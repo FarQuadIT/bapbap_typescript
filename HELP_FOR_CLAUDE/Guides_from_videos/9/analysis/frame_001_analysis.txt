@@ -1,0 +1,56 @@
+Кадр 1
+Временная метка: 0:00:15
+Номер кадра: 900
+Скриншот: frame_000900_15.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:00:05] Сегодня у нас на повестке дня таблицы в луа
+[0:00:09] Довольно сложная тема
+[0:00:12] И сразу после подлогового перерыва приступаем к сложной теме
+[0:00:15] Я попытаюсь вам сегодня все объяснить
+[0:00:17] И напишите в комментариях, понятно все было или нет
+[0:00:21] Ну а мы начинаем
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `cechens_armor.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities`.
+
+### Код:
+```lua
+LinkLuaModifier("modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+cechens_armor = class({})
+
+function cechens_armor:GetIntrinsicModifierName()
+    return "modifier_cechens_armor"
+end
+
+modifier_cechens_armor = class({})
+
+function modifier_cechens_armor:DeclareFunctions()
+    return { MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS }
+end
+
+function modifier_cechens_armor:GetModifierPhysicalArmorBonus()
+    return self:GetParent():GetStrength()
+end
+```
+
+### Описание кода:
+1. **LinkLuaModifier**: Связывает модификатор `modifier_cechens_armor` с файлом `abilities/cechens_armor`.
+2. **cechens_armor = class({})**: Создает класс `cechens_armor`.
+3. **GetIntrinsicModifierName**: Возвращает имя модификатора `modifier_cechens_armor`.
+4. **modifier_cechens_armor = class({})**: Создает класс `modifier_cechens_armor`.
+5. **DeclareFunctions**: Определяет функции, которые модификатор будет использовать, в данном случае `MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS`.
+6. **GetModifierPhysicalArmorBonus**: Возвращает бонус к физической броне, который равен силе родительского объекта.
+
+### Важные детали:
+- Используется функция `LinkLuaModifier` для связывания модификатора.
+- Определены классы и функции для работы с модификатором брони.
+- Код связан с игрой Dota 2, что видно из пути к файлу.
+
+### Связь с аудио:
+Аудио говорит о сложной теме таблиц в Lua, и на экране показан пример кода на Lua, который может быть частью объяснения работы с таблицами и модификаторами в контексте разработки модификаций для Dota 2.

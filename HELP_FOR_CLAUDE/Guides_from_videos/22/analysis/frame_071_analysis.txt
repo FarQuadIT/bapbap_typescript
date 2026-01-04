@@ -1,0 +1,76 @@
+Кадр 71
+Временная метка: 0:17:45
+Номер кадра: 63900
+Скриншот: frame_063900_1065.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:36] create tracking projectile.
+[0:17:38] Вам осталось только будет
+[0:17:40] просто находить врагов
+[0:17:42] в on projectile hit extraData,
+[0:17:44] и создавать
+[0:17:46] новое projectile.
+[0:17:48] Ну а с вами был
+[0:17:50] CallStoryBob.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `wave_terorist.lua`, и он находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\abilities`.
+
+### Видимый код:
+```lua
+EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+Ability = caster,
+vSpawnOrigin = vSpawnOrigin,
+fStartRadius = 100,
+fEndRadius = 100,
+vVelocity = direction * speed,
+fDistance = 1000,
+Source = caster,
+iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
+fExpireTime = GameRules:GetGameTime() + 10.0,
+bDeleteOnHit = false,
+vVelocity = direction * speed,
+ExtraData = {
+    vision_radius = 500,
+    vision_team_number = caster:GetTeamNumber(),
+    counter = 1,
+    name = "asdas",
+    boolean = true,
+}
+
+function wave_terorist:OnProjectileHit_ExtraData(target, _, extraData)
+    local caster = self:GetCaster()
+
+    if not target then
+        caster:Heal(9999, self)
+        return
+    end
+
+    ApplyDamage({
+        victim = target,
+        attacker = caster,
+        ability = self,
+        damage = 100,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+    })
+
+    target:AddNewModifier(caster, self, "modifier_stunned", {duration = 1})
+end
+```
+
+### Описание кода:
+- **EffectName**: Определяет визуальный эффект для снаряда.
+- **Ability, vSpawnOrigin, fStartRadius, fEndRadius, vVelocity, fDistance, Source**: Параметры, задающие свойства снаряда, такие как начальная точка, радиус, скорость и направление.
+- **iUnitTargetTeam, iUnitTargetFlags, iUnitTargetType**: Определяют, какие цели может поражать снаряд.
+- **ExtraData**: Дополнительные данные, передаваемые снаряду, включая радиус видимости и команду.
+- **Функция `OnProjectileHit_ExtraData`**: Обрабатывает попадание снаряда. Если цель не найдена, исцеляет кастера. Если цель найдена, наносит магический урон и оглушает её.
+
+### Связь с аудио:
+- В аудио говорится о создании "tracking projectile" и необходимости находить врагов в `OnProjectileHit_ExtraData`. Это соответствует коду, где обрабатывается попадание снаряда и взаимодействие с целью.
+- Упоминается создание нового снаряда, что может быть связано с логикой, описанной в функции, хотя в текущем коде создание нового снаряда явно не показано.

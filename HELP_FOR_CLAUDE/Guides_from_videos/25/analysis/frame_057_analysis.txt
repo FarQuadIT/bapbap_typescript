@@ -1,0 +1,84 @@
+Кадр 57
+Временная метка: 0:14:15
+Номер кадра: 51300
+Скриншот: frame_051300_855.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:06] Оно чисто по файлу распространено
+[0:14:08] Без local мы можем item drop
+[0:14:10] Использовать вот тут
+[0:14:12] Иначе у вас просто не будет работать
+[0:14:14] А так же важно уточнение про рандомный вектор
+[0:14:16] Что он не принимает
+[0:14:18] Два значения
+[0:14:20] Для того чтобы
+[0:14:22] За роли 75 или 150
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `item_drop_manager.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Код:
+```lua
+require("tables/item_drop")
+
+if ItemDropManager == nil then
+    ItemDropManager = class({})
+end
+
+function ItemDropManager:init()
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'EntityKilled'), self)
+end
+
+function ItemDropManager:EntityKilled(event)
+    local killedUnit = EntIndexToHScript(event.entindex_killed)
+    local items = ITEM_DROP[killedUnit:GetUnitName()]
+
+    if not items then return end
+
+    local randomNumber = RandomFloat(0, 0.99)
+    local cumulativeProbability = 0
+    local droptItem
+
+    for _, item in ipairs(items) do
+        cumulativeProbability = cumulativeProbability + item.chance
+        if randomNumber < cumulativeProbability then
+            dropItem = item
+            break
+        end
+    end
+
+    if not dropItem then return end
+
+    local spawnPoint = killedUnit:GetAbsOrigin()
+    local newItem = CreateItem(dropItem.item, nil, nil)
+    CreateItemOnPositionForLaunch(spawnPoint, newItem)
+    newItem:LaunchLootInitialHeight(false, 0, 150, 0.5, spawnPoint + RandomVector(150))
+end
+```
+
+### Описание кода:
+- **Импорт**: `require("tables/item_drop")` — подключает таблицу с данными о предметах.
+- **Класс**: `ItemDropManager` — класс для управления выпадением предметов.
+- **Методы**:
+  - `init()`: регистрирует событие `entity_killed`, связывая его с методом `EntityKilled`.
+  - `EntityKilled(event)`: обрабатывает событие убийства сущности. Определяет, какие предметы могут выпасть, и случайным образом выбирает один из них на основе вероятности.
+- **Переменные**:
+  - `killedUnit`: объект убитой сущности.
+  - `items`: список предметов, которые могут выпасть из убитой сущности.
+  - `randomNumber`: случайное число для определения выпадения предмета.
+  - `cumulativeProbability`: накопленная вероятность для выбора предмета.
+  - `dropItem`: выбранный для выпадения предмет.
+  - `spawnPoint`: координаты, где появится предмет.
+  - `newItem`: созданный предмет для выпадения.
+
+### Связь с аудио:
+- В аудио упоминается использование `item drop` и важность корректного определения рандомного вектора. Это соответствует коду, где происходит выбор предмета для выпадения и его размещение с использованием `RandomVector(150)`.
+- Также упоминается, что без правильной настройки `local` переменных и рандомного вектора, код может не работать, что отражено в логике выбора и размещения предметов.
+
+### Важные детали:
+- Использование `RandomVector(150)` для определения случайного направления, что связано с аудио, где говорится о рандомном векторе.
+- Метод `LaunchLootInitialHeight` используется для анимации выпадения предмета.

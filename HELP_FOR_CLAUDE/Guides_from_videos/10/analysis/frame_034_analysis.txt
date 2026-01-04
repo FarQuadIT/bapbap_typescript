@@ -1,0 +1,81 @@
+Кадр 34
+Временная метка: 0:08:30
+Номер кадра: 30600
+Скриншот: frame_030600_510.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:21] Первым аргументом мы должны...
+[0:08:22] Передать тот, кто накинул модификатор.
+[0:08:26] У нас накинул модификатор Parent.
+[0:08:29] То есть владелец способности.
+[0:08:30] Пишем сюда.
+[0:08:31] К чему относится...
+[0:08:33] Ну, что за обилка накинула модификатор?
+[0:08:35] Это у нас наш...
+[0:08:37] Ну, обилка, короче.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Описание кадра
+
+1. **КОД:**
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+     LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+     ursa_copy = class({})
+
+     function ursa_copy:GetIntrinsicModifierName()
+         return "modifier_ursa_copy"
+     end
+
+     modifier_ursa_copy = class({})
+
+     function modifier_ursa_copy:IsHidden()
+         return true
+     end
+
+     function modifier_ursa_copy:DeclareFunctions()
+         return {
+             MODIFIER_EVENT_ON_ATTACK_LANDED
+         }
+     end
+
+     function modifier_ursa_copy:OnAttackLanded(props)
+         if self:GetParent() == props.attacker then
+             props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", {})
+         end
+     end
+
+     modifier_ursa_copy_debuff = class({})
+
+     function modifier_ursa_copy_debuff:IsHidden()
+         return false
+     end
+     ```
+   - **Описание кода:**
+     - Код определяет два модификатора: `modifier_ursa_copy` и `modifier_ursa_copy_debuff`.
+     - `ursa_copy` — это класс способности, который возвращает имя модификатора `modifier_ursa_copy`.
+     - `modifier_ursa_copy` скрыт и реагирует на событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+     - При срабатывании события, если атакующий — это владелец модификатора, на цель атаки накладывается `modifier_ursa_copy_debuff`.
+     - `modifier_ursa_copy_debuff` не скрыт.
+
+   - **Важные детали:**
+     - Используются функции `LinkLuaModifier`, `GetIntrinsicModifierName`, `IsHidden`, `DeclareFunctions`, `OnAttackLanded`.
+     - Модификаторы связаны с файлом `abilities/ursa_copy`.
+
+2. **РЕДАКТОР:**
+   - **Название программы:** Sublime Text
+   - **Что открыто в редакторе:** Файл `ursa_copy.lua`
+   - **Активные инструменты:** Нет явных активных инструментов, стандартный текстовый редактор.
+   - **Настройки:** Видна структура папок слева, открыты несколько вкладок с файлами.
+
+3. **СВЯЗЬ С АУДИО:**
+   - В аудио говорится о передаче аргумента, который накинул модификатор. Это соответствует строке в коде, где используется `self:GetParent()` для передачи владельца способности в функцию `AddNewModifier`.
+
+Этот анализ помогает понять, как код взаимодействует с аудио, объясняя, как модификаторы применяются в игровом контексте.

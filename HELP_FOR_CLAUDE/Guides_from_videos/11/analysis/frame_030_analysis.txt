@@ -1,0 +1,75 @@
+Кадр 30
+Временная метка: 0:07:30
+Номер кадра: 27000
+Скриншот: frame_027000_450.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:21] Модификатор накладывается, дает regen.
+[0:07:23] Типа все отлично.
+[0:07:25] Давайте сверху накину вам еще пару полезных функций.
+[0:07:28] Которые вам могут пригодиться.
+[0:07:30] Давайте добавим какой-то эффект.
+[0:07:32] Модификатору нашему.
+[0:07:34] То есть когда модификатор навестится, появится этот эффект.
+[0:07:36] Модификатор закончится, эффект тоже закончится.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `healing_spell.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    local heal = self:GetSpecialValueFor("heal")
+    local duration = self:GetSpecialValueFor("duration")
+    caster:Heal(heal, self)
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, caster, heal, nil)
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = duration})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:IsHidden()
+    return false
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+1. **Импорт модификатора**: `LinkLuaModifier` связывает Lua-модификатор с именем `"modifier_healing_spell"` и указывает путь к файлу.
+
+2. **Класс `healing_spell`**:
+   - **`OnSpellStart`**: Функция, вызываемая при активации заклинания. Она:
+     - Получает кастера (`caster`).
+     - Извлекает значения `heal` и `duration` из специальных значений способности.
+     - Восстанавливает здоровье кастеру.
+     - Отображает визуальный эффект восстановления здоровья.
+     - Применяет модификатор `"modifier_healing_spell"` на кастера на определенное время.
+
+3. **Класс `modifier_healing_spell`**:
+   - **`IsHidden`**: Возвращает `false`, что означает, что модификатор видим.
+   - **`DeclareFunctions`**: Определяет функции, которые модификатор будет изменять, в данном случае постоянное восстановление здоровья.
+   - **`GetModifierConstantHealthRegen`**: Возвращает значение восстановления здоровья, извлеченное из способности.
+
+### Связь с аудио:
+- В аудио говорится о наложении модификатора, который дает восстановление здоровья (regen), что соответствует коду, где модификатор добавляется и обеспечивает восстановление здоровья.
+- Также упоминается добавление эффектов, что связано с визуальными эффектами и функциональностью, описанной в коде.
+
+### Важные детали:
+- Используются функции для получения специальных значений способности, что позволяет гибко настраивать параметры заклинания.
+- Код структурирован в виде классов, что упрощает расширение и поддержку.

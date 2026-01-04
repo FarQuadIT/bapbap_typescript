@@ -1,0 +1,81 @@
+Кадр 14
+Временная метка: 0:01:10
+Номер кадра: 4200
+Скриншот: frame_004200_70.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:00] всякие светяшки и до сего момента мы знали как прикрепить партикл только с помощью функции get
+[0:01:07] effect name и при этом ну то есть если на тебе есть модификатор ты можешь ему написать get
+[0:01:12] effect name и просто на нем будет висеть нужен тебе модификатор и все однако что делать если
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для разработки модификаторов в игре Dota 2.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier("modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE)
+
+strong_poison = class({})
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {duration = 8})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT
+    }
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+
+function modifier_strong_poison:OnCreated()
+    self:StartIntervalThink(0.5)
+end
+
+function modifier_strong_poison:OnIntervalThink()
+    ApplyDamage({
+        victim = self:GetParent(),
+        attacker = self:GetCaster(),
+        damage = 50,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+        ability = self:GetAbility()
+    })
+end
+
+function modifier_strong_poison:GetEffectName()
+    return "particles/econ/items/viper/viper_ti7_immortal/viper_poison_debuff_ti7.vpcf"
+end
+```
+
+### Описание кода:
+
+- **LinkLuaModifier**: Связывает Lua-модификатор с именем `modifier_strong_poison`.
+- **strong_poison:OnSpellStart**: Функция, вызываемая при начале заклинания. Применяет модификатор `modifier_strong_poison` к цели на 8 секунд.
+- **modifier_strong_poison**: Класс, описывающий поведение модификатора.
+  - **IsHidden**: Возвращает `false`, модификатор видим.
+  - **DeclareFunctions**: Определяет функции, которые модификатор будет использовать, в данном случае изменение скорости.
+  - **GetModifierMoveSpeedBonus_Constant**: Уменьшает скорость на 150.
+  - **OnCreated**: Запускает периодическое действие каждые 0.5 секунды.
+  - **OnIntervalThink**: Наносит магический урон в 50 единиц.
+  - **GetEffectName**: Возвращает путь к визуальному эффекту, связанному с модификатором.
+
+### Связь с аудио:
+
+Аудио объясняет использование функции `GetEffectName`, которая возвращает путь к партиклу, что соответствует видимому коду. Это связано с тем, как модификатор визуально отображается в игре.

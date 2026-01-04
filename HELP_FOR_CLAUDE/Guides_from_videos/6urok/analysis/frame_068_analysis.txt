@@ -1,0 +1,105 @@
+Кадр 68
+Временная метка: 0:17:00
+Номер кадра: 61200
+Скриншот: frame_061200_1020.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:52] Ну и еще один примерчик докину в довесок к вам.
+[0:16:56] Листен слушатель Game Rules State Change
+[0:17:01] назвал чупага про State Change, кстати, вот забыл поменять.
+[0:17:06] Называем нашу Invasion, тоже неправильно доназвал.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+local expTable = {}
+HeroExpTable[1] = expTable[-1]
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(30.0)
+    GameRules:SetPreGameTime(30.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetUseCustomHeroXPValues(true)
+    GameRules:SetGoldPerTick(0)
+    GameRules:SetCustomGameEndDelay(0)
+    GameRules:SetCustomVictoryMessageDuration(0)
+    GameRules:SetStartingGold(600)
+    GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+    GameRules:LockCustomGameSetupTeamAssignment(true)
+    GameRules:EnableCustomGameSetupAutoLaunch(true)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_5, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_6, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_7, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_8, 0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+
+    ListenToGameEvent('entity_killed', Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(GameMode, 'chupakabrastatechange'), self)
+end
+
+function InvasionMode:InvasionGameModeStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        print("Game In Progress")
+        InvadeInvasionGameState()
+    elseif newState == DOTA_GAMERULES_STATE_POST_GAME then
+        print("Post Game")
+        return
+    end
+end
+
+local kobold_count = 0
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        print("Kobold killed: ", kobold_count)
+        CreateDropItem("item_lots_of_gold", killed_unit:GetAbsOrigin())
+    end
+
+    if killed_unit:GetTeam() == DOTA_TEAM_GOODGUYS then
+        GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 0)
+    elseif killed_unit:GetTeam() == DOTA_TEAM_BADGUYS then
+        GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 0)
+    end
+end
+```
+
+### Описание кода:
+
+- **Инициализация режима игры**: Функция `InitGameMode` настраивает параметры игры, такие как время выбора героя, время до начала игры, количество игроков в командах и другие настройки.
+- **Обработчики событий**: Используются функции `ListenToGameEvent` для обработки событий, таких как убийство сущности и изменение состояния правил игры.
+- **Изменение состояния игры**: Функция `InvasionGameModeStateChange` обрабатывает изменения состояния игры, выводя сообщения в зависимости от текущего состояния.
+- **Обработка убийства**: Функция `ChupakabraKilled` увеличивает счетчик убитых "kobold" и создает предмет на месте их смерти. Также изменяет количество игроков в командах в зависимости от команды убитого юнита.
+
+### Связь с аудио:
+
+- В аудио упоминается "слушатель Game Rules State Change", что соответствует использованию `ListenToGameEvent` для обработки изменений состояния игры.
+- Также упоминается необходимость переименования, что может относиться к именам функций или переменных в коде, например, `chupakabrastatechange`.
+
+### Важные детали:
+
+- Используется Sublime Text в не зарегистрированной версии.
+- Открыты несколько вкладок с файлами, включая `npc_abilities_custom.txt` и `invasion_classic.lua`.
+- В левой панели видна структура папок проекта, включая `maps`, `materials`, `particles`, `resource`, `scripts`, `sound`, `npc`.

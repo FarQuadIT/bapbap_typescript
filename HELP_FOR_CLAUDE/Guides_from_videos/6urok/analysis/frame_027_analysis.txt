@@ -1,0 +1,68 @@
+Кадр 27
+Временная метка: 0:06:45
+Номер кадра: 24300
+Скриншот: frame_024300_405.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:35] Это все, на самом деле, сделал, так сказать, движок Valve.
+[0:06:38] То есть у них он так работает.
+[0:06:40] И у них есть встроенная функция,
+[0:06:42] которая как раз и превращает это число
+[0:06:47] в таблицу еще одну.
+[0:06:50] Или не таблицу, но сейчас поймете.
+[0:06:52] Что мы делаем?
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+ChupakabraMode = class({})
+
+HeroExpTable = {0, 200, 500, 900, 1400, 2000, 2600, 3400, 4400, 5400, 6000, 8200, 9000, 10400, 11900, 13500, 15200, 17000, 18900, 20900, 23000, 25200, 27500, 29900, 32400}
+expTable = {0}
+
+for i=2, #expTable do
+    HeroExpTable[i-1] = HeroExpTable[i-1] + expTable[i-1]
+end
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetHeroSelectionTime(0)
+    GameRules:SetPreGameTime(0)
+    GameRules:SetPostGameTime(0)
+    GameRules:SetShowcaseTime(0)
+    GameRules:SetStrategyTime(0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 2)
+    GameRules:SetUseUniversalShopMode(true) -- Установка кастомной системы уровня
+    GameRules:SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+    GameRules:GetGameModeEntity():SetBuybackEnabled(false)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0)
+
+    print("ChupakabraMode loaded.")
+end
+```
+
+### Описание кода:
+- **Класс `ChupakabraMode`**: Создается класс для настройки игрового режима.
+- **Таблицы `HeroExpTable` и `expTable`**: Определяют количество опыта, необходимого для достижения каждого уровня.
+- **Функция `InitGameMode`**: Настраивает параметры игры, такие как начальное золото, время выбора героя, максимальное количество игроков в командах и другие параметры.
+- **Использование `GameRules` и `GameModeEntity`**: Настраиваются правила игры и параметры, такие как отключение выкупа и настройка атрибутов.
+
+### Связь с аудио:
+- В аудио упоминается встроенная функция, которая превращает число в таблицу. Это связано с использованием таблицы `HeroExpTable`, которая определяет опыт для уровней.
+- Объясняется, как движок Valve обрабатывает эти данные, что соответствует настройке параметров игры в коде.
+
+### Важные детали:
+- **Импорты**: Не видны, так как Lua не требует явных импортов для стандартных библиотек.
+- **Функции и переменные**: Основная функция `InitGameMode` и таблицы `HeroExpTable`, `expTable` являются ключевыми элементами кода.

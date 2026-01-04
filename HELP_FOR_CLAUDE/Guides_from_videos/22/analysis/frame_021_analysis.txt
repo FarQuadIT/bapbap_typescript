@@ -1,0 +1,75 @@
+Кадр 21
+Временная метка: 0:05:15
+Номер кадра: 18900
+Скриншот: frame_018900_315.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:06] Кастер.
+[0:05:08] Обилка это у нас просто self.
+[0:05:10] Название давайте возьмем
+[0:05:12] дотовский модификатор
+[0:05:14] стана.
+[0:05:16] Мне подсказку не дадут.
+[0:05:18] Обидно. Ну, надеюсь, это он.
+[0:05:20] И duration я тоже укажу здесь вручную
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `mega_puper_stun.lua`. Это файл на языке программирования Lua, используемый для создания скриптов в игре Dota 2.
+
+### Видимый код:
+```lua
+mega_puper_stun = class({})
+
+function mega_puper_stun:OnSpellStart()
+    local caster = self:GetCaster()
+    local target = self:GetCursorTarget()
+
+    ProjectileManager:CreateTrackingProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_magic_missle.vpcf",
+        Ability = self,
+        Source = caster,
+        Target = target,
+        iMoveSpeed = 1000,
+    })
+end
+
+function mega_puper_stun:OnProjectileHit(target)
+    if not target then return end
+    local caster = self:GetCaster()
+
+    ApplyDamage({
+        victim = target,
+        attacker = caster,
+        ability = self,
+        damage = 100,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+    })
+
+    target:AddNewModifier(caster, self, "modifier")
+end
+```
+
+### Описание кода:
+1. **Класс и функции:**
+   - `mega_puper_stun = class({})`: Создание класса `mega_puper_stun`.
+   - `OnSpellStart`: Функция, вызываемая при начале применения способности. Создает отслеживающий снаряд.
+   - `OnProjectileHit`: Функция, вызываемая при попадании снаряда в цель. Наносит магический урон и добавляет модификатор.
+
+2. **Детали:**
+   - Используется `ProjectileManager` для создания снаряда с визуальным эффектом.
+   - `ApplyDamage` наносит 100 единиц магического урона.
+   - `AddNewModifier` добавляет модификатор к цели.
+
+### Связь с аудио:
+- В аудио говорится о кастере и модификаторе, что соответствует коду, где используются `caster` и `AddNewModifier`.
+- Упоминается "дотовский модификатор стана", что связано с добавлением модификатора в коде.
+- Также говорится о ручном указании `duration`, но в коде это не видно, возможно, это будет добавлено позже.
+
+### Интерфейс редактора:
+- Открыт файл `mega_puper_stun.lua` в Sublime Text.
+- В левой панели видна структура папок и файлов, относящихся к модификациям Dota 2.
+- Вкладки вверху показывают, что открыты и другие файлы, такие как `npc_abilities_custom.txt` и `npc_heroes_custom.txt`.

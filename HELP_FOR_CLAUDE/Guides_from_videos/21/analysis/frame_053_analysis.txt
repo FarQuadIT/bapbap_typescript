@@ -1,0 +1,105 @@
+Кадр 53
+Временная метка: 0:13:15
+Номер кадра: 47700
+Скриншот: frame_047700_795.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:06] Нас
+[0:13:07] Иисус
+[0:13:08] Плеер
+[0:13:09] Айди
+[0:13:10] Конст
+[0:13:11] Это
+[0:13:12] Выговорить
+[0:13:13] Дата
+[0:13:14] Точка
+[0:13:15] Сусплэйер
+[0:13:16] Айдиконст
+[0:13:17] А тут
+[0:13:18] Мы Просто
+[0:13:19] Получим
+[0:13:20] Игрока
+[0:13:21] Его
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Видимый код:
+
+```lua
+CustomGameEventManager:RegisterListener("spawn-cobold", Dynamic_Wrap(self, 'OnSpawnCobold'))
+CustomGameEventManager:RegisterListener("add_ability", Dynamic_Wrap(self, 'OnChoiceAbility'))
+
+function ChupakabraMode:OnSpawnCobold(data)
+    local player = PlayerResource:GetPlayer(data.id)
+    local hero = player:GetAssignedHero()
+
+    hero:ModifyGold(START_GOLD, true, 13)
+end
+
+function ChupakabraMode:OnChoiceAbility(data)
+    local player = PlayerResource:GetPlayer(data.player)
+    local hero = player:GetAssignedHero()
+
+    hero:AddAbility(data.ability)
+end
+
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        self:ChupakabraModeStart()
+    end
+end
+
+function ChupakabraMode:DamageFilter(data)
+    return true
+end
+
+function ChupakabraMode:OrderFilter(data)
+    local type = data.order_type
+    local playerId = data.issuer_player_id_const
+
+    if type == DOTA_UNIT_ORDER_PICKUP_ITEM then
+        local target = EntIndexToHScript(data.entindex_target)
+
+        if target:GetContainedItem():GetCost() >= 500 then
+            CustomGameEventManager:Send_ServerToPlayer(EntityPlayer, "ShowError", {message = "Не трогай, а то сожрет"})
+            return false
+        end
+    end
+
+    return true
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+end
+```
+
+### Описание кода:
+
+1. **Регистрация событий:**
+   - `spawn-cobold` и `add_ability` — события, на которые подписывается код, вызывая функции `OnSpawnCobold` и `OnChoiceAbility`.
+
+2. **Функции:**
+   - `OnSpawnCobold`: Получает игрока и его героя, добавляет золото герою.
+   - `OnChoiceAbility`: Добавляет способность герою игрока.
+   - `ChupakabraStateChange`: Проверяет состояние игры и запускает режим, если игра в процессе.
+   - `DamageFilter`: Возвращает `true`, возможно, для фильтрации урона.
+   - `OrderFilter`: Проверяет тип приказа. Если это приказ на поднятие предмета, и стоимость предмета больше или равна 500, выводит сообщение об ошибке и отменяет действие.
+   - `ChupakabraKilled`: Обрабатывает событие убийства, получая убитую сущность.
+
+### Важные детали:
+
+- **Переменные и функции:**
+  - `PlayerResource:GetPlayer`, `GetAssignedHero`, `ModifyGold`, `AddAbility` — функции для работы с игроками и героями.
+  - `EntIndexToHScript` — преобразует индекс сущности в скриптовый объект.
+  - `CustomGameEventManager:Send_ServerToPlayer` — отправляет сообщение игроку.
+
+### Связь с аудио:
+
+Аудио контекст упоминает "плеер", "айди", "конст", что соответствует использованию `data.id`, `data.player`, и `data.issuer_player_id_const` в коде. Это указывает на объяснение работы с идентификаторами игроков и их взаимодействиями в игре.

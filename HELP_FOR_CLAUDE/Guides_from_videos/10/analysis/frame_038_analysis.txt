@@ -1,0 +1,83 @@
+Кадр 38
+Временная метка: 0:09:30
+Номер кадра: 34200
+Скриншот: frame_034200_570.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:21] 20.
+[0:09:22] 21.
+[0:09:23] 24.
+[0:09:24] 25.
+[0:09:25] 26.
+[0:09:26] 27.
+[0:09:27] 28.
+[0:09:28] 29.
+[0:09:29] 30.
+[0:09:30] 31.
+[0:09:31] 32.
+[0:09:32] 34.
+[0:09:33] 35.
+[0:09:34] 36.
+[0:09:35] 37.
+[0:09:36] 38.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if self:GetParent() == props.attacker then
+        props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility() })
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+
+function modifier_ursa_copy_debuff:IsHidden()
+    return false
+end
+```
+
+### Описание кода:
+- **Импорты:** Используются функции `LinkLuaModifier` для подключения модификаторов `modifier_ursa_copy` и `modifier_ursa_copy_debuff`.
+- **Класс `ursa_copy`:** Определяет способность, которая возвращает имя модификатора `modifier_ursa_copy`.
+- **Модификатор `modifier_ursa_copy`:**
+  - **`IsHidden`:** Возвращает `true`, что делает модификатор скрытым.
+  - **`DeclareFunctions`:** Определяет, что модификатор реагирует на событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+  - **`OnAttackLanded`:** Если атакующий является владельцем модификатора, на цель атаки накладывается новый модификатор `modifier_ursa_copy_debuff`.
+- **Модификатор `modifier_ursa_copy_debuff`:**
+  - **`IsHidden`:** Возвращает `false`, что делает модификатор видимым.
+
+### Связь с аудио:
+Аудио, вероятно, связано с объяснением кода, так как в нем перечисляются числа, которые могут соответствовать строкам кода или шагам в объяснении. Например, числа могут указывать на строки, где происходят важные действия, такие как определение функций или применение модификаторов.
+
+### Важные детали:
+- **Путь к файлу:** `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities\ursa_copy.lua`
+- **Структура папок:** Видна структура папок проекта, включая `abilities`, `npc`, `utils` и другие файлы Lua.
+- **Редактор:** Sublime Text не зарегистрирован, что видно в заголовке окна.

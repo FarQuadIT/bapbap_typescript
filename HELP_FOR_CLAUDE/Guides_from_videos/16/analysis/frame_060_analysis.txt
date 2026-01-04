@@ -1,0 +1,68 @@
+Кадр 60
+Временная метка: 0:15:00
+Номер кадра: 54000
+Скриншот: frame_054000_900.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:50] То есть берем theSentity и делаем банальный find ability by name.
+[0:14:55] Самую базу.
+[0:14:57] И нам, на самом деле, нужно выдать ему обилку.
+[0:15:00] Давайте, наверное, лучше выдам UrsaCopy.
+[0:15:04] Нет, стоп.
+[0:15:06] Нужно...
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_heroes_custom.txt`. Этот файл является частью модификации для игры Dota 2 и находится в папке `scripts/npc` внутри каталога `dota_addons/chupakabra`.
+
+### Содержимое файла:
+Файл содержит описание героя в формате JSON-подобной структуры. Вот полный текст:
+
+```plaintext
+"npc_dota_hero_axe"
+{
+    "Ability1"        "ursa_copy"
+    "Ability2"        "strong_poison"
+    "Ability3"        "ecchens_armor"
+    "Ability4"        "generic_hidden"
+    "Ability5"        "generic_hidden"
+    "Ability6"        "axe_culling_blade"
+    "Ability10"       "special_bonus_evasion_8"
+    "Ability11"       "special_bonus_20_bash_2"
+    "Ability12"       "special_bonus_unique_ursa_duration"
+    "Ability13"       "special_bonus_unique_axe_4"
+    "Ability14"       "special_bonus_unique_axe_5"
+    "Ability15"       "special_bonus_unique_axe_3"
+    "Ability16"       "special_bonus_unique_axe_2"
+    "Ability17"       "special_bonus_unique_axe"
+    "ArmorPhysical"   "1"
+    "AttackCapabilities"  "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackDamageMax" "0"
+    "AttackDamageMin" "0"
+    "AttackRate"      "1.200000"
+    "AttackAnimationPoint" "0.400000"
+    "AttackAcquisitionRange" "600"
+    "AttackRange"     "150"
+    "AttributePrimary" "DOTA_ATTRIBUTE_AGILITY"
+    "AttributeBaseStrength" "1000"
+    "AttributeStrengthGain" "0"
+    "AttributeBaseIntelligence" "18"
+    "AttributeIntelligenceGain" "1.6"
+    "AttributeBaseAgility" "0"
+    "AttributeAgilityGain" "0"
+    "StatusHealthRegen" "2.5"
+    "MovementSpeed" "315"
+}
+```
+
+### Описание кода:
+- **Abilities**: Герой имеет несколько способностей, включая `ursa_copy`, `strong_poison`, и `axe_culling_blade`.
+- **Атрибуты**: Основной атрибут — ловкость (`DOTA_ATTRIBUTE_AGILITY`), с базовой силой 1000 и приростом интеллекта 1.6.
+- **Атака**: Герой имеет ближнюю атаку с диапазоном 150 и скоростью атаки 1.2.
+- **Прочие параметры**: Скорость передвижения 315, регенерация здоровья 2.5.
+
+### Связь с аудио:
+В аудио говорится о выдаче способности `UrsaCopy`, что соответствует `Ability1` в коде. Это подтверждает, что на экране происходит работа с конфигурацией способностей героя, что связано с обсуждаемой темой в аудио.

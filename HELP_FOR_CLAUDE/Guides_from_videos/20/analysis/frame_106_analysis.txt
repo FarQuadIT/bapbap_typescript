@@ -1,0 +1,74 @@
+Кадр 106
+Временная метка: 0:08:50
+Номер кадра: 31800
+Скриншот: frame_031800_530.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:43] Однако, это все, если что, можно достигнуть и без createParticle.
+[0:08:48] В основном, это так и делается, то есть, через просто getEffectName.
+[0:08:51] То есть, в основном, createParticle используется для создания партиклов, которые находятся в мире, то есть, potach, world, origin.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `gold_hole.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+function modifier_gold_hole_thinker:OnCreated()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    if not IsServer() then return end
+
+    self._effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+    ParticleManager:SetParticleControl(self._effect_cast, 0, self:GetParent():GetOrigin())
+    ParticleManager:SetParticleControl(self._effect_cast, 1, Vector(radius, radius, radius))
+
+    self:StartIntervalThink(1)
+end
+
+function modifier_gold_hole_thinker:OnDestroy()
+    ParticleManager:DestroyParticle(self._effect_cast, false)
+end
+
+function modifier_gold_hole_thinker:OnIntervalThink()
+    local caster = self:GetCaster()
+    local parent = self:GetParent()
+    local radius = self:GetAbility():GetSpecialValueFor("radius")
+    local gold_per_unit = self:GetAbility():GetSpecialValueFor("gold_per_unit")
+
+    local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
+    local gold = gold_per_unit * #enemies
+
+    caster:ModifyGold(gold, true, 13)
+    EmitSoundOnClient("General.Coins", caster)
+    SendOverheadEventMessage(caster:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, caster, gold, caster)
+end
+```
+
+### Описание кода:
+
+1. **Функция `OnCreated`:**
+   - Инициализирует радиус действия эффекта, используя специальное значение способности.
+   - Создает партикл-эффект в мире игры.
+   - Устанавливает контрольные точки для партикла, чтобы задать его позицию и размер.
+   - Запускает периодическое выполнение функции `OnIntervalThink`.
+
+2. **Функция `OnDestroy`:**
+   - Уничтожает созданный партикл-эффект при удалении модификатора.
+
+3. **Функция `OnIntervalThink`:**
+   - Определяет кастера и родителя модификатора.
+   - Вычисляет количество золота, которое будет добавлено кастеру, на основе количества врагов в радиусе.
+   - Добавляет золото кастеру и воспроизводит звуковой эффект.
+   - Отправляет сообщение о получении золота.
+
+### Важные детали:
+- Используются функции `ParticleManager` для управления партикл-эффектами.
+- Функции `FindUnitsInRadius` и `ModifyGold` взаимодействуют с игровыми объектами и экономикой.
+- Код связан с аудио, где упоминается использование `createParticle` для создания партиклов в мире, что и демонстрируется в функции `OnCreated`.
+
+### Связь с аудио:
+Аудио объясняет, что `createParticle` используется для создания партиклов в мире, что соответствует коду в функции `OnCreated`, где создается и настраивается партикл-эффект.

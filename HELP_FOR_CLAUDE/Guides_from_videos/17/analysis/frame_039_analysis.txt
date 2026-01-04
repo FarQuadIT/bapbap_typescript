@@ -1,0 +1,74 @@
+Кадр 39
+Временная метка: 0:09:45
+Номер кадра: 35100
+Скриншот: frame_035100_585.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:35] Давайте при нажатии будем увеличивать стаки.
+[0:09:38] Вот так, да.
+[0:09:40] Вынесем отдельную переменную.
+[0:09:42] Возьмем нашего кастера.
+[0:09:44] И используем функцию FindModifierByName.
+[0:09:51] Все, нашли наш модификатор.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с расширением `.lua`. Это указывает на то, что используется язык программирования Lua. 
+
+### Код:
+```lua
+LinkLuaModifier("modifier_item_desol_custom", "items/item_desol_custom", LUA_MODIFIER_MOTION_NONE)
+
+item_desol_custom = class({})
+
+function item_desol_custom:OnSpellStart()
+    local modifier = self:GetCaster()
+    print("123123")
+end
+
+function item_desol_custom:GetIntrinsicModifierName()
+    return "modifier_item_desol_custom"
+end
+
+modifier_item_desol_custom = class({})
+
+function modifier_item_desol_custom:IsHidden()
+    return true
+end
+
+function modifier_item_desol_custom:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE
+end
+
+function modifier_item_desol_custom:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+    }
+end
+
+function modifier_item_desol_custom:GetModifierBonusStats_Strength()
+    return self:GetAbility():GetSpecialValueFor("str_bonus")
+end
+```
+
+### Описание кода:
+- **Импорт модификатора**: `LinkLuaModifier` связывает Lua-модификатор с файлом.
+- **Класс `item_desol_custom`**: Определяет поведение предмета.
+  - `OnSpellStart`: При активации заклинания получает кастера и выводит в консоль "123123".
+  - `GetIntrinsicModifierName`: Возвращает имя связанного модификатора.
+- **Класс `modifier_item_desol_custom`**: Определяет свойства модификатора.
+  - `IsHidden`: Возвращает `true`, скрывая модификатор.
+  - `GetAttributes`: Указывает, что модификатор может быть наложен несколько раз.
+  - `DeclareFunctions`: Определяет функции, которые модификатор будет изменять.
+  - `GetModifierBonusStats_Strength`: Возвращает бонус к силе, полученный из способности.
+
+### Связь с аудио:
+- В аудио говорится о создании переменной и использовании функции `FindModifierByName`, что связано с кодом, где происходит работа с модификаторами и кастером.
+- Код и аудио описывают процесс работы с модификаторами в игре, что соответствует обсуждаемым действиям в видео.
+
+### Важные детали:
+- **Путь к файлу**: Указан путь к файлу в системе, что может быть полезно для навигации.
+- **Структура проекта**: В левой панели видна структура папок, что помогает понять организацию проекта.

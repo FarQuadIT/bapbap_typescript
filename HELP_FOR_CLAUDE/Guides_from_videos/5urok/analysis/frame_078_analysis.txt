@@ -1,0 +1,70 @@
+Кадр 78
+Временная метка: 0:19:30
+Номер кадра: 70200
+Скриншот: frame_070200_1170.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:19:21] Сколько дается армора на одну агилку?
+[0:19:24] То есть...
+[0:19:25] Сейчас у нас дается на одну агилку 0.05 армора.
+[0:19:31] Это нужно для всяких там...
+[0:19:33] Каких-нибудь, типа, игр, как Mountain Defense, Roshan Defense, наверное.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для настройки игрового режима в Dota 2.
+
+### Видимый код:
+
+```lua
+ChupakabraMode = class({})
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(1500)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetHeroSelectionTime(5.0)
+    GameRules:SetPreGameTime(0.0)
+    GameRules:SetPostGameTime(10.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
+    GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 5 )
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR,0.05)
+    GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+end
+
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        --print( "Template addon script is running." )
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`:** Создается класс для настройки игрового режима.
+- **Функция `InitGameMode`:** Инициализирует параметры игры:
+  - Устанавливает начальное золото (`SetStartingGold`).
+  - Включает универсальный магазин (`SetUseUniversalShopMode`).
+  - Устанавливает время выбора героя, предигровое время, постигровое время, время демонстрации и стратегическое время.
+  - Устанавливает максимальное количество игроков в командах.
+  - Настраивает значение брони, получаемой за единицу ловкости (`SetCustomAttributeDerivedStatValue`).
+  - Устанавливает функцию `OnThink` для периодического выполнения.
+  
+- **Функция `OnThink`:** Проверяет состояние игры:
+  - Если игра в процессе, выполняется определенная логика (закомментирована).
+  - Если игра завершена, функция возвращает `nil`.
+
+### Связь с аудио:
+
+- В аудио говорится о том, сколько брони дается за одну единицу ловкости. В коде это отражено в строке:
+  ```lua
+  GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR,0.05)
+  ```
+  Это соответствует упомянутому значению 0.05 в аудио.

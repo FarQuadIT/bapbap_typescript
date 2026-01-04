@@ -1,0 +1,67 @@
+Кадр 46
+Временная метка: 0:11:30
+Номер кадра: 41400
+Скриншот: frame_041400_690.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:18] С аганимом будет буквально то же самое.
+[0:11:22] И.
+[0:11:23] Давайте вынесем его сразу в аддон Rush нашу.
+[0:11:25] Точнее в аддон English Shuffle.
+[0:11:28] Сюда добавляем.
+[0:11:29] Damage пишем.
+[0:11:32] И.
+[0:11:33] Урон.
+[0:11:34] Давайте проверять.
+[0:11:36] И так смотрим.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **Если это КОД:**
+
+   - **Язык программирования:** JSON
+   - **Видимый код:**
+     ```json
+     {
+         "Language": "English",
+         "Tokens": {
+             "data_ability_variable_jopa": "к весу жопы", // $health
+             "addon_game_name": "CHUPAKEBRA",
+             "DOTA_BadGuys": "ем",
+             "DOTA_GoodGuys": "сру",
+             "DOTA_Custom1": "жопа",
+             "DOTA_Custom2": "жопа",
+             "DOTA_Custom3": "жопа",
+             "DOTA_Custom4": "день",
+             "DOTA_Custom5": "спасите меня",
+             "DOTA_Tooltip_ability_cockx_counter_helix": "Cockx helix",
+             "DOTA_Tooltip_ability_cockx_counter_helix_Description": "Я кручусь <font color=\"#ffffff\"> как джагернаут </font>",
+             "DOTA_Tooltip_ability_cockx_counter_helix_damage": "УРОН:",
+             "DOTA_Tooltip_ability_cockx_counter_helix_radius": "РАДИУС:",
+             "DOTA_Tooltip_ability_cockx_counter_helix_lore": "asdasdasdasd",
+             "DOTA_Tooltip_ability_gold_hole": "Cockx helix",
+             "DOTA_Tooltip_ability_gold_hole_Description": "Я кручусь <font color=\"#ffffff\"> как джагернаут </font>",
+             "DOTA_Tooltip_ability_gold_hole_gold_per_unit": "ГОЛДА ЗА ЮНИТА:",
+             "DOTA_Tooltip_ability_gold_hole_gold_per_unit": "ГОЛДА ЗА ЮНИТА:",
+             "DOTA_Tooltip_ability_gold_hole_Scepter_Description": "Я adasa",
+             "DOTA_Tooltip_ability_gold_hole_Shard_Description": "bvcbcbb",
+             "DOTA_Tooltip_ability_item_motus_orb": "Motus bobus dasdas",
+             "DOTA_Tooltip_ability_item_motus_orb_Description": "Немитвана: Пошук</h1> фывафывафывафывафывафывафывафыва \n\n<h1>DAFFDSA:",
+             "DOTA_Tooltip_ability_item_motus_orb_Lore": "asdasdasdasd",
+             "DOTA_Tooltip_ability_item_desol_custom_str_bonus": "+$jopa",
+             "DOTA_Tooltip_ability_special_bonus_unique_str_duration": "+{s:bonus_duration} сек. к Ursa Copy"
+         }
+     }
+     ```
+   - **Описание кода:** 
+     Это JSON-файл, содержащий локализацию для игры Dota 2. Он определяет текстовые строки для различных элементов интерфейса и способностей в игре. Каждая строка имеет ключ и соответствующее значение, которое будет отображаться в игре.
+   - **Важные детали:**
+     - Ключи и значения содержат текстовые строки, которые будут использоваться в интерфейсе игры.
+     - Присутствуют комментарии, например, `// $health`, которые могут указывать на связь с другими элементами кода.
+     - Используются HTML-теги для форматирования текста, например, `<font color="#ffffff">`.
+
+2. **Связь с аудио:**
+   - В аудио говорится о добавлении элемента в аддон "English Shuffle" и проверке изменений. Видимый код соответствует этому процессу, так как файл `addon_english.txt` содержит локализацию, которая может быть частью аддона.

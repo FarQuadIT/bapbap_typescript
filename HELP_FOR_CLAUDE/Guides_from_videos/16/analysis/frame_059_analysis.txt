@@ -1,0 +1,60 @@
+Кадр 59
+Временная метка: 0:14:45
+Номер кадра: 53100
+Скриншот: frame_053100_885.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:35] Таргет на getindex, соответственно, нам не нужен.
+[0:14:39] А вот таргет индекс не нужен, позиция не нужна.
+[0:14:43] Нужен только ability index.
+[0:14:45] Здесь мы должны получить нашу способку.
+[0:14:50] То есть берем theSentity и делаем банальный find ability by name.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ai_kobold.lua`. Это файл на языке программирования Lua.
+
+### Видимый код:
+```lua
+function Spawn()
+    if not thisEntity then return nil end
+    thisEntity:SetContextThink("KoboldThink", KoboldThink, 1)
+end
+
+function KoboldThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME or not thisEntity:IsAlive() then
+        return nil
+    end
+
+    ExecuteOrderFromTable({
+        UnitIndex = thisEntity:entindex(),
+        OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+        AbilityIndex = 
+    })
+    print("dsds")
+    return 1
+end
+```
+
+### Описание кода:
+- **Функция `Spawn`:** Инициализирует `thisEntity` и устанавливает контекст для выполнения функции `KoboldThink` через 1 секунду.
+- **Функция `KoboldThink`:** Проверяет состояние игры и существование `thisEntity`. Если игра завершена или `thisEntity` не жив, функция возвращает `nil`.
+- **`ExecuteOrderFromTable`:** Выполняет команду для `thisEntity` без указания цели. Параметр `AbilityIndex` не задан, что соответствует аудио, где говорится, что нужен только `ability index`.
+- **`print("dsds")`:** Выводит строку "dsds" в консоль.
+- **Возврат `1`:** Завершает выполнение функции `KoboldThink`.
+
+### Важные детали:
+- **Переменные и функции:** `thisEntity`, `KoboldThink`, `ExecuteOrderFromTable`.
+- **Константы:** `DOTA_GAMERULES_STATE_POST_GAME`, `DOTA_UNIT_ORDER_CAST_NO_TARGET`.
+
+### Связь с аудио:
+- В аудио говорится о необходимости использования `ability index`, что отражено в коде, где `AbilityIndex` пока не задан.
+- Упоминается использование `find ability by name`, что может быть следующим шагом в коде для определения `AbilityIndex`.
+
+### Интерфейс редактора:
+- **Панель слева:** Дерево файлов проекта, где видны различные файлы и папки.
+- **Вкладки:** Открыты несколько файлов, включая `ai_kobold.lua`.
+- **Строка состояния:** Указывает на использование языка Lua и размер табуляции (4 пробела).

@@ -1,0 +1,91 @@
+Кадр 69
+Временная метка: 0:17:15
+Номер кадра: 62100
+Скриншот: frame_062100_1035.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:06] Называем нашу Invasion, тоже неправильно доназвал.
+[0:17:12] Вот, все.
+[0:17:13] И что тут происходит у нас?
+[0:17:15] У нас тут мы обзаверяем переменную newState,
+[0:17:17] которая получает сейчас State Game Rules.
+[0:17:22] Вы, наверное, не понимаете, что это значит,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+local ia2_expTable = HeroExpTable() + HeroExpTable[-1] - expTable[1]
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(30.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetUseCustomHeroXPValues(true) -- установка кастомной системы уровней
+    GameRules:SetGoldPerTick(0)
+    GameRules:SetGoldTickTime(0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_5, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_6, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_7, 0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_8, 0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(self, 'ChupakabraStateChange'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        Timers:CreateTimer(0, function()
+            return
+        end)
+    elseif GameRules:State_Get() == DOTA_GAMERULES_STATE_POST_GAME then
+        endInvasionModeInGameState()
+    end
+end
+
+local kobold_count = 0
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        CreateDrop("test_lots_drop", killed_unit:GetAbsOrigin())
+    end
+
+    killed_unit:SetTeamNumber(DOTA_TEAM_GOODGUYS)
+    GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+end
+```
+
+### Описание кода:
+
+- **Инициализация режима игры**: Функция `InitGameMode` настраивает параметры игры, такие как время выбора героя, время до начала игры, и другие игровые правила.
+- **Обработка событий**: Используются функции `ListenToGameEvent` для обработки событий, таких как убийство сущности и изменение состояния игры.
+- **Изменение состояния игры**: Функция `ChupakabraStateChange` проверяет текущее состояние игры и выполняет действия в зависимости от него.
+- **Обработка убийства**: Функция `ChupakabraKilled` увеличивает счетчик `kobold_count`, если убитый юнит — "npc_dota_neutral_kobold", и создает дроп на месте его смерти.
+
+### Связь с аудио:
+
+- В аудио говорится о переменной `newState`, которая используется в функции `ChupakabraStateChange` для проверки состояния игры. Это соответствует обсуждаемому коду, где происходит проверка состояния игры и выполнение соответствующих действий.

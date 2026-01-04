@@ -1,0 +1,87 @@
+Кадр 69
+Временная метка: 0:17:15
+Номер кадра: 62100
+Скриншот: frame_062100_1035.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:08] Я не знаю.
+[0:17:09] Я не знаю.
+[0:17:10] Я не знаю.
+[0:17:11] Я не знаю.
+[0:17:12] Я не знаю.
+[0:17:13] Я не знаю.
+[0:17:14] Я не знаю.
+[0:17:15] Хоть блять.
+[0:17:16] Не, не, не, не, не.
+[0:17:17] Пусть будут на нас нападать сами просто кобальты обычные.
+[0:17:18] Point.
+[0:17:19] Здесь уже мы указываем наш Point и GetOffsOrigin, то есть тут мы не тут, как типа мы в переменную
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+if Killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+    GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+end
+
+function GiveGoldToPlayers()
+    for index=0, DOTA_MAX_TEAM_PLAYERS-1 do
+        if PlayerResource:IsValidPlayer(index) then
+            local hero = PlayerResource:GetSelectedHeroEntity(index)
+            hero:ModifyGold(OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDrop(temate, pos)
+    local newItem = CreateItem(temate, nil, nil)
+    newItem:SetPurchaseTime(0)
+    local drop = CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLoot(false, 150, 0.5, pos + RandomVector( dropRadius ) )
+end
+
+function ChupakabraModeStart()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+
+    local temates = Entities:FindAllByName("temates")
+    for i=1, #temates do
+        local temate = temates[i]
+        local temate_point = temate:GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_forest_troll_high_priest_stronger", temate_point, true, nil, nil, DOTA_TEAM_GOODGUYS)
+    end
+end
+
+function ChupakabraMode:WaveKob()
+    local point = Entities:FindByName(nil, "enemy_path1")
+    CreateUnitByName("npc_dota_neutral_kobold")
+end
+```
+
+### Описание кода:
+
+1. **Проверка победы**: Если убитый юнит имеет имя `"npc_dota_neutral_fel_beast_boss"`, то команда `DOTA_TEAM_GOODGUYS` объявляется победителем.
+
+2. **Функция `GiveGoldToPlayers`**: Раздаёт золото всем игрокам в команде, проверяя каждого игрока на валидность и добавляя золото их героям.
+
+3. **Функция `CreateDrop`**: Создаёт предмет на позиции `pos` и запускает его в виде лута.
+
+4. **Функция `ChupakabraModeStart`**: Создаёт юнита `"npc_dota_neutral_kobold_boss"` в определённой точке и создаёт юнитов `"npc_dota_neutral_forest_troll_high_priest_stronger"` в местах, где находятся объекты с именем `"temates"`.
+
+5. **Функция `ChupakabraMode:WaveKob`**: Создаёт юнита `"npc_dota_neutral_kobold"` в точке `"enemy_path1"`.
+
+### Важные детали:
+
+- **Импорты и зависимости**: В коде нет явных импортов, так как Lua обычно не требует их для стандартных функций.
+- **Переменные и функции**: Используются функции для создания юнитов и предметов, а также для управления игровыми событиями.
+
+### Связь с аудио:
+
+Аудио контекст упоминает использование точки и `GetOffsOrigin`, что соответствует коду, где используются функции `GetAbsOrigin` для получения позиции объектов. Это связано с созданием юнитов в определённых точках на карте.

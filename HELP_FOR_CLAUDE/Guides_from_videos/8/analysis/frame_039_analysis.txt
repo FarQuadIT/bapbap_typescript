@@ -1,0 +1,101 @@
+Кадр 39
+Временная метка: 0:09:45
+Номер кадра: 35100
+Скриншот: frame_035100_585.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:30] ДОТА 8
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+
+```lua
+ChupakabraMode = class({})
+
+local HeroExpTable = {0,200,500,900,1500,2400,3600,5000,6500,8200,10000,12000,14200,16600,19200,22000,25000,28200,31600,35200,39000,43000,47200,51600,56200,61000,66000,71200,76600,82200,88000,94000,100000,106200,112600,119200,126000,133000,140200,147600,155200,163000,171000,179200,187600,196200,205000,214000,223200,232600,242200,252000,262000}
+local HeroGoldTable = {0,600,1700,2900,4200,5600,7100,8700,10400,12200,14100,16100,18200,20400,22700,25100,27600,30200,32900,35700,38600,41600,44700,47900,51200,54600,58100,61700,65400,69200,73100,77100,81200,85400,89700,94100,98600,103200,107900,112700,117600,122600,127700,132900,138200,143600,149100,154700,160400,166200,172100,178100}
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetHeroRespawnEnabled( true )
+    GameRules:SetUseUniversalShopMode( true )
+    GameRules:SetSameHeroSelectionEnabled( true )
+    GameRules:SetHeroSelectionTime( 0.0 )
+    GameRules:SetPreGameTime( 0.0 )
+    GameRules:SetPostGameTime( 60.0 )
+    GameRules:SetTreeRegrowTime( 60.0 )
+    GameRules:SetUseCustomHeroXPValues ( true ) -- Установка кастомной системы уровней
+    GameRules:SetCustomHeroMaxLevel ( #HeroExpTable )
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels ( true )
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel ( #HeroExpTable )
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel( HeroExpTable )
+
+    GameRules:GetGameModeEntity():SetFogOfWarDisabled( true )
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(self, 'ChupakabraStateChange'), self)
+end
+
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        ChupakabraBroadcast()
+    end
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_ourinour_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+    end
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_ourinour_boss" then
+        local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_centaur_outrunner_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+    end
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_centaur_outrunner_boss" then
+        local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+        CreateUnitByName("npc_dota_neutral_fel_beast_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+    end
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_fel_beast_boss" then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+end
+
+function GiveGoldToAllPlayers(gold)
+    for index = 0, PlayerResource:GetPlayerCount() - 1 do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = PlayerResource:GetSelectedHeroEntity(index)
+            hero:ModifyGold(gold, false, 0)
+            SendOverheadEventMessage( player, OVERHEAD_ALERT_GOLD, hero, gold, nil )
+        end
+    end
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`**: Создается класс для управления игровым режимом.
+- **Таблицы `HeroExpTable` и `HeroGoldTable`**: Определяют количество опыта и золота, необходимое для каждого уровня.
+- **Функция `InitGameMode`**: Инициализирует параметры игры, такие как время выбора героя, использование универсального магазина, отключение тумана войны и т.д.
+- **Функция `ChupakabraStateChange`**: Обрабатывает изменения состояния игры.
+- **Функция `ChupakabraKilled`**: Обрабатывает события убийства определенных юнитов и создает новых боссов.
+- **Функция `GiveGoldToAllPlayers`**: Раздает золото всем игрокам.
+
+### Важные детали:
+
+- **Импорты и зависимости**: Не указаны, но используются стандартные функции Dota 2 API.
+- **События**: Используются события `entity_killed` и `game_rules_state_change`.
+
+### Связь с аудио:
+
+- В аудио упоминается "ДОТА 8", что может быть связано с обсуждением модификации или версии игры, но конкретной связи с кодом нет. Код на экране относится к модификации Dota 2, что может быть частью обсуждаемого в аудио.

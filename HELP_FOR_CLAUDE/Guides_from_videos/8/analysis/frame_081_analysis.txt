@@ -1,0 +1,57 @@
+Кадр 81
+Временная метка: 0:20:15
+Номер кадра: 72900
+Скриншот: frame_072900_1215.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:20:06] обилке и получить уже это значение.
+[0:20:09] Как мы это будем делать?
+[0:20:11] Мы обращаемся к тому модификатору, пишем self.
+[0:20:14] Опять же вспоминаем, что self у нас равно вот этому.
+[0:20:19] То есть представьте реально, что это.
+[0:20:21] Вот так вот прописано у нас.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл на языке программирования Lua. 
+
+### Код:
+```lua
+LinkLuaModifier("modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+cechens_armor = class({})
+
+function cechens_armor:GetIntrinsicModifierName()
+    return "modifier_cechens_armor"
+end
+
+modifier_cechens_armor = class({})
+
+function modifier_cechens_armor:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
+    }
+end
+
+function modifier_cechens_armor:GetModifierPhysicalArmorBonus()
+    return self:GetStackCount()
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает модификатор `modifier_cechens_armor` с файлом `abilities/cechens_armor`.
+- **cechens_armor**: Класс, который определяет способность.
+  - **GetIntrinsicModifierName**: Возвращает имя модификатора, связанного с этой способностью.
+- **modifier_cechens_armor**: Класс, представляющий модификатор.
+  - **DeclareFunctions**: Определяет функции, которые модификатор будет использовать. В данном случае это `MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS`.
+  - **GetModifierPhysicalArmorBonus**: Возвращает значение бонуса к физической броне, используя `self:GetStackCount()`.
+
+### Важные детали:
+- **Импорты**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции и классы**: Определены два класса `cechens_armor` и `modifier_cechens_armor`, каждый из которых имеет свои функции.
+
+### Связь с аудио:
+- В аудио говорится о том, как обращаться к модификатору и использовать `self`. Это соответствует коду, где используется `self:GetStackCount()` для получения значения бонуса к броне.

@@ -1,0 +1,62 @@
+Кадр 36
+Временная метка: 0:09:00
+Номер кадра: 32400
+Скриншот: frame_032400_540.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:50] Давайте сделаем так, что модификатор и сил накладывается не только на нас, а на еще близлежащих союзных юнитов.
+[0:08:58] Как мы можем это сделать?
+[0:09:00] И опять же у нас есть банальная глобальная функция findUnitInRadius.
+[0:09:05] Гуглим ее на моддоте, чтобы посмотреть точные ее аргументы.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `healing_spell.lua`. Это файл на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_healing_spell", "abilities/healing_spell", LUA_MODIFIER_MOTION_NONE)
+
+healing_spell = class({})
+
+function healing_spell:OnSpellStart()
+    local caster = self:GetCaster()
+    local heal = self:GetSpecialValueFor("heal")
+    caster:Heal(heal, self)
+    SendOverheadEventMessage(nil, OVERHEAD_ALERT_HEAL, caster, heal, nil)
+    caster:AddNewModifier(caster, self, "modifier_healing_spell", {duration = self:GetSpecialValueFor("duration")})
+end
+
+modifier_healing_spell = class({})
+
+function modifier_healing_spell:GetEffectName()
+    return "particles/econ/items/dark_willow/dark_willow_ti9/dark_willow_ti9_bramble.vpcf"
+end
+
+function modifier_healing_spell:DeclareFunctions()
+    return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT}
+end
+
+function modifier_healing_spell:GetModifierConstantHealthRegen()
+    return self:GetAbility():GetSpecialValueFor("hp_regen")
+end
+```
+
+### Описание кода:
+- **LinkLuaModifier**: Связывает модификатор `modifier_healing_spell` с файлом `healing_spell`.
+- **healing_spell**: Класс, представляющий заклинание.
+  - **OnSpellStart**: Функция, вызываемая при активации заклинания. Она исцеляет заклинателя и добавляет ему модификатор.
+- **modifier_healing_spell**: Класс, представляющий модификатор.
+  - **GetEffectName**: Возвращает имя эффекта, который будет отображаться.
+  - **DeclareFunctions**: Объявляет функции, которые модификатор будет использовать.
+  - **GetModifierConstantHealthRegen**: Возвращает значение регенерации здоровья.
+
+### Важные детали:
+- **Импорты и ссылки**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции и переменные**: `OnSpellStart`, `GetEffectName`, `DeclareFunctions`, `GetModifierConstantHealthRegen`.
+
+### Связь с аудио:
+- В аудио говорится о наложении модификатора на союзные юниты. Код показывает, как модификатор применяется к заклинателю. Для реализации идеи из аудио, нужно будет использовать функцию `findUnitInRadius`, чтобы найти союзников в радиусе и применить к ним модификатор.

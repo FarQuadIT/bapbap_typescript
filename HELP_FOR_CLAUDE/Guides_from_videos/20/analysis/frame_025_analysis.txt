@@ -1,0 +1,89 @@
+Кадр 25
+Временная метка: 0:02:05
+Номер кадра: 7500
+Скриншот: frame_007500_125.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:57] И я, как вы помните, добавлял ей particle, но при этом вообще не объяснял, как его и что добавлять.
+[0:02:02] В целом умельцы могли сами разобраться, но давайте теперь более подробнее это все разберем.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+### Анализ кадра из видео-туториала
+
+#### 1. Код
+
+- **Язык программирования**: Lua
+- **Видимый код**:
+  ```lua
+  function gold_hole:OnSpellStart()
+      local trigger = Entities:FindByName(nil, "teleport")
+      if trigger:IsTouching(self:GetCaster()) then
+          local point = self:GetCursorPosition()
+          local caster = self:GetCaster()
+          local duration = self:GetSpecialValueFor("duration")
+
+          CreateModifierThinker(caster, self, "modifier_gold_hole_thinker", {duration = duration}, point, caster:GetTeamNumber(), false)
+      end
+  end
+
+  modifier_gold_hole_thinker = {}
+
+  function modifier_gold_hole_thinker:IsHidden()
+      return true
+  end
+
+  function modifier_gold_hole_thinker:OnCreated()
+      local radius = self:GetAbility():GetSpecialValueFor("radius")
+
+      self.effect_cast = ParticleManager:CreateParticle("particles/econ/items/riki/riki_head_ti8_gold/riki_smokebomb_ti8_gold.vpcf", PATTACH_WORLDORIGIN, nil)
+      ParticleManager:SetParticleControl(self.effect_cast, 0, self:GetParent():GetOrigin())
+      ParticleManager:SetParticleControl(self.effect_cast, 1, Vector( radius, 0, 0 ))
+
+      self:StartIntervalThink(1)
+  end
+
+  function modifier_gold_hole_thinker:OnDestroy()
+      ParticleManager:DestroyParticle(self.effect_cast, false)
+  end
+
+  function modifier_gold_hole_thinker:OnIntervalThink()
+      local caster = self:GetCaster()
+      local parent = self:GetParent()
+      local ability = self:GetAbility()
+      local radius = ability:GetSpecialValueFor("radius")
+      local gold_per_unit = ability:GetSpecialValueFor("gold_per_unit")
+
+      local enemies = FindUnitsInRadius(caster:GetTeamNumber(), parent:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+
+      caster:ModifyGold(gold_per_unit * #enemies, true, 13)
+      SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, caster, gold_per_unit * #enemies, nil)
+  end
+  ```
+
+- **Описание кода**:
+  - **Функция `gold_hole:OnSpellStart()`**: Проверяет, находится ли кастер в зоне триггера "teleport". Если да, создает модификатор `modifier_gold_hole_thinker` на указанной позиции.
+  - **Модификатор `modifier_gold_hole_thinker`**:
+    - **`IsHidden()`**: Возвращает `true`, скрывая модификатор.
+    - **`OnCreated()`**: Создает визуальный эффект частицы и запускает интервал для периодического выполнения.
+    - **`OnDestroy()`**: Уничтожает созданную частицу.
+    - **`OnIntervalThink()`**: Находит врагов в радиусе и добавляет золото кастеру за каждого врага.
+
+- **Важные детали**:
+  - Используются функции управления частицами `ParticleManager`.
+  - Взаимодействие с игровыми объектами через `Entities` и `FindUnitsInRadius`.
+  - Использование специальных значений способности через `GetSpecialValueFor`.
+
+#### 2. Редактор
+
+- **Название программы**: Sublime Text
+- **Что открыто в редакторе**: Файл `gold_hole.lua` из папки `scripts/vscripts/abilities`.
+- **Активные инструменты**: Подсветка синтаксиса для Lua.
+- **Панели/вкладки**: Дерево файлов слева, показывающее структуру проекта.
+
+#### 5. Связь с аудио
+
+- **Соотношение с аудио**: В аудио говорится о добавлении частицы, что соответствует коду, где создается и управляется частица через `ParticleManager`. Видео объясняет, как добавлять и использовать частицы в коде, что соответствует обсуждаемому в аудио.

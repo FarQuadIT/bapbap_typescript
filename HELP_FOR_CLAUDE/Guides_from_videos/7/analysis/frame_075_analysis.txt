@@ -1,0 +1,61 @@
+Кадр 75
+Временная метка: 0:18:45
+Номер кадра: 67500
+Скриншот: frame_067500_1125.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:18:36] и как мы к нему обратимся юнит двоеточие
+[0:18:39] set initial goal entity и здесь указываем наш как раз
+[0:18:47] point и вот почему мы отделяли потому что здесь нам нужен именно сам
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+function ChupakabraMode:WaveBoss()
+    local point = Entities:FindByName(nil, "bosses_point"):GetAbsOrigin()
+    CreateUnitByName("npc_dota_neutral_kobold_boss", point, true, nil, nil, DOTA_TEAM_BADGUYS)
+end
+
+function CreateDrop(nTeam, pos)
+    local dropRadius = RandomFloat(150, 150, 0.5, pos + RandomVector( dropRadius ) )
+    CreateItemOnPositionSync(pos, nTeam)
+    EmitSoundOnLocationWithCaster(pos, "Item.DropWorld", nTeam)
+end
+
+function ChupakabraMode:WaveNpcs()
+    local point = Entities:FindByName(nil, "enemy_path1"):GetAbsOrigin()
+    local unit = CreateUnitByName("npc_dota_neutral_kobold", point:GetAbsOrigin(), true, nil, nil, DOTA_TEAM_BADGUYS)
+    unit:SetInitialGoalEntity(hGoal)
+end
+```
+
+### Описание кода:
+
+1. **Функция `ChupakabraMode:WaveBoss`:**
+   - Находит точку с именем `bosses_point` и получает её координаты.
+   - Создаёт юнита с именем `npc_dota_neutral_kobold_boss` в этой точке для команды `DOTA_TEAM_BADGUYS`.
+
+2. **Функция `CreateDrop`:**
+   - Создаёт предмет на позиции `pos` для команды `nTeam`.
+   - Воспроизводит звук падения предмета в мире.
+
+3. **Функция `ChupakabraMode:WaveNpcs`:**
+   - Находит точку с именем `enemy_path1` и получает её координаты.
+   - Создаёт юнита с именем `npc_dota_neutral_kobold` в этой точке для команды `DOTA_TEAM_BADGUYS`.
+   - Устанавливает начальную цель для юнита.
+
+### Важные детали:
+
+- Используются функции для создания юнитов и предметов в игре.
+- Присутствуют вызовы функций для получения координат и установки целей.
+
+### Связь с аудио:
+
+- В аудио говорится о функции `set initial goal entity`, что соответствует строке `unit:SetInitialGoalEntity(hGoal)` в коде. Это объясняет, как устанавливается начальная цель для юнита, что соответствует обсуждаемой теме в видео.

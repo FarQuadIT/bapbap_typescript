@@ -1,0 +1,96 @@
+Кадр 14
+Временная метка: 0:03:30
+Номер кадра: 12600
+Скриншот: frame_012600_210.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:03:20] И третьим аргументом мы должны передать,
+[0:03:24] насколько я помню,
+[0:03:25] сам гейммод.
+[0:03:27] Вот так вот.
+[0:03:28] И смотрите, в чем прикол.
+[0:03:30] Лучше я вам советую оборачивать функцию,
+[0:03:33] которую мы вот тут, типа, написали,
+[0:03:35] в dynamic wrap.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+HeroExpTable = {}
+expTable = {0, 200, 500, 900, 1400, 2000, 2600, 3200, 4400, 5400, 6000, 8200, 9000, 10400, 11900, 13500, 15200, 17000, 18900, 20900, 23000, 25200, 27500, 29900, 32400, 35000}
+for i = 1, #expTable do
+    HeroExpTable[i] = expTable[i] - expTable[i-1]
+end
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetStartingGold(5000)
+    GameRules:SetHeroSelectionTime(0.0)
+    GameRules:SetStrategyTime(0.0)
+    GameRules:SetShowcaseTime(0.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetHeroMinimapIconSize(500)
+    GameRules:SetCreepMinimapIconScale(0.7)
+    GameRules:SetRuneMinimapIconScale(0.7)
+    GameRules:SetGoldTickTime(0.6)
+    GameRules:SetGoldPerTick(1)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 1)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 1)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 1)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 1)
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true) -- установка кастомной системы уровней
+    GameRules:GetGameModeEntity():SetUnseenFogOfWarEnabled(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(ChupakabraMode, 'OnEntityKilled'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+-- Evaluate the state of the game
+function ChupakabraMode:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        --print("Template addon script is running.")
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+
+function ChupakabraMode:ChupakabraKilled()
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`**: Создается класс для управления игровым режимом.
+- **Таблицы опыта**: `HeroExpTable` и `expTable` используются для настройки опыта, необходимого для достижения следующего уровня.
+- **Функция `InitGameMode`**: Инициализирует параметры игры, такие как стартовое золото, время выбора героя, иконки на миникарте и т.д.
+- **Настройки команд**: Устанавливается максимальное количество игроков для каждой команды.
+- **Кастомные уровни и атрибуты**: Включается кастомная система уровней и настраиваются атрибуты героев.
+- **События и функции**: Используются для обработки событий, таких как убийство сущностей.
+
+### Связь с аудио:
+
+В аудио говорится о передаче аргументов и оборачивании функции в `dynamic wrap`. Это соответствует строке:
+
+```lua
+ListenToGameEvent("entity_killed", Dynamic_Wrap(ChupakabraMode, 'OnEntityKilled'), self)
+```
+
+Здесь используется `Dynamic_Wrap` для оборачивания функции `OnEntityKilled`, что соответствует рекомендациям в аудио.

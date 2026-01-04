@@ -1,0 +1,81 @@
+Кадр 29
+Временная метка: 0:07:15
+Номер кадра: 26100
+Скриншот: frame_026100_435.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:07:04] Мы в данном случае хотим узнать цифру наш,
+[0:07:08] ну, того, кто сдох,
+[0:07:09] поэтому data.entityKilled.
+[0:07:12] Все, мы получили к нему доступ,
+[0:07:14] и давайте присвоим результат этой функции какой-то переменной.
+[0:07:18] Это у нас в данном случае сдохший чувак,
+[0:07:20] поэтому killedUnit.
+[0:07:22] Чувак, который сдох.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Код:
+
+```lua
+if ChupakabraMode == nil then
+    ChupakabraMode = class({})
+end
+
+HeroExpTable = { 0, 200, 500, 900, 1400, 2000, 2600, 3200, 4400, 5400, 6000, 8200, 9000, 10400, 11900, 13500, 15200, 17000, 18900, 20900, 23000, 25200, 27500, 29900, 32400 }
+expTable = { 0, 200, 500, 900, 1400, 2000, 2600, 3200, 4400, 5400, 6000, 8200, 9000, 10400, 11900, 13500, 15200, 17000, 18900, 20900, 23000, 25200, 27500, 29900, 32400 }
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetHeroRespawnEnabled(true)
+    GameRules:SetUseUniversalShopMode(true)
+    GameRules:SetSameHeroSelectionEnabled(true)
+    GameRules:SetHeroSelectionTime(10.0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(60.0)
+    GameRules:SetTreeRegrowTime(60.0)
+    GameRules:SetUseCustomHeroXPValues(true) -- установка кастомной системы уровней
+    GameRules:SetCustomHeroMaxLevel(#HeroExpTable)
+    GameRules:SetCustomXPRequiredToReachNextLevel(HeroExpTable)
+    GameRules:SetGoldPerTick(0)
+    GameRules:SetGoldTickTime(0)
+    GameRules:SetStartingGold(0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+    GameRules:SetCustomGameAllowHeroPickMusic(false)
+    GameRules:SetCustomGameAllowBattleMusic(false)
+    GameRules:SetCustomGameAllowVictoryMusic(false)
+    GameRules:SetCustomGameAllowMusicAtGameStart(false)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    print(data)
+    DeepPrintTable(data)
+    local killedUnit = EntIndexToHScript(data.entindex_killed)
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`:** Определяется класс для режима игры.
+- **Таблицы опыта:** `HeroExpTable` и `expTable` содержат значения опыта, необходимые для достижения каждого уровня.
+- **Функция `InitGameMode`:** Настраивает параметры игры, такие как время выбора героя, время до начала игры, количество золота и т.д. Также устанавливает кастомные значения опыта и атрибутов.
+- **Событие `entity_killed`:** Подписка на событие убийства сущности, вызывающее функцию `ChupakabraKilled`.
+- **Функция `ChupakabraKilled`:** Обрабатывает данные об убитой сущности, выводит их в консоль и преобразует индекс убитой сущности в объект.
+
+### Связь с аудио:
+
+- В аудио говорится о получении данных об убитой сущности и присвоении их переменной `killedUnit`. Это соответствует строке `local killedUnit = EntIndexToHScript(data.entindex_killed)` в коде, где происходит преобразование индекса убитой сущности в объект.

@@ -1,0 +1,83 @@
+Кадр 16
+Временная метка: 0:04:00
+Номер кадра: 14400
+Скриншот: frame_014400_240.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:03:48] А это именно Ability Type, Dota Ability Type атрибут и Ability Behavior.
+[0:03:55] Абилие, а также Ability Behavior и Passive.
+[0:03:56] Все, талант у нас написан.
+[0:03:58] Давайте вставим его в героя.
+[0:04:00] Давайте, например, он в уровне будет даваться.
+[0:04:02] Теперь нам нужно его как-то связать с способностью.
+[0:04:06] И чтобы, когда у нас талант прокачивался, у нас длительность увеличилась на 100 секунд.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_heroes_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки параметров героев.
+
+### Детали экрана:
+
+1. **Редактор:**
+   - **Название:** Sublime Text (UNREGISTERED)
+   - **Открытые файлы:** `npc_abilities_custom.txt`, `npc_heroes_custom.txt`, `npc_abilities.txt`, `npc_dota_hero_barrier.txt`
+   - **Активный файл:** `npc_heroes_custom.txt`
+
+2. **Структура папок:**
+   - Путь: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc`
+   - Видимые папки: `chupakabra`, `maps`, `materials`, `particles`, `resource`, `scripts`, `soundevents`, `sounds`
+
+3. **Код:**
+   - **Язык:** Конфигурационный файл (JSON-подобный формат)
+   - **Содержимое:**
+     ```plaintext
+     "DOTAHeroes"
+     {
+         "npc_dota_hero_axe"
+         {
+             "Ability1"        "ursa_copy"
+             "Ability2"        "strong_poison"
+             "Ability3"        "cechens_armor"
+             "Ability4"        "generic_hidden"
+             "Ability5"        "generic_hidden"
+             "Ability6"        "axe_culling_blade"
+             "Ability10"       "special_bonus_evasion_8"
+             "Ability11"       "special_bonus_20_bash_4"
+             "Ability12"       "special_bonus_unique_axe_6"
+             "Ability13"       "special_bonus_unique_axe_4"
+             "Ability14"       "special_bonus_unique_axe_5"
+             "Ability15"       "special_bonus_unique_axe_3"
+             "Ability16"       "special_bonus_unique_axe_2"
+             "Ability17"       "special_bonus_unique_axe"
+             "ArmorPhysical"   "1"
+             "AttackCapabilities"  "DOTA_UNIT_CAP_MELEE_ATTACK"
+             "AttackDamageMin" "0"
+             "AttackDamageMax" "0"
+             "AttackRate"      "1.200000"
+             "AttackAnimationPoint" "0.400000"
+             "AttackAcquisitionRange" "600"
+             "AttackRange"     "150"
+             "AttributePrimary" "DOTA_ATTRIBUTE_AGILITY"
+             "AttributeBaseStrength" "1000"
+             "AttributeBaseIntelligence" "18"
+             "AttributeIntelligenceGain" "1.6"
+             "AttributeBaseAgility" "0"
+             "AttributeAgilityGain" "0"
+             "StatusHealthRegen" "2.5"
+             "MovementSpeed" "315"
+         }
+     }
+     ```
+
+   - **Описание:**
+     - Конфигурация героя `npc_dota_hero_axe` с указанием его способностей, базовых атрибутов, характеристик атаки и скорости передвижения.
+     - Способности (`Ability1` - `Ability17`) включают как стандартные, так и уникальные бонусы.
+     - Основные атрибуты: сила, интеллект, ловкость.
+     - Параметры атаки: минимальный и максимальный урон, скорость атаки, дальность атаки.
+
+4. **Связь с аудио:**
+   - В аудио говорится о добавлении и настройке способностей героя, что соответствует редактированию файла конфигурации, где перечислены способности и атрибуты героя.
+   - Упоминается связь таланта с увеличением длительности, что может относиться к настройке уникальных бонусов (`Ability10` - `Ability17`).

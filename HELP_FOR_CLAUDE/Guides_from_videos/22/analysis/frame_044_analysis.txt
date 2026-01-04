@@ -1,0 +1,68 @@
+Кадр 44
+Временная метка: 0:11:00
+Номер кадра: 39600
+Скриншот: frame_039600_660.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:50] некую формулу.
+[0:10:52] Давайте назовем ее просто direction.
+[0:10:54] То есть направление. И
+[0:10:56] возьмем наш point
+[0:10:58] и отминусуем caster point.
+[0:11:02] После этого сделаем
+[0:11:04] нормализацию.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local derction = point - casterPoint
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "",
+        Ability = self,
+        vSpawnOrigin = casterPoint,
+        fDistance = 1500,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        Source = caster,
+        bHasFrontalCone = false,
+        bReplaceExisting = false,
+        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+        iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+        iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
+        fExpireTime = GameRules:GetGameTime() + 10.0,
+        bDeleteOnHit = false,
+        vVelocity = derction:Normalized() * 1200
+    })
+end
+```
+
+### Описание кода:
+- **Класс и функция:** Определяется класс `wave_terorist` и его метод `OnSpellStart`, который вызывается при начале применения способности.
+- **Переменные:**
+  - `caster`: объект, который применяет способность.
+  - `point`: позиция, на которую указывает курсор.
+  - `casterPoint`: текущая позиция `caster`.
+  - `derction`: вектор направления, полученный вычитанием `casterPoint` из `point`.
+- **Проектиль:** Создается линейный проектиль с помощью `ProjectileManager:CreateLinearProjectile`, который имеет различные параметры, такие как `EffectName`, `Ability`, `vSpawnOrigin`, `fDistance`, `fStartRadius`, `fEndRadius`, `Source`, и `vVelocity`.
+- **Важные детали:**
+  - `vVelocity` нормализуется и умножается на скорость 1200.
+  - `iUnitTargetTeam`, `iUnitTargetFlags`, `iUnitTargetType` определяют цели, на которые проектиль может воздействовать.
+
+### Связь с аудио:
+- В аудио говорится о создании формулы направления (`direction`), что соответствует строке `local derction = point - casterPoint` в коде.
+- Упоминается нормализация, которая происходит в строке `vVelocity = derction:Normalized() * 1200`.
+
+Этот код и аудио объясняют процесс создания и направления линейного проектила в игре.

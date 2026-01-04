@@ -1,0 +1,5 @@
+Кадр 52
+Временная метка: 0:13:00
+ОШИБКА ОБРАБОТКИ:
+────────────────────────────────────────
+Ошибка при обращении к GPT-4 Vision: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-jbR8y1vKYutQAcYJJKVImHNy on tokens per min (TPM): Limit 30000, Used 29559, Requested 1357. Please try again in 1.832s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}

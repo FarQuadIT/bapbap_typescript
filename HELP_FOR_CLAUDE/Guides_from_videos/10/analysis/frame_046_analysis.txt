@@ -1,0 +1,64 @@
+Кадр 46
+Временная метка: 0:11:30
+Номер кадра: 41400
+Скриншот: frame_041400_690.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:18] нам в модификатор который накладывается на врага то есть нам ну вы может подумали что нам надо
+[0:11:25] использовать self increment stack count но тогда у нас будет повышаться стаки у вот этого модификатора
+[0:11:33] а нам нужно чтобы они повышались на враге а не на нас поэтому нам нужно как-то взять этот
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `ursa_copy.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_ursa_copy_debuff", "abilities/ursa_copy_debuff", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded(props)
+    if props.target ~= props.attacker then
+        props.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_ursa_copy_debuff", { duration = self:GetAbility():GetSpecialValueFor("duration") })
+    end
+end
+
+modifier_ursa_copy_debuff = class({})
+```
+
+### Описание кода:
+- **Импорты:** Используются функции `LinkLuaModifier` для подключения модификаторов `modifier_ursa_copy` и `modifier_ursa_copy_debuff`.
+- **Класс `ursa_copy`:** Определяет способность, которая возвращает имя модификатора `modifier_ursa_copy`.
+- **Класс `modifier_ursa_copy`:** 
+  - Скрытый модификатор (`IsHidden` возвращает `true`).
+  - Объявляет функцию `DeclareFunctions`, которая реагирует на событие `MODIFIER_EVENT_ON_ATTACK_LANDED`.
+  - В функции `OnAttackLanded` проверяется, что цель атаки не является атакующим, и добавляется новый модификатор `modifier_ursa_copy_debuff` на цель.
+
+### Связь с аудио:
+Аудио объясняет, что необходимо использовать модификатор, который накладывается на врага, а не на себя. В коде это реализовано через проверку `if props.target ~= props.attacker`, что соответствует объяснению в аудио о необходимости повышения стаков на враге.
+
+### Важные детали:
+- **Функции и классы:** Основные функции и классы, такие как `GetIntrinsicModifierName`, `IsHidden`, `DeclareFunctions`, и `OnAttackLanded`.
+- **Переменные:** Используются `props.target` и `props.attacker` для проверки условий атаки.
+- **Модификаторы:** `modifier_ursa_copy` и `modifier_ursa_copy_debuff` играют ключевую роль в логике способности.

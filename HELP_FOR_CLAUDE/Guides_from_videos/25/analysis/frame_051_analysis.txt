@@ -1,0 +1,78 @@
+Кадр 51
+Временная метка: 0:12:45
+Номер кадра: 45900
+Скриншот: frame_045900_765.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:36] After use
+[0:12:38] Ставим false
+[0:12:40] InitialHeight
+[0:12:42] Это изначальная высота
+[0:12:44] Мы можем поставить чуть повыше
+[0:12:46] Чтоб предмет вылетал из скрипа
+[0:12:48] Мне в целом
+[0:12:50] Такое прикольно выглядит
+[0:12:52] Но я хочу чтобы он сначала снизу был
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `item_drop_manager.lua`. Это файл на языке программирования Lua.
+
+### Видимый код:
+```lua
+require("tables/item_drop")
+
+if ItemDropManager == nil then
+    ItemDropManager = class({})
+end
+
+function ItemDropManager:Init()
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'EntityKilled'), self)
+end
+
+function ItemDropManager:EntityKilled(event)
+    local killedUnit = EntIndexToHScript(event.entindex_killed)
+
+    local items = ITEM_DROP[killedUnit:GetUnitName()]
+
+    if not items then return end
+
+    local randomNumber = RandomFloat(0, 0.99)
+    local cumulativeProbability = 0
+    local dropItem = nil
+
+    for _, item in ipairs(items) do
+        cumulativeProbability = cumulativeProbability + item.chance
+        if randomNumber < cumulativeProbability then
+            dropItem = item
+            break
+        end
+    end
+
+    if not dropItem then return end
+
+    local newItem = CreateItem(dropItem.item, nil, nil)
+    CreateItemPositionForLaunch(killedUnit:GetAbsOrigin(), newItem)
+    newItem:LaunchLootInitialHeight(false, 0)
+end
+```
+
+### Описание кода:
+- **Импорт**: Подключается модуль `tables/item_drop`.
+- **Класс `ItemDropManager`**: Создается класс для управления выпадением предметов.
+- **Метод `Init`**: Инициализирует прослушивание события `entity_killed`.
+- **Метод `EntityKilled`**: Обрабатывает событие убийства сущности:
+  - Получает убитую сущность.
+  - Извлекает список предметов, которые могут выпасть.
+  - Генерирует случайное число и определяет, какой предмет выпадет на основе вероятности.
+  - Создает и позиционирует новый предмет, устанавливая начальную высоту его полета.
+
+### Важные детали:
+- **Переменные**: `killedUnit`, `items`, `randomNumber`, `cumulativeProbability`, `dropItem`, `newItem`.
+- **Функции**: `CreateItem`, `CreateItemPositionForLaunch`, `LaunchLootInitialHeight`.
+
+### Связь с аудио:
+- В аудио говорится о настройке высоты (`InitialHeight`) и использовании значения `false`, что соответствует строке `newItem:LaunchLootInitialHeight(false, 0)` в коде. Это указывает на то, что предметы будут появляться на уровне земли, а не подлетать вверх.

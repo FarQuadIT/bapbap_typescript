@@ -1,0 +1,74 @@
+Кадр 49
+Временная метка: 0:12:15
+Номер кадра: 44100
+Скриншот: frame_044100_735.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:06] Ну, надо переопределить direction
+[0:12:08] на direction normalized.
+[0:12:10] То есть я просто вот так сделал, но
+[0:12:12] соответственно оно
+[0:12:14] не нормализировалось.
+[0:12:16] Нам нужно переопределить обязательно.
+[0:12:18] И также я добавил еще сверху
+[0:12:20] vision. Можете посмотреть реализацию.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `wave_terorist.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\abilities`.
+
+### Код:
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local derction = point - casterPoint
+    local speed = 600
+
+    derction = derction:Normalized()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        fDistance = 1000,
+        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+        iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+        iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
+        vVelocity = derction * speed,
+        bProvidesVision = true,
+        iVisionTeamNumber = self:GetCaster():GetTeamNumber(),
+        iVisionRadius = 500,
+    })
+end
+```
+
+### Описание кода:
+- **Класс `wave_terorist`**: Определяет новый класс для способности.
+- **Функция `OnSpellStart`**: Выполняется при активации способности.
+  - **Переменные**:
+    - `caster`: Объект, который использует способность.
+    - `point`: Позиция курсора, куда направлена способность.
+    - `casterPoint`: Текущая позиция объекта, использующего способность.
+    - `derction`: Вектор направления от `casterPoint` к `point`.
+    - `speed`: Скорость снаряда.
+  - **Нормализация `derction`**: Приведение вектора направления к единичной длине.
+  - **Создание линейного снаряда**: Используется `ProjectileManager:CreateLinearProjectile` для создания снаряда с заданными параметрами.
+
+### Важные детали:
+- **Использование `ProjectileManager`**: Управляет созданием и движением снарядов.
+- **Параметры снаряда**: Включают визуальный эффект, радиус, дистанцию, скорость и видимость.
+
+### Связь с аудио:
+- В аудио говорится о необходимости нормализации вектора `direction`, что отражено в коде строкой `derction = derction:Normalized()`.
+- Также упоминается добавление видимости (`vision`), что реализовано в коде через параметры `bProvidesVision` и `iVisionRadius`.

@@ -1,0 +1,96 @@
+Кадр 33
+Временная метка: 0:08:15
+Номер кадра: 29700
+Скриншот: frame_029700_495.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:06] И
+[0:08:07] Сейчас
+[0:08:08] Получается
+[0:08:09] Герой
+[0:08:10] При
+[0:08:11] Подборе
+[0:08:12] Любого
+[0:08:13] Предмета
+[0:08:14] Он
+[0:08:15] Просто
+[0:08:16] Не
+[0:08:17] Будет
+[0:08:18] Подбирать
+[0:08:19] И
+[0:08:20] Как нам это
+[0:08:21] Сделать
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для модификации игры Dota 2.
+
+### Видимый код:
+
+```lua
+CustomGameEventManager:RegisterListener("spawn-cobold", Dynamic_Wrap(self, 'OnSpawnCobold'))
+CustomGameEventManager:RegisterListener("add_ability", Dynamic_Wrap(self, 'OnChoiceAbility'))
+
+function ChupakabraMode:OnSpawnCobold(data)
+    local player = PlayerResource:GetPlayer(data.id)
+    local hero = player:GetAssignedHero()
+
+    hero:ModifyGold(START_GOLD, true, 13)
+end
+
+function ChupakabraMode:OnChoiceAbility(data)
+    local player = GetPlayer(data.player)
+    local hero = player:GetAssignedHero()
+
+    hero:AddAbility(data.ability)
+end
+
+function ChupakabraMode:ChupakabraStateChange(data)
+    local newState = GameRules:State_Get()
+    if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        self:ChupakabraModeStart()
+    end
+end
+
+function ChupakabraMode:DamageFilter(data)
+    return true
+end
+
+function ChupakabraMode:OrderFilter(data)
+    local type = data.order_type
+
+    if type == DOTA_UNIT_ORDER_PICKUP_ITEM then
+        return false
+    end
+
+    return true
+end
+
+function ChupakabraMode:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold_boss" then
+        EmitSoundOn("Hero_Abaddon.AphoticShield.Cast", killed_unit)
+        AddRandomAbilityFromPanel(8)
+    end
+end
+```
+
+### Описание кода:
+
+1. **Регистрация событий**: Используются функции `RegisterListener` для регистрации событий, таких как "spawn-cobold" и "add_ability".
+
+2. **Функции**:
+   - `OnSpawnCobold`: Добавляет золото герою при спавне.
+   - `OnChoiceAbility`: Добавляет способность герою.
+   - `ChupakabraStateChange`: Запускает режим "ChupakabraMode" при изменении состояния игры.
+   - `DamageFilter`: Возвращает `true`, позволяя всем видам урона.
+   - `OrderFilter`: Блокирует команды на подбор предметов.
+   - `ChupakabraKilled`: Выполняет действия при убийстве определенного юнита.
+
+### Связь с аудио:
+
+Аудио описывает ситуацию, когда герой не может подбирать предметы. Это соответствует функции `OrderFilter`, которая возвращает `false` для команд на подбор предметов, предотвращая их выполнение.

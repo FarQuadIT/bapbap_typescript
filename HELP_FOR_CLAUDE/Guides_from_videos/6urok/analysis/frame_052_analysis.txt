@@ -1,0 +1,76 @@
+Кадр 52
+Временная метка: 0:13:00
+Номер кадра: 46800
+Скриншот: frame_046800_780.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:12:49] и там, если cobalt count равно,
+[0:12:56] больше равно, лучше сделать,
+[0:12:58] больше равно, там, 105,
+[0:13:00] то тогда, то тогда уже пусть будет выигрывать у нас GoodGuys.
+[0:13:04] То есть можно вот такую реализацию придумать.
+[0:13:06] Вот реально, что ваша фантазия хочет,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+ChupakabraMode = class({})
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_5, 2)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_6, 2)
+
+    GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true) -- установка кастомной системы уровней
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel(#HeroXPTable)
+
+    GameRules:SetUseCustomHeroXPValues(true)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+    GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+    ListenToGameEvent("entity_killed", Dynamic_Wrap(self, 'ChupakabraKilled'), self)
+    GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+end
+
+function ChupakabraKilled(event)
+    local killed_unit = EntIndexToHScript(event.entindex_killed)
+    local kobold_count = 0
+
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        kobold_count = kobold_count + 1
+    end
+
+    if kobold_count >= 105 then
+        killed_unit:SetTeam(DOTA_TEAM_BADGUYS)
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+end
+```
+
+### Описание кода:
+
+- **Класс `ChupakabraMode`**: Определяет новый игровой режим.
+- **Функция `InitGameMode`**: Инициализирует параметры игры, такие как максимальное количество игроков в командах, использование кастомных уровней героев и атрибутов.
+- **Функция `ChupakabraKilled`**: Обрабатывает событие убийства сущности. Если количество убитых "kobold" достигает 105, команда "GoodGuys" выигрывает игру.
+
+### Важные детали:
+
+- **Импорты и зависимости**: Используются функции и константы из API Dota 2.
+- **Переменные**: `kobold_count`, `killed_unit`.
+- **События**: `entity_killed`, `OnThink`.
+
+### Связь с аудио:
+
+Аудио объясняет логику, связанную с переменной `kobold_count`. Если она достигает 105, команда "GoodGuys" выигрывает, что соответствует коду в функции `ChupakabraKilled`.

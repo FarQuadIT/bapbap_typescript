@@ -1,0 +1,59 @@
+Кадр 33
+Временная метка: 0:08:15
+Номер кадра: 29700
+Скриншот: frame_029700_495.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:08:05] Идем дальше.
+[0:08:09] И что мы должны тут прописать?
+[0:08:10] Мы должны тут прописать такую интересную функцию, как startIntervalSync.
+[0:08:16] И указать сюда цифру, которая будет срабатывать.
+[0:08:22] То есть...
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     LinkLuaModifier( "modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE )
+
+     strong_poison = class({})
+
+     function strong_poison:GetIntrinsicModifierName()
+         return "modifier_strong_poison"
+     end
+
+     function modifier_strong_poison:DeclareFunctions()
+         return { MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT }
+     end
+
+     function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+         return -150
+     end
+
+     function modifier_strong_poison:OnCreated()
+         -- Start
+     end
+     ```
+   - **Описание кода:**
+     Код определяет модификатор "modifier_strong_poison" для способности "strong_poison". Этот модификатор уменьшает скорость передвижения на 150 единиц.
+   - **Важные детали:**
+     - Используется функция `LinkLuaModifier` для связывания модификатора с файлом.
+     - Определены функции `DeclareFunctions` и `GetModifierMoveSpeedBonus_Constant`, которые управляют эффектами модификатора.
+     - Функция `OnCreated` пока не реализована, но в ней начинается ввод функции, связанной с аудио.
+
+2. **РЕДАКТОР:**
+
+   - **Название программы/редактора:** Sublime Text
+   - **Что открыто в редакторе:** Файл `strong_poison.lua` из директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities\strong_poison.lua`.
+   - **Активные инструменты:** Подсветка синтаксиса для Lua.
+   - **Панели/вкладки:** Открыты несколько вкладок с Lua-файлами, такими как `modifier_viper_poison_attack_lua.lua`, `healing_spell.lua`, `axe_culling_blade_lua.lua`.
+
+3. **СВЯЗЬ С АУДИО:**
+
+   - В аудио говорится о необходимости прописать функцию `startIntervalSync` и указать цифру. На экране видно, что пользователь начинает ввод функции `Start`, что может быть связано с этой задачей.

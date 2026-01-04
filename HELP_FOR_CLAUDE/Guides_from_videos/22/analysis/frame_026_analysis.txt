@@ -1,0 +1,81 @@
+Кадр 26
+Временная метка: 0:06:30
+Номер кадра: 23400
+Скриншот: frame_023400_390.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:20] теперь должна создаваться вилка?
+[0:06:22] То есть, tracking, projectile
+[0:06:24] у нас действуют, когда у нас есть определенный таргет.
+[0:06:26] Однако, сейчас у нас его нет.
+[0:06:28] Но, на самом деле, здесь все
+[0:06:30] буквально то же самое. Мы берем projectile
+[0:06:32] manager и функция
+[0:06:34] просто чем отличается? Она также называется
+[0:06:36] create, только не tracking, а liner
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `mega_puper_stun.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+mega_puper_stun = class({})
+
+function mega_puper_stun:OnSpellStart()
+    local caster = self:GetCaster()
+    local target = self:GetCursorTarget()
+
+    ProjectileManager:CreateTrackingProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_magic_missle.vpcf",
+        Ability = self,
+        Source = caster,
+        Target = target,
+        iMoveSpeed = 1000,
+    })
+end
+
+function mega_puper_stun:OnProjectileHit(target)
+    if not target then return end
+    local caster = self:GetCaster()
+
+    ApplyDamage({
+        victim = target,
+        attacker = caster,
+        ability = self,
+        damage = 100,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+    })
+
+    target:AddNewModifier(caster, self, "modifier_stunned", {duration = 1})
+end
+```
+
+### Описание кода:
+
+1. **Класс и функции:**
+   - `mega_puper_stun = class({})`: Создание класса способности.
+   - `OnSpellStart`: Функция, вызываемая при начале применения способности. Определяет кастера и цель, создает отслеживающий снаряд.
+   - `OnProjectileHit`: Функция, вызываемая при попадании снаряда в цель. Наносит магический урон и добавляет модификатор оглушения.
+
+2. **Детали:**
+   - Используется `ProjectileManager:CreateTrackingProjectile` для создания отслеживающего снаряда.
+   - `ApplyDamage` наносит урон цели.
+   - `AddNewModifier` добавляет модификатор оглушения на 1 секунду.
+
+### Связь с аудио:
+
+- В аудио говорится о создании снаряда и его поведении при отсутствии цели. Код на экране соответствует этому описанию, так как он создает отслеживающий снаряд и обрабатывает его попадание.
+- Упоминается функция `create`, которая в коде представлена как `CreateTrackingProjectile`.
+
+### Программа и интерфейс:
+
+- **Программа:** Sublime Text
+- **Открытые файлы:** `mega_puper_stun.lua`, `npc_heroes_custom.txt`
+- **Панели:** Слева видна файловая структура проекта, включая папки и файлы скриптов.
+
+Этот код и его описание соответствуют обсуждаемым в аудио аспектам создания и управления снарядами в игре.

@@ -1,0 +1,103 @@
+Кадр 54
+Временная метка: 0:13:30
+Номер кадра: 48600
+Скриншот: frame_048600_810.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:13:20] здесь единственное, что может вам показаться сложным,
+[0:13:23] что мы используем какой-то playerResource,
+[0:13:25] там, что-то обращаемся к игрокам,
+[0:13:27] но, в целом, все равно не сильно сложно,
+[0:13:30] как по мне, просто, типа, можете, окей, скопировать,
+[0:13:33] типа, никто вас там не убьет за это.
+[0:13:36] И вот, типа, мы, что, когда умирает кобальт, получается,
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в модах для игры Dota 2.
+
+### Видимый код:
+
+```lua
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_1, 3)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_2, 3)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_3, 3)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_4, 3)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_5, 3)
+GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_CUSTOM_6, 3)
+
+GameRules:SetUseCustomHeroXPValues( true ) -- установка кастомной системы уровней
+GameRules:GetGameModeEntity():SetUseCustomHeroLevels( true )
+GameRules:SetCustomHeroMaxLevel( НегоеКтабле )
+GameRules:SetUseCustomTopBarValues( true )
+
+GameRules:SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR,10.0)
+GameRules:SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED,50.0)
+
+ListenToGameEvent("entity_killed", dynamic_wrap(self, 'ChupakabraKilled'), self)
+GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+
+-- Evaluate the state of the game
+function Chupakabra:OnThink()
+    if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        -- Do some stuff here
+    elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+        return nil
+    end
+    return 1
+end
+
+local kobold_count = 0
+
+function Chupakabra:ChupakabraKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        EvaluateAllPlayers()
+    end
+
+    if kobold_count >= 100 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+
+    if killed_unit:IsRealHero() then
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+
+function GiveGoldPlayers( gold )
+    for index=0,PlayerResource:GetPlayerCount()-1 do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = player:GetAssignedHero()
+            hero:ModifyGold(gold, false, 0)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+```
+
+### Описание кода:
+
+1. **Настройка команд**: Устанавливается максимальное количество игроков для каждой команды.
+2. **Кастомные значения**: Включаются кастомные значения опыта и атрибутов для героев.
+3. **События и функции**:
+   - `ListenToGameEvent` слушает событие убийства сущности и вызывает функцию `ChupakabraKilled`.
+   - `OnThink` проверяет состояние игры и выполняет действия в зависимости от него.
+   - `ChupakabraKilled` увеличивает счетчик убитых кобольдов и определяет победителя игры.
+   - `GiveGoldPlayers` раздает золото всем игрокам.
+
+### Важные детали:
+
+- **Переменные и функции**: Используются функции для управления состоянием игры и взаимодействия с игроками.
+- **Импорты**: Неявные, так как это часть скрипта для Dota 2, где функции предоставляются игровым API.
+
+### Связь с аудио:
+
+Аудио объясняет использование `playerResource` и взаимодействие с игроками, что соответствует функциям `PlayerResource` в коде. Упоминается, что можно скопировать код, что связано с простотой использования предоставленных функций.

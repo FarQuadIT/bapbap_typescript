@@ -1,0 +1,65 @@
+Кадр 141
+Временная метка: 0:16:27
+Номер кадра: 59220
+Скриншот: frame_059220_987.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:22] Всё в этом можете порыться.
+[0:16:24] Это на самом деле очень интересно.
+[0:16:25] И так же как мы отсюда взяли NPC Dota Hero Axe.
+[0:16:30] Можем его вообще полностью скопировать.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities.txt`. Это файл конфигурации, вероятно, связанный с игрой Dota 2, содержащий описание способностей персонажей.
+
+### Детали экрана:
+
+1. **Редактор**: Sublime Text
+   - Несколько открытых вкладок: `addon_english.txt`, `herolist.txt`, `npc_heroes.txt`, `npc_heroes_custom.txt`, `npc_items_custom.txt`, `npc_units_custom.txt`, `addoninfo.txt`, `npc_abilities.txt`, `npc_abilities_custom.txt`.
+
+2. **Содержимое файла**:
+   - Файл содержит текст в формате конфигурации, описывающий способности персонажей.
+   - Пример способности: `Pugna: Life Drain`.
+   - Видны параметры способности, такие как `AbilityType`, `AbilityBehavior`, `AbilityCastRange`, `AbilityCastPoint`, и другие.
+
+3. **Код**:
+   ```plaintext
+   // Pugna: Life Drain
+   "Pugna_life_drain"
+   {
+       // General
+       //-------------------------------------------------------------------------------------------------------------
+       "ID"                            "5190"                                                      // unique ID number for this ability.  DO NOT CHANGE THIS ONCE ESTABLISHED OR IT WILL INVALIDATE COLLECTED STATS.
+       "AbilityType"                   "DOTA_ABILITY_TYPE_ULTIMATE"
+       "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+       "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+       "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+       "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE"
+       "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
+       "SpellDispellableType"          "SPELL_DISPELLABLE_NO"
+       "DamageType"                    "DAMAGE_TYPE_MAGICAL"
+       "HasScepterUpgrade"             "1"
+       "FightRecapLevel"               "1"
+
+       // Casting
+       //-------------------------------------------------------------------------------------------------------------
+       "AbilityCastRange"              "700"
+       "AbilityCastPoint"              "0.2"
+       "AbilityChannelTime"            "10.0"
+       "AbilityCooldown"               "22.0"
+       "AbilityManaCost"               "125"
+       "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_4"
+       "AbilityChannelAnimation"       "ACT_DOTA_CHANNEL_ABILITY_4"
+   }
+   ```
+
+4. **Связь с аудио**:
+   - В аудио говорится о возможности копирования данных из файла, что соответствует показанному на экране содержимому конфигурационного файла, где описаны способности героев, такие как `Pugna: Life Drain`.
+   - Упоминается NPC Dota Hero Axe, что может быть связано с аналогичными конфигурациями в других частях файла.
+
+### Заключение:
+На экране представлен процесс редактирования конфигурационного файла способностей героев в игре Dota 2, что соответствует обсуждаемой в аудио теме о копировании и редактировании данных для героев.

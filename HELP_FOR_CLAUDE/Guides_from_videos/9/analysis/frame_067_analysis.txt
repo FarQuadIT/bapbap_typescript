@@ -1,0 +1,56 @@
+Кадр 67
+Временная метка: 0:16:45
+Номер кадра: 60300
+Скриншот: frame_060300_1005.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:38] и также можем сделать с армором но это не все на что у нас способны таблицы я вам просто рассказал
+[0:16:45] сейчас такую базу постарайтесь не забывать ее на таблицах опять же завязано почти все в доте и мы
+[0:16:51] будем еще их неоднократно использовать поэтому на этом пока что все ждите следующий урок с вами был
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `cechens_armor.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_cechens_armor", "abilities/cechens_armor", LUA_MODIFIER_MOTION_NONE)
+
+cechens_armor = class({})
+
+function cechens_armor:GetIntrinsicModifierName()
+    return "modifier_cechens_armor"
+end
+
+function modifier_cechens_armor:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+        MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE
+    }
+end
+
+function modifier_cechens_armor:GetModifierPreAttack_BonusDamage()
+    return self:GetParent():GetStrength() * 0.1
+end
+
+function modifier_cechens_armor:GetModifierPhysicalArmorBonus()
+    return self:GetParent():GetAgility() * 0.1
+end
+```
+
+### Описание кода:
+- **Импорт и регистрация модификатора**: `LinkLuaModifier` связывает модификатор `modifier_cechens_armor` с файлом `abilities/cechens_armor`.
+- **Класс `cechens_armor`**: Определяет способность, которая возвращает имя модификатора `modifier_cechens_armor`.
+- **Функция `DeclareFunctions`**: Указывает, какие свойства модификатор будет изменять — бонус к физической броне и бонус к урону перед атакой.
+- **Функция `GetModifierPreAttack_BonusDamage`**: Рассчитывает бонусный урон перед атакой, основанный на силе персонажа (`GetStrength`).
+- **Функция `GetModifierPhysicalArmorBonus`**: Рассчитывает бонус к физической броне, основанный на ловкости персонажа (`GetAgility`).
+
+### Важные детали:
+- **Импорты**: Используется `LinkLuaModifier` для связывания модификатора.
+- **Функции и переменные**: Основные функции — `GetIntrinsicModifierName`, `DeclareFunctions`, `GetModifierPreAttack_BonusDamage`, `GetModifierPhysicalArmorBonus`.
+
+### Связь с аудио:
+В аудио говорится о важности таблиц в Dota 2 и их использовании. Код на экране демонстрирует пример использования таблиц для определения модификаторов, что соответствует обсуждаемой теме в аудио.

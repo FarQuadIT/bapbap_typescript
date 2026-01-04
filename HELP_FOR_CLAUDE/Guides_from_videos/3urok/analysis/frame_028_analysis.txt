@@ -1,0 +1,86 @@
+Кадр 28
+Временная метка: 0:07:00
+Номер кадра: 25200
+Скриншот: frame_025200_420.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:06:49] То есть мы используем стандартную абилку доты.
+[0:06:52] Но нам нужен как бы еще один экземпляр.
+[0:06:54] Если мы просто скопируем и поменяем название тут.
+[0:06:57] Давай, допустим не Axe, а Cox.
+[0:07:02] И дадим этот Cox Counter Helix нашему персонажу.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки способностей персонажей.
+
+### Детали экрана:
+
+1. **Редактор:**
+   - **Название программы:** Sublime Text (UNREGISTERED)
+   - **Открытые вкладки:** 
+     - `npc_abilities_custom.txt`
+     - `npc_heroes_custom.txt`
+     - `update.txt`
+     - `npc_items_custom.txt`
+   - **Путь к файлу:** `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\npc_abilities_custom.txt`
+
+2. **Структура кода:**
+   - **Язык:** Конфигурационный файл (формат JSON-подобный)
+   - **Код:**
+     ```plaintext
+     "axe_counter_helix"
+     {
+         // General
+         "AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+         "AbilityUnitDamageType"  "DAMAGE_TYPE_PURE"
+         "SpellImmunityType"      "SPELL_IMMUNITY_ENEMIES_YES"
+         "AbilitySound"           "Hero_Axe.CounterHelix"
+         "AbilityTextureName"     "axe/ub"
+         "MaxLevel"               "7"
+         "RequiredLevel"          "1"
+         "LevelsBetweenUpgrades"  "10"
+         "HasShardUpgrade"        "1"
+         
+         // Special
+         "AbilityValues"
+         {
+             "damage"
+             {
+                 "value"           "100 200 300 400 500 600 700"
+             }
+             "radius"              "300"
+             "trigger_attacks"     "1"
+             "AbilityCooldown"     "0"
+             "value"               "1"
+             "special_bonus_shard"
+             {
+                 "shard_debuff_duration" "+6.0"
+                 "shard_damage_reduction" "+15"
+                 "special_bonus_shard"    "+15"
+             }
+         }
+         "AbilityCastAnimation"   "ACT_DOTA_CAST_ABILITY_3"
+     }
+     ```
+
+3. **Описание кода:**
+   - **Способность:** `axe_counter_helix`
+   - **Параметры:**
+     - **AbilityBehavior:** Пассивная способность.
+     - **AbilityUnitDamageType:** Наносит чистый урон.
+     - **SpellImmunityType:** Способность действует на врагов с иммунитетом к магии.
+     - **AbilitySound:** Звук способности.
+     - **AbilityTextureName:** Текстура способности.
+     - **MaxLevel:** Максимальный уровень способности — 7.
+     - **RequiredLevel:** Требуемый уровень для получения способности — 1.
+     - **LevelsBetweenUpgrades:** Количество уровней между улучшениями — 10.
+     - **HasShardUpgrade:** Способность имеет улучшение через Shard.
+     - **AbilityValues:** Значения урона и радиуса действия.
+     - **AbilityCastAnimation:** Анимация при использовании способности.
+
+4. **Связь с аудио:**
+   - В аудио говорится о создании новой способности, основанной на стандартной способности Dota 2. На экране видно, как создается новая способность `axe_counter_helix`, что соответствует описанию в аудио. Пользователь меняет название и параметры, чтобы создать уникальную способность для персонажа.

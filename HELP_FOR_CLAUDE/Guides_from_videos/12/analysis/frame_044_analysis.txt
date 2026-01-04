@@ -1,0 +1,76 @@
+Кадр 44
+Временная метка: 0:11:00
+Номер кадра: 39600
+Скриншот: frame_039600_660.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:51] DamageType Magical.
+[0:10:53] И тут ability, ну все верно указано, self.getAbility.
+[0:10:56] Тут мы указали self, потому что мы находились уже в абилке.
+[0:10:59] А тут, так как мы в модификаторе, мы пишем self, то есть сам модификатор.
+[0:11:04] И getAbility, это я повторяю для тех, кто вдруг что-то сейчас недопонимает.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Видимый код:
+
+```lua
+LinkLuaModifier( "modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE )
+
+strong_poison = class({})
+
+function strong_poison:OnSpellStart()
+    local target = self:GetCursorTarget()
+    local caster = self:GetCaster()
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {duration = 8})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return { MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT }
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+
+function modifier_strong_poison:OnCreated()
+    self:StartIntervalThink(1)
+end
+
+function modifier_strong_poison:OnIntervalThink()
+    ApplyDamage({
+        victim = self:GetParent(),
+        attacker = self:GetCaster(),
+        damage = 10,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+        ability = self:GetAbility()
+    })
+end
+```
+
+### Описание кода:
+
+- **LinkLuaModifier**: Связывает модификатор `modifier_strong_poison` с файлом `abilities/strong_poison`.
+- **strong_poison:OnSpellStart**: Функция, вызываемая при активации способности. Применяет модификатор `modifier_strong_poison` к цели на 8 секунд.
+- **modifier_strong_poison**: Класс, описывающий поведение модификатора.
+  - **IsHidden**: Возвращает `false`, модификатор видим.
+  - **DeclareFunctions**: Указывает, что модификатор изменяет скорость передвижения.
+  - **GetModifierMoveSpeedBonus_Constant**: Уменьшает скорость передвижения на 150.
+  - **OnCreated**: Запускает периодическое выполнение функции `OnIntervalThink` каждую секунду.
+  - **OnIntervalThink**: Наносит 10 единиц магического урона владельцу модификатора.
+
+### Связь с аудио:
+
+- В аудио объясняется использование `self.getAbility` в контексте модификатора, что видно в функции `OnIntervalThink`, где `self:GetAbility()` используется для получения способности, связанной с модификатором.
+- Упоминается, что `self` используется в модификаторе, что соответствует коду, где `self` применяется для доступа к методам и свойствам модификатора.

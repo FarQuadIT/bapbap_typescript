@@ -1,0 +1,96 @@
+Кадр 66
+Временная метка: 0:16:30
+Номер кадра: 59400
+Скриншот: frame_059400_990.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:20] есть отдельное
+[0:16:22] свойство, которое называется onProjectileHit
+[0:16:24] extraData, где третьим параметром
+[0:16:26] передается extraData.
+[0:16:28] И получается локация,
+[0:16:30] если она нам не нужна, просто ее игнорим
+[0:16:32] и все, достаем extraData.
+[0:16:36] И давайте сейчас покажу
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local caster = self:GetCaster()
+    local point = self:GetCursorPosition()
+    local casterPoint = caster:GetOrigin()
+
+    local drection = point - casterPoint
+    local speed = 600
+
+    drection = drection:Normalized()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        vSpawnOrigin = casterPoint,
+        fDistance = 1200,
+        fExpireTime = 5,
+        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+        iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+        iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
+        vVelocity = drection * speed,
+        bProvidesVision = true,
+        iVisionTeamNumber = caster:GetTeamNumber(),
+        iVisionRadius = 500,
+        ExtraData = {},
+    })
+end
+
+function wave_terorist:OnProjectileHit_ExtraData(target)
+    local caster = self:GetCaster()
+
+    if not target then
+        caster:Heal(9999, self)
+        return
+    end
+
+    ApplyDamage({
+        victim = target,
+        attacker = caster,
+        ability = self,
+        damage = 100,
+        damage_type = DAMAGE_TYPE_MAGICAL,
+    })
+
+    target:AddNewModifier(caster, self, "modifier_stunned", {duration = 1})
+end
+```
+
+### Описание кода:
+
+1. **Класс и функции:**
+   - `wave_terorist = class({})`: Создание класса `wave_terorist`.
+   - `OnSpellStart`: Функция, вызываемая при начале заклинания. Создает линейный снаряд с определенными параметрами.
+   - `OnProjectileHit_ExtraData`: Функция, вызываемая при попадании снаряда. Если цель не найдена, исцеляет кастера. Если цель найдена, наносит магический урон и оглушает.
+
+2. **Переменные и параметры:**
+   - `caster`, `point`, `casterPoint`: Определяют кастера и его позицию.
+   - `drection`, `speed`: Направление и скорость снаряда.
+   - `ProjectileManager:CreateLinearProjectile`: Создает линейный снаряд с заданными параметрами, такими как радиус, дистанция, скорость и эффект.
+
+3. **Связь с аудио:**
+   - В аудио упоминается свойство `onProjectileHit` и `extraData`, что соответствует функции `OnProjectileHit_ExtraData` и параметру `ExtraData` в коде. Это объясняет, как обрабатываются данные при попадании снаряда.
+
+### Важные детали:
+- Используется `ProjectileManager` для создания снаряда.
+- Обработка попадания снаряда включает исцеление или нанесение урона и оглушение.
+- Код содержит небольшую ошибку в написании переменной `drection`, которая должна быть `direction`.

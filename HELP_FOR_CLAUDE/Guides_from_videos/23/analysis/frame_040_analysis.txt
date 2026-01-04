@@ -1,0 +1,52 @@
+Кадр 40
+Временная метка: 0:10:00
+Номер кадра: 36000
+Скриншот: frame_036000_600.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:09:52] И да, в этом прикол, что когда мы создаем карту с третьим аргументом True,
+[0:09:56] то мы должны сами ее заспаунить.
+[0:09:59] То есть, ну, как бы она уже заспаунила, просто для того, чтобы она заработала,
+[0:10:03] нам нужно выполнить вот такую функцию.
+[0:10:06] То есть мы берем, что нам возвращает спаун MapAtPosition.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `trigger.lua`. Это файл на языке программирования Lua. 
+
+### Видимый код:
+```lua
+function StartTouch(event)
+    local activator = event.activator
+
+    local point = Entities:FindByName(nil, "spawn_level_point"):GetAbsOrigin()
+    point.x = point.x + 2048
+    point.z = 0
+    DOTA_SpawnMapAtPosition("spawn_test", point, true, nil, nil, nil)
+    ManuallyTriggerSpawnGroupCompletion(spawnGroupHandle)
+end
+
+function EndTouch(event)
+end
+```
+
+### Описание кода:
+- **Функция `StartTouch(event)`**: 
+  - Получает объект `activator` из события.
+  - Находит точку с именем `spawn_level_point` и получает её абсолютные координаты.
+  - Изменяет координату `x`, добавляя 2048, и устанавливает `z` в 0.
+  - Вызывает функцию `DOTA_SpawnMapAtPosition` для спауна карты с именем `spawn_test` в указанной точке. Третий аргумент `true` указывает, что карта должна быть заспаунена вручную.
+  - Вызывает `ManuallyTriggerSpawnGroupCompletion` для завершения спауна группы.
+
+- **Функция `EndTouch(event)`**: Пустая функция, которая, вероятно, будет использоваться для обработки окончания взаимодействия.
+
+### Важные детали:
+- **Импорты и зависимости**: Не видны в данном фрагменте.
+- **Переменные**: `activator`, `point`, `spawnGroupHandle`.
+- **Функции**: `StartTouch`, `EndTouch`, `Entities:FindByName`, `GetAbsOrigin`, `DOTA_SpawnMapAtPosition`, `ManuallyTriggerSpawnGroupCompletion`.
+
+### Связь с аудио:
+- Аудио объясняет, что при создании карты с третьим аргументом `true`, её нужно заспаунить вручную, что и демонстрируется в коде через вызов `DOTA_SpawnMapAtPosition` и `ManuallyTriggerSpawnGroupCompletion`.

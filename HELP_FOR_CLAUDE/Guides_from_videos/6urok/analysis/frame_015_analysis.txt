@@ -1,0 +1,75 @@
+Кадр 15
+Временная метка: 0:03:45
+Номер кадра: 13500
+Скриншот: frame_013500_225.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:03:40] Блять, как пишется.
+[0:03:43] Похуй, скопирую просто.
+[0:03:46] Вот, dynamic wrap.
+[0:03:48] И здесь мы должны первым аргументом передать,
+[0:03:50] опять же, сам chupacabra-mod
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** Lua
+   - **Видимый код:**
+     ```lua
+     if ChupakabraMode == nil then
+         ChupakabraMode = class({})
+     end
+
+     expTable = {0, 200, 500, 900, 1400, 2000, 2600, 3200, 4400, 5400, 6000, 8200, 9000, 10400, 11900, 13500, 15200, 17000, 18900, 20900, 23000, 25200, 27500, 29900, 32400}
+     expTable[26] = expTable[25] + 1000
+
+     for i = 2, #expTable do
+         HeroXPTable[i] = HeroXPTable[i-1] + expTable[i]
+     end
+
+     function ChupakabraMode:InitGameMode()
+         GameRules:SetStartingGold(1500)
+         GameRules:SetHeroSelectionTime(60.0)
+         GameRules:SetPreGameTime(30.0)
+         GameRules:SetPostGameTime(60.0)
+         GameRules:SetTreeRegrowTime(60.0)
+         GameRules:SetUseCustomHeroXPValues(true) -- установка кастомной системы уровней
+         GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(HeroXPTable)
+         GameRules:GetGameModeEntity():SetUseCustomHeroLevels(true)
+
+         GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 10.0)
+         GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 50.0)
+
+         ListenToGameEvent("entity_killed", Dynamic_Wrap(ChupakabraMode, 'OnEntityKilled'), self)
+         GameRules:GetGameModeEntity():SetThink("OnThink", self, "GlobalThink", 2)
+     end
+
+     function ChupakabraMode:OnThink()
+         if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+             print("Template addon script is running.")
+         elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
+             return nil
+         end
+         return 1
+     end
+
+     function ChupakabraMode:OnEntityKilled()
+     end
+     ```
+
+   - **Описание кода:**
+     Код определяет класс `ChupakabraMode` и инициализирует игровой режим с кастомными настройками для игры Dota 2. Он устанавливает начальное золото, время выбора героя, время до начала игры и другие параметры. Также задается кастомная система уровней и атрибутов для героев. Код включает обработку событий, таких как убийство сущности, и периодическое выполнение функции `OnThink`.
+
+   - **Важные детали:**
+     - Импортируется класс `ChupakabraMode`.
+     - Используются функции `SetStartingGold`, `SetHeroSelectionTime`, `SetPreGameTime` и другие для настройки параметров игры.
+     - Используется `Dynamic_Wrap` для привязки событий.
+     - Определены функции `InitGameMode`, `OnThink`, `OnEntityKilled`.
+
+2. **СВЯЗЬ С АУДИО:**
+   - В аудио говорится о копировании и использовании `dynamic wrap`, что соответствует использованию `Dynamic_Wrap` в коде для привязки события `entity_killed` к функции `OnEntityKilled`.
+   - Упоминается передача аргумента `chupacabra-mod`, что связано с использованием класса `ChupakabraMode` в коде.

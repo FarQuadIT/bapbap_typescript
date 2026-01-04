@@ -1,0 +1,81 @@
+Кадр 57
+Временная метка: 0:14:15
+Номер кадра: 51300
+Скриншот: frame_051300_855.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:14:06] Если он равен player ID чувака, который убил.
+[0:14:12] И не забываем, что это у нас два разных значения.
+[0:14:14] Поэтому переводим в строку player локального ID.
+[0:14:21] А точнее лучше сделать будет, если не равен, то мы просто возвращаем функцию и функция дальше не идет.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан код в редакторе Visual Studio Code. Это JavaScript-код, связанный с игрой Dota 2, вероятно, для пользовательского сценария или модификации.
+
+### Видимый код:
+```javascript
+$.GetContextPanel().SetDialogVariable("counter", CustomNetTables.GetTableValue("boss_kill", `${Players.GetLocalPlayer()}`).boss_killed);
+if (Players.GetLocalPlayer() !== key) return;
+
+function CreateAbilityPanel() {
+    const arrayAbilities = Object.values(elements.abilities);
+    const rootPanel = $.CreatePanel("Panel", $.GetContextPanel(), "");
+    rootPanel.BLoadLayoutSnippet("abilityPanel");
+    rootPanel.AddClass("black-cube");
+    const panelBody = rootPanel.FindChildTraverse("black-cube_body");
+    arrayAbilities.map((element) => {
+        const ability = $.CreatePanel("DOTAAbilityImage", panelBody, "", {
+            class: "black-cube_ability",
+            abilityname: element,
+            hittest: "true",
+        });
+        ability.SetPanelEvent("onactivate", () => {
+            GameEvents.SendCustomGameEventToServer("add_ability", {
+                player: Players.GetLocalPlayer(),
+                ability: element,
+            });
+            rootPanel.RemoveClass("IsActive");
+            rootPanel.DeleteAsync(0.4);
+        });
+    });
+}
+
+function UpdateBossCounter(_, key, value) {
+    if ($.Players.GetLocalPlayer() !== key) return;
+}
+
+CustomNetTables.SubscribeNetTableListener("boss_kill", UpdateBossCounter);
+GameEvents.Subscribe("show_ability_panel", CreateAbilityPanel);
+
+const dotaHud = () => {
+    let panel = $.GetContextPanel();
+    while (panel) {
+        if (panel.id === "DotaHud") return panel;
+        panel = panel.GetParent();
+    }
+    return panel;
+};
+
+const talent = dotaHud().FindChildTraverse("StatBranch");
+const level = dotaHud().FindChildTraverse("level_stats_frame");
+talent.style.opacity = "0";
+level.style.opacity = "0";
+```
+
+### Описание кода:
+- **Функция `CreateAbilityPanel`:** Создает панель с изображениями способностей, которые можно активировать. При активации способности отправляется событие на сервер.
+- **Функция `UpdateBossCounter`:** Проверяет, совпадает ли локальный ID игрока с переданным ключом. Если нет, функция завершает выполнение.
+- **Подписки на события:** Используются для обновления счетчика убийств босса и отображения панели способностей.
+- **Функция `dotaHud`:** Ищет и возвращает панель с ID "DotaHud".
+- **Изменение стилей:** Устанавливает прозрачность для определенных элементов интерфейса.
+
+### Важные детали:
+- **Импорты и зависимости:** Используются функции и объекты, специфичные для среды Dota 2, такие как `$.CreatePanel`, `GameEvents`, `CustomNetTables`.
+- **Переменные и классы:** Используются для управления интерфейсом и взаимодействия с игровыми событиями.
+
+### Связь с аудио:
+- В аудио говорится о проверке равенства ID игрока и необходимости перевода в строку. В коде это отражено в условии `if ($.Players.GetLocalPlayer() !== key) return;`, что соответствует обсуждаемой логике проверки ID игрока.

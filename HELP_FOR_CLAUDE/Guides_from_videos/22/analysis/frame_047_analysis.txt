@@ -1,0 +1,66 @@
+Кадр 47
+Временная метка: 0:11:45
+Номер кадра: 42300
+Скриншот: frame_042300_705.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:11:36] направление, куда должен двигаться
+[0:11:38] наш projectile.
+[0:11:40] Все в одном параметре.
+[0:11:42] И опять же для этого нужна вот
+[0:11:44] такая формула. То есть мы берем
+[0:11:46] позицию спавна и
+[0:11:48] берем позицию конечную нашу.
+[0:11:50] Минусуем их, нормализуем
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `wave_terorist.lua`. Это скрипт на языке программирования Lua, используемый для разработки модификаций в игре Dota 2.
+
+### Видимый код:
+```lua
+wave_terorist = class({})
+
+function wave_terorist:OnSpellStart()
+    local point = self:GetCursorPosition()
+    local caster = self:GetCaster()
+    local casterPoint = caster:GetOrigin()
+
+    local derction = point - casterPoint
+    local speed = 600
+    derction:Normalize()
+
+    ProjectileManager:CreateLinearProjectile({
+        EffectName = "particles/units/heroes/hero_vengeful/vengeful_wave_of_terror.vpcf",
+        Ability = self,
+        Source = caster,
+        vSpawnOrigin = casterPoint,
+        fStartRadius = 200,
+        fEndRadius = 200,
+        fDistance = self:GetCastRange(casterPoint, caster),
+        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
+        iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
+        iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
+        vVelocity = derction * speed,
+    })
+end
+```
+
+### Описание кода:
+- **Класс `wave_terorist`**: Определяет способность в игре.
+- **Функция `OnSpellStart`**: Вызывается при активации способности.
+  - Получает позицию курсора (`point`) и кастера (`caster`).
+  - Вычисляет направление (`derction`) от кастера до точки курсора и нормализует его.
+  - Создает линейный снаряд с помощью `ProjectileManager:CreateLinearProjectile`, задавая параметры, такие как эффект, источник, радиус, дистанция и скорость.
+
+### Важные детали:
+- **Переменные**: `point`, `caster`, `casterPoint`, `derction`, `speed`.
+- **Функции**: `GetCursorPosition`, `GetCaster`, `GetOrigin`, `Normalize`, `CreateLinearProjectile`.
+- **Константы**: `DOTA_UNIT_TARGET_TEAM_ENEMY`, `DOTA_UNIT_TARGET_FLAG_NONE`, `DOTA_UNIT_TARGET_HERO`, `DOTA_UNIT_TARGET_CREEP`.
+
+### Связь с аудио:
+- В аудио объясняется, как вычисляется направление движения снаряда, что соответствует строкам кода, где происходит вычитание позиций и нормализация (`local derction = point - casterPoint` и `derction:Normalize()`).
+- Упоминается использование формулы для направления, что отражено в коде через вычисление и нормализацию вектора направления.

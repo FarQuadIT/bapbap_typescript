@@ -1,0 +1,91 @@
+Кадр 61
+Временная метка: 0:15:15
+Номер кадра: 54900
+Скриншот: frame_054900_915.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:15:06] Нужно...
+[0:15:09] В падлу залазить.
+[0:15:10] Ну ладно.
+[0:15:11] Все, нашел обилочку.
+[0:15:13] И мы должны обязательно его, конечно, прописать нашему кабальдиночку.
+[0:15:17] И, естественно, видим, что здесь ability index.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_units_custom.txt`. Это файл конфигурации для игры Dota 2, используемый для настройки параметров игровых юнитов.
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+
+2. **Открытый файл**: `npc_units_custom.txt`.
+
+3. **Путь к файлу**: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\npc_units_custom.txt`.
+
+4. **Структура папок**:
+   - `chupakabra`
+   - `maps`
+   - `materials`
+   - `models`
+   - `particles`
+   - `resource`
+   - `scripts`
+     - `npc`
+       - `npc_abilities_custom.txt`
+       - `npc_items_custom.txt`
+       - `npc_units_custom.txt` (открыт)
+     - `vscripts`
+     - `abilities`
+     - `utils`
+   - `soundevents`
+
+5. **Код**:
+   ```plaintext
+   "npc_dota_neutral_kobold_boss"
+   {
+       // General
+       "vscripts" "ai/ai_kobold"
+       "Model" "models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl" // Model.
+       "BaseClass" "npc_dota_creature"
+       "SoundSet" "n_creep_Melee"
+       "Level" "10"
+       "ModelScale" "1.9"
+       "UseNeutralCreepBehavior" "0"
+
+       // Abilities
+       "Ability1" "slark_pounce" // Ability 1
+       "Ability2" "" // Ability 2
+       "Ability3" "" // Ability 3
+       "Ability4" "" // Ability 4
+
+       // Armor
+       "ArmorPhysical" "10" // Physical protection.
+
+       // Attack
+       "AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
+       "AttackDamageMin" "100" // Damage range min.
+       "AttackDamageMax" "150" // Damage range max.
+       "AttackRate" "1.6" // Speed of attack.
+       "AttackAnimationPoint" "0.4" // Normalized time in animation cycle to attack.
+       "AttackAcquisitionRange" "100" // Range within a target can be acquired.
+       "AttackRange" "100" // Range within a target can be attacked.
+   }
+   ```
+
+6. **Описание кода**:
+   - **Язык**: Конфигурационный файл для Dota 2.
+   - **Назначение**: Определяет параметры для юнита `npc_dota_neutral_kobold_boss`.
+   - **Параметры**:
+     - **General**: Общие настройки, такие как модель, базовый класс, уровень и масштаб модели.
+     - **Abilities**: Способности юнита, первая из которых `slark_pounce`.
+     - **Armor**: Физическая защита.
+     - **Attack**: Параметры атаки, включая минимальный и максимальный урон, скорость атаки и радиус.
+
+### Связь с аудио:
+
+- В аудио говорится о "обилочке" и "кабальдиночке", что соответствует настройке способностей и параметров для юнита `kobold_boss` в коде.
+- Упоминание "ability index" в аудио связано с разделом `Abilities` в коде, где перечислены способности юнита.

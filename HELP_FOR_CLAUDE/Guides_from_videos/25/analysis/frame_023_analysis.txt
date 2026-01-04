@@ -1,0 +1,89 @@
+Кадр 23
+Временная метка: 0:05:45
+Номер кадра: 20700
+Скриншот: frame_020700_345.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:05:36] И будет шанс у нас также 25%
+[0:05:38] На выпадение этого предмета
+[0:05:40] И давайте создам второго юнита
+[0:05:42] Через запятую
+[0:05:44] Укажу второго юнита
+[0:05:46] И второй юнит у нас будет какой-нибудь
+[0:05:48] Такой тролль хай пресет
+[0:05:50] И только у него будет выпадение шанса
+[0:05:52] Мотус орба допустим
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_units_custom.txt`. Этот файл находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc`.
+
+### Содержимое файла:
+Файл содержит описание юнита для игры Dota 2. Это текстовый файл конфигурации, который используется для настройки параметров юнитов.
+
+#### Видимый код:
+```plaintext
+"BaseClass" "npc_dota_creep_neutral"
+"Model" "models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_high_priest.vmdl" // Model.
+"SoundSet" "n_creep_Ranged"
+"Level" "1"
+"IsNeutralUnitType" "1"
+
+"Abilities"
+{
+    "Ability1" "forest_troll_high_priest_heal" // Ability 1
+    "Ability2" "forest_troll_high_priest_mana_aura" // Ability 2
+    "Ability3" "neutral_upgrade" // Ability 3
+    "Ability4" "neutral_upgrade" // Ability 4
+}
+
+"ArmorPhysical" "0" // Physical protection.
+
+"AttackCapabilities" "DOTA_UNIT_CAP_RANGED_ATTACK"
+"AttackDamageMin" "28" // Damage range min.
+"AttackDamageMax" "34" // Damage range max.
+"AttackRate" "1.7" // Speed of attack.
+"AttackAnimationPoint" "0.5" // Normalized time in animation cycle to attack.
+"AttackAcquisitionRange" "800" // Range within a target can be acquired.
+"AttackRange" "600" // Range within a target can be attacked.
+"ProjectileModel" "particles/base_attacks/ranged_badguy.vpcf" // Particle system model for projectile.
+"ProjectileSpeed" "1200" // Speed of projectile.
+
+"BoundsHullName" "DOTA_HULL_SIZE_SMALL"
+"RingRadius" "70"
+"HealthBarOffset" "170"
+
+"BountyXP" "62" // Experience earn.
+"BountyGoldMin" "28" // Gold earned min.
+"BountyGoldMax" "38" // Gold earned max.
+
+"MovementCapabilities" "DOTA_UNIT_CAP_MOVE_GROUND"
+"MovementSpeed" "290" // Speed.
+"MovementTurnRate" "0.5"
+
+"StatusHealth" "500" // Base health.
+"StatusHealthRegen" "0.5" // Health regeneration rate.
+"StatusMana" "500" // Base mana.
+"StatusManaRegen" "1.5" // Mana regeneration rate.
+
+"VisionDaytimeRange" "1400" // Range of vision during day light.
+"VisionNighttimeRange" "800" // Range of vision at night time.
+
+"TeamName" "DOTA_TEAM_NEUTRALS" // Team name.
+"UnitRelationshipClass" "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+```
+
+### Описание кода:
+- **BaseClass**: Определяет базовый класс юнита, в данном случае это нейтральный крип.
+- **Model**: Указывает путь к 3D модели юнита.
+- **Abilities**: Содержит список способностей юнита.
+- **AttackCapabilities**: Определяет тип атаки (дальний бой).
+- **AttackDamageMin/Max**: Минимальный и максимальный урон.
+- **MovementCapabilities**: Способность к передвижению по земле.
+- **StatusHealth/Mana**: Базовое здоровье и мана юнита.
+
+### Связь с аудио:
+Аудио описывает процесс создания второго юнита и настройки шанса выпадения предмета. На экране видно, что редактируется файл конфигурации юнита, что соответствует описанию в аудио. Вероятно, в дальнейшем будет добавлен код, связанный с выпадением предметов, что соответствует упоминанию "выпадение шанса мотус орба".

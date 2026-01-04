@@ -1,0 +1,55 @@
+Кадр 18
+Временная метка: 0:04:30
+Номер кадра: 16200
+Скриншот: frame_016200_270.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:04:22] и с той же периодичностью у нас выполняется эта функция.
+[0:04:26] И какой вывод мы можем сделать из этого?
+[0:04:28] А мы можем сделать из этого вывод, что есть один ключ, который мы можем получить, и нам нужно его дать.
+[0:04:29] И вот это его вывод, что это работает так же, как у нас работают слушатели в недавнем уроке, которые срабатывают на любой чих от кого угодно.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл с кодом на языке программирования Lua. Файл называется `ursa_copy.lua` и находится в директории `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\vscripts\abilities`.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_ursa_copy", "abilities/ursa_copy", LUA_MODIFIER_MOTION_NONE)
+
+ursa_copy = class({})
+
+function ursa_copy:GetIntrinsicModifierName()
+    return "modifier_ursa_copy"
+end
+
+modifier_ursa_copy = class({})
+
+function modifier_ursa_copy:IsHidden()
+    return true
+end
+
+function modifier_ursa_copy:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED
+    }
+end
+
+function modifier_ursa_copy:OnAttackLanded()
+    print("Bamceok!")
+end
+```
+
+### Описание кода:
+1. **Импорт модификатора**: Используется функция `LinkLuaModifier` для связывания модификатора `modifier_ursa_copy` с файлом `ursa_copy`.
+2. **Класс `ursa_copy`**: Определяется класс `ursa_copy`, который содержит метод `GetIntrinsicModifierName`, возвращающий имя модификатора `modifier_ursa_copy`.
+3. **Класс `modifier_ursa_copy`**: 
+   - Метод `IsHidden` возвращает `true`, что делает модификатор скрытым.
+   - Метод `DeclareFunctions` возвращает событие `MODIFIER_EVENT_ON_ATTACK_LANDED`, которое будет отслеживаться.
+   - Метод `OnAttackLanded` выводит в консоль строку "Bamceok!" при срабатывании события атаки.
+
+### Связь с аудио:
+Аудио объясняет, что функция выполняется с определенной периодичностью и что есть ключ, который нужно использовать. Видимый код демонстрирует использование модификатора, который реагирует на событие атаки, что может быть связано с обсуждаемой в аудио логикой обработки событий.

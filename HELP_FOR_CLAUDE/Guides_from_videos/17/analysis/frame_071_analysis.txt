@@ -1,0 +1,68 @@
+Кадр 71
+Временная метка: 0:17:45
+Номер кадра: 63900
+Скриншот: frame_063900_1065.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:37] Однако, если мы хотим использовать Valve-скую заготовочку.
+[0:17:40] То нужно использовать доллар.
+[0:17:43] И, соответственно, название атрибута.
+[0:17:46] И в чем плюс такого способа просто?
+[0:17:48] То, что у вас будет сразу локализация на несколько языков.
+[0:17:51] Поэтому лучше использовать вот такие штуки.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `addon_english.txt`. Этот файл используется для локализации в игре Dota 2. 
+
+### Детали экрана:
+
+1. **Название программы:**
+   - Sublime Text (UNREGISTERED)
+
+2. **Открытые файлы:**
+   - `npc_items_custom.txt`
+   - `item_desol_custom.lua`
+   - `addon_english.txt` (активный)
+   - `abilities_english.txt`
+   - `npc_items_custom.txt` (в другой директории)
+
+3. **Содержимое файла `addon_english.txt`:**
+   ```plaintext
+   "lang"
+   {
+       "Language"        "English"
+       "Tokens"
+       {
+           "addon_game_name"        "CHUPAKEBRA"
+           "DOTA_BadGuys"        "зл"
+           "DOTA_GoodGuys"        "д"
+           "DOTA_Custom1"        "еж"
+           "DOTA_Custom2"        "жук"
+           "DOTA_Custom3"        "карк"
+           "DOTA_Custom4"        "чарк"
+           "DOTA_Custom5"        "сасите меня"
+           "DOTA_Tooltip_ability_cockx_counter_helix"        "Соски helix"
+           "DOTA_Tooltip_ability_cockx_counter_helix_Description"        "Я кручусь <font color=\"#ffffff\"> как джагернаут </font>"
+           "DOTA_Tooltip_ability_cockx_counter_helix_damage"        "УРОН:"
+           "DOTA_Tooltip_ability_cockx_counter_helix_radius"        "РАДИУС:"
+           "DOTA_Tooltip_ability_cockx_counter_helix_lore"        "asdasdasdasd"
+           "DOTA_Tooltip_ability_item_motus_orb"        "Motus bobus dsads"
+           "DOTA_Tooltip_ability_item_motus_orb_Description"        "<h1>Метимана: Пошуй</h1> фывафывафывафывафыва \n\n<h1>DAFFDSA:"
+           "DOTA_Tooltip_ability_item_motus_orb_Lore"        "asdasdasdasd"
+           "DOTA_Tooltip_ability_item_desol_custom_str_bonus"        "+$str"
+           "DOTA_Tooltip_ability_special_bonus_unique_ursa_duration"        "+{s:bonus_duration} сек. к Ursa Copy"
+       }
+   }
+   ```
+
+4. **Панели и вкладки:**
+   - Слева видна файловая структура проекта, содержащая папки и файлы, такие как `scripts`, `abilities`, `items`, и другие.
+
+5. **Связь с аудио:**
+   - В аудио говорится о необходимости использования символа `$` для атрибутов, что видно в строках с `"+$str"` и `"+{s:bonus_duration}"`. Это соответствует объяснению о локализации и использовании переменных для динамического отображения текста.
+
+Этот файл используется для определения текстов, которые будут отображаться в игре, и их перевода на разные языки.

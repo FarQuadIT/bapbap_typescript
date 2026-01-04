@@ -1,0 +1,75 @@
+Кадр 42
+Временная метка: 0:10:30
+Номер кадра: 37800
+Скриншот: frame_037800_630.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:10:22] getParent это тот, кто владеет модификатором, на ком навешан этот модификатор.
+[0:10:26] А Packer, а вот тут интересно, должен быть self.getCaster.
+[0:10:31] В данном случае, в данном контексте, у нас Caster и Parent различаются.
+[0:10:36] Caster это мы, получается, кто скристовали эту способность.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `strong_poison.lua`. Это файл на языке программирования Lua, используемый для скриптинга в игре Dota 2.
+
+### Видимый код:
+```lua
+LinkLuaModifier("modifier_strong_poison", "abilities/strong_poison", LUA_MODIFIER_MOTION_NONE)
+
+function strong_poison:OnSpellStart()
+    local caster = self:GetCaster()
+    local target = self:GetCursorTarget()
+    target:AddNewModifier(caster, self, "modifier_strong_poison", {duration = 0})
+end
+
+modifier_strong_poison = class({})
+
+function modifier_strong_poison:IsHidden()
+    return false
+end
+
+function modifier_strong_poison:DeclareFunctions()
+    return { MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT }
+end
+
+function modifier_strong_poison:GetModifierMoveSpeedBonus_Constant()
+    return -150
+end
+
+function modifier_strong_poison:OnCreated()
+    self:StartIntervalThink(1)
+end
+
+function modifier_strong_poison:OnIntervalThink()
+    ApplyDamage({
+        victim = self:GetParent(),
+        attacker = self:GetCaster(),
+        damage = self:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_stack"),
+        damage_type = DAMAGE_TYPE_PHYSICAL,
+        ability = self:GetAbility()
+    })
+end
+```
+
+### Описание кода:
+- **Импорт модификатора:** `LinkLuaModifier` связывает модификатор `modifier_strong_poison` с файлом.
+- **Функция `OnSpellStart`:** При активации способности, модификатор `modifier_strong_poison` применяется к цели.
+- **Класс `modifier_strong_poison`:** Определяет поведение модификатора.
+  - **`IsHidden`:** Возвращает `false`, модификатор видим.
+  - **`DeclareFunctions`:** Указывает, что модификатор изменяет скорость передвижения.
+  - **`GetModifierMoveSpeedBonus_Constant`:** Уменьшает скорость на 150.
+  - **`OnCreated`:** Запускает периодическое действие каждую секунду.
+  - **`OnIntervalThink`:** Применяет урон к цели, зависящий от количества стаков и специального значения способности.
+
+### Связь с аудио:
+- В аудио говорится о `getParent` и `getCaster`, что соответствует использованию `self:GetParent()` и `self:GetCaster()` в коде. Это объясняет, как определяется владелец модификатора и кто применяет способность.
+- Упоминается различие между `Caster` и `Parent`, что отражено в коде через использование этих методов для определения атакующего и жертвы.
+
+### Важные детали:
+- **Импорт модификатора:** `LinkLuaModifier` связывает модификатор с файлом.
+- **Функции и методы:** Определяют поведение способности и модификатора.
+- **Переменные:** `caster`, `target`, `victim`, `attacker`, `damage` и `ability` используются для управления логикой применения урона и эффектов.

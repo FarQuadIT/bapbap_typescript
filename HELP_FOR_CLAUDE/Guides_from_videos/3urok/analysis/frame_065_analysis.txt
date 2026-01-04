@@ -1,0 +1,91 @@
+Кадр 65
+Временная метка: 0:16:15
+Номер кадра: 58500
+Скриншот: frame_058500_975.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:16:04] Либо, если мы тут указываем 0, то рецепта вроде как нет.
+[0:16:07] Ладно, я не проверял.
+[0:16:09] Ладно.
+[0:16:10] Не буду лишний раз пиздеть.
+[0:16:11] Можете сами проверить, если хотите.
+[0:16:13] Но я укажу здесь Recept.
+[0:16:15] И результат, который у нас получится, это item Motus Orb.
+[0:16:19] И здесь мы в Recept укажем сам Lotus Orb.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_items_custom.txt`. Это файл конфигурации для модификации игры Dota 2, содержащий описание пользовательских предметов.
+
+### Детали экрана:
+
+1. **Название программы**: Sublime Text (UNREGISTERED).
+2. **Открытые файлы**: 
+   - `npc_abilities_custom.txt`
+   - `addon_english.txt`
+   - `npc_heroes_custom.txt`
+   - `npc_items_custom.txt`
+   - `items.txt`
+3. **Активный файл**: `npc_items_custom.txt`.
+4. **Путь к файлу**: `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta\game\dota_addons\chupakabra\scripts\npc\npc_items_custom.txt`.
+
+### Содержимое файла:
+
+Файл содержит описание предметов в формате JSON-подобной структуры. Видимый код:
+
+```plaintext
+"item_recipe_motus_orb"
+{
+    // General
+    "BaseClass" "item_datadriven"
+    "AbilityTextureName" "recipe"
+    "Model" "models/props_gameplay/recipe.mdl"
+
+    // Item Info
+    "ItemCost" "1000"
+    "ItemShopTags" ""
+
+    // Recipe
+    "ItemResult" "item_motus_orb"
+    "ItemRequirements"
+    {
+        "01" "item_lotus_orb"
+    }
+}
+
+"item_motus_orb"
+{
+    // General
+    "BaseClass" "item_lotus_orb"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+    "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
+    "FightRecapLevel" "1"
+    "AbilityCooldown" "15.0"
+    "AbilityCastRange" "850"
+    "AbilityManaCost" "175"
+
+    // Item Info
+    "ItemCost" "3550"
+    "ItemShopTags" "regen_health;regen_mana;str;agi;int;hard_to_tag"
+    "ItemAliases" "lotus orb"
+    "ItemDeclarations" "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+    "ItemDisassembleRule" "DOTA_ITEM_DISASSEMBLE_ALWAYS"
+    "ShouldBeSuggested" "1"
+}
+```
+
+### Описание кода:
+
+- **`item_recipe_motus_orb`**: Описание рецепта для создания предмета `item_motus_orb`. Указана базовая стоимость и необходимые компоненты (`item_lotus_orb`).
+- **`item_motus_orb`**: Описание самого предмета, включая его поведение, цели, стоимость, и другие параметры.
+
+### Связь с аудио:
+
+- В аудио говорится о том, что если указать 0, то рецепта нет, но в коде указан `Recept` с результатом `item_motus_orb`, что соответствует описанному в коде.
+- Упоминается `Lotus Orb`, который является компонентом для создания `Motus Orb`, что также отражено в коде.
+
+Таким образом, аудио объясняет процесс создания предмета и его конфигурацию в файле.

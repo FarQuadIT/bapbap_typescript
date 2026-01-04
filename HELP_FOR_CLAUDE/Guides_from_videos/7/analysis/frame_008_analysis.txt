@@ -1,0 +1,108 @@
+Кадр 8
+Временная метка: 0:02:00
+Номер кадра: 7200
+Скриншот: frame_007200_120.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:01:51] Типа, в Чупакабра киллот.
+[0:01:53] Это давайте подвинем подальше, потому что мне это честно мешает.
+[0:01:58] Хотя...
+[0:01:58] Ладно.
+[0:01:59] Вообще, бутилс надо вынести мне в падлу.
+[0:02:01] Это всё можно, по идее, прописать в Чупакабра киллт.
+[0:02:05] То, что, типа, если умирает наш чувак, то на его месте появляется другой, ну, босс, который мне нужен.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан редактор кода Sublime Text, в котором открыт файл `chupakabra_mode.lua`. Это файл на языке программирования Lua, используемый для скриптинга в играх, таких как Dota 2.
+
+### Видимый код:
+
+```lua
+heroprobability = HeroRespTable[i] + expTable[i-1]
+
+function ChupakabraMode:InitGameMode()
+    GameRules:SetHeroSelectionTime(60)
+    GameRules:SetStrategyTime(0)
+    GameRules:SetShowcaseTime(0)
+    GameRules:SetPreGameTime(10.0)
+    GameRules:SetPostGameTime(10.0)
+    GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 5)
+    GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 5)
+    HeroSelection:InitHeroSelection() -- Установка кастомной системы уровней
+    GameRules:GetGameModeEntity():SetExecuteOrderFilter(Dynamic_Wrap(self, 'OrderFilter'), self)
+    ListenToGameEvent('entity_killed', Dynamic_Wrap(self, 'OnEntityKilled'), self)
+    ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(self, 'ChupakabraStateChange'), self)
+end
+
+function ChupakabraStateChange(data)
+    local nState = GameRules:State_Get()
+    if nState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        -- Начало игры
+    end
+end
+
+local kobold_count = 0
+
+function ChupakabraMode:OnEntityKilled(data)
+    local killed_unit = EntIndexToHScript(data.entindex_killed)
+
+    if killed_unit:GetUnitName() == "npc_dota_neutral_kobold" then
+        kobold_count = kobold_count + 1
+        print("Kobold killed: " .. kobold_count)
+    end
+
+    if kobold_count >= 5 then
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+    end
+
+    if killed_unit:IsRealHero() then
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+    end
+end
+
+function GiveGoldPlayers(gold)
+    for index=0, PlayerResource:GetPlayerCount() do
+        if PlayerResource:IsValidPlayer(index) then
+            local player = PlayerResource:GetPlayer(index)
+            local hero = player:GetAssignedHero()
+            hero:ModifyGold(gold, true, DOTA_ModifyGold_Unspecified)
+            SendOverheadEventMessage(player, OVERHEAD_ALERT_GOLD, hero, gold, nil)
+        end
+    end
+end
+
+function CreateDropItem(itemname, pos)
+    local newItem = CreateItem(itemname, nil, nil)
+    newItem:SetPurchaseTime(0)
+    newItem:SetPurchaser(nil)
+    CreateItemOnPositionSync(pos, newItem)
+    newItem:LaunchLootInitialHeight(false, 0, 150, 0.5, pos + RandomVector(dropRadius))
+end
+```
+
+### Описание кода:
+
+- **Инициализация режима игры**: Функция `InitGameMode` устанавливает параметры игры, такие как время выбора героя, время стратегии и другие настройки. Также она регистрирует обработчики событий для убийства сущностей и изменения состояния игры.
+
+- **Обработка изменения состояния игры**: Функция `ChupakabraStateChange` проверяет текущее состояние игры и выполняет действия, если игра началась.
+
+- **Обработка убийства сущностей**: Функция `OnEntityKilled` увеличивает счетчик убитых "kobold" и завершает игру, если убито 5 таких сущностей. Также завершает игру, если убит реальный герой.
+
+- **Раздача золота игрокам**: Функция `GiveGoldPlayers` раздает указанное количество золота всем игрокам.
+
+- **Создание предмета**: Функция `CreateDropItem` создает предмет на указанной позиции.
+
+### Важные детали:
+
+- **Переменные и функции**: Используются функции для управления игровыми событиями и состояниями, такие как `SetHeroSelectionTime`, `SetGameWinner`, `ModifyGold`, и другие.
+- **Обработчики событий**: `ListenToGameEvent` используется для регистрации функций, которые будут вызываться при определенных событиях.
+
+### Связь с аудио:
+
+- В аудио упоминается "Чупакабра киллот", что соответствует функции `OnEntityKilled`, где обрабатывается логика убийства и победы в игре.
+- Упоминается идея о том, что на месте убитого героя появляется другой босс, что может быть связано с логикой обработки убийства героев в коде.

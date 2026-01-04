@@ -1,0 +1,66 @@
+Кадр 2
+Временная метка: 0:00:30
+Номер кадра: 1800
+Скриншот: frame_001800_30.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:00:00] ДОТА 8
+[0:00:30] ДОТА 8
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+На экране показан текстовый редактор Sublime Text, в котором открыт файл `npc_abilities.txt`. Это файл конфигурации, вероятно, связанный с игрой Dota 2, так как в нем описаны способности персонажей (NPC).
+
+### Детали экрана:
+
+1. **Название программы:**
+   - Sublime Text (UNREGISTERED)
+
+2. **Открытые файлы:**
+   - `npc_abilities_custom.txt`
+   - `npc_abilities.txt` (активный)
+   - `addon_game_mode.lua`
+   - `chupakabra_mode.lua`
+
+3. **Структура папок:**
+   - `chupakabra`
+     - `maps`
+     - `materials`
+     - `particles`
+     - `resource`
+     - `scripts`
+       - `vscripts`
+       - `utils`
+     - `npc`
+       - `heroes`
+       - `npc_heroes_custom.txt`
+       - `npc_items_custom.txt`
+       - `npc_units_custom.txt`
+     - `tools`
+     - `tools_thumbnail_cache.bin`
+
+4. **Содержимое файла `npc_abilities.txt`:**
+   - Описание способности `venomancer_poison_sting`:
+     - **General:**
+       - `ID`: 5179
+       - `AbilityType`: `DOTA_ABILITY_TYPE_BASIC`
+       - `AbilityBehavior`: `DOTA_ABILITY_BEHAVIOR_PASSIVE`
+       - `DamageType`: `DAMAGE_TYPE_MAGICAL`
+       - `SpellImmunityType`: `SPELL_IMMUNITY_ENEMIES_NO`
+       - `SpellDispellableType`: `SPELL_DISPELLABLE_YES`
+     - **Special:**
+       - `AbilityValues`:
+         - `duration`: "6 9 12 15"
+         - `damage`: "8 16 24 32"
+         - `movement_speed`: "-8 -12 -16 -20"
+         - `hp_regen_reduction`: "-8"
+       - `AbilityCastAnimation`: `ACT_DOTA_CAST_ABILITY_2`
+
+5. **Связь с аудио:**
+   - В аудио упоминается "ДОТА 8", что может быть связано с обсуждением изменений или модификаций в игре Dota 2, возможно, в контексте создания или редактирования пользовательских модов или сценариев.
+
+### Заключение:
+На экране показан процесс редактирования конфигурационного файла способностей для игры Dota 2 в редакторе Sublime Text. Видимые настройки и параметры относятся к способности персонажа, что может быть частью туториала по созданию или модификации игровых элементов.

@@ -1,0 +1,65 @@
+Кадр 69
+Временная метка: 0:17:15
+Номер кадра: 62100
+Скриншот: frame_062100_1035.00s.jpg
+
+────────────────────────────────────────────────────────────────────────────────
+
+АУДИО КОНТЕКСТ (±10 секунд):
+────────────────────────────────────────
+[0:17:04] Если же мы хотим что-то свой каст написать, допустим, не знаю.
+[0:17:08] Плюс, там, 20 к болению жопы.
+[0:17:14] Горению жопы.
+[0:17:15] Правильнее будет.
+[0:17:16] В общем, русский язык.
+[0:17:18] И, скорее всего, каст маленький лучше.
+[0:17:21] То просто вначале ставим плюсик.
+
+AI АНАЛИЗ:
+────────────────────────────────────────
+1. **КОД:**
+
+   - **Язык программирования:** JSON
+   - **Видимый код:**
+     ```json
+     {
+         "Language"    "English"
+         "Tokens"
+         {
+             "addon_game_name"        "CHUPAKEBRA"
+             "DOTA_GoodGuys"        "гг"
+             "DOTA_BadGuys"        "ев"
+             "DOTA_Custom1"        "каждый"
+             "DOTA_Custom2"        "охотник"
+             "DOTA_Custom3"        "спасите меня"
+             "DOTA_Custom4"        ""
+             "DOTA_Custom5"        ""
+             "DOTA_Tooltip_ability_cocky_counter_helix"        "Сосk helix"
+             "DOTA_Tooltip_ability_cocky_counter_helix_Description"        "Я кручусь <font color=\"#ffffff\"> как джагернаут </font>"
+             "DOTA_Tooltip_ability_cocky_counter_helix_damage"        "УРОН:"
+             "DOTA_Tooltip_ability_cocky_counter_helix_radius"        "РАДИУС:"
+             "DOTA_Tooltip_ability_cocky_counter_helix_lore"        "asdasdasdasd"
+             "DOTA_Tooltip_ability_item_motus_orb"        "Motus bobus dsads"
+             "DOTA_Tooltip_ability_item_motus_orb_Description"        "<h1>Мечтания: Пошук</h1> фывфывфывфывфывфывфывфыв \n\n<h1>DAFFDSA:"
+             "DOTA_Tooltip_ability_item_motus_orb_Lore"        "asdasdasdasd"
+             "DOTA_Tooltip_ability_item_desol_custom_str_bonus"        "+ к больной жопе"
+             "DOTA_Tooltip_ability_special_bonus_unique_ursa_duration"        "+{s:bonus_duration} сек. к Ursa Copy"
+         }
+     }
+     ```
+   - **Описание кода:** 
+     Этот JSON-файл содержит локализацию для игры, вероятно, модификации для Dota 2. Он определяет текстовые строки для различных элементов интерфейса и способностей, включая названия команд, описания способностей и их характеристики.
+   - **Важные детали:**
+     - Строки локализации для различных игровых элементов.
+     - Использование HTML-тегов для форматирования текста в описаниях.
+
+2. **РЕДАКТОР:**
+
+   - **Название программы/редактора:** Sublime Text
+   - **Что открыто в редакторе:** Файл `addon_english.txt` с локализацией.
+   - **Активные инструменты:** Панель навигации по файлам слева.
+   - **Настройки:** Видна структура папок и файлов проекта.
+
+5. **СВЯЗЬ С АУДИО:**
+
+   - В аудио говорится о создании кастомных строк и добавлении "плюс 20 к болению жопы". На экране видно строку `"DOTA_Tooltip_ability_item_desol_custom_str_bonus" "+ к больной жопе"`, что соответствует обсуждаемой теме в аудио.
