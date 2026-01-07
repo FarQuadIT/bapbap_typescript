@@ -14,7 +14,8 @@
 // To declare an event for use, add it to this table with the type of its data
 interface CustomGameEventDeclarations {
     example_event: ExampleEventData,
-    ui_panel_closed: UIPanelClosedEventData
+    ui_panel_closed: UIPanelClosedEventData,
+    player_selected_hero: PlayerSelectedHeroEventData
 }
 
 // Define the type of data sent by the example_event event
@@ -27,3 +28,9 @@ interface ExampleEventData {
 
 // This event has no data
 interface UIPanelClosedEventData {}
+
+// Event sent when player selects a hero in custom hero selection
+interface PlayerSelectedHeroEventData {
+    PlayerID: PlayerID; // ID игрока, который выбрал героя
+    hero: string; // Hero name like "npc_dota_hero_axe"
+}

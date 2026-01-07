@@ -135,6 +135,11 @@ export class GameMode {
             }
         });
 
+        // Register hero selection event handler
+        CustomGameEventManager.RegisterListener("player_selected_hero", (userId, data) => {
+            this.OnPlayerSelectHero(userId, data);
+        });
+
         // Start Battle Royale zone update loop
         Timers.CreateTimer(0.1, () => this.OnThink());
     }
@@ -146,6 +151,78 @@ export class GameMode {
         GameRules.SetShowcaseTime(0);
         GameRules.SetHeroSelectionTime(60); // ⚠️ ВРЕМЕННО: 60 секунд для тестирования (heroSelectionTime = 10)
         GameRules.SetPreGameTime(10); // Time after heroes spawn before game starts (10 seconds for testing)
+    }
+
+    // Handler for hero selection from custom UI
+    private OnPlayerSelectHero(userId: EntityIndex, data: PlayerSelectedHeroEventData): void {
+        // Get player ID from event data (NOT from userId!)
+        const playerId = data.PlayerID;
+        const heroName = data.hero;
+
+        print(`=== Player ${playerId} selected hero: ${heroName} ===`);
+
+        // Get player
+        const player = PlayerResource.GetPlayer(playerId);
+        if (!player) {
+            print(`ERROR: Could not find player ${playerId}`);
+            return;
+        }
+
+        // Check if player already has a hero
+        const existingHero = player.GetAssignedHero();
+        if (existingHero && IsValidEntity(existingHero)) {
+            print(`Player ${playerId} already has a hero, replacing...`);
+            existingHero.RemoveSelf();
+        }
+
+        // Create hero at fountain position
+        const teamId = PlayerResource.GetTeam(playerId);
+        
+        let spawnPosition = Vector(0, 0, 128);
+        let fountain = Entities.FindByClassname(undefined, "ent_dota_fountain") as CDOTA_BaseNPC | undefined;
+        while (fountain) {
+            if (fountain.GetTeamNumber() === teamId) {
+                spawnPosition = fountain.GetAbsOrigin();
+                break;
+            }
+            fountain = Entities.FindByClassname(fountain, "ent_dota_fountain") as CDOTA_BaseNPC | undefined;
+        }
+
+        print(`Precaching hero ${heroName} with cosmetics for player ${playerId}...`);
+        
+        // Асинхронно прекешируем героя вместе с его косметикой
+        PrecacheUnitByNameAsync(heroName, (precacheId: number) => {
+            print(`Hero ${heroName} precached (ID: ${precacheId})! Now spawning with cosmetics...`);
+            
+            // Теперь создаём героя с косметикой через CreateHeroForPlayer
+            const hero = CreateHeroForPlayer(heroName, player);
+            
+            if (hero && IsValidEntity(hero)) {
+                // Set as player's hero
+                hero.SetPlayerID(playerId);
+                hero.SetControllableByPlayer(playerId, true);
+                
+                // Respawn the hero properly
+                hero.RespawnHero(false, false);
+                
+                // Move to spawn position
+                hero.SetAbsOrigin(spawnPosition);
+                FindClearSpaceForUnit(hero, spawnPosition, true);
+                
+                // Give starting gold
+                PlayerResource.SetGold(playerId, 625, false);
+                PlayerResource.SetGold(playerId, 0, true);
+                
+                print(`Hero ${heroName} spawned successfully WITH COSMETICS for player ${playerId}`);
+                
+                // Add custom abilities (example: earthbind)
+                if (!hero.HasAbility("meepo_earthbind_ts_example")) {
+                    hero.AddAbility("meepo_earthbind_ts_example");
+                }
+            } else {
+                print(`ERROR: Failed to create hero ${heroName} for player ${playerId}`);
+            }
+        }, playerId);
     }
 
     public OnStateChange(): void {

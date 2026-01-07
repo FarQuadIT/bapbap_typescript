@@ -3,6 +3,7 @@
         <include src="file://{resources}/scripts/custom_game/manifest.js" />
     </scripts>
     <Panel>
+        <CustomUIElement type="HeroSelection" layoutfile="file://{resources}/layout/custom_game/hero_selection.xml" />
         <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud.xml" />
         <!-- 🎨 Кастомный UI для CUSTOM_GAME_SETUP (заменяет стандартную панель) -->
         <CustomUIElement type="GameSetup" layoutfile="file://{resources}/layout/custom_game/custom_game_setup.xml" />
