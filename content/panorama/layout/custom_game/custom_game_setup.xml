@@ -1,0 +1,22 @@
+<root>
+    <styles>
+        <include src="file://{resources}/styles/custom_game/custom_game_setup.css" />
+    </styles>
+
+    <scripts>
+        <include src="file://{resources}/scripts/custom_game/game_setup.js" />
+    </scripts>
+
+    <Panel class="GameSetupRoot" hittest="true" hittestchildren="true">
+        <Label id="SetupLabel" text="Загрузка игры..." />
+        
+        <Label id="TeamLabel" text="Вы будете автоматически распределены в команду" />
+        
+        <!-- Кнопка "Начать игру" -->
+        <Panel id="SetupBottomContainer">
+            <Button id="SetupStartButton" onactivate="OnSetupStartClicked()">
+                <Label text="Начать игру" />
+            </Button>
+        </Panel>
+    </Panel>
+</root>

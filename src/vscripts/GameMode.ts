@@ -86,6 +86,55 @@ export class GameMode {
             }
         });
 
+        // ⚠️ ВРЕМЕННО: Обработчик кнопки "Начать игру" с loading screen
+        CustomGameEventManager.RegisterListener("loading_screen_start_game", (_, data) => {
+            print("=== Loading screen: Start game button pressed! ===");
+            
+            // Проверяем, что мы в фазе CUSTOM_GAME_SETUP
+            if (GameRules.State_Get() === GameState.CUSTOM_GAME_SETUP) {
+                print("✅ Finishing CUSTOM_GAME_SETUP...");
+                GameRules.FinishCustomGameSetup();
+            } else {
+                print(`⚠️ Current state: ${GameRules.State_Get()}, not in CUSTOM_GAME_SETUP`);
+            }
+        });
+
+        // 🎮 Обработчик автоматического распределения в команду
+        CustomGameEventManager.RegisterListener("auto_assign_team", (_, data) => {
+            // ВАЖНО: используем playerID (маленькая p), как отправляется с клиента!
+            const playerID = (data as any).playerID as PlayerID;
+            print(`=== Auto-assigning player ${playerID} to team ===`);
+            
+            if (playerID == null || playerID == undefined) {
+                print(`⚠️ PlayerID is null or undefined`);
+                return;
+            }
+            
+            if (!PlayerResource.IsValidPlayerID(playerID)) {
+                print(`⚠️ Invalid player ID: ${playerID}`);
+                return;
+            }
+            
+            // Распределяем в команду Radiant (GOODGUYS)
+            const player = PlayerResource.GetPlayer(playerID);
+            if (player) {
+                player.SetTeam(DotaTeam.GOODGUYS);
+                print(`✅ Player ${playerID} assigned to Radiant (GOODGUYS)`);
+            } else {
+                print(`⚠️ Player entity not found for ID ${playerID}`);
+            }
+        });
+
+        // 🚀 Обработчик кнопки "Начать игру" из custom_game_setup
+        CustomGameEventManager.RegisterListener("setup_start_game", (_, data) => {
+            print("=== Setup: Start game button pressed! ===");
+            
+            if (GameRules.State_Get() === GameState.CUSTOM_GAME_SETUP) {
+                print("✅ Finishing CUSTOM_GAME_SETUP...");
+                GameRules.FinishCustomGameSetup();
+            }
+        });
+
         // Start Battle Royale zone update loop
         Timers.CreateTimer(0.1, () => this.OnThink());
     }
@@ -95,7 +144,7 @@ export class GameMode {
         GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 3);
 
         GameRules.SetShowcaseTime(0);
-        GameRules.SetHeroSelectionTime(heroSelectionTime);
+        GameRules.SetHeroSelectionTime(60); // ⚠️ ВРЕМЕННО: 60 секунд для тестирования (heroSelectionTime = 10)
         GameRules.SetPreGameTime(10); // Time after heroes spawn before game starts (10 seconds for testing)
     }
 
@@ -104,23 +153,40 @@ export class GameMode {
 
         print(`=== Game Rules State Change: ${state} ===`);
 
-        // Add 4 bots to lobby in tools
-        if (IsInToolsMode() && state == GameState.CUSTOM_GAME_SETUP) {
-            Timers.CreateTimer(1, () => {
-                for (let i = 0; i < 4; i++) {
-                    SendToServerConsole("dota_bot_populate");
+        if (state === GameState.CUSTOM_GAME_SETUP) {
+            // ⚠️ СНАЧАЛА распределяем ВСЕХ реальных игроков в команду
+            print("⚠️ In CUSTOM_GAME_SETUP, auto-assigning real players...");
+            
+            Timers.CreateTimer(0.5, () => {
+                // Распределяем всех реальных игроков в Radiant
+                for (let playerID = 0; playerID < 24; playerID++) {
+                    if (PlayerResource.IsValidPlayerID(playerID)) {
+                        // Проверяем: если это НЕ бот (IsFakeClient = true для ботов)
+                        const isFakeClient = PlayerResource.IsFakeClient(playerID);
+                        if (!isFakeClient) {
+                            const player = PlayerResource.GetPlayer(playerID);
+                            if (player) {
+                                player.SetTeam(DotaTeam.GOODGUYS);
+                                print(`✅ Real player ${playerID} auto-assigned to Radiant`);
+                            }
+                        }
+                    }
                 }
                 return undefined;
             });
-        }
-
-        if (state === GameState.CUSTOM_GAME_SETUP) {
-            // Automatically skip setup in tools
+            
+            // ПОТОМ добавляем ботов (через 2 секунды)
             if (IsInToolsMode()) {
-                Timers.CreateTimer(3, () => {
-                    GameRules.FinishCustomGameSetup();
+                Timers.CreateTimer(2, () => {
+                    print("🤖 Adding bots...");
+                    for (let i = 0; i < 4; i++) {
+                        SendToServerConsole("dota_bot_populate");
+                    }
+                    return undefined;
                 });
             }
+            
+            print("🎨 Custom GameSetup UI is now active");
         }
 
         // Initialize Battle Royale zone in pre-game

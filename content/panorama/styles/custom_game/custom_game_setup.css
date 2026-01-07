@@ -1,0 +1,124 @@
+/* Кастомный UI для CUSTOM_GAME_SETUP */
+.GameSetupRoot {
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: #1a1a1a; /* Темный фон */
+    flow-children: down;
+    vertical-align: center;
+    horizontal-align: center;
+    
+    /* Абсолютное позиционирование на весь экран (left, top, right, bottom) */
+    position: 0px 0px 0px 0px;
+    
+    /* Убираем возможные отступы */
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    
+    /* Гарантируем что панель видима */
+    visibility: visible;
+    
+    /* Форсируем полное покрытие */
+    overflow: noclip;
+    
+    /* Попытка заполнить всё доступное пространство */
+    horizontal-align: left;
+    vertical-align: top;
+    
+    /* Плавное появление */
+    animation-name: FadeIn;
+    animation-duration: 0.8s;
+    animation-timing-function: ease-in;
+}
+
+/* Анимация плавного появления фона */
+@keyframes 'FadeIn' {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Анимация плавного появления текста */
+@keyframes 'FadeInText' {
+    0% {
+        opacity: 0;
+        wash-color: #FFFFFF00;
+    }
+    100% {
+        opacity: 1;
+        wash-color: #FFFFFFFF;
+    }
+}
+
+#SetupLabel {
+    font-size: 48px;
+    color: #00FF00;
+    text-align: center;
+    horizontal-align: center;
+    margin-top: 300px;
+    text-shadow: 2px 2px 8px #000000;
+    
+    /* Плавное появление с задержкой */
+    animation-name: FadeInText;
+    animation-duration: 1s;
+    animation-delay: 0.3s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: backwards;
+}
+
+#TeamLabel {
+    font-size: 24px;
+    color: #FFFFFF;
+    text-align: center;
+    horizontal-align: center;
+    margin-top: 20px;
+    
+    /* Плавное появление с задержкой */
+    animation-name: FadeInText;
+    animation-duration: 1s;
+    animation-delay: 0.5s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: backwards;
+}
+
+#SetupBottomContainer {
+    width: 100%;
+    height: 100px;
+    horizontal-align: center;
+    margin-top: 100px;
+    
+    /* Плавное появление с задержкой */
+    animation-name: FadeInText;
+    animation-duration: 1s;
+    animation-delay: 0.7s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: backwards;
+}
+
+#SetupStartButton {
+    width: 200px;
+    height: 50px;
+    background-color: #4CAF50;
+    border-radius: 5px;
+    horizontal-align: center;
+    
+    transition-property: background-color;
+    transition-duration: 0.3s;
+}
+
+#SetupStartButton:hover {
+    background-color: #45a049;
+}
+
+#SetupStartButton Label {
+    font-size: 20px;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: center;
+    horizontal-align: center;
+}

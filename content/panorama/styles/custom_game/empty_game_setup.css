@@ -1,0 +1,6 @@
+/* Скрываем стандартный UI для CUSTOM_GAME_SETUP */
+.EmptyGameSetup {
+    width: 0px;
+    height: 0px;
+    visibility: collapse;
+}

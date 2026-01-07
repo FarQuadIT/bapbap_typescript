@@ -1,0 +1,14 @@
+<root>
+    <styles>
+        <include src="file://{resources}/styles/custom_game/custom_loading_screen.css" />
+    </styles>
+
+    <scripts>
+        <include src="file://{resources}/scripts/custom_game/loading_screen.js" />
+    </scripts>
+
+    <Panel class="LoadingScreenRoot">
+        <!-- Фоновая картинка на весь экран -->
+        <Image id="LoadingBackground" src="file://{images}/custom_game/loading_screen/background.jpg" />
+    </Panel>
+</root>
