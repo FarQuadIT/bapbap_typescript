@@ -14,7 +14,8 @@
 // To declare an event for use, add it to this table with the type of its data
 interface CustomGameEventDeclarations {
     example_event: ExampleEventData,
-    ui_panel_closed: UIPanelClosedEventData
+    ui_panel_closed: UIPanelClosedEventData,
+    setup_timer_update: SetupTimerUpdateEventData
 }
 
 // Define the type of data sent by the example_event event
@@ -27,3 +28,8 @@ interface ExampleEventData {
 
 // This event has no data
 interface UIPanelClosedEventData {}
+
+// Event sent from server to update auto-start timer
+interface SetupTimerUpdateEventData {
+    seconds: number; // Seconds until auto-start
+}

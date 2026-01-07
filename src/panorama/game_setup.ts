@@ -4,6 +4,46 @@
 
 $.Msg("=== Game Setup UI initialized ===");
 
+// Таймер автостарта
+let autoStartTime = 15; // По умолчанию 15 секунд
+let remainingTime = autoStartTime;
+
+// Обновление таймера каждую секунду
+function UpdateTimer(): void {
+    const timerLabel = $("#AutoStartTimer") as LabelPanel | null;
+    if (!timerLabel) {
+        $.Msg("⚠️ Timer label not found!");
+        return;
+    }
+    
+    if (remainingTime > 0) {
+        // Обновляем HTML напрямую
+        timerLabel.html = true;
+        timerLabel.text = `Игра начнется автоматически через <font color='#FFD700'>${remainingTime}</font> сек.`;
+        $.Msg(`⏱️ Timer tick: ${remainingTime} seconds remaining`);
+        remainingTime--;
+        $.Schedule(1.0, UpdateTimer);
+    } else {
+        $.Msg("⏱️ Timer finished!");
+        timerLabel.style.visibility = "collapse";
+    }
+}
+
+// Старт таймера
+function StartAutoStartTimer(seconds: number): void {
+    autoStartTime = seconds;
+    remainingTime = seconds;
+    
+    $.Msg(`⏱️ Auto-start timer set to ${seconds} seconds`);
+    
+    const timerLabel = $("#AutoStartTimer");
+    if (timerLabel) {
+        timerLabel.style.visibility = "visible";
+    }
+    
+    UpdateTimer();
+}
+
 // Программное растягивание панели на весь экран
 function ForceFullScreen(): void {
     const rootPanel = $.GetContextPanel();
@@ -58,23 +98,34 @@ function ForceFullScreen(): void {
     }
 }
 
-// Диагностика: выводим информацию о панели
-function DiagnosePanels(): void {
-    const rootPanel = $.GetContextPanel();
-    $.Msg("=== PANEL DIAGNOSTICS ===");
-    $.Msg(`Root panel ID: ${rootPanel.id}`);
-    $.Msg(`Root panel class: ${rootPanel.paneltype}`);
-    $.Msg(`Actual width: ${rootPanel.actuallayoutwidth}`);
-    $.Msg(`Actual height: ${rootPanel.actuallayoutheight}`);
-    $.Msg(`Parent: ${rootPanel.GetParent()?.id || "none"}`);
+// Проверка: является ли локальный игрок лидером лобби
+// В Dota 2 custom games лидер лобби (хост) всегда имеет PlayerID = 0
+function CheckIfLobbyLeader(): void {
+    const localPlayerID = Game.GetLocalPlayerID();
+    const isLeader = (localPlayerID === 0);
+    
+    $.Msg(`🎮 Local player ID: ${localPlayerID}, Is lobby leader: ${isLeader}`);
+    
+    const startButton = $("#SetupStartButton");
+    const waitingLabel = $("#WaitingForLeaderLabel");
+    
+    if (isLeader) {
+        // Лидер лобби (PlayerID 0) - показываем кнопку "Начать игру"
+        if (startButton) startButton.style.visibility = "visible";
+        if (waitingLabel) waitingLabel.style.visibility = "collapse";
+    } else {
+        // Обычный игрок - скрываем кнопку, показываем сообщение ожидания
+        if (startButton) startButton.style.visibility = "collapse";
+        if (waitingLabel) waitingLabel.style.visibility = "visible";
+    }
 }
 
 // Вызываем сразу и с задержками
 ForceFullScreen();
-DiagnosePanels();
-$.Schedule(0.1, () => { ForceFullScreen(); DiagnosePanels(); });
-$.Schedule(0.5, () => { ForceFullScreen(); DiagnosePanels(); });
-$.Schedule(1.0, () => { ForceFullScreen(); DiagnosePanels(); });
+CheckIfLobbyLeader();
+$.Schedule(0.1, ForceFullScreen);
+$.Schedule(0.5, () => { ForceFullScreen(); CheckIfLobbyLeader(); });
+$.Schedule(1.0, ForceFullScreen);
 
 // Автоматически распределяем локального игрока в команду при загрузке
 (function AutoAssignTeam() {
@@ -98,6 +149,12 @@ function OnSetupStartClicked(): void {
     
     $.Msg("✅ Start game event sent");
 }
+
+// Обработчик события с сервера для установки таймера
+GameEvents.Subscribe("setup_timer_update", (data: any) => {
+    $.Msg(`📡 Received timer update: ${data.seconds} seconds`);
+    StartAutoStartTimer(data.seconds);
+});
 
 // Экспортируем функцию для использования в XML
 (globalThis as any).OnSetupStartClicked = OnSetupStartClicked;

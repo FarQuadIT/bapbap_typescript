@@ -12,11 +12,15 @@
         
         <Label id="TeamLabel" text="Вы будете автоматически распределены в команду" />
         
-        <!-- Кнопка "Начать игру" -->
+        <!-- Таймер автостарта -->
+        <Label id="AutoStartTimer" html="true" text="Игра начнется автоматически через <font color='#FFD700'>15</font> сек." />
+        
+        <!-- Кнопка "Начать игру" (только для лидера лобби) -->
         <Panel id="SetupBottomContainer">
             <Button id="SetupStartButton" onactivate="OnSetupStartClicked()">
                 <Label text="Начать игру" />
             </Button>
+            <Label id="WaitingForLeaderLabel" text="Ожидание решения лидера лобби..." />
         </Panel>
     </Panel>
 </root>

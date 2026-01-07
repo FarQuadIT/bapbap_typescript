@@ -146,6 +146,10 @@ export class GameMode {
         GameRules.SetShowcaseTime(0);
         GameRules.SetHeroSelectionTime(60); // ⚠️ ВРЕМЕННО: 60 секунд для тестирования (heroSelectionTime = 10)
         GameRules.SetPreGameTime(10); // Time after heroes spawn before game starts (10 seconds for testing)
+        
+        // ⏱️ Настройки автостарта для CUSTOM_GAME_SETUP
+        GameRules.SetCustomGameSetupAutoLaunchDelay(15); // 15 секунд до автостарта после того как все готовы
+        GameRules.SetCustomGameSetupTimeout(300); // 5 минут максимальное время ожидания всех игроков
     }
 
     public OnStateChange(): void {
@@ -156,6 +160,17 @@ export class GameMode {
         if (state === GameState.CUSTOM_GAME_SETUP) {
             // ⚠️ СНАЧАЛА распределяем ВСЕХ реальных игроков в команду
             print("⚠️ In CUSTOM_GAME_SETUP, auto-assigning real players...");
+            
+            // 🕐 Отправляем таймер автостарта на клиент (15 секунд)
+            const autoStartDelay = 15;
+            Timers.CreateTimer(0.3, () => {
+                // Отправляем всем клиентам информацию о таймере
+                CustomGameEventManager.Send_ServerToAllClients("setup_timer_update", {
+                    seconds: autoStartDelay
+                });
+                print(`⏱️ Sent auto-start timer: ${autoStartDelay} seconds`);
+                return undefined;
+            });
             
             Timers.CreateTimer(0.5, () => {
                 // Распределяем всех реальных игроков в Radiant

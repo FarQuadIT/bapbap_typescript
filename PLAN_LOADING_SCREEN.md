@@ -39,7 +39,9 @@ content/panorama/layout/custom_game/custom_loading_screen.xml  → Подклю�
 - Темный фон `#1a1a1a` на весь экран
 - Текст "Загрузка игры..."
 - Текст "Вы будете автоматически распределены в команду"
-- Кнопка "Начать игру"
+- **⏱️ Таймер автостарта** - "Игра начнется автоматически через X сек."
+- **🎮 Кнопка "Начать игру"** (только для лидера лобби - PlayerID 0)
+- Для не-лидеров: "Ожидание решения лидера лобби..."
 - **Автоматическое распределение игрока в команду Radiant**
 - **Плавные анимации появления** (fade-in)
 
@@ -217,6 +219,99 @@ BlockStandardPanels();
 $.Schedule(0.1, BlockStandardPanels);
 $.Schedule(0.5, BlockStandardPanels);
 ```
+
+---
+
+#### ✅ **6. Таймер автостарта и проверка лидера лобби**
+
+**Проблема:** Нужен таймер обратного отсчета до автозапуска + кнопка только для лидера.
+
+**Решение:** 
+
+**Серверная часть (`GameMode.ts`):**
+```typescript
+private configure(): void {
+    // Настройки автостарта для CUSTOM_GAME_SETUP
+    GameRules.SetCustomGameSetupAutoLaunchDelay(15); // 15 сек до автостарта
+    GameRules.SetCustomGameSetupTimeout(300); // 5 минут макс ожидание всех игроков
+}
+
+if (state === GameState.CUSTOM_GAME_SETUP) {
+    // Отправляем таймер всем клиентам
+    Timers.CreateTimer(0.3, () => {
+        CustomGameEventManager.Send_ServerToAllClients("setup_timer_update", {
+            seconds: 15
+        });
+        return undefined;
+    });
+}
+```
+
+**Клиентская часть (`game_setup.ts`):**
+
+1. **Таймер через SetDialogVariable:**
+```typescript
+let remainingTime = 15;
+
+function UpdateTimer(): void {
+    const timerLabel = $("#AutoStartTimer");
+    if (!timerLabel) return;
+    
+    if (remainingTime > 0) {
+        timerLabel.SetDialogVariable("timer_seconds", remainingTime.toString());
+        remainingTime--;
+        $.Schedule(1.0, UpdateTimer);
+    } else {
+        timerLabel.style.visibility = "collapse";
+    }
+}
+
+// Подписка на событие от сервера
+GameEvents.Subscribe("setup_timer_update", (data: any) => {
+    StartAutoStartTimer(data.seconds);
+});
+```
+
+2. **XML с плейсхолдером:**
+```xml
+<Label id="AutoStartTimer" html="true" 
+  text="Игра начнется автоматически через {s:timer_seconds} сек." />
+```
+
+3. **Проверка лидера лобби (PlayerID 0):**
+```typescript
+function CheckIfLobbyLeader(): void {
+    const localPlayerID = Game.GetLocalPlayerID();
+    const isLeader = (localPlayerID === 0); // В Dota 2 лидер = PlayerID 0
+    
+    const startButton = $("#SetupStartButton");
+    const waitingLabel = $("#WaitingForLeaderLabel");
+    
+    if (isLeader) {
+        // Показываем кнопку только лидеру
+        startButton.style.visibility = "visible";
+        waitingLabel.style.visibility = "collapse";
+    } else {
+        // Остальным показываем сообщение ожидания
+        startButton.style.visibility = "collapse";
+        waitingLabel.style.visibility = "visible";
+    }
+}
+```
+
+**Типы событий (`events.d.ts`):**
+```typescript
+interface SetupTimerUpdateEventData {
+    seconds: number; // Seconds until auto-start
+}
+```
+
+**Почему это работает:**
+- Сервер контролирует таймеры через `GameRules.SetCustomGameSetupAutoLaunchDelay()`
+- Клиент показывает обратный отсчет через `SetDialogVariable()`
+- `{s:timer_seconds}` в XML автоматически заменяется на значение
+- Лидер лобби всегда имеет PlayerID = 0 (стандарт Dota 2)
+- Не-лидеры видят только сообщение ожидания
 
 ---
 
