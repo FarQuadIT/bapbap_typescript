@@ -8,6 +8,11 @@
     </scripts>
 
     <Panel class="GameSetupRoot" hittest="true" hittestchildren="true">
+        <!-- Логотип В САМОМ ВЕРХУ -->
+        <Panel id="LogoContainer">
+            <Image id="Logo" src="file://{images}/custom_game/loading_screen/logo.png" />
+        </Panel>
+        
         <Label id="SetupLabel" text="Загрузка игры..." />
         
         <Label id="TeamLabel" text="Вы будете автоматически распределены в команду" />

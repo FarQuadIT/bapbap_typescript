@@ -54,18 +54,39 @@
     }
 }
 
+/* Логотип В САМОМ ВЕРХУ */
+#LogoContainer {
+    width: 100%;
+    horizontal-align: center;
+    margin-top: 80px; /* Отступ сверху */
+    margin-bottom: 40px; /* Отступ снизу */
+    
+    /* Плавное появление */
+    animation-name: FadeInText;
+    animation-duration: 1s;
+    animation-delay: 0.2s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: backwards;
+}
+
+#Logo {
+    horizontal-align: center;
+    max-width: 800px; /* Максимальная ширина, если логотип больше - уменьшится */
+    max-height: 300px; /* Максимальная высота */
+}
+
 #SetupLabel {
     font-size: 48px;
     color: #00FF00;
     text-align: center;
     horizontal-align: center;
-    margin-top: 300px;
+    margin-top: 20px; /* Уменьшил отступ, т.к. теперь логотип сверху */
     text-shadow: 2px 2px 8px #000000;
     
     /* Плавное появление с задержкой */
     animation-name: FadeInText;
     animation-duration: 1s;
-    animation-delay: 0.3s;
+    animation-delay: 0.4s; /* Увеличил задержку, чтобы логотип появился первым */
     animation-timing-function: ease-in;
     animation-fill-mode: backwards;
 }
@@ -80,7 +101,7 @@
     /* Плавное появление с задержкой */
     animation-name: FadeInText;
     animation-duration: 1s;
-    animation-delay: 0.5s;
+    animation-delay: 0.6s;
     animation-timing-function: ease-in;
     animation-fill-mode: backwards;
 }
@@ -96,7 +117,7 @@
     /* Плавное появление с задержкой */
     animation-name: FadeInText;
     animation-duration: 1s;
-    animation-delay: 0.7s;
+    animation-delay: 0.8s;
     animation-timing-function: ease-in;
     animation-fill-mode: backwards;
 }
@@ -110,7 +131,7 @@
     /* Плавное появление с задержкой */
     animation-name: FadeInText;
     animation-duration: 1s;
-    animation-delay: 0.9s;
+    animation-delay: 1.0s;
     animation-timing-function: ease-in;
     animation-fill-mode: backwards;
 }
