@@ -55,11 +55,12 @@
 }
 
 /* Логотип В САМОМ ВЕРХУ */
-#LogoContainer {
-    width: 100%;
+#Logo {
     horizontal-align: center;
-    margin-top: 80px; /* Отступ сверху */
-    margin-bottom: 40px; /* Отступ снизу */
+    max-width: 400px;
+    max-height: 250px;
+    margin-top: 50px;
+    z-index: 10; /* Поверх электричества */
     
     /* Плавное появление */
     animation-name: FadeInText;
@@ -69,10 +70,22 @@
     animation-fill-mode: backwards;
 }
 
-#Logo {
+/* Электричество под логотипом (анимация через JavaScript) */
+#ElectricEffect {
     horizontal-align: center;
-    max-width: 800px; /* Максимальная ширина, если логотип больше - уменьшится */
-    max-height: 300px; /* Максимальная высота */
+    width: 800px;
+    height: 450px; /* Фиксированная высота, ширина подстроится автоматически (300 * 16/9 ≈ 533px) */
+    margin-top: -320px; /* Поднято выше под логотип */
+    margin-left: 50px;
+    z-index: 5; /* ПОД логотипом */
+    
+    /* Плавное появление */
+    opacity: 0;
+    animation-name: FadeInText;
+    animation-duration: 0.5s;
+    animation-delay: 0.5s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
 }
 
 #SetupLabel {
@@ -82,6 +95,7 @@
     horizontal-align: center;
     margin-top: 20px; /* Уменьшил отступ, т.к. теперь логотип сверху */
     text-shadow: 2px 2px 8px #000000;
+    z-index: 10; /* Поверх электричества */
     
     /* Плавное появление с задержкой */
     animation-name: FadeInText;
@@ -167,4 +181,45 @@
     horizontal-align: center;
     margin-top: 10px;
     visibility: collapse; /* Скрыт по умолчанию */
+}
+
+/* ============================================
+   ПРЕДЗАГРУЗКА 31 КАДРА (каждый 12-й из 360)
+   ============================================ */
+#PreloadElectricFrames {
+    visibility: collapse;
+    width: 1px;
+    height: 1px;
+    background-image: 
+        url("file://{images}/custom_game/electric/frame_00001.png"),
+        url("file://{images}/custom_game/electric/frame_00012.png"),
+        url("file://{images}/custom_game/electric/frame_00024.png"),
+        url("file://{images}/custom_game/electric/frame_00036.png"),
+        url("file://{images}/custom_game/electric/frame_00048.png"),
+        url("file://{images}/custom_game/electric/frame_00060.png"),
+        url("file://{images}/custom_game/electric/frame_00072.png"),
+        url("file://{images}/custom_game/electric/frame_00084.png"),
+        url("file://{images}/custom_game/electric/frame_00096.png"),
+        url("file://{images}/custom_game/electric/frame_00108.png"),
+        url("file://{images}/custom_game/electric/frame_00120.png"),
+        url("file://{images}/custom_game/electric/frame_00132.png"),
+        url("file://{images}/custom_game/electric/frame_00144.png"),
+        url("file://{images}/custom_game/electric/frame_00156.png"),
+        url("file://{images}/custom_game/electric/frame_00168.png"),
+        url("file://{images}/custom_game/electric/frame_00180.png"),
+        url("file://{images}/custom_game/electric/frame_00192.png"),
+        url("file://{images}/custom_game/electric/frame_00204.png"),
+        url("file://{images}/custom_game/electric/frame_00216.png"),
+        url("file://{images}/custom_game/electric/frame_00228.png"),
+        url("file://{images}/custom_game/electric/frame_00240.png"),
+        url("file://{images}/custom_game/electric/frame_00252.png"),
+        url("file://{images}/custom_game/electric/frame_00264.png"),
+        url("file://{images}/custom_game/electric/frame_00276.png"),
+        url("file://{images}/custom_game/electric/frame_00288.png"),
+        url("file://{images}/custom_game/electric/frame_00300.png"),
+        url("file://{images}/custom_game/electric/frame_00312.png"),
+        url("file://{images}/custom_game/electric/frame_00324.png"),
+        url("file://{images}/custom_game/electric/frame_00336.png"),
+        url("file://{images}/custom_game/electric/frame_00348.png"),
+        url("file://{images}/custom_game/electric/frame_00360.png");
 }

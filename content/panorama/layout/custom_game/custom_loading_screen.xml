@@ -10,5 +10,13 @@
     <Panel class="LoadingScreenRoot">
         <!-- Фоновая картинка на весь экран -->
         <Image id="LoadingBackground" src="file://{images}/custom_game/loading_screen/background.jpg" />
+        
+        <!-- Progress bar контейнер -->
+        <Panel id="LoadingProgressContainer">
+            <Panel id="LoadingProgressBar" />
+        </Panel>
+        
+        <!-- Текст "Загрузка..." с прогрессом -->
+        <Label id="LoadingText" text="Загрузка ресурсов... 0%" />
     </Panel>
 </root>

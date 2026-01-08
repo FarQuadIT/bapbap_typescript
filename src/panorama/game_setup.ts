@@ -4,8 +4,46 @@
 
 $.Msg("=== Game Setup UI initialized ===");
 
+// ============================================
+// ЭЛЕКТРИЧЕСКАЯ АНИМАЦИЯ (покадровая)
+// ВАЖНО: 31 кадр (каждый 12-й) предзагружены через CSS!
+// ============================================
+const ELECTRIC_FRAME_NUMBERS = [
+    1, 12, 24, 36, 48, 60, 72, 84, 96, 108, 120, 132, 144, 156, 168, 180,
+    192, 204, 216, 228, 240, 252, 264, 276, 288, 300, 312, 324, 336, 348, 360
+];
+let currentElectricFrameIndex = 0;
+const FRAME_DELAY = 0.04; // ~20 FPS - замедленная анимация
+
+function PlayElectricAnimation(): void {
+    const electricPanel = $("#ElectricEffect") as ImagePanel | null;
+    if (!electricPanel) {
+        $.Msg("⚠️ Electric panel not found!");
+        return;
+    }
+    
+    // Получаем номер текущего кадра из массива
+    const frameNumber = ELECTRIC_FRAME_NUMBERS[currentElectricFrameIndex].toString().padStart(5, '0');
+    const framePath = `file://{images}/custom_game/electric/frame_${frameNumber}.png`;
+    
+    // Устанавливаем текущий кадр
+    electricPanel.SetImage(framePath);
+    
+    // Переходим к следующему кадру (зацикливаем)
+    currentElectricFrameIndex++;
+    if (currentElectricFrameIndex >= ELECTRIC_FRAME_NUMBERS.length) {
+        currentElectricFrameIndex = 0;
+    }
+    
+    // Планируем следующий кадр
+    $.Schedule(FRAME_DELAY, PlayElectricAnimation);
+}
+
+// Запускаем анимацию с задержкой 0.5 сек (плавное появление)
+$.Schedule(0.5, PlayElectricAnimation);
+
 // Таймер автостарта
-let autoStartTime = 15; // По умолчанию 15 секунд
+let autoStartTime = 100; // Автостарт через 100 секунд
 let remainingTime = autoStartTime;
 
 // Обновление таймера каждую секунду

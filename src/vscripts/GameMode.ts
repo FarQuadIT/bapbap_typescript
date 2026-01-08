@@ -148,7 +148,7 @@ export class GameMode {
         GameRules.SetPreGameTime(10); // Time after heroes spawn before game starts (10 seconds for testing)
         
         // ⏱️ Настройки автостарта для CUSTOM_GAME_SETUP
-        GameRules.SetCustomGameSetupAutoLaunchDelay(15); // 15 секунд до автостарта после того как все готовы
+        GameRules.SetCustomGameSetupAutoLaunchDelay(100); // 100 секунд до автостарта после того как все готовы
         GameRules.SetCustomGameSetupTimeout(300); // 5 минут максимальное время ожидания всех игроков
     }
 
@@ -161,8 +161,8 @@ export class GameMode {
             // ⚠️ СНАЧАЛА распределяем ВСЕХ реальных игроков в команду
             print("⚠️ In CUSTOM_GAME_SETUP, auto-assigning real players...");
             
-            // 🕐 Отправляем таймер автостарта на клиент (15 секунд)
-            const autoStartDelay = 15;
+            // 🕐 Отправляем таймер автостарта на клиент (100 секунд)
+            const autoStartDelay = 100;
             Timers.CreateTimer(0.3, () => {
                 // Отправляем всем клиентам информацию о таймере
                 CustomGameEventManager.Send_ServerToAllClients("setup_timer_update", {
