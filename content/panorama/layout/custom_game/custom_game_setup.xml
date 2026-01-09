@@ -8,28 +8,38 @@
     </scripts>
 
     <Panel class="GameSetupRoot" hittest="true" hittestchildren="true">
-        <!-- Логотип В САМОМ ВЕРХУ -->
-        <Image id="Logo" src="file://{images}/custom_game/loading_screen/logo.png" />
+        <!-- ОВЕРЛЕИ СВЕЧЕНИЯ (под контентом) -->
+        <Panel id="GlowOverlayBottomLeft" class="GlowOverlay" hittest="false" />
+        <Panel id="GlowOverlayTopRight" class="GlowOverlay" hittest="false" />
         
-        <!-- Электричество под логотипом (анимация через JavaScript) -->
-        <Image id="ElectricEffect" src="file://{images}/custom_game/electric/frame_00001.png" />
-        
-        <!-- Скрытая панель для предзагрузки 31 кадра (каждый 12-й) -->
-        <Panel id="PreloadElectricFrames" />
-        
-        <Label id="SetupLabel" text="Загрузка игры..." />
-        
-        <Label id="TeamLabel" text="Вы будете автоматически распределены в команду" />
-        
-        <!-- Таймер автостарта -->
-        <Label id="AutoStartTimer" html="true" text="Игра начнется автоматически через <font color='#FFD700'>100</font> сек." />
-        
-        <!-- Кнопка "Начать игру" (только для лидера лобби) -->
-        <Panel id="SetupBottomContainer">
-            <Button id="SetupStartButton" onactivate="OnSetupStartClicked()">
-                <Label text="Начать игру" />
-            </Button>
-            <Label id="WaitingForLeaderLabel" text="Ожидание решения лидера лобби..." />
+        <!-- Контейнер всего контента (поверх оверлеев) -->
+        <Panel id="ContentContainer">
+            <!-- Логотип В САМОМ ВЕРХУ -->
+            <Image id="Logo" src="file://{images}/custom_game/loading_screen/logo.png" />
+            
+            <!-- Электричество под логотипом (анимация через JavaScript) -->
+            <Image id="ElectricEffect" src="file://{images}/custom_game/electric/frame_00001.png" />
+            
+            <!-- Скрытая панель для предзагрузки 31 кадра (каждый 12-й) -->
+            <Panel id="PreloadElectricFrames" />
+            
+            <!-- Контейнер панелей игроков (панели создаются динамически через JavaScript) -->
+            <Panel id="PlayersContainer"></Panel>
+            
+            <!-- Круговой таймер автостарта -->
+            <Panel id="CircularTimerContainer">
+                <Panel id="CircularTimerBackground" />
+                <Panel id="CircularTimerProgress" />
+                <Label id="CircularTimerText" text="10" />
+            </Panel>
+            
+            <!-- Кнопка "Начать игру" (только для лидера лобби) -->
+            <Panel id="SetupBottomContainer">
+                <Button id="SetupStartButton" onactivate="OnSetupStartClicked()">
+                    <Label text="Начать игру" />
+                </Button>
+                <Label id="WaitingForLeaderLabel" text="Ожидание решения лидера лобби..." />
+            </Panel>
         </Panel>
     </Panel>
 </root>

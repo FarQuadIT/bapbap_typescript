@@ -15,7 +15,8 @@
 interface CustomGameEventDeclarations {
     example_event: ExampleEventData,
     ui_panel_closed: UIPanelClosedEventData,
-    setup_timer_update: SetupTimerUpdateEventData
+    setup_timer_update: SetupTimerUpdateEventData,
+    player_steam_ids: PlayerSteamIDsEventData
 }
 
 // Define the type of data sent by the example_event event
@@ -32,4 +33,12 @@ interface UIPanelClosedEventData {}
 // Event sent from server to update auto-start timer
 interface SetupTimerUpdateEventData {
     seconds: number; // Seconds until auto-start
+}
+
+// Event sent from server with player Steam Account IDs
+interface PlayerSteamIDsEventData {
+    players: Array<{
+        playerID: number;
+        steamAccountID: number; // 32-bit Steam Account ID (0 for bots)
+    }>;
 }

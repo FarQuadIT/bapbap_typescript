@@ -140,16 +140,16 @@ export class GameMode {
     }
 
     private configure(): void {
-        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 4);
-        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 3);
+        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 4); // 1 игрок + 7 ботов
+        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 4);
 
         GameRules.SetShowcaseTime(0);
         GameRules.SetHeroSelectionTime(60); // ⚠️ ВРЕМЕННО: 60 секунд для тестирования (heroSelectionTime = 10)
         GameRules.SetPreGameTime(10); // Time after heroes spawn before game starts (10 seconds for testing)
         
         // ⏱️ Настройки автостарта для CUSTOM_GAME_SETUP
-        GameRules.SetCustomGameSetupAutoLaunchDelay(100); // 100 секунд до автостарта после того как все готовы
-        GameRules.SetCustomGameSetupTimeout(300); // 5 минут максимальное время ожидания всех игроков
+        GameRules.SetCustomGameSetupAutoLaunchDelay(10000); // 10000 секунд до автостарта
+        GameRules.SetCustomGameSetupTimeout(10000); // 10000 секунд максимальное время ожидания всех игроков
     }
 
     public OnStateChange(): void {
@@ -161,8 +161,8 @@ export class GameMode {
             // ⚠️ СНАЧАЛА распределяем ВСЕХ реальных игроков в команду
             print("⚠️ In CUSTOM_GAME_SETUP, auto-assigning real players...");
             
-            // 🕐 Отправляем таймер автостарта на клиент (100 секунд)
-            const autoStartDelay = 100;
+            // 🕐 Отправляем таймер автостарта на клиент (10000 секунд)
+            const autoStartDelay = 10000;
             Timers.CreateTimer(0.3, () => {
                 // Отправляем всем клиентам информацию о таймере
                 CustomGameEventManager.Send_ServerToAllClients("setup_timer_update", {
@@ -193,13 +193,49 @@ export class GameMode {
             // ПОТОМ добавляем ботов (через 2 секунды)
             if (IsInToolsMode()) {
                 Timers.CreateTimer(2, () => {
-                    print("🤖 Adding bots...");
-                    for (let i = 0; i < 4; i++) {
-                        SendToServerConsole("dota_bot_populate");
+                    print("🤖 Adding 7 bots...");
+                    // Добавляем ботов по одному с небольшой задержкой
+                    for (let i = 0; i < 7; i++) {
+                        Timers.CreateTimer(i * 0.1, () => {
+                            SendToServerConsole("dota_bot_populate");
+                            return undefined;
+                        });
                     }
                     return undefined;
                 });
             }
+            
+            // Отправляем Steam Account IDs всех игроков на клиент (через 3 секунды, после ботов)
+            Timers.CreateTimer(3, () => {
+                const players: Array<{ playerID: number; steamAccountID: number }> = [];
+                
+                for (let playerID = 0; playerID < 24; playerID++) {
+                    if (PlayerResource.IsValidPlayerID(playerID)) {
+                        const isFakeClient = PlayerResource.IsFakeClient(playerID);
+                        let steamAccountID = 0; // 0 для ботов
+                        
+                        if (!isFakeClient) {
+                            // Получаем реальный Steam Account ID для игрока
+                            steamAccountID = PlayerResource.GetSteamAccountID(playerID);
+                        }
+                        
+                        players.push({
+                            playerID: playerID,
+                            steamAccountID: steamAccountID
+                        });
+                        
+                        print(`📧 Player ${playerID}: SteamAccountID = ${steamAccountID} (bot: ${isFakeClient})`);
+                    }
+                }
+                
+                // Отправляем всем клиентам
+                CustomGameEventManager.Send_ServerToAllClients("player_steam_ids", {
+                    players: players as any // Type workaround для массивов
+                });
+                
+                print(`✅ Sent Steam Account IDs for ${players.length} players`);
+                return undefined;
+            });
             
             print("🎨 Custom GameSetup UI is now active");
         }

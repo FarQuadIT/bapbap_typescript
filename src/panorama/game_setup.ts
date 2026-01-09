@@ -2,8 +2,6 @@
 // КАСТОМНЫЙ UI ДЛЯ CUSTOM_GAME_SETUP
 // ============================================
 
-$.Msg("=== Game Setup UI initialized ===");
-
 // ============================================
 // ЭЛЕКТРИЧЕСКАЯ АНИМАЦИЯ (покадровая)
 // ВАЖНО: 31 кадр (каждый 12-й) предзагружены через CSS!
@@ -15,10 +13,15 @@ const ELECTRIC_FRAME_NUMBERS = [
 let currentElectricFrameIndex = 0;
 const FRAME_DELAY = 0.04; // ~20 FPS - замедленная анимация
 
+// ============================================
+// 🎯 ПОЗИЦИОНИРОВАНИЕ АВАТАРОВ - МЕНЯЙ ТОЛЬКО ЗДЕСЬ!
+// ============================================
+const AVATAR_POSITION_X = "15px";   // Горизонталь (left)
+const AVATAR_POSITION_Y = "52px";  // Вертикаль (top)
+
 function PlayElectricAnimation(): void {
     const electricPanel = $("#ElectricEffect") as ImagePanel | null;
     if (!electricPanel) {
-        $.Msg("⚠️ Electric panel not found!");
         return;
     }
     
@@ -39,31 +42,312 @@ function PlayElectricAnimation(): void {
     $.Schedule(FRAME_DELAY, PlayElectricAnimation);
 }
 
-// Запускаем анимацию с задержкой 0.5 сек (плавное появление)
-$.Schedule(0.5, PlayElectricAnimation);
+// НЕ запускаем анимацию сразу - дождемся полной загрузки
+// PlayElectricAnimation запустится из функции RevealUI()
+
+// ============================================
+// ДИНАМИЧЕСКОЕ СОЗДАНИЕ ПАНЕЛЕЙ ИГРОКОВ
+// ============================================
+
+function CreatePlayerPanel(playerID: PlayerID): void {
+    const playersContainer = $("#PlayersContainer");
+    if (!playersContainer) {
+        return;
+    }
+    
+    // Проверяем, не создана ли уже панель для этого игрока
+    const existingPanel = $(`#Player_${playerID}`);
+    if (existingPanel) {
+        return;
+    }
+    
+    // Создаем панель игрока
+    const playerPanel = $.CreatePanel("Panel", playersContainer, `Player_${playerID}`);
+    playerPanel.AddClass("PlayerPanel");
+    
+    // Получаем никнейм
+    const playerName = Players.GetPlayerName(playerID) || `Player ${playerID}`;
+    
+    // Создаем никнейм
+    const nicknameLabel = $.CreatePanel("Label", playerPanel, `Nickname_${playerID}`);
+    nicknameLabel.AddClass("PlayerNickname");
+    nicknameLabel.text = playerName;
+    
+    // Создаем аватар - сначала как Image с placeholder
+    const avatarImage = $.CreatePanel("Image", playerPanel, `Avatar_${playerID}`) as ImagePanel;
+    avatarImage.AddClass("PlayerAvatar");
+    avatarImage.SetImage("file://{images}/custom_game/tstl.png"); // Placeholder по умолчанию
+    
+    // Явно устанавливаем стили (обязательно для корректного отображения)
+    avatarImage.style.width = "155px";
+    avatarImage.style.height = "155px";
+    avatarImage.style.visibility = "visible";
+    avatarImage.style.opacity = "1.0";
+    
+    // АБСОЛЮТНОЕ позиционирование (используем константы)
+    avatarImage.style.x = AVATAR_POSITION_X;
+    avatarImage.style.y = AVATAR_POSITION_Y;
+    
+    // Создаем статус
+    const statusLabel = $.CreatePanel("Label", playerPanel, `Status_${playerID}`);
+    statusLabel.AddClass("PlayerStatus");
+    statusLabel.AddClass("status-connecting"); // Начальный статус
+    statusLabel.text = "Подключается...";
+}
+
+function UpdatePlayerPanels(): void {
+    const allPlayerIDs = Game.GetAllPlayerIDs();
+    
+    // Создаем панели для всех игроков (пропускаются уже созданные)
+    allPlayerIDs.forEach((playerID) => {
+        CreatePlayerPanel(playerID);
+    });
+}
+
+// НЕ создаем панели сразу - дождемся полной загрузки
+// UpdatePlayerPanels вызовется из RevealUI()
+
+// Периодическое обновление для подхвата новых игроков/ботов
+function CheckForNewPlayers(): void {
+    UpdatePlayerPanels();
+    $.Schedule(1.0, CheckForNewPlayers); // Проверяем каждую секунду
+}
+
+// Запускаем проверку через 4 секунды (после появления UI)
+$.Schedule(4, CheckForNewPlayers);
+
+// Останавливаем проверку через 15 секунд (все игроки уже должны загрузиться)
+$.Schedule(15, () => {
+    // Проверка остановлена
+});
+
+// ============================================
+// ОБНОВЛЕНИЕ АВАТАРОВ STEAM
+// ============================================
+
+function UpdatePlayerAvatars(event: NetworkedData<PlayerSteamIDsEventData>): void {
+    $.Msg("🔄 Получено событие player_steam_ids от сервера");
+    
+    // Преобразуем объект обратно в массив (Dota 2 конвертирует массивы в объекты при отправке событий)
+    const playersArray: Array<{ playerID: number; steamAccountID: number }> = [];
+    for (const key in event.players) {
+        playersArray.push(event.players[key]);
+    }
+    
+    $.Msg(`  └ Обновляем аватары для ${playersArray.length} игроков`);
+    
+    playersArray.forEach((playerData) => {
+        const { playerID, steamAccountID } = playerData;
+        $.Msg(`  └ Player ${playerID}: steamID = ${steamAccountID} ${steamAccountID === 0 ? "(БОТ)" : "(ИГРОК)"}`);
+        
+        // Сохраняем информацию о том, бот это или нет
+        playerBotStatus.set(playerID, steamAccountID === 0);
+        
+        const avatarPanel = $(`#Avatar_${playerID}`);
+        
+        if (!avatarPanel) {
+            return;
+        }
+        
+        // Удаляем старый Image
+        avatarPanel.DeleteAsync(0);
+        
+        // Создаем новый DOTAAvatarImage или оставляем Image
+        const playerPanel = $(`#Player_${playerID}`);
+        if (!playerPanel) return;
+        
+        if (steamAccountID > 0) {
+            // Реальный игрок - используем DOTAAvatarImage
+            const playerInfo = Game.GetPlayerInfo(playerID as PlayerID);
+            if (!playerInfo) {
+                return;
+            }
+            
+            const newAvatar = $.CreatePanel("DOTAAvatarImage", playerPanel, `Avatar_${playerID}`);
+            newAvatar.AddClass("PlayerAvatar");
+            newAvatar.steamid = playerInfo.player_steamid;
+            
+            // Явно устанавливаем обязательные стили (без них аватар не отображается)
+            newAvatar.style.width = "155px";
+            newAvatar.style.height = "155px";
+            newAvatar.style.visibility = "visible";
+            newAvatar.style.opacity = "1.0";
+            
+            // АБСОЛЮТНОЕ позиционирование (используем константы)
+            newAvatar.style.x = AVATAR_POSITION_X;
+            newAvatar.style.y = AVATAR_POSITION_Y;
+        } else {
+            // Бот - оставляем placeholder
+            const newAvatar = $.CreatePanel("Image", playerPanel, `Avatar_${playerID}`) as ImagePanel;
+            newAvatar.AddClass("PlayerAvatar");
+            newAvatar.SetImage("file://{images}/custom_game/tstl.png");
+            
+            // Явно устанавливаем те же стили, что и для Steam аватаров
+            newAvatar.style.width = "155px";
+            newAvatar.style.height = "155px";
+            newAvatar.style.visibility = "visible";
+            newAvatar.style.opacity = "1.0";
+            
+            // АБСОЛЮТНОЕ позиционирование (используем константы)
+            newAvatar.style.x = AVATAR_POSITION_X;
+            newAvatar.style.y = AVATAR_POSITION_Y;
+        }
+    });
+}
+
+// Храним информацию о том, кто бот
+const playerBotStatus: Map<number, boolean> = new Map();
+
+// Подписываемся на событие с Steam Account IDs
+GameEvents.Subscribe("player_steam_ids", UpdatePlayerAvatars);
+
+// ============================================
+// СИСТЕМА СТАТУСОВ ИГРОКОВ (Этап 6)
+// ============================================
+
+// Маппинг connection state → текст и CSS класс
+interface PlayerStatusInfo {
+    text: string;
+    cssClass: string;
+}
+
+// Получить название enum для логирования
+function GetConnectionStateName(state: DOTAConnectionState_t): string {
+    switch (state) {
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_UNKNOWN: return "UNKNOWN(0)";
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_NOT_YET_CONNECTED: return "NOT_YET_CONNECTED(1)";
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_CONNECTED: return "CONNECTED(2)";
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED: return "DISCONNECTED(3)";
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED: return "ABANDONED(4)";
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_LOADING: return "LOADING(5)";
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_FAILED: return "FAILED(6)";
+        default: return `UNKNOWN(${state})`;
+    }
+}
+
+function GetPlayerStatusInfo(connectionState: DOTAConnectionState_t): PlayerStatusInfo {
+    switch (connectionState) {
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_CONNECTED:
+            return { text: "Готов", cssClass: "status-ready" };
+        
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_LOADING:
+            return { text: "Загружается...", cssClass: "status-loading" };
+        
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_DISCONNECTED:
+            return { text: "Отключен", cssClass: "status-disconnected" };
+        
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED:
+            return { text: "Покинул игру", cssClass: "status-abandoned" };
+        
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_FAILED:
+            return { text: "Ошибка подключения", cssClass: "status-failed" };
+        
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_NOT_YET_CONNECTED:
+            return { text: "Подключается...", cssClass: "status-connecting" };
+        
+        case DOTAConnectionState_t.DOTA_CONNECTION_STATE_UNKNOWN:
+        default:
+            return { text: "Неизвестно", cssClass: "status-unknown" };
+    }
+}
+
+// Счетчик обновлений для управления логированием
+let statusUpdateCount = 0;
+const VERBOSE_LOG_COUNT = 5; // Первые 5 обновлений логируем подробно
+
+// Функция обновления статусов всех игроков
+function UpdatePlayerStatuses(): void {
+    const allPlayerIDs = Game.GetAllPlayerIDs();
+    statusUpdateCount++;
+    
+    allPlayerIDs.forEach((playerID) => {
+        const statusLabel = $(`#Status_${playerID}`) as LabelPanel | null;
+        if (!statusLabel) {
+            return;
+        }
+        
+        // Получаем информацию о игроке
+        const playerInfo = Game.GetPlayerInfo(playerID as PlayerID);
+        if (!playerInfo) {
+            statusLabel.text = "Неизвестно";
+            statusLabel.RemoveClass("status-ready");
+            statusLabel.RemoveClass("status-loading");
+            statusLabel.RemoveClass("status-disconnected");
+            statusLabel.RemoveClass("status-abandoned");
+            statusLabel.RemoveClass("status-failed");
+            statusLabel.RemoveClass("status-connecting");
+            statusLabel.AddClass("status-unknown");
+            return;
+        }
+        
+        // Получаем статус подключения
+        const connectionState = playerInfo.player_connection_state as DOTAConnectionState_t;
+        let statusInfo = GetPlayerStatusInfo(connectionState);
+        
+        // ФИКС ДЛЯ БОТОВ: Если это бот и статус NOT_YET_CONNECTED, показываем "Готов"
+        const isBot = playerBotStatus.get(playerID) || false;
+        if (isBot && connectionState === DOTAConnectionState_t.DOTA_CONNECTION_STATE_NOT_YET_CONNECTED) {
+            statusInfo = { text: "Готов (Бот)", cssClass: "status-ready" };
+        }
+        
+        // Обновляем текст статуса
+        statusLabel.text = statusInfo.text;
+        
+        // Удаляем все старые классы статусов
+        statusLabel.RemoveClass("status-ready");
+        statusLabel.RemoveClass("status-loading");
+        statusLabel.RemoveClass("status-disconnected");
+        statusLabel.RemoveClass("status-abandoned");
+        statusLabel.RemoveClass("status-failed");
+        statusLabel.RemoveClass("status-connecting");
+        statusLabel.RemoveClass("status-unknown");
+        
+        // Добавляем новый класс статуса
+        statusLabel.AddClass(statusInfo.cssClass);
+    });
+}
+
+// Запускаем периодическое обновление статусов (каждые 0.2 секунды для более отзывчивого UI)
+function StartStatusUpdates(): void {
+    UpdatePlayerStatuses();
+    $.Schedule(0.2, StartStatusUpdates); // Рекурсивный вызов каждые 200ms
+}
+
+// Запускаем обновление статусов через 3 секунды (после появления UI)
+$.Schedule(3, StartStatusUpdates);
 
 // Таймер автостарта
-let autoStartTime = 100; // Автостарт через 100 секунд
+let autoStartTime = 10000; // Автостарт через 10000 секунд
 let remainingTime = autoStartTime;
 
 // Обновление таймера каждую секунду
 function UpdateTimer(): void {
-    const timerLabel = $("#AutoStartTimer") as LabelPanel | null;
-    if (!timerLabel) {
-        $.Msg("⚠️ Timer label not found!");
+    const timerText = $("#CircularTimerText") as LabelPanel | null;
+    const timerContainer = $("#CircularTimerContainer");
+    
+    if (!timerText || !timerContainer) {
         return;
     }
     
     if (remainingTime > 0) {
-        // Обновляем HTML напрямую
-        timerLabel.html = true;
-        timerLabel.text = `Игра начнется автоматически через <font color='#FFD700'>${remainingTime}</font> сек.`;
-        $.Msg(`⏱️ Timer tick: ${remainingTime} seconds remaining`);
+        // Обновляем цифру в центре
+        timerText.text = remainingTime.toString();
+        
+        // Легкая пульсация цифр при каждой секунде
+        timerText.style.transform = "scale3d(1.1, 1.1, 1)";
+        $.Schedule(0.15, () => {
+            if (timerText) {
+                timerText.style.transform = "scale3d(1, 1, 1)";
+            }
+        });
+        
+        $.Msg(`⏱️ Timer: ${remainingTime}s`);
         remainingTime--;
         $.Schedule(1.0, UpdateTimer);
     } else {
-        $.Msg("⏱️ Timer finished!");
-        timerLabel.style.visibility = "collapse";
+        $.Msg("⏱️ Timer finished! Запускаем игру с анимацией...");
+        // Вместо простого скрытия - запускаем красивую анимацию выхода
+        HideCardsAndStartGame();
     }
 }
 
@@ -72,11 +356,9 @@ function StartAutoStartTimer(seconds: number): void {
     autoStartTime = seconds;
     remainingTime = seconds;
     
-    $.Msg(`⏱️ Auto-start timer set to ${seconds} seconds`);
-    
-    const timerLabel = $("#AutoStartTimer");
-    if (timerLabel) {
-        timerLabel.style.visibility = "visible";
+    const timerContainer = $("#CircularTimerContainer");
+    if (timerContainer) {
+        timerContainer.style.visibility = "visible";
     }
     
     UpdateTimer();
@@ -93,15 +375,11 @@ function ForceFullScreen(): void {
         rootPanel.style.position = "0 0 0 0";
         rootPanel.style.zIndex = 9999;
         
-        $.Msg("✅ Root panel forced to fullscreen");
-        
         // Растягиваем ВСЕ родительские панели вверх по иерархии
         let currentPanel = rootPanel.GetParent();
         let level = 1;
         
         while (currentPanel && level < 10) { // Ограничение на 10 уровней
-            $.Msg(`🔍 Level ${level}: ${currentPanel.id || currentPanel.paneltype || "unknown"}`);
-            
             currentPanel.style.width = "100%";
             currentPanel.style.height = "100%";
             currentPanel.style.position = "0 0 0 0";
@@ -109,8 +387,6 @@ function ForceFullScreen(): void {
             // Убираем отступы
             currentPanel.style.margin = "0px";
             currentPanel.style.padding = "0px";
-            
-            $.Msg(`✅ Stretched parent panel at level ${level}`);
             
             currentPanel = currentPanel.GetParent();
             level++;
@@ -129,10 +405,37 @@ function ForceFullScreen(): void {
                 if (panel && panel !== rootPanel && !panel.FindChild(rootPanel.id)) {
                     panel.style.visibility = "collapse";
                     panel.hittest = false;
-                    $.Msg(`✅ Blocked panel: ${panelName}`);
                 }
             }
         }
+    }
+}
+
+// Блокировка стандартных панелей Dota 2 (перенесено из loading_screen.ts)
+function BlockStandardPanels(): void {
+    const contextPanel = $.GetContextPanel();
+    if (!contextPanel) return;
+    
+    const parent = contextPanel.GetParent();
+    if (!parent) return;
+    
+    const grandParent = parent.GetParent();
+    if (!grandParent) return;
+    
+    // Скрываем sidebar с battle cup
+    const sidebar = grandParent.FindChildTraverse('SidebarAndBattleCupLayoutContainer');
+    if (sidebar) {
+        sidebar.style.visibility = "collapse";
+        sidebar.hittest = false;
+        sidebar.hittestchildren = false;
+    }
+    
+    // Скрываем battle cup победителя
+    const battleCup = grandParent.FindChildTraverse('LoadingScreenBattleCupWinnerContainer');
+    if (battleCup) {
+        battleCup.style.visibility = "collapse";
+        battleCup.hittest = false;
+        battleCup.hittestchildren = false;
     }
 }
 
@@ -142,59 +445,432 @@ function CheckIfLobbyLeader(): void {
     const localPlayerID = Game.GetLocalPlayerID();
     const isLeader = (localPlayerID === 0);
     
-    $.Msg(`🎮 Local player ID: ${localPlayerID}, Is lobby leader: ${isLeader}`);
-    
     const startButton = $("#SetupStartButton");
     const waitingLabel = $("#WaitingForLeaderLabel");
     
     if (isLeader) {
         // Лидер лобби (PlayerID 0) - показываем кнопку "Начать игру"
-        if (startButton) startButton.style.visibility = "visible";
+        // НЕ трогаем visibility - кнопка появляется через opacity!
         if (waitingLabel) waitingLabel.style.visibility = "collapse";
     } else {
-        // Обычный игрок - скрываем кнопку, показываем сообщение ожидания
-        if (startButton) startButton.style.visibility = "collapse";
-        if (waitingLabel) waitingLabel.style.visibility = "visible";
+        // Обычный игрок - скрываем кнопку через opacity, показываем сообщение
+        if (startButton) startButton.style.opacity = "0"; // Скрываем через opacity
+        if (waitingLabel) {
+            waitingLabel.style.visibility = "visible";
+            waitingLabel.style.opacity = "1"; // Показываем лейбл
+        }
+    }
+}
+
+// ============================================
+// СИСТЕМА ПРЕДЗАГРУЗКИ И ПЛАВНОГО ПОЯВЛЕНИЯ
+// ============================================
+
+let isUIRevealed = false;
+
+function RevealUI(): void {
+    if (isUIRevealed) {
+        return; // Уже показали
+    }
+    isUIRevealed = true;
+    
+    $.Msg("🎨 UI полностью загружен, начинаем плавное появление...");
+    
+    const root = $.GetContextPanel();
+    const logo = $("#Logo");
+    const electric = $("#ElectricEffect");
+    const playersContainer = $("#PlayersContainer");
+    const timer = $("#CircularTimerContainer");
+    const bottomContainer = $("#SetupBottomContainer");
+    const initText = $("#InitText");
+    const glowBottomLeft = $("#GlowOverlayBottomLeft");
+    const glowTopRight = $("#GlowOverlayTopRight");
+    
+    // ПОЭТАПНОЕ ПОЯВЛЕНИЕ с задержками для плавности
+    
+    // 1. Фон (сразу)
+    if (root) {
+        root.AddClass("loaded");
+    }
+    
+    // 1.5. Оверлеи свечения (через 0.1s) - сразу после фона для плавного перелива
+    $.Schedule(0.1, () => {
+        if (glowBottomLeft) {
+            $.Msg("✨ Активирую ЛЕВЫЙ оверлей свечения");
+            glowBottomLeft.AddClass("loaded");
+            $.Msg(`  └ Видимость: ${glowBottomLeft.visible}, Opacity: ${glowBottomLeft.style.opacity}`);
+        } else {
+            $.Msg("⚠️ ЛЕВЫЙ оверлей НЕ НАЙДЕН!");
+        }
+        
+        if (glowTopRight) {
+            $.Msg("✨ Активирую ПРАВЫЙ оверлей свечения");
+            glowTopRight.AddClass("loaded");
+            $.Msg(`  └ Видимость: ${glowTopRight.visible}, Opacity: ${glowTopRight.style.opacity}`);
+        } else {
+            $.Msg("⚠️ ПРАВЫЙ оверлей НЕ НАЙДЕН!");
+        }
+        
+        // Дополнительная проверка через 2 секунды
+        $.Schedule(2, () => {
+            if (glowBottomLeft) {
+                $.Msg(`🔍 ЛЕВЫЙ оверлей через 2с: Opacity = ${glowBottomLeft.style.opacity}`);
+            }
+            if (glowTopRight) {
+                $.Msg(`🔍 ПРАВЫЙ оверлей через 2с: Opacity = ${glowTopRight.style.opacity}`);
+            }
+        });
+    });
+    
+    // 2. Логотип (через 0.2s)
+    $.Schedule(0.2, () => {
+        if (logo) logo.AddClass("loaded");
+    });
+    
+    // 3. Электричество (через 0.5s) + запускаем анимацию
+    $.Schedule(0.5, () => {
+        if (electric) electric.AddClass("loaded");
+        PlayElectricAnimation(); // Запускаем покадровую анимацию
+    });
+    
+    // 4. Панели игроков (СОЗДАЁМ ЗАРАНЕЕ, через 0.8s, пока невидимы)
+    $.Schedule(0.8, () => {
+        $.Msg("🃏 Начинаем создание карточек игроков...");
+        
+        // Переменные для отслеживания
+        let lastPlayerCount = 0;
+        let stableChecks = 0;
+        const STABLE_CHECKS_NEEDED = 5; // 5 проверок подряд (0.5s)
+        const MIN_PLAYERS = 8; // Минимум 8 игроков (1 человек + 7 ботов)
+        const MAX_WAIT_TIME = 5000; // Максимум 5 секунд ожидания
+        const startTime = Game.GetGameTime();
+        
+        // Периодически создаём карточки для новых игроков
+        function CreatePlayerCardsLoop(): void {
+            const currentPlayerCount = Game.GetAllPlayerIDs().length;
+            const elapsed = (Game.GetGameTime() - startTime) * 1000;
+            
+            if (currentPlayerCount > lastPlayerCount) {
+                $.Msg(`  └ Обнаружено игроков: ${currentPlayerCount} (было ${lastPlayerCount})`);
+                UpdatePlayerPanels(); // Создаём карточки для новых игроков
+                lastPlayerCount = currentPlayerCount;
+                stableChecks = 0; // Сбрасываем счётчик
+            } else if (currentPlayerCount === lastPlayerCount && currentPlayerCount > 0) {
+                stableChecks++;
+            }
+            
+            // УСЛОВИЯ ЗАВЕРШЕНИЯ:
+            // 1. Достигли минимума игроков И стабильно
+            // 2. ИЛИ превысили таймаут
+            const hasMinPlayers = currentPlayerCount >= MIN_PLAYERS;
+            const isStable = stableChecks >= STABLE_CHECKS_NEEDED;
+            const timeout = elapsed >= MAX_WAIT_TIME;
+            
+            if ((hasMinPlayers && isStable) || timeout) {
+                if (timeout && currentPlayerCount < MIN_PLAYERS) {
+                    $.Msg(`⏱️ Таймаут (${elapsed}ms), показываем ${currentPlayerCount} игроков`);
+                } else {
+                    $.Msg(`✅ Все ${currentPlayerCount} игроков загружены, показываем карточки`);
+                }
+                ShowPlayerCards();
+            } else {
+                // Проверяем снова через 0.1s
+                $.Schedule(0.1, CreatePlayerCardsLoop);
+            }
+        }
+        
+        // Запускаем цикл создания
+        CreatePlayerCardsLoop();
+    });
+    
+    // Функция показа карточек (вынесена отдельно)
+    function ShowPlayerCards(): void {
+        const playersContainer = $("#PlayersContainer");
+        if (!playersContainer) return;
+        
+        // АДАПТИВНЫЙ SCALE под разные разрешения
+        const rootPanel = $.GetContextPanel();
+        const screenWidth = rootPanel.actuallayoutwidth || 1920;
+        const screenHeight = rootPanel.actuallayoutheight || 1080;
+        
+        // Базовое разрешение (для которого дизайн сделан)
+        const BASE_WIDTH = 1920;
+        const MIN_REQUIRED_WIDTH = 1600; // Минимум для нормального отображения 8 карточек
+        
+        // Рассчитываем scale (не больше 1.0, не меньше 0.5)
+        let scale = Math.min(1.0, screenWidth / MIN_REQUIRED_WIDTH);
+        scale = Math.max(0.5, scale); // Не уменьшаем меньше 50%
+        
+        $.Msg(`📐 Адаптация под разрешение ${screenWidth}x${screenHeight}`);
+        $.Msg(`  └ Scale: ${(scale * 100).toFixed(0)}% (базовое = ${BASE_WIDTH}px)`);
+        
+        // Предупреждения для проблемных разрешений
+        if (scale < 0.8) {
+            $.Msg(`  ⚠️ Маленький экран - карточки уменьшены до ${(scale * 100).toFixed(0)}%`);
+        }
+        if (screenWidth > 2560) {
+            $.Msg(`  📺 Большой экран (${screenWidth}px) - используем 100% размер`);
+        }
+        
+        // Применяем scale к контейнеру (через отдельное свойство, чтобы не конфликтовать)
+        // transform-origin: center - масштабирование от центра
+        playersContainer.style.transformOrigin = "50% 50%";
+        
+        // Показываем контейнер
+        playersContainer.AddClass("loaded");
+        
+        // Применяем scale ПОСЛЕ появления (чтобы не конфликтовать с opacity transition)
+        $.Schedule(0.1, () => {
+            playersContainer.style.transform = `scale3d(${scale}, ${scale}, 1)`;
+        });
+        
+        // ДВУХЭТАПНАЯ АНИМАЦИЯ: выезд вверх → сдвиг на позицию
+        const allPlayerIDs = Game.GetAllPlayerIDs();
+        $.Msg(`🌊 Запускаем волновую анимацию для ${allPlayerIDs.length} карточек`);
+        
+        const CARD_WIDTH = 190; // 180px width + 10px spacing (БЕЗ учета scale - scale применяется к контейнеру)
+        const totalCards = allPlayerIDs.length;
+        
+        allPlayerIDs.forEach((playerID, index) => {
+            const playerPanel = $(`#Player_${playerID}`);
+            if (!playerPanel) return;
+            
+            // ЭТАП 1: Выезд вверх (по центру) с задержкой
+            $.Schedule(index * 0.5, () => {
+                playerPanel.AddClass("loaded");
+                $.Msg(`  └ Карточка ${index + 1}/${totalCards}: Выезд вверх`);
+                
+                // ЭТАП 2: Сдвиг на финальную позицию через 0.4s
+                $.Schedule(0.4, () => {
+                    // Рассчитываем смещение от центра (в исходных пикселях, scale применится автоматически)
+                    // Центр всего ряда: (totalCards - 1) / 2
+                    // Расстояние текущей карточки от центра
+                    const offsetFromCenter = index - (totalCards - 1) / 2;
+                    const translateX = offsetFromCenter * CARD_WIDTH;
+                    
+                    playerPanel.style.transform = `translate3d(${translateX}px, 0px, 0px)`;
+                    playerPanel.AddClass("positioned");
+                    $.Msg(`  └ Карточка ${index + 1}/${totalCards}: Сдвиг на ${translateX}px`);
+                    
+                    // Добавляем обработку hover для сохранения позиции
+                    playerPanel.SetPanelEvent("onmouseover", () => {
+                        playerPanel.style.transform = `translate3d(${translateX}px, -8px, 60px) rotateY(4deg) rotateX(-3deg) scale3d(1.01, 1.01, 1)`;
+                        playerPanel.style.boxShadow = "#00000088 0px 8px 15px 0px";
+                        playerPanel.style.brightness = "1.05";
+                    });
+                    
+                    playerPanel.SetPanelEvent("onmouseout", () => {
+                        playerPanel.style.transform = `translate3d(${translateX}px, 0px, 0px)`;
+                        playerPanel.style.boxShadow = "none";
+                        playerPanel.style.brightness = "1.0";
+                    });
+                });
+            });
+        });
+    }
+    
+    // 5. Текст инициализации (через 1.6s - после карточек)
+    $.Schedule(1.6, () => {
+        if (initText) initText.AddClass("loaded");
+    });
+    
+    // 6. Таймер (через 2.2s)
+    $.Schedule(2.2, () => {
+        if (timer) timer.AddClass("loaded");
+    });
+    
+    // 7. Контейнер кнопки внизу (через 2.4s)
+    $.Schedule(2.4, () => {
+        if (bottomContainer) bottomContainer.AddClass("loaded");
+        
+        // 7.1. САМА КНОПКА появляется через 0.1s ПОСЛЕ контейнера (чтобы избежать прыжка)
+        $.Schedule(0.1, () => {
+            const startButton = $("#SetupStartButton");
+            if (startButton) startButton.AddClass("loaded");
+        });
+    });
+}
+
+// Функция проверки готовности UI
+function CheckUIReady(): void {
+    // Проверяем что все критичные панели существуют
+    const root = $.GetContextPanel();
+    const logo = $("#Logo");
+    const electric = $("#ElectricEffect");
+    const playersContainer = $("#PlayersContainer");
+    
+    if (root && logo && electric && playersContainer) {
+        $.Msg("✅ Все панели загружены, ожидаем 0.5s для рендера...");
+        
+        // Даем еще 0.5s на полный рендер всех изображений
+        $.Schedule(0.5, RevealUI);
+    } else {
+        $.Msg("⏳ UI еще не готов, ждем...");
+        // Проверяем снова через 0.1s
+        $.Schedule(0.1, CheckUIReady);
     }
 }
 
 // Вызываем сразу и с задержками
 ForceFullScreen();
+BlockStandardPanels();
 CheckIfLobbyLeader();
-$.Schedule(0.1, ForceFullScreen);
-$.Schedule(0.5, () => { ForceFullScreen(); CheckIfLobbyLeader(); });
-$.Schedule(1.0, ForceFullScreen);
+$.Schedule(0.1, () => { ForceFullScreen(); BlockStandardPanels(); });
+$.Schedule(0.5, () => { ForceFullScreen(); BlockStandardPanels(); CheckIfLobbyLeader(); });
+$.Schedule(1.0, () => { ForceFullScreen(); BlockStandardPanels(); });
+
+// ЗАПУСКАЕМ ПРОВЕРКУ ГОТОВНОСТИ UI
+// Даем небольшую задержку для полной загрузки DOM
+$.Schedule(0.3, CheckUIReady);
 
 // Автоматически распределяем локального игрока в команду при загрузке
 (function AutoAssignTeam() {
-    $.Msg("🔄 Auto-assigning player to team...");
-    
     const localPlayerID = Game.GetLocalPlayerID();
-    $.Msg(`Local player ID: ${localPlayerID}`);
     
     // Отправляем событие на сервер для распределения в команду
     (GameEvents.SendCustomGameEventToServer as any)("auto_assign_team", { playerID: localPlayerID });
-    
-    $.Msg("✅ Team assignment request sent");
 })();
+
+// ============================================
+// АНИМАЦИЯ ВЫХОДА КАРТОЧЕК ПЕРЕД НАЧАЛОМ ИГРЫ
+// ============================================
+
+let isGameStarting = false; // Флаг чтобы не запускать дважды
+
+function HideCardsAndStartGame(): void {
+    if (isGameStarting) {
+        return; // Уже запущено
+    }
+    isGameStarting = true;
+    
+    $.Msg("🚀 Начинаем анимацию выхода и запуск игры...");
+    
+    const allPlayerIDs = Game.GetAllPlayerIDs();
+    const HIDE_DELAY = 0.15; // Задержка между вылетом карточек
+    const ANIMATION_DURATION = 0.6; // Длительность вылета одной карточки
+    
+    // ЭТАП 1: Сразу скрываем кнопку, таймер и текст (0.0s)
+    $.Msg("  └ Этап 1: Скрываем кнопку, таймер и текст");
+    
+    const timer = $("#CircularTimerContainer");
+    const bottomContainer = $("#SetupBottomContainer");
+    const initText = $("#InitText");
+    
+    // СНАЧАЛА устанавливаем transitions для всех элементов
+    if (timer) {
+        timer.style.transitionProperty = "opacity, transform";
+        timer.style.transitionDuration = "0.5s";
+        timer.style.transitionTimingFunction = "ease-out";
+    }
+    
+    if (bottomContainer) {
+        bottomContainer.style.transitionProperty = "opacity, transform";
+        bottomContainer.style.transitionDuration = "0.6s";
+        bottomContainer.style.transitionTimingFunction = "ease-out";
+    }
+    
+    if (initText) {
+        initText.style.transitionProperty = "opacity";
+        initText.style.transitionDuration = "0.4s";
+        initText.style.transitionTimingFunction = "ease-out";
+    }
+    
+    // МИКРОЗАДЕРЖКА (1 кадр) чтобы движок применил transitions
+    $.Schedule(0.016, () => {
+        // ТЕПЕРЬ меняем значения - они анимируются!
+        if (timer) {
+            timer.style.opacity = "0";
+            timer.style.transform = "scale3d(0.5, 0.5, 1)";
+        }
+        
+        if (bottomContainer) {
+            bottomContainer.style.opacity = "0";
+            bottomContainer.style.transform = "translate3d(0px, 100px, 0px)";
+        }
+        
+        if (initText) {
+            initText.style.opacity = "0";
+        }
+    });
+    
+    // ЭТАП 2: Через 0.4s скрываем логотип
+    $.Schedule(0.4, () => {
+        $.Msg("  └ Этап 2: Логотип исчезает");
+        const logo = $("#Logo");
+        if (logo) {
+            // СНАЧАЛА transition
+            logo.style.transitionProperty = "opacity, transform";
+            logo.style.transitionDuration = "0.8s";
+            logo.style.transitionTimingFunction = "ease-out";
+            
+            // МИКРОЗАДЕРЖКА для применения transition
+            $.Schedule(0.016, () => {
+                // ПОТОМ значения
+                if (logo) {
+                    logo.style.opacity = "0";
+                    logo.style.transform = "translate3d(0px, -300px, 0px)";
+                }
+            });
+        }
+    });
+    
+    // ЭТАП 3: Через 0.8s начинаем вылет карточек в электричество
+    const CARDS_START_DELAY = 0.8;
+    $.Schedule(CARDS_START_DELAY, () => {
+        $.Msg("  └ Этап 3: Карточки улетают в электричество");
+    });
+    
+    // Запускаем вылет карточек по очереди
+    allPlayerIDs.forEach((playerID, index) => {
+        const playerPanel = $(`#Player_${playerID}`);
+        if (!playerPanel) return;
+        
+        $.Schedule(CARDS_START_DELAY + (index * HIDE_DELAY), () => {
+            // СНАЧАЛА transition
+            playerPanel.style.transitionProperty = "transform, opacity";
+            playerPanel.style.transitionDuration = `${ANIMATION_DURATION}s`;
+            playerPanel.style.transitionTimingFunction = "ease-in";
+            
+            // МИКРОЗАДЕРЖКА для применения transition
+            $.Schedule(0.016, () => {
+                // ПОТОМ улетают вверх (в центр электричества) и растворяются
+                playerPanel.style.transform = `translate3d(0px, -500px, 0px)`;
+                playerPanel.style.opacity = "0";
+            });
+            
+            $.Msg(`    └ Карточка ${index + 1}/${allPlayerIDs.length} улетает в портал`);
+        });
+    });
+    
+    // Рассчитываем общее время анимации
+    const totalAnimationTime = CARDS_START_DELAY + (allPlayerIDs.length * HIDE_DELAY) + ANIMATION_DURATION;
+    
+    $.Msg(`  └ Полное время анимации: ${totalAnimationTime.toFixed(1)}s`);
+    
+    // После завершения анимации - скрываем весь UI и запускаем игру
+    $.Schedule(totalAnimationTime, () => {
+        $.Msg("✅ Анимация завершена, отправляем сигнал на сервер...");
+        
+        // Скрываем весь root panel
+        const root = $.GetContextPanel();
+        if (root) {
+            root.style.visibility = "collapse";
+        }
+        
+        // Отправляем событие на сервер для начала игры
+        (GameEvents.SendCustomGameEventToServer as any)("setup_start_game", {});
+    });
+}
 
 // Обработчик кнопки "Начать игру"
 function OnSetupStartClicked(): void {
-    $.Msg("=== Setup Start button clicked! ===");
-    
-    // Отправляем событие на сервер для начала игры
-    (GameEvents.SendCustomGameEventToServer as any)("setup_start_game", {});
-    
-    $.Msg("✅ Start game event sent");
+    HideCardsAndStartGame();
 }
 
 // Обработчик события с сервера для установки таймера
 GameEvents.Subscribe("setup_timer_update", (data: any) => {
-    $.Msg(`📡 Received timer update: ${data.seconds} seconds`);
     StartAutoStartTimer(data.seconds);
 });
 
 // Экспортируем функцию для использования в XML
 (globalThis as any).OnSetupStartClicked = OnSetupStartClicked;
-
-$.Msg("=== Game Setup script loaded successfully ===");

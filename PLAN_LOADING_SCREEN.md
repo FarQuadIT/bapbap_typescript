@@ -424,69 +424,480 @@ script_reload
 
 ---
 
-## ✅ Этап 3: Создание статичного макета панелей игроков ПОД логотипом
+### ✅ **2.3** Добавление покадровой электрической анимации под логотипом (ВЫПОЛНЕНО)
 
-- [ ] **3.1** Добавить контейнер для игроков ПОД логотипом
-  - `<Panel id="PlayersContainer">` с горизонтальным flow
-  - 8 статичных панелей игроков для теста
+**Реализовано:**
 
-- [ ] **3.2** Структура одной панели игрока (сверху вниз внутри панели):
-  1. Никнейм (тестовый текст "Player 1") - СВЕРХУ
-  2. Аватар (пока placeholder image) - ПО ЦЕНТРУ
-  3. Статус (тестовый текст "Загружается...") - СНИЗУ
+#### 🎬 **Электрическая анимация:**
+- 360 PNG кадров (1920x1080, 16:9) в `content/panorama/images/custom_game/electric/`
+- Предзагружено **31 кадр** (каждый 12-й: 1, 12, 24...360) через CSS
+- JavaScript анимация: 25 FPS (0.04s delay), зацикленная
+- Позиция: под логотипом с `margin-top: -320px` для наложения
+- Z-index: логотип (10) поверх электричества (5)
 
-- [ ] **3.3** Добавить текст "ИНИЦИАЛИЗАЦИЯ ГЕРОЕВ ИГРОКОВ" ПОД панелями
-  - `<Label id="InitText">` под PlayersContainer
-  - CSS стилизация текста
+**XML:**
+```xml
+<Image id="Logo" src="..." />
+<Image id="ElectricEffect" src="file://{images}/custom_game/electric/frame_00001.png" />
+<Panel id="PreloadElectricFrames" /> <!-- Скрытая панель для CSS предзагрузки -->
+```
 
-- [ ] **3.4** CSS для всех элементов
-  - Горизонтальное расположение панелей в ряд (flow-children: right)
-  - Вертикальное расположение внутри панели (flow-children: down)
-  - Размеры панелей и отступы между ними
-  - Стили для аватаров (круглая форма через border-radius)
-  - Стили для текста никнейма (сверху) и статуса (снизу)
-  - Стили для текста "ИНИЦИАЛИЗАЦИЯ"
+**CSS предзагрузка (31 кадр):**
+```css
+#ElectricEffect {
+    width: 800px;
+    height: 450px;
+    margin-top: -320px;
+    margin-left: 50px;
+    z-index: 5;
+}
 
-**Проверка:** Сверху вниз: ЛОГОТИП → 8 ПАНЕЛЕЙ ИГРОКОВ → ТЕКСТ "ИНИЦИАЛИЗАЦИЯ" → КНОПКА
+#PreloadElectricFrames {
+    visibility: collapse;
+    background-image: 
+        url("file://{images}/custom_game/electric/frame_00001.png"),
+        url("file://{images}/custom_game/electric/frame_00012.png"),
+        /* ... всего 31 url каждый 12-й кадр ... */
+        url("file://{images}/custom_game/electric/frame_00360.png");
+}
+```
+
+**JavaScript анимация:**
+```typescript
+const ELECTRIC_FRAME_NUMBERS = [1, 12, 24, 36, 48, 60, 72, 84, 96, 108, 120, 
+    132, 144, 156, 168, 180, 192, 204, 216, 228, 240, 252, 264, 276, 288, 
+    300, 312, 324, 336, 348, 360];
+const FRAME_DELAY = 0.04; // 25 FPS
+
+function PlayElectricAnimation(): void {
+    const electricPanel = $("#ElectricEffect") as ImagePanel;
+    const frameNumber = ELECTRIC_FRAME_NUMBERS[currentElectricFrameIndex]
+        .toString().padStart(5, '0');
+    electricPanel.SetImage(`file://{images}/custom_game/electric/frame_${frameNumber}.png`);
+    
+    currentElectricFrameIndex++;
+    if (currentElectricFrameIndex >= ELECTRIC_FRAME_NUMBERS.length) {
+        currentElectricFrameIndex = 0;
+    }
+    $.Schedule(FRAME_DELAY, PlayElectricAnimation);
+}
+```
+
+#### 📊 **Progress Bar на Loading Screen:**
+- Симуляция загрузки на `custom_loading_screen.xml`
+- Progress bar (зеленая полоса) с плавным заполнением
+- Текст "Загрузка ресурсов... X%"
+- JavaScript обновление через `$.Schedule()`
+
+**CSS:**
+```css
+#LoadingProgressBar {
+    width: 0%;
+    background-color: #00FF00;
+    transition-property: width;
+    transition-duration: 0.3s;
+}
+```
+
+#### ⏱️ **Увеличен таймер автостарта:**
+- Было: 15 секунд
+- Стало: **100 секунд**
+- Изменено в `GameMode.ts`: `GameRules.SetCustomGameSetupAutoLaunchDelay(100)`
 
 ---
 
-## ✅ Этап 4: Динамическое создание панелей через TypeScript
+### 🔧 **Технические ограничения Panorama CSS:**
 
-- [ ] **4.1** Добавить функции в `src/panorama/loading_screen.ts`
+**Проблема:** Panorama CSS парсер не поддерживает больше ~30-40 URL в одном `background-image`.
+
+**Решение:**
+1. **CSS предзагрузка:** Только 31 кадр (каждый 12-й) в скрытой панели
+2. **Принудительная компиляция:** Panorama компилирует PNG → .vtex_c только для путей в CSS/XML
+3. **JavaScript использует готовые .vtex_c:** После компиляции все 360 кадров доступны через `SetImage()`
+
+**Альтернативы (не использованы):**
+- ❌ CSS @keyframes для `background-image` - не работает в Panorama
+- ❌ 360 URL в одном CSS - превышает лимит парсера
+- ❌ Множественные панели (6 × 60 кадров) - всё равно превышает лимит
+
+**Проверка:** ✅ Анимация плавная, 25 FPS, зацикленная, под логотипом
+
+---
+
+## ✅ Этап 3: Создание статичного макета панелей игроков ПОД логотипом (ВЫПОЛНЕНО)
+
+- [x] **3.1** Добавить контейнер для игроков ПОД логотипом
+  - `<Panel id="PlayersContainer">` с горизонтальным flow
+  - 8 статичных панелей игроков для теста
+
+- [x] **3.2** Структура одной панели игрока (сверху вниз внутри панели):
+  1. Никнейм (тестовый текст "Player 1") - СВЕРХУ
+  2. Аватар (пока placeholder `tstl.png`) - ПО ЦЕНТРУ
+  3. Статус (тестовый текст "Загружается...") - СНИЗУ
+
+- [x] **3.3** Добавить текст "ИНИЦИАЛИЗАЦИЯ ГЕРОЕВ ИГРОКОВ" ПОД панелями
+  - `<Label id="InitText">` под PlayersContainer
+  - CSS стилизация текста
+
+- [x] **3.4** CSS для всех элементов
+  - Горизонтальное расположение панелей в ряд (flow-children: right)
+  - Вертикальное расположение внутри панели (flow-children: down)
+  - Размеры панелей и отступы между ними
+  - Стили для аватаров (круглая форма через border-radius: 50%)
+  - Стили для текста никнейма (сверху) и статуса (снизу)
+  - Стили для текста "ИНИЦИАЛИЗАЦИЯ"
+
+**XML структура:**
+```xml
+<Panel id="PlayersContainer">
+    <Panel class="PlayerPanel">
+        <Label class="PlayerNickname" text="Player 1" />
+        <Image class="PlayerAvatar" src="file://{images}/custom_game/tstl.png" />
+        <Label class="PlayerStatus" text="Загружается..." />
+    </Panel>
+    <!-- ... всего 8 панелей ... -->
+</Panel>
+<Label id="InitText" text="ИНИЦИАЛИЗАЦИЯ ГЕРОЕВ ИГРОКОВ" />
+```
+
+**CSS стили:**
+```css
+#PlayersContainer {
+    horizontal-align: center;
+    flow-children: right; /* Горизонтальный ряд */
+    animation-delay: 1.2s;
+}
+
+.PlayerPanel {
+    width: 120px;
+    height: 180px;
+    margin: 0 10px;
+    flow-children: down; /* Вертикально: никнейм → аватар → статус */
+    background-color: #2a2a2a;
+    border: 2px solid #3a3a3a;
+    border-radius: 10px;
+}
+
+.PlayerAvatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* Круглый */
+    border: 2px solid #00FF00;
+}
+
+#InitText {
+    font-size: 20px;
+    color: #00FF00;
+    letter-spacing: 2px;
+    animation-delay: 1.4s;
+}
+```
+
+**Обновленная последовательность анимаций:**
+1. 🎨 Фон - 0.0с
+2. 🖼️ Логотип - 0.2с
+3. ⚡ Электричество - 0.5с
+4. 👥 Панели игроков - 1.2с
+5. 📝 "ИНИЦИАЛИЗАЦИЯ" - 1.4с
+6. 🟢 "Загрузка игры..." - 1.6с
+7. ⚪ "Вы будете автоматически..." - 1.8с
+8. ⏱️ Таймер - 2.0с
+9. 🟢 Кнопка/сообщение - 2.2с
+
+**Проверка:** ✅ Сверху вниз: ЛОГОТИП → ЭЛЕКТРИЧЕСТВО → 8 ПАНЕЛЕЙ ИГРОКОВ → ТЕКСТ "ИНИЦИАЛИЗАЦИЯ" → ОСТАЛЬНЫЕ ЭЛЕМЕНТЫ
+
+---
+
+## ✅ Этап 4: Динамическое создание панелей через TypeScript (ВЫПОЛНЕНО)
+
+- [x] **4.1** Добавить функции в `src/panorama/game_setup.ts`
   - Функция `CreatePlayerPanels()` для генерации панелей
   - Получить количество игроков через `Game.GetAllPlayerIDs()`
   - Динамически создавать панели через `$.CreatePanel()`
   - Добавить типизацию TypeScript
 
-- [ ] **4.2** Удалить статичные панели из XML
+- [x] **4.2** Удалить статичные панели из XML
   - Оставить только пустой контейнер `PlayersContainer`
   - Панели будут создаваться скриптом
 
-- [ ] **4.3** Тестовая логика заполнения
+- [x] **4.3** Тестовая логика заполнения
   - Для каждого playerID создать панель
   - Заполнить тестовыми данными (пока без реальных аватаров)
 
-**Проверка:** Панели создаются динамически, их количество = количеству игроков в игре
+**Реализация:**
+
+```typescript
+function CreatePlayerPanels(): void {
+    const playersContainer = $("#PlayersContainer");
+    const allPlayerIDs = Game.GetAllPlayerIDs();
+    
+    $.Msg(`📋 Creating panels for ${allPlayerIDs.length} players`);
+    
+    allPlayerIDs.forEach((playerID) => {
+        if (!Game.IsPlayerInGame(playerID)) {
+            return; // Пропускаем неактивных игроков
+        }
+        
+        // Создаем панель игрока
+        const playerPanel = $.CreatePanel("Panel", playersContainer, `Player_${playerID}`);
+        playerPanel.AddClass("PlayerPanel");
+        
+        // Получаем никнейм (с fallback)
+        const playerName = Players.GetPlayerName(playerID) || `Player ${playerID}`;
+        
+        // Создаем никнейм
+        const nicknameLabel = $.CreatePanel("Label", playerPanel, `Nickname_${playerID}`);
+        nicknameLabel.AddClass("PlayerNickname");
+        nicknameLabel.text = playerName;
+        
+        // Создаем аватар (placeholder)
+        const avatarImage = $.CreatePanel("Image", playerPanel, `Avatar_${playerID}`) as ImagePanel;
+        avatarImage.AddClass("PlayerAvatar");
+        avatarImage.SetImage("file://{images}/custom_game/tstl.png");
+        
+        // ВАЖНО: явные стили для корректного отображения
+        avatarImage.style.width = "80px";
+        avatarImage.style.height = "80px";
+        avatarImage.style.visibility = "visible";
+        avatarImage.style.opacity = "1.0";
+        
+        // Создаем статус
+        const statusLabel = $.CreatePanel("Label", playerPanel, `Status_${playerID}`);
+        statusLabel.AddClass("PlayerStatus");
+        statusLabel.text = "Загружается...";
+        
+        $.Msg(`✅ Created panel for player ${playerID}: ${playerName}`);
+    });
+}
+
+// Запуск с задержкой 1.5 сек (после анимации появления контейнера)
+$.Schedule(1.5, CreatePlayerPanels);
+```
+
+**XML структура (упрощена):**
+```xml
+<!-- Пустой контейнер, панели создаются JavaScript -->
+<Panel id="PlayersContainer"></Panel>
+```
+
+**Особенности:**
+- ✅ Используется `Game.GetAllPlayerIDs()` для получения всех игроков
+- ✅ `Players.GetPlayerName(playerID)` для получения реальных никнеймов
+- ✅ Fallback на `"Player X"` если имя недоступно
+- ✅ Каждая панель имеет уникальный ID: `Player_${playerID}`
+- ✅ Применяются те же CSS классы, что и для статичных панелей
+- ✅ Защита от дублирования через проверку существования панели
+- ✅ Периодическое обновление каждую 1 секунду (первые 10 секунд) для подхвата новых игроков/ботов
+- ⏱️ Первый вызов через 1.5 сек, затем проверки каждую секунду до 12 сек
+
+**Тестирование (соло + 6 ботов):**
+```
+📋 Updating panels, current players: 1
+✅ Created panel for player 0: FarQuke
+
+🤖 Боты добавились...
+
+📋 Updating panels, current players: 7
+✅ Created panel for player 1: Έλλη
+✅ Created panel for player 2: 子轩
+✅ Created panel for player 3: Jan
+✅ Created panel for player 4: Victoria
+✅ Created panel for player 5: 吉娜
+✅ Created panel for player 6: Στέφανος
+
+⚠️ Panel for player X already exists, skipping (защита от дублей)
+```
+
+**Проверка:** ✅ Панели создаются динамически, их количество = количеству игроков в игре (включая ботов). Реальные никнеймы отображаются корректно.
 
 ---
 
-## ✅ Этап 5: Получение реальных данных игроков
+## ✅ Этап 5: Получение реальных данных игроков (ВЫПОЛНЕНО)
 
-- [ ] **5.1** Использовать Panorama API для аватаров
+- [x] **5.1** Использовать Panorama API для аватаров
   - Попробовать `DOTAAvatarImage` элемент вместо `Image`
   - Передать playerID для каждого игрока
   - Если не работает - использовать альтернативные методы
 
-- [ ] **5.2** Получение никнеймов
+- [x] **5.2** Получение никнеймов
   - `Players.GetPlayerName(playerID)` для никнеймов
   - Fallback на "Player X" если имя недоступно
 
-- [ ] **5.3** Проверка на ботов
+- [x] **5.3** Проверка на ботов
   - Определение ботов через API
   - Отображение специального индикатора для ботов (опционально)
 
-**Проверка:** Реальные аватары Steam и никнеймы игроков отображаются в панелях
+**Реализация:**
+
+**Проблема:** `Players.GetSteamAccountID()` доступна только на сервере (VScripts/Lua), а не на клиенте (Panorama).
+
+**Решение:** Серверно-клиентская архитектура с пересылкой данных:
+
+1. **Сервер (`GameMode.ts`)** собирает Steam Account IDs всех игроков:
+```typescript
+Timers.CreateTimer(3, () => {
+    const players: Array<{ playerID: number; steamAccountID: number }> = [];
+    
+    for (let playerID = 0; playerID < 24; playerID++) {
+        if (PlayerResource.IsValidPlayerID(playerID)) {
+            const isFakeClient = PlayerResource.IsFakeClient(playerID);
+            let steamAccountID = 0; // 0 для ботов
+            
+            if (!isFakeClient) {
+                steamAccountID = PlayerResource.GetSteamAccountID(playerID);
+            }
+            
+            players.push({ playerID, steamAccountID });
+        }
+    }
+    
+    CustomGameEventManager.Send_ServerToAllClients("player_steam_ids", {
+        players: players as any
+    });
+});
+```
+
+2. **Клиент (`game_setup.ts`)** получает данные и обновляет аватары:
+```typescript
+function UpdatePlayerAvatars(event: NetworkedData<PlayerSteamIDsEventData>): void {
+    // Преобразуем объект обратно в массив (Dota 2 конвертирует массивы в объекты)
+    const playersArray: Array<{ playerID: number; steamAccountID: number }> = [];
+    for (const key in event.players) {
+        playersArray.push(event.players[key]);
+    }
+    
+    playersArray.forEach(({ playerID, steamAccountID }) => {
+        const playerPanel = $(`#Player_${playerID}`);
+        if (!playerPanel) return;
+        
+        // Удаляем старый placeholder
+        const oldAvatar = $(`#Avatar_${playerID}`);
+        if (oldAvatar) oldAvatar.DeleteAsync(0);
+        
+        if (steamAccountID > 0) {
+            // Реальный игрок - DOTAAvatarImage с Steam аватаром
+            const playerInfo = Game.GetPlayerInfo(playerID as PlayerID);
+            if (!playerInfo) return;
+            
+            const avatar = $.CreatePanel("DOTAAvatarImage", playerPanel, `Avatar_${playerID}`);
+            avatar.AddClass("PlayerAvatar");
+            avatar.steamid = playerInfo.player_steamid; // 64-bit Steam ID
+            
+            // ОБЯЗАТЕЛЬНО: явные стили (CSS не работает для DOTAAvatarImage!)
+            avatar.style.width = "80px";
+            avatar.style.height = "80px";
+            avatar.style.visibility = "visible";
+            avatar.style.opacity = "1.0";
+            
+            // Перемещаем в правильную позицию
+            const nicknamePanel = $(`#Nickname_${playerID}`);
+            if (nicknamePanel) {
+                playerPanel.MoveChildAfter(avatar, nicknamePanel);
+            }
+        } else {
+            // Бот - Image с placeholder
+            const avatar = $.CreatePanel("Image", playerPanel, `Avatar_${playerID}`) as ImagePanel;
+            avatar.AddClass("PlayerAvatar");
+            avatar.SetImage("file://{images}/custom_game/tstl.png");
+            
+            // Те же стили для консистентности
+            avatar.style.width = "80px";
+            avatar.style.height = "80px";
+            avatar.style.visibility = "visible";
+            avatar.style.opacity = "1.0";
+            
+            const nicknamePanel = $(`#Nickname_${playerID}`);
+            if (nicknamePanel) {
+                playerPanel.MoveChildAfter(avatar, nicknamePanel);
+            }
+        }
+    });
+}
+
+GameEvents.Subscribe("player_steam_ids", UpdatePlayerAvatars);
+```
+
+3. **Событие (`events.d.ts`)** для типизации:
+```typescript
+interface PlayerSteamIDsEventData {
+    players: Array<{
+        playerID: number;
+        steamAccountID: number; // 32-bit Steam Account ID (0 для ботов)
+    }>;
+}
+```
+
+**Как работает `DOTAAvatarImage`:**
+- ✅ Специальный элемент Panorama UI для отображения Steam аватаров
+- ✅ Использует `Game.GetPlayerInfo(playerID).player_steamid` для получения 64-bit Steam ID
+- ✅ Автоматически загружает изображение из Steam API
+- ✅ Для реальных игроков показывает их Steam аватар
+- ✅ Для ботов используется обычный `Image` с placeholder (tstl.png)
+
+**⚠️ КРИТИЧНОЕ ТРЕБОВАНИЕ для отображения аватаров:**
+
+`DOTAAvatarImage` **НЕ РАБОТАЕТ** с CSS стилями в Panorama! Размеры, видимость и прозрачность нужно задавать **явно через JavaScript**.
+
+**Проблема (аватары не отображались):**
+```typescript
+// ❌ НЕ РАБОТАЕТ - только CSS класс
+const avatar = $.CreatePanel("DOTAAvatarImage", parent, id);
+avatar.AddClass("PlayerAvatar"); // CSS не применяется!
+avatar.steamid = steamID;
+```
+
+**Решение (ОБЯЗАТЕЛЬНО):**
+```typescript
+// ✅ РАБОТАЕТ - явные стили через JavaScript
+const avatar = $.CreatePanel("DOTAAvatarImage", parent, id);
+avatar.AddClass("PlayerAvatar"); // Для других свойств (border-radius и т.д.)
+avatar.steamid = playerInfo.player_steamid;
+
+// ОБЯЗАТЕЛЬНО явно устанавливаем стили:
+avatar.style.width = "80px";
+avatar.style.height = "80px";
+avatar.style.visibility = "visible";
+avatar.style.opacity = "1.0";
+```
+
+**Почему так:**
+- Panorama CSS применяется не ко всем типам панелей
+- `DOTAAvatarImage` - специальный внутренний компонент Source 2
+- Требует явной инициализации размеров через JavaScript API
+- CSS `border-radius`, `margin` и др. работают нормально, но `width`/`height` - НЕТ
+
+**Финальная реализация в `UpdatePlayerAvatars`:**
+```typescript
+if (steamAccountID > 0) {
+    const playerInfo = Game.GetPlayerInfo(playerID as PlayerID);
+    const avatar = $.CreatePanel("DOTAAvatarImage", playerPanel, `Avatar_${playerID}`);
+    avatar.AddClass("PlayerAvatar");
+    avatar.steamid = playerInfo.player_steamid;
+    
+    // Обязательные явные стили:
+    avatar.style.width = "80px";
+    avatar.style.height = "80px";
+    avatar.style.visibility = "visible";
+    avatar.style.opacity = "1.0";
+} else {
+    // Боты - те же стили для консистентности
+    const avatar = $.CreatePanel("Image", playerPanel, `Avatar_${playerID}`) as ImagePanel;
+    avatar.AddClass("PlayerAvatar");
+    avatar.SetImage("file://{images}/custom_game/tstl.png");
+    
+    avatar.style.width = "80px";
+    avatar.style.height = "80px";
+    avatar.style.visibility = "visible";
+    avatar.style.opacity = "1.0";
+}
+```
+
+**Таймлайн загрузки:**
+1. **0.0s** - Игра стартует, создаются placeholder аватары для всех
+2. **3.0s** - Сервер отправляет Steam Account IDs
+3. **3.1s** - Клиент получает данные и заменяет placeholder на реальные аватары с явными стилями
+
+**Проверка:** ✅ Реальные Steam аватары для игроков (круглые, 80x80px), placeholder для ботов
 
 ---
 

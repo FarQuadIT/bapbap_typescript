@@ -4,8 +4,14 @@
     height: 100%;
     min-width: 100%;
     min-height: 100%;
-    background-color: #1a1a1a; /* Темный фон */
-    flow-children: down;
+    
+    /* ФОНОВОЕ ИЗОБРАЖЕНИЕ 1920x1080 */
+    background-image: url("file://{images}/custom_game/background_1920x1080.png");
+    background-size: 100% 100%; /* Растянуть на весь экран */
+    background-position: center center;
+    background-repeat: no-repeat;
+    
+    flow-children: none; /* ОТКЛЮЧАЕМ flow для абсолютного позиционирования оверлеев */
     vertical-align: center;
     horizontal-align: center;
     
@@ -26,33 +32,113 @@
     horizontal-align: left;
     vertical-align: top;
     
-    /* Плавное появление */
-    animation-name: FadeIn;
-    animation-duration: 0.8s;
-    animation-timing-function: ease-in;
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - скрыто, БЕЗ автоматической анимации */
+    opacity: 0;
+    
+    /* Готовим transition для плавного появления */
+    transition-property: opacity;
+    transition-duration: 0.8s;
+    transition-timing-function: ease-in;
 }
 
-/* Анимация плавного появления фона */
-@keyframes 'FadeIn' {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+/* ОВЕРЛЕЙ СВЕЧЕНИЯ - Левая половина экрана (синий/фиолетовый) */
+#GlowOverlayBottomLeft {
+    width: 50%;  /* Половина экрана */
+    height: 100%; /* Вся высота */
+    
+    /* ПОЗИЦИОНИРОВАНИЕ - ЛЕВАЯ ПОЛОВИНА */
+    horizontal-align: left;
+    vertical-align: top;
+    margin: 0px;
+    
+    /* Горизонтальный градиент слева направо (от синего к прозрачному) */
+    background-color: gradient( linear, 0% 50%, 100% 50%, 
+        from( #0088FF44 ), 
+        color-stop( 0.2, #0088FF33 ), 
+        color-stop( 0.4, #0088FF22 ), 
+        color-stop( 0.6, #0088FF11 ),
+        color-stop( 0.8, #0088FF08 ),
+        to( #00000000 ) 
+    );
+    
+    /* АНИМАЦИЯ пульсации свечения */
+    animation-name: GlowPulseBottomLeft;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+    
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - скрыто */
+    opacity: 0;
+    
+    /* Готовим transition для появления */
+    transition-property: opacity;
+    transition-duration: 1.5s;
+    transition-timing-function: ease-in;
 }
 
-/* Анимация плавного появления текста */
-@keyframes 'FadeInText' {
-    0% {
-        opacity: 0;
-        wash-color: #FFFFFF00;
-    }
-    100% {
-        opacity: 1;
-        wash-color: #FFFFFFFF;
-    }
+/* Класс для показа левого оверлея после прогрузки */
+#GlowOverlayBottomLeft.loaded {
+    opacity: 1;
 }
+
+/* ОВЕРЛЕЙ СВЕЧЕНИЯ - Правая половина экрана (красный/оранжевый) */
+#GlowOverlayTopRight {
+    width: 50%;  /* Половина экрана */
+    height: 100%; /* Вся высота */
+    
+    /* ПОЗИЦИОНИРОВАНИЕ - ПРАВАЯ ПОЛОВИНА (используем margin вместо position) */
+    horizontal-align: right;
+    vertical-align: top;
+    margin: 0px;
+    
+    /* Горизонтальный градиент справа налево (от красного к прозрачному) */
+    background-color: gradient( linear, 100% 50%, 0% 50%, 
+        from( #FF440044 ), 
+        color-stop( 0.2, #FF440033 ), 
+        color-stop( 0.4, #FF440022 ), 
+        color-stop( 0.6, #FF440011 ),
+        color-stop( 0.8, #FF440008 ),
+        to( #00000000 ) 
+    );
+    
+    /* АНИМАЦИЯ пульсации свечения (с задержкой для асинхронности) */
+    animation-name: GlowPulseTopRight;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+    animation-delay: 1s; /* Начинает на 1 сек позже для десинхронизации */
+    
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - скрыто */
+    opacity: 0;
+    
+    /* Готовим transition для появления */
+    transition-property: opacity;
+    transition-duration: 1.5s;
+    transition-timing-function: ease-in;
+}
+
+/* Класс для показа правого оверлея после прогрузки */
+#GlowOverlayTopRight.loaded {
+    opacity: 1;
+}
+
+/* Контейнер для всего контента (поверх оверлеев) */
+#ContentContainer {
+    width: 100%;
+    height: 100%;
+    position: 0px 0px 0px;
+    flow-children: down;
+    overflow: noclip;
+}
+
+/* Класс для показа после прогрузки */
+.GameSetupRoot.loaded {
+    opacity: 1;
+}
+
+/* Старые @keyframes анимации удалены - теперь используем transition + класс .loaded */
 
 /* Логотип В САМОМ ВЕРХУ */
 #Logo {
@@ -62,12 +148,20 @@
     margin-top: 50px;
     z-index: 10; /* Поверх электричества */
     
-    /* Плавное появление */
-    animation-name: FadeInText;
-    animation-duration: 1s;
-    animation-delay: 0.2s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: backwards;
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - скрыто */
+    opacity: 0;
+    wash-color: #FFFFFF00;
+    
+    /* Готовим transition */
+    transition-property: opacity, wash-color;
+    transition-duration: 1s;
+    transition-timing-function: ease-in;
+}
+
+/* Класс для показа после прогрузки */
+#Logo.loaded {
+    opacity: 1;
+    wash-color: #FFFFFFFF;
 }
 
 /* Электричество под логотипом (анимация через JavaScript) */
@@ -79,61 +173,87 @@
     margin-left: 50px;
     z-index: 5; /* ПОД логотипом */
     
-    /* Плавное появление */
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - скрыто */
     opacity: 0;
-    animation-name: FadeInText;
-    animation-duration: 0.5s;
-    animation-delay: 0.5s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-}
-
-#SetupLabel {
-    font-size: 48px;
-    color: #00FF00;
-    text-align: center;
-    horizontal-align: center;
-    margin-top: 20px; /* Уменьшил отступ, т.к. теперь логотип сверху */
-    text-shadow: 2px 2px 8px #000000;
-    z-index: 10; /* Поверх электричества */
     
-    /* Плавное появление с задержкой */
-    animation-name: FadeInText;
-    animation-duration: 1s;
-    animation-delay: 0.4s; /* Увеличил задержку, чтобы логотип появился первым */
-    animation-timing-function: ease-in;
-    animation-fill-mode: backwards;
+    /* Готовим transition */
+    transition-property: opacity;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in;
 }
 
-#TeamLabel {
-    font-size: 24px;
-    color: #FFFFFF;
-    text-align: center;
-    horizontal-align: center;
-    margin-top: 20px;
-    
-    /* Плавное появление с задержкой */
-    animation-name: FadeInText;
-    animation-duration: 1s;
-    animation-delay: 0.6s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: backwards;
+/* Класс для показа после прогрузки */
+#ElectricEffect.loaded {
+    opacity: 1;
 }
 
-#AutoStartTimer {
-    font-size: 20px;
-    color: #FFD700; /* Золотой цвет */
-    text-align: center;
+/* SetupLabel и TeamLabel удалены - не нужны */
+
+/* ТАЙМЕР - Контейнер */
+#CircularTimerContainer {
+    width: 200px;  /* Размер PNG */
+    height: 54px;  /* Размер PNG */
     horizontal-align: center;
     margin-top: 30px;
-    text-shadow: 1px 1px 4px #000000;
+    flow-children: none; /* ОТКЛЮЧАЕМ flowing layout */
     
-    /* Плавное появление с задержкой */
-    animation-name: FadeInText;
-    animation-duration: 1s;
-    animation-delay: 0.8s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: backwards;
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - скрыто */
+    opacity: 0;
+    
+    /* Готовим transition */
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-timing-function: ease-in;
+}
+
+/* Класс для показа после прогрузки */
+#CircularTimerContainer.loaded {
+    opacity: 1;
+}
+
+/* ТАЙМЕР - Фон (PNG изображение) */
+#CircularTimerBackground {
+    width: 200px;  /* Размер PNG */
+    height: 54px;  /* Размер PNG */
+    position: 0px 0px 0px;
+    
+    /* PNG фон таймера */
+    background-image: url("file://{images}/custom_game/timer.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    texture-sampling: normal;
+}
+
+/* КРУГОВОЙ ТАЙМЕР - Прогресс (скрыт, теперь используем PNG) */
+#CircularTimerProgress {
+    visibility: collapse; /* Прячем, используем только PNG фон */
+}
+
+/* ТАЙМЕР - Цифры (СВОБОДНОЕ ПОЗИЦИОНИРОВАНИЕ) */
+#CircularTimerText {
+    width: 200px;  /* Размер контейнера */
+    height: 54px;  /* Размер контейнера */
+    font-size: 24px;
+    font-weight: black;
+    font-family: Reaver;
+    text-transform: uppercase;
+    
+    /* ЖЕЛТЫЙ ЦВЕТ как у статуса "готов" */
+    color: #eeff00;
+    
+    text-align: center;
+    vertical-align: center;
+    horizontal-align: center;
+    text-shadow: 0px 0px 6px 1.0 #00FF00;
+    
+    /* СВОБОДНАЯ ПОЗИЦИЯ - МЕНЯЙ X и Y! */
+    position: 0px 10px 2px; /* X (left) Y (top) Z (depth) */
+    
+    /* Плавная пульсация */
+    transform-origin: 50% 50%;
+    transition-property: transform;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
 }
 
 #SetupBottomContainer {
@@ -142,45 +262,357 @@
     horizontal-align: center;
     margin-top: 50px;
     
-    /* Плавное появление с задержкой */
-    animation-name: FadeInText;
-    animation-duration: 1s;
-    animation-delay: 1.0s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: backwards;
+    /* ОТКЛЮЧАЕМ flow - будем использовать абсолютное позиционирование */
+    flow-children: none;
+    
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - скрыто, но layout уже правильный */
+    opacity: 0;
+    visibility: visible; /* Layout пересчитывается сразу, не прыгает */
+    
+    /* Готовим transition */
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-timing-function: ease-in;
+}
+
+/* Класс для показа после прогрузки */
+#SetupBottomContainer.loaded {
+    opacity: 1;
 }
 
 #SetupStartButton {
-    width: 200px;
-    height: 50px;
-    background-color: #4CAF50;
-    border-radius: 5px;
-    horizontal-align: center;
+    width: 200px;  /* Подогнано под пропорции PNG (7263x1920) */
+    height: 50px; /* Сохраняет соотношение сторон 3.78:1 */
     
-    transition-property: background-color;
-    transition-duration: 0.3s;
-}
-
-#SetupStartButton:hover {
-    background-color: #45a049;
-}
-
-#SetupStartButton Label {
-    font-size: 20px;
-    color: #FFFFFF;
-    font-weight: bold;
-    text-align: center;
-    vertical-align: center;
+    /* АБСОЛЮТНОЕ ПОЗИЦИОНИРОВАНИЕ - КАК У ТАЙМЕРА! */
     horizontal-align: center;
+    vertical-align: top;
+    
+    /* ВОТ ОНО - КЛЮЧ К УСПЕХУ! */
+    position: 0px 0px 0px; /* X (left) Y (top) Z (depth) - центрируется через horizontal-align */
+    
+    /* ЗАМЕНИЛИ НА PNG ИЗОБРАЖЕНИЕ */
+    background-image: url("file://{images}/custom_game/button_play.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border-width: 0px;
+    
+    /* Улучшение качества изображения */
+    texture-sampling: normal;
+    
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - ЯВНО opacity: 0 */
+    /* Элементы с position НЕ наследуют opacity родителя в Panorama! */
+    opacity: 0;
+    
+    /* ПЛАВНАЯ АНИМАЦИЯ при нажатии и появлении */
+    transition-property: transform, brightness, opacity;
+    transition-duration: 0.15s, 0.15s, 1s;
+    transition-timing-function: ease-out;
+}
+
+/* Класс для показа ПОСЛЕ того как контейнер появился */
+#SetupStartButton.loaded {
+    opacity: 1;
+}
+
+/* Эффект при наведении */
+#SetupStartButton:hover {
+    brightness: 1.1; /* Чуть ярче */
+}
+
+/* ЭФФЕКТ ВДАВЛИВАНИЯ при нажатии */
+#SetupStartButton:active {
+    transform: scale3d(0.95, 0.95, 1) translate3d(0px, 2px, 0px);
+    brightness: 0.9; /* Чуть темнее */
+}
+
+/* Скрываем текст Label (PNG уже содержит текст) */
+#SetupStartButton Label {
+    visibility: collapse; /* Прячем текст */
 }
 
 #WaitingForLeaderLabel {
+    width: 100%;
     font-size: 18px;
     color: #AAAAAA;
     text-align: center;
+    
+    /* АБСОЛЮТНОЕ ПОЗИЦИОНИРОВАНИЕ ПОД КНОПКОЙ - КАК У ТАЙМЕРА! */
+    horizontal-align: center;
+    vertical-align: top;
+    
+    /* ВОТ КЛЮЧ - position! */
+    position: 0px 60px 0px; /* X (left) Y (top - под кнопкой) Z (depth) */
+    
+    /* Скрыт по умолчанию через visibility И opacity */
+    visibility: collapse;
+    opacity: 0;
+    
+    /* Плавная анимация появления */
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-timing-function: ease-in;
+}
+
+/* ============================================
+   ПАНЕЛИ ИГРОКОВ (8 панелей в ряд)
+   ============================================ */
+
+/* Контейнер всех панелей игроков */
+#PlayersContainer {
+    width: 100%;
+    height: 350px; /* Фиксированная высота */
+    horizontal-align: center;
+    vertical-align: center;
+    flow-children: none; /* ОТКЛЮЧАЕМ автоматический flow - позиционируем вручную */
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding: 30px;
+    
+    /* 3D ПЕРСПЕКТИВА для дочерних элементов */
+    perspective: 1500;
+    perspective-origin: 50% 50%;
+    
+    /* Масштабирование от центра (для адаптивности под разные разрешения) */
+    transform-origin: 50% 50%;
+    
+    /* НЕ ОБРЕЗАЕМ выходящие за границы карточки */
+    overflow: noclip;
+    
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - скрыто */
+    opacity: 0;
+    
+    /* Готовим transition - только opacity, transform будет задан через JS */
+    transition-property: opacity, transform;
+    transition-duration: 1s, 0.5s;
+    transition-timing-function: ease-in, ease-out;
+}
+
+/* Класс для показа после прогрузки */
+#PlayersContainer.loaded {
+    opacity: 1;
+}
+
+/* Одна панель игрока */
+.PlayerPanel {
+    width: 180px;
+    height: 285px;
+    flow-children: none; /* ОТКЛЮЧИЛИ flowing layout - теперь position работает! */
+    
+    /* АБСОЛЮТНОЕ ПОЗИЦИОНИРОВАНИЕ от центра родителя */
+    horizontal-align: center;
+    vertical-align: center;
+    
+    /* НОВОЕ - PNG карточка с косыми краями */
+    background-image: url("file://{images}/custom_game/ui/card_without_placeholder.png");
+    background-size: 100% 100%;
+    background-color: transparent;
+    
+    /* Улучшенное качество масштабирования */
+    texture-sampling: normal; /* Лучший алгоритм масштабирования */
+    
+    /* Убрали старые стили рамки */
+    border-width: 0px;
+    
+    overflow: noclip; /* Контент не обрезается */
+    
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - СКРЫТО, СНИЗУ, ПО ЦЕНТРУ */
+    visibility: collapse;
+    opacity: 0;
+    
+    /* 3D ЭФФЕКТ - карточка снизу и будет двигаться по X */
+    transform-origin: 50% 50%;
+    transform: translate3d(0px, 30px, 0px); /* Сдвинута вниз (Y) */
+    
+    /* ПЛАВНАЯ АНИМАЦИЯ для ВСЕХ трансформаций */
+    transition-property: transform, box-shadow, opacity;
+    transition-duration: 0.6s;
+    transition-timing-function: ease-out;
+}
+
+/* Класс для ПЕРВОГО этапа - выезд вверх по центру */
+.PlayerPanel.loaded {
+    visibility: visible;
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px); /* Выехала вверх, но по центру */
+}
+
+/* Класс для ВТОРОГО этапа - сдвиг влево на финальную позицию */
+.PlayerPanel.positioned {
+    /* transform будет задан через JS - сдвиг влево */
+}
+
+/* 3D ЭФФЕКТ при наведении мыши - ТЕПЕРЬ ОБРАБАТЫВАЕТСЯ ЧЕРЕЗ JS (чтобы сохранить позицию X) */
+/* CSS hover удалён, так как он перезаписывает transform и ломает позиционирование */
+
+/* Никнейм игрока (сверху) */
+.PlayerNickname {
+    font-family: Reaver;
+    width: 180px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #FFFFFF;
+    text-align: center;
+    horizontal-align: center;
+    
+    /* АБСОЛЮТНАЯ ПОЗИЦИЯ - МЕНЯЙ И ФОН НЕ ДВИГАЕТСЯ! */
+    position: 0px 12px 0px; /* X (left) Y (top) Z (depth) */
+    
+    /* text-overflow, overflow, white-space не поддерживаются в Panorama CSS */
+}
+
+/* Аватар игрока (по центру, круглый) */
+.PlayerAvatar {
+    width: 155px;
+    height: 155px;
+    border-radius: 50%; /* Круглый */
+    
+    /* АБСОЛЮТНАЯ ПОЗИЦИЯ для аватара (синхронизировано с константами в game_setup.ts) */
+    position: 15px 52px 0px; /* X (left) Y (top) Z (depth) */
+    
+    /* Размеры и видимость задаются явно в TypeScript, так как CSS не всегда применяется к DOTAAvatarImage */
+}
+
+/* Статус игрока (снизу) */
+.PlayerStatus {
+    font-family: Reaver;
+    text-transform: uppercase;
+    width: 180px;
+    font-size: 16px;
+    font-weight: bold; /* light, thin, normal, medium, bold, black */
+    color: #FFD700;
+    text-align: center;
+    horizontal-align: center;
+    text-shadow: 0px 0px 4px #000000;
+    
+    /* АБСОЛЮТНАЯ ПОЗИЦИЯ для статуса */
+    position: 0px 222px 0px; /* X (left) Y (top) Z (depth) */
+}
+
+/* ============================================
+   ЦВЕТА СТАТУСОВ ИГРОКОВ (Этап 6)
+   ============================================ */
+
+/* Готов - зелёный */
+.status-ready {
+    color: #eeff00;
+    text-shadow: 0px 0px 6px 1.0 #00FF00;
+}
+
+/* Загружается - жёлтый с анимацией */
+.status-loading {
+    color: #FFFF00;
+    text-shadow: 0px 0px 8px #FFFF00;
+    animation-name: PulseStatus;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+/* Подключается - оранжевый */
+.status-connecting {
+    color: #FFA500;
+    text-shadow: 0px 0px 8px #FFA500;
+}
+
+/* Отключен - серый */
+.status-disconnected {
+    color: #888888;
+    text-shadow: 0px 0px 4px #000000;
+}
+
+/* Покинул игру - красный */
+.status-abandoned {
+    color: #FF0000;
+    text-shadow: 0px 0px 8px #FF0000;
+}
+
+/* Ошибка подключения - тёмно-красный */
+.status-failed {
+    color: #CC0000;
+    text-shadow: 0px 0px 8px #CC0000;
+}
+
+/* Неизвестно - золотой (по умолчанию) */
+.status-unknown {
+    color: #FFD700;
+    text-shadow: 0px 0px 4px #000000;
+}
+
+/* Анимация пульсации для статуса "Загружается..." */
+@keyframes 'PulseStatus' {
+    0% {
+        opacity: 1.0;
+    }
+    
+    50% {
+        opacity: 0.4;
+    }
+    
+    100% {
+        opacity: 1.0;
+    }
+}
+
+/* ============================================
+   АНИМАЦИИ СВЕЧЕНИЯ ФОНА
+   ============================================ */
+
+/* Анимация свечения для левого нижнего угла (синий) */
+@keyframes 'GlowPulseBottomLeft' {
+    0% {
+        opacity: 0.5;
+    }
+    
+    50% {
+        opacity: 0.9;
+    }
+    
+    100% {
+        opacity: 0.5;
+    }
+}
+
+/* Анимация свечения для правого верхнего угла (красный/оранжевый) */
+@keyframes 'GlowPulseTopRight' {
+    0% {
+        opacity: 0.5;
+    }
+    
+    50% {
+        opacity: 0.9;
+    }
+    
+    100% {
+        opacity: 0.5;
+    }
+}
+
+/* Текст "ИНИЦИАЛИЗАЦИЯ ГЕРОЕВ ИГРОКОВ" под панелями */
+#InitText {
+    font-size: 20px;
+    color: #00FF00;
+    text-align: center;
     horizontal-align: center;
     margin-top: 10px;
-    visibility: collapse; /* Скрыт по умолчанию */
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px #000000;
+    letter-spacing: 2px;
+    
+    /* НАЧАЛЬНОЕ СОСТОЯНИЕ - скрыто */
+    opacity: 0;
+    
+    /* Готовим transition */
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-timing-function: ease-in;
+}
+
+/* Класс для показа после прогрузки */
+#InitText.loaded {
+    opacity: 1;
 }
 
 /* ============================================
