@@ -4,14 +4,19 @@
 
 // ============================================
 // ЭЛЕКТРИЧЕСКАЯ АНИМАЦИЯ (покадровая)
-// ВАЖНО: 31 кадр (каждый 12-й) предзагружены через CSS!
+// ВАЖНО: 31 кадр (1-31) предзагружены через CSS!
 // ============================================
-const ELECTRIC_FRAME_NUMBERS = [
-    1, 12, 24, 36, 48, 60, 72, 84, 96, 108, 120, 132, 144, 156, 168, 180,
-    192, 204, 216, 228, 240, 252, 264, 276, 288, 300, 312, 324, 336, 348, 360
-];
+const ELECTRIC_FRAME_NUMBERS = Array.from({length: 31}, (_, i) => i + 1); // [1, 2, 3, ..., 31]
 let currentElectricFrameIndex = 0;
-const FRAME_DELAY = 0.04; // ~20 FPS - замедленная анимация
+const FRAME_DELAY = 0.04; // ~25 FPS
+
+// ============================================
+// АНИМАЦИЯ ВЗРЫВА НА КАРТОЧКАХ (34 кадра: 234-267)
+// ============================================
+const EXPLOSION_FRAME_START = 234;
+const EXPLOSION_FRAME_END = 267;
+const EXPLOSION_FRAME_DELAY = 0.033; // ~30 FPS
+const EXPLOSION_TOTAL_FRAMES = EXPLOSION_FRAME_END - EXPLOSION_FRAME_START + 1; // 34 кадра
 
 // ============================================
 // 🎯 ПОЗИЦИОНИРОВАНИЕ АВАТАРОВ - МЕНЯЙ ТОЛЬКО ЗДЕСЬ!
@@ -44,6 +49,50 @@ function PlayElectricAnimation(): void {
 
 // НЕ запускаем анимацию сразу - дождемся полной загрузки
 // PlayElectricAnimation запустится из функции RevealUI()
+
+// ============================================
+// АНИМАЦИЯ ВЗРЫВА НА КАРТОЧКЕ
+// ============================================
+
+function PlayExplosionOnCard(playerID: PlayerID, onComplete?: () => void): void {
+    const explosionImage = $(`#Explosion_${playerID}`) as ImagePanel | null;
+    if (!explosionImage) {
+        $.Msg(`⚠️ Взрыв для игрока ${playerID} не найден`);
+        if (onComplete) onComplete();
+        return;
+    }
+    
+    // Показываем взрыв
+    explosionImage.style.visibility = "visible";
+    explosionImage.style.opacity = "1";
+    
+    let currentFrame = EXPLOSION_FRAME_START;
+    
+    function PlayNextFrame(): void {
+        if (currentFrame > EXPLOSION_FRAME_END) {
+            // Анимация закончилась - скрываем взрыв
+            if (explosionImage) {
+                explosionImage.style.visibility = "collapse";
+                explosionImage.style.opacity = "0";
+            }
+            if (onComplete) onComplete();
+            return;
+        }
+        
+        const frameNumber = currentFrame.toString().padStart(5, '0');
+        const framePath = `file://{images}/custom_game/cartoonexplosion/explosion_${frameNumber}.png`;
+        
+        if (explosionImage) {
+            explosionImage.SetImage(framePath);
+        }
+        
+        currentFrame++;
+        $.Schedule(EXPLOSION_FRAME_DELAY, PlayNextFrame);
+    }
+    
+    // Запускаем анимацию
+    PlayNextFrame();
+}
 
 // ============================================
 // ДИНАМИЧЕСКОЕ СОЗДАНИЕ ПАНЕЛЕЙ ИГРОКОВ
@@ -93,6 +142,11 @@ function CreatePlayerPanel(playerID: PlayerID): void {
     statusLabel.AddClass("PlayerStatus");
     statusLabel.AddClass("status-connecting"); // Начальный статус
     statusLabel.text = "Подключается...";
+    
+    // Создаем Image для анимации взрыва (скрыт по умолчанию, Z-index 100 - поверх всего)
+    const explosionImage = $.CreatePanel("Image", playerPanel, `Explosion_${playerID}`) as ImagePanel;
+    explosionImage.AddClass("PlayerExplosion");
+    explosionImage.SetImage(`file://{images}/custom_game/cartoonexplosion/explosion_00234.png`);
 }
 
 function UpdatePlayerPanels(): void {
@@ -255,6 +309,36 @@ function GetPlayerStatusInfo(connectionState: DOTAConnectionState_t): PlayerStat
 let statusUpdateCount = 0;
 const VERBOSE_LOG_COUNT = 5; // Первые 5 обновлений логируем подробно
 
+// Проверка: все ли игроки готовы к старту игры
+function AreAllPlayersReady(): boolean {
+    const allPlayerIDs = Game.GetAllPlayerIDs();
+    let notReadyPlayers: string[] = [];
+    
+    for (const playerID of allPlayerIDs) {
+        const playerInfo = Game.GetPlayerInfo(playerID as PlayerID);
+        if (!playerInfo) continue; // Пропускаем если нет информации
+        
+        const connectionState = playerInfo.player_connection_state as DOTAConnectionState_t;
+        const isBot = playerBotStatus.get(playerID) || false;
+        
+        // Боты всегда готовы (даже в статусе NOT_YET_CONNECTED)
+        if (isBot) continue;
+        
+        // Реальные игроки должны быть в статусе CONNECTED (2)
+        if (connectionState !== DOTAConnectionState_t.DOTA_CONNECTION_STATE_CONNECTED) {
+            const stateName = GetConnectionStateName(connectionState);
+            notReadyPlayers.push(`Player ${playerID}: ${stateName}`);
+        }
+    }
+    
+    if (notReadyPlayers.length > 0) {
+        // $.Msg(`⏳ Не все игроки готовы: ${notReadyPlayers.join(", ")}`);
+        return false;
+    }
+    
+    return true; // Все игроки готовы
+}
+
 // Функция обновления статусов всех игроков
 function UpdatePlayerStatuses(): void {
     const allPlayerIDs = Game.GetAllPlayerIDs();
@@ -305,6 +389,9 @@ function UpdatePlayerStatuses(): void {
         // Добавляем новый класс статуса
         statusLabel.AddClass(statusInfo.cssClass);
     });
+    
+    // После обновления статусов проверяем, можно ли показать кнопку "Начать игру"
+    CheckIfLobbyLeader();
 }
 
 // Запускаем периодическое обновление статусов (каждые 0.2 секунды для более отзывчивого UI)
@@ -439,26 +526,37 @@ function BlockStandardPanels(): void {
     }
 }
 
-// Проверка: является ли локальный игрок лидером лобби
+// Проверка: является ли локальный игрок лидером лобби И все ли игроки готовы
 // В Dota 2 custom games лидер лобби (хост) всегда имеет PlayerID = 0
 function CheckIfLobbyLeader(): void {
     const localPlayerID = Game.GetLocalPlayerID();
     const isLeader = (localPlayerID === 0);
+    const allPlayersReady = AreAllPlayersReady();
     
     const startButton = $("#SetupStartButton");
-    const waitingLabel = $("#WaitingForLeaderLabel");
+    const waitingLabel = $("#WaitingForLeaderLabel") as LabelPanel | null;
     
-    if (isLeader) {
-        // Лидер лобби (PlayerID 0) - показываем кнопку "Начать игру"
+    if (!isLeader) {
+        // НЕ лидер - скрываем кнопку, показываем "Ожидание лидера лобби..."
+        if (startButton) startButton.style.opacity = "0";
+        if (waitingLabel) {
+            waitingLabel.text = "Ожидание решения лидера лобби...";
+            waitingLabel.style.visibility = "visible";
+            waitingLabel.style.opacity = "1";
+        }
+    } else if (!allPlayersReady) {
+        // Лидер, но НЕ все игроки готовы - скрываем кнопку, показываем "Ожидание игроков..."
+        if (startButton) startButton.style.opacity = "0";
+        if (waitingLabel) {
+            waitingLabel.text = "Ожидание подключения игроков...";
+            waitingLabel.style.visibility = "visible";
+            waitingLabel.style.opacity = "1";
+        }
+    } else {
+        // Лидер И все игроки готовы - ПОКАЗЫВАЕМ КНОПКУ!
         // НЕ трогаем visibility - кнопка появляется через opacity!
         if (waitingLabel) waitingLabel.style.visibility = "collapse";
-    } else {
-        // Обычный игрок - скрываем кнопку через opacity, показываем сообщение
-        if (startButton) startButton.style.opacity = "0"; // Скрываем через opacity
-        if (waitingLabel) {
-            waitingLabel.style.visibility = "visible";
-            waitingLabel.style.opacity = "1"; // Показываем лейбл
-        }
+        // Opacity кнопки управляется через CSS класс .loaded
     }
 }
 
@@ -667,6 +765,9 @@ function RevealUI(): void {
                 });
             });
         });
+        
+        // Запускаем периодическое обновление статусов после появления карточек
+        StartStatusUpdates();
     }
     
     // 5. Текст инициализации (через 1.6s - после карточек)
@@ -820,32 +921,43 @@ function HideCardsAndStartGame(): void {
         $.Msg("  └ Этап 3: Карточки улетают в электричество");
     });
     
-    // Запускаем вылет карточек по очереди
+    // Запускаем вылет карточек по очереди С ВЗРЫВОМ! 💥
     allPlayerIDs.forEach((playerID, index) => {
         const playerPanel = $(`#Player_${playerID}`);
         if (!playerPanel) return;
         
         $.Schedule(CARDS_START_DELAY + (index * HIDE_DELAY), () => {
-            // СНАЧАЛА transition
-            playerPanel.style.transitionProperty = "transform, opacity";
-            playerPanel.style.transitionDuration = `${ANIMATION_DURATION}s`;
-            playerPanel.style.transitionTimingFunction = "ease-in";
+            $.Msg(`    └ Карточка ${index + 1}/${allPlayerIDs.length}: 💥 ВЗРЫВ!`);
             
-            // МИКРОЗАДЕРЖКА для применения transition
-            $.Schedule(0.016, () => {
-                // ПОТОМ улетают вверх (в центр электричества) и растворяются
-                playerPanel.style.transform = `translate3d(0px, -500px, 0px)`;
-                playerPanel.style.opacity = "0";
+            // СНАЧАЛА запускаем анимацию взрыва
+            PlayExplosionOnCard(playerID as PlayerID);
+            
+            // Через 0.5s (в середине взрыва) - карточка начинает улетать
+            $.Schedule(0.5, () => {
+                // СНАЧАЛА transition
+                playerPanel.style.transitionProperty = "transform, opacity";
+                playerPanel.style.transitionDuration = `${ANIMATION_DURATION}s`;
+                playerPanel.style.transitionTimingFunction = "ease-in";
+                
+                // МИКРОЗАДЕРЖКА для применения transition
+                $.Schedule(0.016, () => {
+                    // ПОТОМ улетают вверх (в центр электричества) и растворяются
+                    playerPanel.style.transform = `translate3d(0px, -500px, 0px)`;
+                    playerPanel.style.opacity = "0";
+                });
+                
+                $.Msg(`    └ Карточка ${index + 1}/${allPlayerIDs.length}: ↑ улетает в портал`);
             });
-            
-            $.Msg(`    └ Карточка ${index + 1}/${allPlayerIDs.length} улетает в портал`);
         });
     });
     
     // Рассчитываем общее время анимации
-    const totalAnimationTime = CARDS_START_DELAY + (allPlayerIDs.length * HIDE_DELAY) + ANIMATION_DURATION;
+    // Взрыв длится ~1.1s, вылет начинается через 0.5s после взрыва и длится 0.6s
+    // Максимальное время одной карточки: max(1.1s взрыв, 0.5s задержка + 0.6s вылет) = 1.1s
+    const explosionDuration = EXPLOSION_TOTAL_FRAMES * EXPLOSION_FRAME_DELAY; // ~1.12s
+    const totalAnimationTime = CARDS_START_DELAY + (allPlayerIDs.length * HIDE_DELAY) + explosionDuration;
     
-    $.Msg(`  └ Полное время анимации: ${totalAnimationTime.toFixed(1)}s`);
+    $.Msg(`  └ Полное время анимации: ${totalAnimationTime.toFixed(1)}s (с взрывами!)`);
     
     // После завершения анимации - скрываем весь UI и запускаем игру
     $.Schedule(totalAnimationTime, () => {

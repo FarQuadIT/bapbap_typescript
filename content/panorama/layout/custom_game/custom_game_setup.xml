@@ -23,6 +23,9 @@
             <!-- Скрытая панель для предзагрузки 31 кадра (каждый 12-й) -->
             <Panel id="PreloadElectricFrames" />
             
+            <!-- Скрытая панель для предзагрузки взрывов (34 кадра) -->
+            <Panel id="PreloadExplosionFrames" />
+            
             <!-- Контейнер панелей игроков (панели создаются динамически через JavaScript) -->
             <Panel id="PlayersContainer"></Panel>
             

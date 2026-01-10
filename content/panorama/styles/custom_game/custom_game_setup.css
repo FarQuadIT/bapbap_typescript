@@ -491,6 +491,29 @@
     position: 0px 222px 0px; /* X (left) Y (top) Z (depth) */
 }
 
+/* Анимация взрыва на карточке (поверх всего) */
+.PlayerExplosion {
+    width: 329px;  /* Реальная ширина PNG взрыва */
+    height: 185px; /* Реальная высота PNG взрыва */
+    
+    /* ЦЕНТРИРОВАНИЕ - взрыв по центру карточки (выходит за края - нормально!) */
+    position: 0px 0px 0px;
+    horizontal-align: center;
+    vertical-align: center;
+    
+    /* Z-index чтобы быть поверх всего */
+    z-index: 100;
+    
+    /* Скрыто по умолчанию */
+    visibility: collapse;
+    opacity: 0;
+    
+    /* Размер подстраивается под картинку */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 /* ============================================
    ЦВЕТА СТАТУСОВ ИГРОКОВ (Этап 6)
    ============================================ */
@@ -616,7 +639,7 @@
 }
 
 /* ============================================
-   ПРЕДЗАГРУЗКА 31 КАДРА (каждый 12-й из 360)
+   ПРЕДЗАГРУЗКА 31 КАДРА (1-31 подряд)
    ============================================ */
 #PreloadElectricFrames {
     visibility: collapse;
@@ -624,34 +647,78 @@
     height: 1px;
     background-image: 
         url("file://{images}/custom_game/electric/frame_00001.png"),
+        url("file://{images}/custom_game/electric/frame_00002.png"),
+        url("file://{images}/custom_game/electric/frame_00003.png"),
+        url("file://{images}/custom_game/electric/frame_00004.png"),
+        url("file://{images}/custom_game/electric/frame_00005.png"),
+        url("file://{images}/custom_game/electric/frame_00006.png"),
+        url("file://{images}/custom_game/electric/frame_00007.png"),
+        url("file://{images}/custom_game/electric/frame_00008.png"),
+        url("file://{images}/custom_game/electric/frame_00009.png"),
+        url("file://{images}/custom_game/electric/frame_00010.png"),
+        url("file://{images}/custom_game/electric/frame_00011.png"),
         url("file://{images}/custom_game/electric/frame_00012.png"),
+        url("file://{images}/custom_game/electric/frame_00013.png"),
+        url("file://{images}/custom_game/electric/frame_00014.png"),
+        url("file://{images}/custom_game/electric/frame_00015.png"),
+        url("file://{images}/custom_game/electric/frame_00016.png"),
+        url("file://{images}/custom_game/electric/frame_00017.png"),
+        url("file://{images}/custom_game/electric/frame_00018.png"),
+        url("file://{images}/custom_game/electric/frame_00019.png"),
+        url("file://{images}/custom_game/electric/frame_00020.png"),
+        url("file://{images}/custom_game/electric/frame_00021.png"),
+        url("file://{images}/custom_game/electric/frame_00022.png"),
+        url("file://{images}/custom_game/electric/frame_00023.png"),
         url("file://{images}/custom_game/electric/frame_00024.png"),
-        url("file://{images}/custom_game/electric/frame_00036.png"),
-        url("file://{images}/custom_game/electric/frame_00048.png"),
-        url("file://{images}/custom_game/electric/frame_00060.png"),
-        url("file://{images}/custom_game/electric/frame_00072.png"),
-        url("file://{images}/custom_game/electric/frame_00084.png"),
-        url("file://{images}/custom_game/electric/frame_00096.png"),
-        url("file://{images}/custom_game/electric/frame_00108.png"),
-        url("file://{images}/custom_game/electric/frame_00120.png"),
-        url("file://{images}/custom_game/electric/frame_00132.png"),
-        url("file://{images}/custom_game/electric/frame_00144.png"),
-        url("file://{images}/custom_game/electric/frame_00156.png"),
-        url("file://{images}/custom_game/electric/frame_00168.png"),
-        url("file://{images}/custom_game/electric/frame_00180.png"),
-        url("file://{images}/custom_game/electric/frame_00192.png"),
-        url("file://{images}/custom_game/electric/frame_00204.png"),
-        url("file://{images}/custom_game/electric/frame_00216.png"),
-        url("file://{images}/custom_game/electric/frame_00228.png"),
-        url("file://{images}/custom_game/electric/frame_00240.png"),
-        url("file://{images}/custom_game/electric/frame_00252.png"),
-        url("file://{images}/custom_game/electric/frame_00264.png"),
-        url("file://{images}/custom_game/electric/frame_00276.png"),
-        url("file://{images}/custom_game/electric/frame_00288.png"),
-        url("file://{images}/custom_game/electric/frame_00300.png"),
-        url("file://{images}/custom_game/electric/frame_00312.png"),
-        url("file://{images}/custom_game/electric/frame_00324.png"),
-        url("file://{images}/custom_game/electric/frame_00336.png"),
-        url("file://{images}/custom_game/electric/frame_00348.png"),
-        url("file://{images}/custom_game/electric/frame_00360.png");
+        url("file://{images}/custom_game/electric/frame_00025.png"),
+        url("file://{images}/custom_game/electric/frame_00026.png"),
+        url("file://{images}/custom_game/electric/frame_00027.png"),
+        url("file://{images}/custom_game/electric/frame_00028.png"),
+        url("file://{images}/custom_game/electric/frame_00029.png"),
+        url("file://{images}/custom_game/electric/frame_00030.png"),
+        url("file://{images}/custom_game/electric/frame_00031.png");
+}
+
+/* ============================================
+   ПРЕДЗАГРУЗКА ВЗРЫВА (34 кадра)
+   ============================================ */
+#PreloadExplosionFrames {
+    visibility: collapse;
+    width: 1px;
+    height: 1px;
+    background-image: 
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00234.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00235.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00236.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00237.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00238.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00239.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00240.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00241.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00242.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00243.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00244.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00245.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00246.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00247.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00248.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00249.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00250.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00251.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00252.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00253.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00254.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00255.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00256.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00257.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00258.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00259.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00260.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00261.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00262.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00263.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00264.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00265.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00266.png"),
+        url("file://{images}/custom_game/cartoonexplosion/explosion_00267.png");
 }
