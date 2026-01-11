@@ -1,7 +1,7 @@
 import { reloadable } from "./lib/tstl-utils";
 import { modifier_panic } from "./modifiers/modifier_panic";
 
-const heroSelectionTime = 10;
+const heroSelectionTime = 9999; // Большое время для разработки
 
 declare global {
     interface CDOTAGameRules {
@@ -83,19 +83,6 @@ export class GameMode {
             const hero = player.GetAssignedHero();
             if (hero != undefined) { // Hero didn't spawn yet or dead
                 hero.AddNewModifier(hero, undefined, modifier_panic.name, { duration: 5 });
-            }
-        });
-
-        // ⚠️ ВРЕМЕННО: Обработчик кнопки "Начать игру" с loading screen
-        CustomGameEventManager.RegisterListener("loading_screen_start_game", (_, data) => {
-            print("=== Loading screen: Start game button pressed! ===");
-            
-            // Проверяем, что мы в фазе CUSTOM_GAME_SETUP
-            if (GameRules.State_Get() === GameState.CUSTOM_GAME_SETUP) {
-                print("✅ Finishing CUSTOM_GAME_SETUP...");
-                GameRules.FinishCustomGameSetup();
-            } else {
-                print(`⚠️ Current state: ${GameRules.State_Get()}, not in CUSTOM_GAME_SETUP`);
             }
         });
 

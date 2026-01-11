@@ -554,9 +554,8 @@ function CheckIfLobbyLeader(): void {
         }
     } else {
         // Лидер И все игроки готовы - ПОКАЗЫВАЕМ КНОПКУ!
-        // НЕ трогаем visibility - кнопка появляется через opacity!
+        if (startButton) startButton.style.opacity = "1"; // Явно показываем кнопку
         if (waitingLabel) waitingLabel.style.visibility = "collapse";
-        // Opacity кнопки управляется через CSS класс .loaded
     }
 }
 
