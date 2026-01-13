@@ -32,6 +32,9 @@ export class GameMode {
     private br_game_start_time: number = 0;
     private br_last_visual_radius?: number;
     private hero_zone_data: Map<EntityIndex, HeroZoneData> = new Map();
+    
+    // 🎯 ЭТАП 5: Отслеживание выбора героев
+    private playersPicked: Set<PlayerID> = new Set();
     public static Precache(this: void, context: CScriptPrecacheContext) {
         PrecacheResource("particle", "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf", context);
         PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts", context);
@@ -61,6 +64,7 @@ export class GameMode {
 
     constructor() {
         this.configure();
+        this.SetupCustomTeams(); // 🎯 Настройка 8 кастомных команд
 
         // Register event listeners for dota engine events
         ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
@@ -86,32 +90,6 @@ export class GameMode {
             }
         });
 
-        // 🎮 Обработчик автоматического распределения в команду
-        CustomGameEventManager.RegisterListener("auto_assign_team", (_, data) => {
-            // ВАЖНО: используем playerID (маленькая p), как отправляется с клиента!
-            const playerID = (data as any).playerID as PlayerID;
-            print(`=== Auto-assigning player ${playerID} to team ===`);
-            
-            if (playerID == null || playerID == undefined) {
-                print(`⚠️ PlayerID is null or undefined`);
-                return;
-            }
-            
-            if (!PlayerResource.IsValidPlayerID(playerID)) {
-                print(`⚠️ Invalid player ID: ${playerID}`);
-                return;
-            }
-            
-            // Распределяем в команду Radiant (GOODGUYS)
-            const player = PlayerResource.GetPlayer(playerID);
-            if (player) {
-                player.SetTeam(DotaTeam.GOODGUYS);
-                print(`✅ Player ${playerID} assigned to Radiant (GOODGUYS)`);
-            } else {
-                print(`⚠️ Player entity not found for ID ${playerID}`);
-            }
-        });
-
         // 🚀 Обработчик кнопки "Начать игру" из custom_game_setup
         CustomGameEventManager.RegisterListener("setup_start_game", (_, data) => {
             print("=== Setup: Start game button pressed! ===");
@@ -122,21 +100,100 @@ export class GameMode {
             }
         });
 
+        // 🎯 Обработчик выбора героя игроком (теперь в CUSTOM_GAME_SETUP)
+        CustomGameEventManager.RegisterListener("player_pick_hero", (_, data) => {
+            const playerID = data.PlayerID;
+            const heroName = (data as any).heroName;
+
+            print(`🎯 === Player ${playerID} picked hero: ${heroName} ===`);
+
+            if (PlayerResource.IsValidPlayerID(playerID)) {
+                print(`  └ Valid player ${playerID}, assigning hero: ${heroName}`);
+                
+                // ✅ НАЗНАЧАЕМ ГЕРОЯ ИГРОКУ через CDOTAPlayer!
+                const player = PlayerResource.GetPlayer(playerID);
+                if (player) {
+                    player.SetSelectedHero(heroName);
+                    print(`  └ Hero assigned successfully!`);
+                } else {
+                    print(`  └ ❌ Failed to get player object`);
+                }
+                
+                this.playersPicked.add(playerID);
+                this.CheckAllPlayersPicked();
+            }
+        });
+
         // Start Battle Royale zone update loop
         Timers.CreateTimer(0.1, () => this.OnThink());
     }
 
     private configure(): void {
-        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 4); // 1 игрок + 7 ботов
-        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 4);
+        // ❌ Отключаем стандартные команды Radiant/Dire
+        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 0);
+        GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 0);
 
-        GameRules.SetShowcaseTime(0);
-        GameRules.SetHeroSelectionTime(60); // ⚠️ ВРЕМЕННО: 60 секунд для тестирования (heroSelectionTime = 10)
-        GameRules.SetPreGameTime(10); // Time after heroes spawn before game starts (10 seconds for testing)
+        // 🎯 НОВАЯ ЛОГИКА: Выбор героев в CUSTOM_GAME_SETUP
+        GameRules.SetHeroSelectionTime(0);        // Пропускаем HERO_SELECTION (выбор в SETUP)
+        GameRules.SetStrategyTime(30);            // Showcase с 3D моделями (30 сек)
+        GameRules.SetShowcaseTime(0);             // Пропускаем TEAM_SHOWCASE
+        GameRules.SetPreGameTime(10);             // Короткий pre-game (10 сек)
         
         // ⏱️ Настройки автостарта для CUSTOM_GAME_SETUP
         GameRules.SetCustomGameSetupAutoLaunchDelay(10000); // 10000 секунд до автостарта
         GameRules.SetCustomGameSetupTimeout(10000); // 10000 секунд максимальное время ожидания всех игроков
+    }
+
+    // 🎯 ЭТАП 1: Настройка 8 кастомных команд (по 1 игроку в каждой)
+    private SetupCustomTeams(): void {
+        print("🎯 === Setting up 8 custom teams (1 player each) ===");
+        
+        // DOTA_TEAM_CUSTOM_1 (6) до DOTA_TEAM_CUSTOM_8 (13)
+        for (let teamNumber = 6; teamNumber <= 13; teamNumber++) {
+            GameRules.SetCustomGameTeamMaxPlayers(teamNumber, 1);
+            print(`✅ Team ${teamNumber} (CUSTOM_${teamNumber - 5}): max 1 player`);
+        }
+        
+        print("✅ All 8 custom teams configured!");
+    }
+
+    // 🎯 ЭТАП 4: Отправка героев всех игроков на клиент для UI
+    private SendPlayersHeroesToUI(): void {
+        print("📤 === Sending player heroes to UI ===");
+        
+        interface PlayerHeroData {
+            playerID: number;
+            heroName: string;
+            teamNumber: number;
+        }
+        
+        const playersData: PlayerHeroData[] = [];
+        
+        // Собираем героев всех валидных игроков
+        for (let playerID = 0; playerID < 24; playerID++) {
+            if (PlayerResource.IsValidPlayerID(playerID)) {
+                const heroName = PlayerResource.GetSelectedHeroName(playerID);
+                const teamNumber = PlayerResource.GetTeam(playerID);
+                
+                // Если герой выбран
+                if (heroName && heroName !== "") {
+                    playersData.push({
+                        playerID: playerID,
+                        heroName: heroName,
+                        teamNumber: teamNumber
+                    });
+                    
+                    print(`📧 Player ${playerID}: ${heroName} (team ${teamNumber})`);
+                }
+            }
+        }
+        
+        // Отправляем данные на клиент
+        CustomGameEventManager.Send_ServerToAllClients("hero_selection_players_data", {
+            players: playersData as any // Type workaround для массивов
+        });
+        
+        print(`✅ Sent hero data for ${playersData.length} players`);
     }
 
     public OnStateChange(): void {
@@ -145,13 +202,15 @@ export class GameMode {
         print(`=== Game Rules State Change: ${state} ===`);
 
         if (state === GameState.CUSTOM_GAME_SETUP) {
-            // ⚠️ СНАЧАЛА распределяем ВСЕХ реальных игроков в команду
-            print("⚠️ In CUSTOM_GAME_SETUP, auto-assigning real players...");
+            print("🎯 === CUSTOM_GAME_SETUP: Setting up 8 teams ===");
             
+            // 🔄 Сбрасываем список выбравших игроков
+            this.playersPicked.clear();
+            print("🔄 Reset picked players list");
+
             // 🕐 Отправляем таймер автостарта на клиент (10000 секунд)
             const autoStartDelay = 10000;
             Timers.CreateTimer(0.3, () => {
-                // Отправляем всем клиентам информацию о таймере
                 CustomGameEventManager.Send_ServerToAllClients("setup_timer_update", {
                     seconds: autoStartDelay
                 });
@@ -159,50 +218,88 @@ export class GameMode {
                 return undefined;
             });
             
+            // 🎯 Распределяем игроков по 8 кастомным командам (через 0.5с)
             Timers.CreateTimer(0.5, () => {
-                // Распределяем всех реальных игроков в Radiant
+                print("🎯 Assigning players to 8 custom teams...");
+                let teamIndex = 0; // Текущая команда (0-7)
+                
+                // Сначала распределяем реальных игроков
                 for (let playerID = 0; playerID < 24; playerID++) {
                     if (PlayerResource.IsValidPlayerID(playerID)) {
-                        // Проверяем: если это НЕ бот (IsFakeClient = true для ботов)
                         const isFakeClient = PlayerResource.IsFakeClient(playerID);
-                        if (!isFakeClient) {
+                        if (!isFakeClient && teamIndex < 8) {
+                            const teamNumber = 6 + teamIndex; // DOTA_TEAM_CUSTOM_1 = 6
                             const player = PlayerResource.GetPlayer(playerID);
                             if (player) {
-                                player.SetTeam(DotaTeam.GOODGUYS);
-                                print(`✅ Real player ${playerID} auto-assigned to Radiant`);
+                                player.SetTeam(teamNumber);
+                                print(`✅ Player ${playerID} assigned to CUSTOM_${teamIndex + 1} (team ${teamNumber})`);
+                                teamIndex++;
                             }
                         }
                     }
                 }
+                
+                print(`📊 Real players assigned: ${teamIndex} / 8 teams`);
                 return undefined;
             });
             
-            // ПОТОМ добавляем ботов (через 2 секунды)
+            // 🤖 Добавляем ботов для заполнения оставшихся команд (через 2с)
             if (IsInToolsMode()) {
                 Timers.CreateTimer(2, () => {
-                    print("🤖 Adding 7 bots...");
-                    // Добавляем ботов по одному с небольшой задержкой
+                    print("🤖 Adding bots to fill remaining teams...");
+                    // Добавляем ботов (максимум 7, если 1 реальный игрок)
                     for (let i = 0; i < 7; i++) {
-                        Timers.CreateTimer(i * 0.1, () => {
+                        Timers.CreateTimer(i * 0.2, () => {
                             SendToServerConsole("dota_bot_populate");
                             return undefined;
                         });
                     }
                     return undefined;
                 });
+                
+                // 🎯 Распределяем ботов по командам (через 4с, после их создания)
+                Timers.CreateTimer(4, () => {
+                    print("🎯 Assigning bots to remaining teams...");
+                    let teamIndex = 0; // Начинаем с команды 0
+                    
+                    for (let playerID = 0; playerID < 24; playerID++) {
+                        if (PlayerResource.IsValidPlayerID(playerID)) {
+                            const isFakeClient = PlayerResource.IsFakeClient(playerID);
+                            const currentTeam = PlayerResource.GetTeam(playerID);
+                            
+                            // Если это бот И он еще не в кастомной команде (6-13)
+                            if (isFakeClient && (currentTeam < 6 || currentTeam > 13)) {
+                                if (teamIndex < 8) {
+                                    const teamNumber = 6 + teamIndex;
+                                    const player = PlayerResource.GetPlayer(playerID);
+                                    if (player) {
+                                        player.SetTeam(teamNumber);
+                                        print(`✅ Bot ${playerID} assigned to CUSTOM_${teamIndex + 1} (team ${teamNumber})`);
+                                        teamIndex++;
+                                    }
+                                }
+                            } else if (currentTeam >= 6 && currentTeam <= 13) {
+                                // Если уже в кастомной команде, пропускаем этот слот
+                                teamIndex++;
+                            }
+                        }
+                    }
+                    
+                    print(`📊 Total teams filled: ${teamIndex} / 8`);
+                    return undefined;
+                });
             }
             
-            // Отправляем Steam Account IDs всех игроков на клиент (через 3 секунды, после ботов)
-            Timers.CreateTimer(3, () => {
+            // 📧 Отправляем Steam Account IDs всех игроков на клиент (через 5с)
+            Timers.CreateTimer(5, () => {
                 const players: Array<{ playerID: number; steamAccountID: number }> = [];
                 
                 for (let playerID = 0; playerID < 24; playerID++) {
                     if (PlayerResource.IsValidPlayerID(playerID)) {
                         const isFakeClient = PlayerResource.IsFakeClient(playerID);
-                        let steamAccountID = 0; // 0 для ботов
+                        let steamAccountID = 0;
                         
                         if (!isFakeClient) {
-                            // Получаем реальный Steam Account ID для игрока
                             steamAccountID = PlayerResource.GetSteamAccountID(playerID);
                         }
                         
@@ -215,9 +312,8 @@ export class GameMode {
                     }
                 }
                 
-                // Отправляем всем клиентам
                 CustomGameEventManager.Send_ServerToAllClients("player_steam_ids", {
-                    players: players as any // Type workaround для массивов
+                    players: players as any
                 });
                 
                 print(`✅ Sent Steam Account IDs for ${players.length} players`);
@@ -226,6 +322,9 @@ export class GameMode {
             
             print("🎨 Custom GameSetup UI is now active");
         }
+
+        // 🎯 HERO_SELECTION теперь пропускается (0 секунд)
+        // Логика выбора героев перенесена в CUSTOM_GAME_SETUP
 
         // Initialize Battle Royale zone in pre-game
         if (state === GameState.PRE_GAME) {
@@ -435,6 +534,33 @@ export class GameMode {
                     }
                 }
             }
+        }
+    }
+
+    // 🎯 Проверка завершения выбора героев (в CUSTOM_GAME_SETUP)
+    private CheckAllPlayersPicked(): void {
+        // Считаем реальных игроков (не ботов)
+        let realPlayersCount = 0;
+        for (let playerID = 0; playerID < 24; playerID++) {
+            if (PlayerResource.IsValidPlayerID(playerID)) {
+                if (!PlayerResource.IsFakeClient(playerID)) {
+                    realPlayersCount++;
+                }
+            }
+        }
+
+        print(`📊 Hero selection progress: ${this.playersPicked.size}/${realPlayersCount} real players picked`);
+
+        // Если все реальные игроки выбрали -> завершаем CUSTOM_GAME_SETUP
+        if (this.playersPicked.size >= realPlayersCount && realPlayersCount > 0) {
+            print("🎉 === All players picked! Finishing CUSTOM_GAME_SETUP ===");
+            
+            Timers.CreateTimer(0.5, () => {
+                print("✅ Calling FinishCustomGameSetup()...");
+                GameRules.FinishCustomGameSetup();
+                print("🚀 Transitioning to next phase!");
+                return undefined;
+            });
         }
     }
 

@@ -16,7 +16,9 @@ interface CustomGameEventDeclarations {
     example_event: ExampleEventData,
     ui_panel_closed: UIPanelClosedEventData,
     setup_timer_update: SetupTimerUpdateEventData,
-    player_steam_ids: PlayerSteamIDsEventData
+    player_steam_ids: PlayerSteamIDsEventData,
+    hero_selection_players_data: HeroSelectionPlayersDataEvent,
+    player_pick_hero: PlayerPickHeroEvent  // ЭТАП 5: Выбор героя игроком
 }
 
 // Define the type of data sent by the example_event event
@@ -41,4 +43,18 @@ interface PlayerSteamIDsEventData {
         playerID: number;
         steamAccountID: number; // 32-bit Steam Account ID (0 for bots)
     }>;
+}
+
+// Event sent from server with all players' hero data for hero selection UI
+interface HeroSelectionPlayersDataEvent {
+    players: Array<{
+        playerID: number;
+        heroName: string; // Hero name (e.g. "npc_dota_hero_axe")
+        teamNumber: number; // Team number (6-13 for custom teams)
+    }>;
+}
+
+// 🎯 ЭТАП 5: Событие выбора героя игроком
+interface PlayerPickHeroEvent {
+    heroName: string; // Выбранный герой (e.g. "npc_dota_hero_axe")
 }

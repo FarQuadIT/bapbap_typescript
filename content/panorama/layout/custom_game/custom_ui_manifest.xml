@@ -4,9 +4,8 @@
     </scripts>
     <Panel>
         <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud.xml" />
-        <!-- 🎨 Кастомный UI для CUSTOM_GAME_SETUP (заменяет стандартную панель) -->
+        <!-- 🎨 Кастомный UI для CUSTOM_GAME_SETUP (интро + выбор героев) -->
         <CustomUIElement type="GameSetup" layoutfile="file://{resources}/layout/custom_game/custom_game_setup.xml" />
-        <!-- 🎮 Кастомный экран выбора героев (HERO_SELECTION) -->
-        <CustomUIElement type="HeroSelection" layoutfile="file://{resources}/layout/custom_game/hero_selection.xml" />
+        <!-- 🎯 HERO_SELECTION теперь пропускается (0 секунд) - выбор героев в CUSTOM_GAME_SETUP -->
     </Panel>
 </root>

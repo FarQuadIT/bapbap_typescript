@@ -722,3 +722,222 @@
         url("file://{images}/custom_game/cartoonexplosion/explosion_00266.png"),
         url("file://{images}/custom_game/cartoonexplosion/explosion_00267.png");
 }
+
+/* ===============================================
+   HERO SELECTION CONTAINER (скрыт по умолчанию)
+   =============================================== */
+#HeroSelectionContainer {
+    visibility: collapse;
+    opacity: 0;
+    position: 0px 0px 0px 0px;
+    z-index: 100;
+}
+
+/* ===============================================
+   HERO SELECTION SCREEN STYLES
+   =============================================== */
+
+/* Корневая панель на весь экран */
+.HeroSelectionRoot {
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1a;
+    flow-children: down;
+}
+
+/* ===============================================
+   ВЕРХНЯЯ ПАНЕЛЬ: Очередь пика
+   =============================================== */
+
+#PickOrderPanel {
+    width: 100%;
+    height: 120px;
+    background-color: #1a1a1a;
+    flow-children: right;
+    padding: 10px;
+}
+
+/* Один слот для игрока */
+.PickSlot {
+    width: fill-parent-flow(1.0);
+    height: 100px;
+    margin: 0px 5px;
+    background-color: #2a2a2a;
+    border: 2px solid #3a3a3a;
+    border-radius: 8px;
+    flow-children: down;
+    horizontal-align: center;
+}
+
+.PickSlot:first-child {
+    margin-left: 0px;
+}
+
+.PickSlot:last-child {
+    margin-right: 0px;
+}
+
+/* Контейнер для героя в слоте */
+.PickSlotHeroContainer {
+    width: 80px;
+    height: 70px;
+    margin-top: 5px;
+    horizontal-align: center;
+}
+
+.PickSlotHeroContainer Image {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+/* Таймер под аватаром */
+.PickSlotTimer {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FF0000;
+    text-align: center;
+    margin-top: 5px;
+    visibility: collapse;
+}
+
+/* ===============================================
+   ОСНОВНОЙ КОНТЕНТ: Контейнер для 3 колонок
+   =============================================== */
+
+#MainContent {
+    width: 100%;
+    height: fill-parent-flow(1.0);
+    flow-children: right;
+}
+
+/* ===============================================
+   ТРИ ОСНОВНЫЕ КОЛОНКИ
+   =============================================== */
+
+/* ЛЕВАЯ КОЛОНКА: Список героев (40%) */
+#LeftColumn {
+    width: 40%;
+    height: 100%;
+    background-color: #2a2a2a;
+    border-right: 2px solid #3a3a3a;
+    padding: 20px;
+    flow-children: down;
+}
+
+#HeroListTitle {
+    font-size: 28px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+#HeroListContainer {
+    width: 100%;
+    height: fill-parent-flow(1.0);
+    flow-children: down;
+    overflow: scroll;
+}
+
+/* Карточка героя */
+.HeroCard {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 15px;
+    background-color: #3a3a3a;
+    border: 2px solid #4a4a4a;
+    border-radius: 8px;
+    flow-children: right;
+    padding: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.HeroCard:hover {
+    background-color: #4a4a4a;
+    border-color: #5a9fd4;
+    box-shadow: 0px 0px 15px 2px #5a9fd4aa;
+}
+
+.HeroCardImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.HeroCardName {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFFFFF;
+    vertical-align: center;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+/* ЦЕНТРАЛЬНАЯ КОЛОНКА: Информация о герое (35%) */
+#CenterColumn {
+    width: 35%;
+    height: 100%;
+    background-color: #252525;
+    border-right: 2px solid #3a3a3a;
+    padding: 20px;
+    flow-children: down;
+}
+
+#SelectButtonContainer {
+    width: 100%;
+    height: 80px;
+    vertical-align: bottom;
+    horizontal-align: center;
+    visibility: collapse;
+}
+
+/* Кнопка ВЫБРАТЬ */
+.SelectButton {
+    width: 250px;
+    height: 60px;
+    background-color: #2d6b2d;
+    border: 3px solid #4a9d4a;
+    border-radius: 10px;
+    horizontal-align: center;
+}
+
+.SelectButton Label {
+    font-size: 28px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: center;
+    text-shadow: 2px 2px 4px #000000;
+    letter-spacing: 2px;
+}
+
+.SelectButton:hover {
+    background-color: #3d8b3d;
+    border-color: #5abd5a;
+    box-shadow: 0px 0px 20px 3px #5abd5aaa;
+    transition: all 0.2s ease-in-out;
+}
+
+/* ПРАВАЯ КОЛОНКА: Аугментации (25%) */
+#RightColumn {
+    width: 25%;
+    height: 100%;
+    background-color: #2a2a2a;
+    padding: 20px;
+}
+
+/* Заглушки */
+#LeftColumnPlaceholder,
+#CenterColumnPlaceholder,
+#RightColumnPlaceholder {
+    font-size: 32px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: center;
+    horizontal-align: center;
+    text-shadow: 2px 2px 8px #000000;
+    letter-spacing: 3px;
+}

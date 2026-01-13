@@ -44,5 +44,81 @@
                 <Label id="WaitingForLeaderLabel" text="Ожидание решения лидера лобби..." />
             </Panel>
         </Panel>
+        
+        <!-- 🎮 ВЫБОР ГЕРОЕВ (скрыт по умолчанию, показывается после интро) -->
+        <Panel id="HeroSelectionContainer" class="HeroSelectionRoot">
+            <!-- ВЕРХНЯЯ ПАНЕЛЬ: Очередь пика (8 слотов) -->
+            <Panel id="PickOrderPanel">
+                <Panel id="PickSlot_0" class="PickSlot">
+                    <Panel id="PickSlotHero_0" class="PickSlotHeroContainer" />
+                    <Label id="PickSlotTimer_0" class="PickSlotTimer" text="" />
+                </Panel>
+                <Panel id="PickSlot_1" class="PickSlot">
+                    <Panel id="PickSlotHero_1" class="PickSlotHeroContainer" />
+                    <Label id="PickSlotTimer_1" class="PickSlotTimer" text="" />
+                </Panel>
+                <Panel id="PickSlot_2" class="PickSlot">
+                    <Panel id="PickSlotHero_2" class="PickSlotHeroContainer" />
+                    <Label id="PickSlotTimer_2" class="PickSlotTimer" text="" />
+                </Panel>
+                <Panel id="PickSlot_3" class="PickSlot">
+                    <Panel id="PickSlotHero_3" class="PickSlotHeroContainer" />
+                    <Label id="PickSlotTimer_3" class="PickSlotTimer" text="" />
+                </Panel>
+                <Panel id="PickSlot_4" class="PickSlot">
+                    <Panel id="PickSlotHero_4" class="PickSlotHeroContainer" />
+                    <Label id="PickSlotTimer_4" class="PickSlotTimer" text="" />
+                </Panel>
+                <Panel id="PickSlot_5" class="PickSlot">
+                    <Panel id="PickSlotHero_5" class="PickSlotHeroContainer" />
+                    <Label id="PickSlotTimer_5" class="PickSlotTimer" text="" />
+                </Panel>
+                <Panel id="PickSlot_6" class="PickSlot">
+                    <Panel id="PickSlotHero_6" class="PickSlotHeroContainer" />
+                    <Label id="PickSlotTimer_6" class="PickSlotTimer" text="" />
+                </Panel>
+                <Panel id="PickSlot_7" class="PickSlot">
+                    <Panel id="PickSlotHero_7" class="PickSlotHeroContainer" />
+                    <Label id="PickSlotTimer_7" class="PickSlotTimer" text="" />
+                </Panel>
+            </Panel>
+            
+            <!-- ОСНОВНОЙ КОНТЕНТ: 3 колонки -->
+            <Panel id="MainContent">
+                <!-- ЛЕВАЯ КОЛОНКА: Список героев (40%) -->
+                <Panel id="LeftColumn">
+                    <Label id="HeroListTitle" text="ВЫБЕРИ ГЕРОЯ:" />
+                    <Panel id="HeroListContainer">
+                        <Panel class="HeroCard" data-hero="npc_dota_hero_axe">
+                            <Image class="HeroCardImage" />
+                            <Label class="HeroCardName" text="Axe" />
+                        </Panel>
+                        <Panel class="HeroCard" data-hero="npc_dota_hero_pudge">
+                            <Image class="HeroCardImage" />
+                            <Label class="HeroCardName" text="Pudge" />
+                        </Panel>
+                        <Panel class="HeroCard" data-hero="npc_dota_hero_crystal_maiden">
+                            <Image class="HeroCardImage" />
+                            <Label class="HeroCardName" text="Crystal Maiden" />
+                        </Panel>
+                    </Panel>
+                </Panel>
+                
+                <!-- ЦЕНТРАЛЬНАЯ КОЛОНКА: Информация о герое (35%) -->
+                <Panel id="CenterColumn">
+                    <Label id="CenterColumnPlaceholder" text="ИНФОРМАЦИЯ О ГЕРОЕ" />
+                    <Panel id="SelectButtonContainer">
+                        <Button id="SelectHeroButton" class="SelectButton">
+                            <Label text="ВЫБРАТЬ" />
+                        </Button>
+                    </Panel>
+                </Panel>
+                
+                <!-- ПРАВАЯ КОЛОНКА: Аугментации (25%) -->
+                <Panel id="RightColumn">
+                    <Label id="RightColumnPlaceholder" text="АУГМЕНТАЦИИ" />
+                </Panel>
+            </Panel>
+        </Panel>
     </Panel>
 </root>

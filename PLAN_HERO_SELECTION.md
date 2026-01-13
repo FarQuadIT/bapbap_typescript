@@ -1,5 +1,276 @@
 # 📋 ПЛАН РАЗРАБОТКИ ЭКРАНА ВЫБОРА ГЕРОЕВ
 
+**Дата:** 2026-01-11  
+**Последнее обновление:** 2026-01-11 (23:55) - Переработан порядок этапов  
+**Статус:** 🚧 В разработке - Этапы 0-2 завершены, утечка памяти исправлена
+
+---
+
+## ⚠️ КРИТИЧНЫЕ ИСПРАВЛЕНИЯ
+
+### 🔄 ЭТАП 1: Исправлена логика распределения команд (2026-01-12 00:30)
+
+**Проблемы:**
+1. Система добавляла 15 ботов вместо 7 (всего 16 игроков вместо 8)
+2. Игроки и боты распределялись в старые команды GOODGUYS/BADGUYS вместо 8 кастомных
+3. Остались настройки для Radiant/Dire команд
+
+**Решение (✅ применено):**
+
+1. **`GameMode.ts` - configure():**
+   ```typescript
+   GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.GOODGUYS, 0); // Отключено
+   GameRules.SetCustomGameTeamMaxPlayers(DotaTeam.BADGUYS, 0); // Отключено
+   ```
+
+2. **`GameMode.ts` - OnStateChange() для CUSTOM_GAME_SETUP:**
+   - ✅ Распределение реальных игроков по командам 6-13 (через 0.5с)
+   - ✅ Добавление 7 ботов (через 2с)
+   - ✅ Распределение ботов по оставшимся командам (через 4с)
+   - ✅ Отправка Steam IDs на клиент (через 5с)
+
+3. **`GameMode.ts` - Удален обработчик `auto_assign_team`:**
+   - Распределение теперь происходит автоматически на сервере
+
+4. **`game_setup.ts` - Удален вызов `auto_assign_team`:**
+   - Убран код клиентского распределения в команду
+
+**Результат:**
+- ✅ Ровно 8 игроков (1 реальный + 7 ботов)
+- ✅ Каждый в своей команде (CUSTOM_1 до CUSTOM_8)
+- ✅ Команды 2 (Radiant) и 3 (Dire) отключены
+
+**Файлы:** `src/vscripts/GameMode.ts`, `src/panorama/game_setup.ts`
+
+---
+
+### 🐛 Устранена утечка памяти в `game_setup.ts` (2026-01-11 23:30)
+**Проблема:** Таймер и электрическая анимация продолжали работать после перехода в HERO_SELECTION, что видно было в логах.
+
+**Решение (✅ применено):**
+- Добавлены флаги `isTimerActive` и `isElectricAnimationActive`
+- Добавлены функции `StopTimer()` и `StopElectricAnimation()`
+- Вызов остановки в `HideCardsAndStartGame()` перед запуском анимации выхода
+- Теперь все ресурсы корректно освобождаются при переходе между экранами
+
+**Файл:** `src/panorama/game_setup.ts`
+
+---
+
+### ⚡ Исправлена очередность остановки анимации портала (2026-01-12 00:40)
+**Проблема:** Электрическая анимация портала останавливалась сразу при нажатии кнопки "Начать игру", но карточки еще не успевали улететь в портал.
+
+**Решение (✅ применено):**
+- Таймер останавливается сразу при нажатии кнопки
+- Электрическая анимация продолжает работать пока карточки летят
+- Анимация портала останавливается ПОСЛЕ того как все 8 карточек улетели (через ~3.1s)
+- Последовательность: взрывы карточек → вылет в портал → закрытие портала → переход в HERO_SELECTION
+
+**Файл:** `src/panorama/game_setup.ts`
+
+---
+
+### 🎯 ЭТАП 4 ЗАВЕРШЕН: Отображение героев в верхней панели (2026-01-12 01:00)
+
+**Задача:** Показать портреты героев всех 8 игроков в верхней панели экрана выбора героев.
+
+**Реализация (✅ применено):**
+
+1. **Сервер (`GameMode.ts`):**
+   ```typescript
+   // При переходе в HERO_SELECTION отправляем героев на клиент
+   private SendPlayersHeroesToUI(): void {
+       // Собираем героев всех игроков (0-7)
+       // Отправляем через CustomGameEventManager
+   }
+   ```
+
+2. **События (`events.d.ts`):**
+   ```typescript
+   interface HeroSelectionPlayersDataEvent {
+       players: Array<{
+           playerID: number;
+           heroName: string;
+           teamNumber: number;
+       }>;
+   }
+   ```
+
+3. **XML (`hero_selection.xml`):**
+   - Добавлены ID к каждому слоту: `PickSlot_0` до `PickSlot_7`
+   - Контейнер для героя: `PickSlotHero_0` до `PickSlotHero_7`
+   - Таймер для каждого слота: `PickSlotTimer_0` до `PickSlotTimer_7`
+
+4. **CSS (`hero_selection.css`):**
+   - Стили для `.PickSlotHeroContainer` (80x70px)
+   - Стили для `DOTAHeroImage` внутри контейнера
+
+5. **Клиент (`hero_selection.ts`):**
+   ```typescript
+   // Подписка на событие
+   GameEvents.Subscribe("hero_selection_players_data", ...);
+   
+   // Создание DOTAHeroImage для каждого игрока
+   function UpdatePickSlot(slotIndex, heroName) {
+       const heroImage = $.CreatePanel("DOTAHeroImage", ...);
+       heroImage.SetAttributeString("heroname", heroName);
+       heroImage.SetAttributeString("heroimagestyle", "icon");
+   }
+   ```
+
+**Результат:**
+- ✅ Верхняя панель показывает портреты героев всех 8 игроков
+- ✅ Портреты загружаются автоматически при переходе в HERO_SELECTION
+- ✅ Используется DOTAHeroImage для корректного отображения
+
+**Файлы:** `GameMode.ts`, `hero_selection.ts`, `hero_selection.xml`, `hero_selection.css`, `events.d.ts`
+
+---
+
+## 📚 ПРОВЕРЕННЫЕ API И ДОКУМЕНТАЦИЯ
+
+### ✅ Lua/VScripts API (из moddota_api_lua.json)
+
+#### Teams (8 команд по 1 игроку):
+```typescript
+// DOTATeam_t constants - проверено в документации:
+DOTA_TEAM_CUSTOM_1 = 6   // Команда 1
+DOTA_TEAM_CUSTOM_2 = 7   // Команда 2
+DOTA_TEAM_CUSTOM_3 = 8   // Команда 3
+DOTA_TEAM_CUSTOM_4 = 9   // Команда 4
+DOTA_TEAM_CUSTOM_5 = 10  // Команда 5
+DOTA_TEAM_CUSTOM_6 = 11  // Команда 6
+DOTA_TEAM_CUSTOM_7 = 12  // Команда 7
+DOTA_TEAM_CUSTOM_8 = 13  // Команда 8
+
+// Лимиты:
+DOTA_MAX_PLAYER_TEAMS = 10  // Максимум команд
+DOTA_MAX_TEAM_PLAYERS = 24  // Максимум игроков в команде
+```
+
+#### PlayerResource API (существует и работает):
+```typescript
+PlayerResource.SetSelectedHero(playerID: number, heroName: string): void
+// Устанавливает выбранного героя для игрока
+
+PlayerResource.GetSelectedHeroName(playerID: number): string
+// Возвращает имя выбранного героя (если есть)
+
+player.GetAssignedHero(): CDOTA_BaseNPC_Hero | undefined
+// Возвращает назначенного героя
+
+entity.GetTeam(): DOTATeam_t
+entity.SetTeam(teamNum: DOTATeam_t): void
+```
+
+#### Game States (проверены):
+```typescript
+DOTA_GAMERULES_STATE_HERO_SELECTION = 4
+DOTA_GAMERULES_STATE_STRATEGY_TIME = 5
+DOTA_GAMERULES_STATE_PRE_GAME = 8
+DOTA_GAMERULES_STATE_GAME_IN_PROGRESS = 10
+
+GameRules:State_Get(): DOTA_GameState
+GameRules:SetGameState(state: DOTA_GameState): void  // Переход между стейтами
+```
+
+### ✅ Panorama API (из Dota_2_Workshop_Tools_Panorama_Panels.md)
+
+#### DOTAHeroImage (подтверждено официальной документацией):
+```xml
+<!-- Icon style (32x32) - для списка героев -->
+<DOTAHeroImage heroname="npc_dota_hero_axe" heroimagestyle="icon" />
+
+<!-- Portrait style (71x94) - для верхних слотов с игроками -->
+<DOTAHeroImage heroname="npc_dota_hero_axe" heroimagestyle="portrait" />
+
+<!-- Landscape style (128x72) - для scoreboard -->
+<DOTAHeroImage heroname="npc_dota_hero_axe" heroimagestyle="landscape" />
+```
+
+**Важно:** DOTAHeroImage можно создавать динамически через `$.CreatePanel()` и менять heroname через `SetAttributeString()`.
+
+#### Таймеры в Panorama:
+```typescript
+$.Schedule(delay: number, callback: () => void)
+// Стандартный способ создания таймеров
+// КРИТИЧНО: Нужны флаги для остановки рекурсивных таймеров!
+```
+
+### 📖 Источники проверенной информации:
+- ✅ `HELP_FOR_CLAUDE/Documentation_api_and_functions_lua_and_panorama/moddota_api_lua.json`
+- ✅ `HELP_FOR_CLAUDE/Valve_documentation_official_for_dota2_custom_games_developing/Dota_2_Workshop_Tools_Panorama_Panels.md`
+- ✅ `HELP_FOR_CLAUDE/Examples_of_projects_custom_dota2_games/04_DOTA_RUN_ANALYSIS.md` (пример FFA с 10 командами)
+- ✅ `HELP_FOR_CLAUDE/ModDota_Complete_Documentation.md`
+
+---
+
+## 🎯 НОВАЯ ПОСЛЕДОВАТЕЛЬНОСТЬ РАЗРАБОТКИ
+
+**Согласно требованиям пользователя, порядок изменен:**
+
+1. **Hammer: 8 команд** → Настройка карты для реальных условий
+2. **Отображение героев ботов** → Они уже выбраны, показываем в UI
+3. **3 героя + кнопка "ВЫБРАТЬ"** → Базовая механика выбора
+4. **Переход в STRATEGY_TIME** → Проверка работоспособности
+5. **Таймеры и очередность** → Полноценная механика пика
+6. **Оформление + PRE_GAME** → 3D модели со скинами
+
+---
+
+## 📊 КРАТКИЙ ROADMAP (НОВАЯ ПОСЛЕДОВАТЕЛЬНОСТЬ)
+
+### ✅ Завершено:
+- [x] **Этап 0:** Базовая структура файлов (hero_selection.ts/xml/css)
+- [x] **Этап 2:** UI с 3 колонками (40%/35%/25%)
+- [x] **Этап 3:** Верхняя панель с 8 слотами
+- [x] **Фикс:** Утечка памяти в game_setup.ts
+- [x] **ЭТАП 1 (Hammer):** Настроено 8 команд (info_player_start_dota с Team Number 6-13)
+- [x] **ЭТАП 1 (VScripts):** SetupCustomTeams() - лимиты для 8 команд
+- [x] **ЭТАП 1 (VScripts):** Автоматическое распределение игроков по 8 командам
+- [x] **ЭТАП 1 (VScripts):** Добавление и распределение ботов (7 штук)
+- [x] **ЭТАП 1 (Фикс):** Отключены стандартные команды Radiant/Dire
+- [x] **ЭТАП 4 (Сервер):** SendPlayersHeroesToUI() отправляет героев на клиент
+- [x] **ЭТАП 4 (Клиент):** DOTAHeroImage отображает портреты героев в слотах
+- [x] **ЭТАП 4 (XML):** Добавлены ID к слотам для динамического обновления
+- [x] **ЭТАП 4 (CSS):** Стили для PickSlotHeroContainer и DOTAHeroImage
+- [x] **ЭТАП 4 (Events):** Определено событие hero_selection_players_data
+
+### 🚧 Текущие задачи (по порядку):
+- [ ] **ЭТАП 6:** 3 героя + кнопка "ВЫБРАТЬ" + переход в STRATEGY_TIME
+- [ ] **ЭТАП 7:** Таймеры и очередность пика
+- [ ] **ЭТАП 8:** PRE_GAME экран с 3D моделями и скинами
+
+### 📖 Навигация по плану:
+
+**АКТУАЛЬНЫЕ ЭТАПЫ (читай их по порядку):**
+1. 👇 **ЭТАП 1** - Hammer (8 команд) - см. ниже ↓
+2. 👇 **ЭТАП 4** - Отображение героев ботов - см. ниже ↓  
+3. 👇 **ЭТАП 6** - 3 героя + кнопка - см. ниже ↓
+
+**СТАРЫЕ РАЗДЕЛЫ (для справки, НЕ актуальны):**
+- "Этап 3: Нижняя панель..." → объединен в ЭТАП 6
+- "Этап 4: Список героев..." → объединен в ЭТАП 6
+- "Этап 5: Информация о герое..." → делается позже
+- Остальные этапы 7-14 → делаются позже
+
+### 🎯 Что в логах (последний запуск):
+```
+✅ Custom GameSetup UI работает
+✅ 8 игроков: 1 реальный + 7 ботов
+✅ Боты автоматически получили героев:
+   - Player 1: npc_dota_hero_lina
+   - Player 2: npc_dota_hero_razor
+   - Player 3: npc_dota_hero_vengefulspirit
+   - ... и т.д.
+✅ Hero selection screen initialized
+✅ Hero selection UI loaded successfully
+
+⚠️ НО: Таймер GameSetup продолжал тикать (теперь исправлено)
+```
+
+---
+
 **Архитектура (слева направо):**
 1. **СПИСОК ГЕРОЕВ** (слева, 40% ширины):
    - Скроллящийся список героев с иконками
@@ -97,7 +368,131 @@ src/common/events.d.ts    → Добавим типы для hero selection со
 
 ---
 
-## ✅ Этап 1: Базовая структура UI (статичная версия) - ВЫПОЛНЕНО
+## 🔧 ЭТАП 1 (НОВЫЙ): Настройка 8 команд в Hammer
+
+### 📝 Цель:
+Настроить карту так, чтобы было 8 команд по 1 игроку (FFA-режим). Это нужно для работы в реальных условиях с самого начала.
+
+### 📖 Источник:
+- **Пример:** Dota Run (HELP_FOR_CLAUDE/Examples_of_projects_custom_dota2_games/04_DOTA_RUN_ANALYSIS.md) - FFA режим с 10 командами
+- **Документация:** DOTATeam_t constants (moddota_api_lua.json) - подтверждено существование DOTA_TEAM_CUSTOM_1 до CUSTOM_8
+
+### 🎯 Подробная инструкция:
+
+#### 1.1 Открыть карту в Hammer Editor
+```
+1. Запустить: Dota 2 Workshop Tools
+2. Открыть: Tools > Asset Browser  
+3. Найти: maps/bapbap_typescript.vmap
+4. Открыть двойным кликом
+```
+
+#### 1.2 Настройка спавн-точек (8 команд)
+
+**Источник:** developer.valvesoftware.com - Custom Game Setup, TeamNum property
+
+**ВАЖНО:** Каждый игрок = отдельная команда!
+
+**ПРАВИЛЬНАЯ ИНСТРУКЦИЯ (проверено на source2.wiki):**
+
+```
+Шаг 1: Удалить старые спавны (обязательно!)
+   - Удалить все: info_player_start_goodguys
+   - Удалить все: info_player_start_badguys
+   (Они привязаны к Radiant/Dire, не подходят для кастомных команд)
+
+Шаг 2: Создать 8 спавн-точек типа info_player_start_dota
+   - Нажать: Shift+E (Entity Tool)
+   - В списке выбрать: info_player_start_dota ⭐ (НЕ goodguys/badguys!)
+   - Поставить 8 точек в разных местах карты
+   
+Шаг 3: Настроить Team Number для каждой точки
+   
+   Для каждой из 8 точек:
+   1. Выделить entity
+   2. Открыть Object Properties (Alt+Enter или двойной клик)
+   3. Найти свойство "Team Number" 
+   4. Выставить значения для 8 кастомных команд:
+   
+      📍 Спавн 1: Team Number = 6  (DOTA_TEAM_CUSTOM_1)
+      📍 Спавн 2: Team Number = 7  (DOTA_TEAM_CUSTOM_2)
+      📍 Спавн 3: Team Number = 8  (DOTA_TEAM_CUSTOM_3)
+      📍 Спавн 4: Team Number = 9  (DOTA_TEAM_CUSTOM_4)
+      📍 Спавн 5: Team Number = 10 (DOTA_TEAM_CUSTOM_5)
+      📍 Спавн 6: Team Number = 11 (DOTA_TEAM_CUSTOM_6)
+      📍 Спавн 7: Team Number = 12 (DOTA_TEAM_CUSTOM_7)
+      📍 Спавн 8: Team Number = 13 (DOTA_TEAM_CUSTOM_8)
+   
+   5. (Опционально) Name: spawn_team_1, spawn_team_2, ... spawn_team_8
+   6. Выставить angle (направление взгляда при спавне)
+
+Шаг 4: Расположение
+   - Минимум 16 units между спавнами
+   - Равномерно по карте: по кругу ИЛИ 2 ряда по 4
+```
+
+**ПОЧЕМУ info_player_start_dota:**
+- ✅ Generic spawn point с гибкой настройкой Team Number
+- ✅ Подходит для кастомных команд (6-13)
+- ❌ info_player_start_goodguys - только для Radiant (team 2)
+- ❌ info_player_start_badguys - только для Dire (team 3)
+
+#### 1.3 Настройка VScripts (GameMode.ts)
+
+**Файл:** `src/vscripts/GameMode.ts`
+
+Добавить метод настройки команд (это и есть основная настройка 8 команд!):
+
+```typescript
+constructor() {
+    this.configure();
+    
+    // НОВОЕ: Настройка 8 команд по 1 игроку
+    this.SetupCustomTeams();
+    
+    // Register event listeners
+    ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
+    // ... остальной код
+}
+
+// НОВЫЙ МЕТОД
+private SetupCustomTeams(): void {
+    // Устанавливаем максимум 1 игрок в команде для каждой из 8 команд
+    GameRules:SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_CUSTOM_1, 1);
+    GameRules:SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_CUSTOM_2, 1);
+    GameRules:SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_CUSTOM_3, 1);
+    GameRules:SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_CUSTOM_4, 1);
+    GameRules:SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_CUSTOM_5, 1);
+    GameRules:SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_CUSTOM_6, 1);
+    GameRules:SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_CUSTOM_7, 1);
+    GameRules:SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_CUSTOM_8, 1);
+    
+    print("✅ 8 custom teams configured (1 player each - FFA mode)");
+}
+```
+
+#### 1.4 Компиляция и проверка
+```
+1. Hammer: File > Save (Ctrl+S)
+2. Hammer: Build > Build Map (F9) - компилируем карту
+3. Дождаться завершения компиляции
+4. В VS Code: npm run build - компилируем TypeScript
+5. Запустить игру и проверить
+```
+
+**Примечание:** Max Players в Map Properties менять НЕ НУЖНО - мы ограничиваем количество программно через `SetCustomGameTeamMaxPlayers()` и количеством спавн-точек.
+
+### ✅ Проверка Этапа 1:
+- [ ] В Hammer 8 спавн-точек для 8 команд (Team Number: 6-13)
+- [ ] Карта успешно компилируется без ошибок
+- [ ] `npm run build` проходит успешно
+- [ ] В игре появляются 8 игроков (1 реальный + 7 ботов)
+- [ ] Каждый игрок в отдельной команде
+- [ ] В консоли: "✅ 8 custom teams configured (1 player each - FFA mode)"
+
+---
+
+## ✅ ЭТАП 2 (СТАРЫЙ "Этап 1"): Базовая структура UI - ВЫПОЛНЕНО
 
 ### 📐 Цель: Создать layout с 3 колонками без логики
 
@@ -180,7 +575,7 @@ src/common/events.d.ts    → Добавим типы для hero selection со
 
 ---
 
-## ✅ Этап 2: Верхняя панель с очередью пика - ВЫПОЛНЕНО
+## ✅ ЭТАП 3 (СТАРЫЙ "Этап 2"): Верхняя панель с очередью пика - ВЫПОЛНЕНО
 
 ### 🎯 Цель: 8 слотов для отображения очереди
 
@@ -292,7 +687,180 @@ src/common/events.d.ts    → Добавим типы для hero selection со
 
 ---
 
-## ✅ Этап 3: Нижняя панель с кнопкой "ВЫБРАТЬ"
+## 🔧 ЭТАП 4 (НОВЫЙ): Отображение героев ботов в верхней панели
+
+### 📝 Цель:
+В 8 слотах верхней панели показать портреты героев, которых выбрали боты автоматически.
+
+### 📖 Источник:
+- **API:** `PlayerResource.SetSelectedHero()` и `PlayerResource.GetSelectedHeroName()` (moddota_api_lua.json - подтверждено)
+- **UI:** `DOTAHeroImage` с `heroimagestyle="portrait"` (Dota_2_Workshop_Tools_Panorama_Panels.md - подтверждено)
+
+### 🎯 Реализация:
+
+#### 4.1 XML: Добавить ID к слотам (hero_selection.xml)
+
+Чтобы динамически обновлять слоты, нужны уникальные ID:
+
+```xml
+<Panel id="PickOrderPanel">
+    <!-- Слот 1 -->
+    <Panel id="PickSlot_0" class="PickSlot">
+        <Image id="PickSlotAvatar_0" class="PickSlotAvatar" src="file://{images}/custom_game/tstl.png" />
+        <Label class="PickSlotTimer" text="" />
+    </Panel>
+    
+    <!-- Слот 2 -->
+    <Panel id="PickSlot_1" class="PickSlot">
+        <Image id="PickSlotAvatar_1" class="PickSlotAvatar" src="file://{images}/custom_game/tstl.png" />
+        <Label class="PickSlotTimer" text="" />
+    </Panel>
+    
+    <!-- Слот 3-8 аналогично: PickSlot_2 до PickSlot_7 -->
+</Panel>
+```
+
+#### 4.2 Серверная часть: Отправка данных о героях (GameMode.ts)
+
+Боты уже получают героев автоматически (видно из логов):
+```
+PR:SetSelectedHero 1:[I:0:0] npc_dota_hero_lina(25)
+PR:SetSelectedHero 2:[I:0:0] npc_dota_hero_razor(15)
+```
+
+Добавить в `OnStateChange()`:
+
+```typescript
+private OnStateChange(): void {
+    const state = GameRules.State_Get();
+    print(`=== Game Rules State Change: ${state} ===`);
+    
+    if (state === DOTA_GAMERULES_STATE_HERO_SELECTION) {
+        // Через 0.5s отправляем информацию о выбранных героях ботов
+        Timers:CreateTimer(0.5, () => {
+            this.SendBotHeroesToUI();
+            return undefined;
+        });
+    }
+    
+    // ... остальной код
+}
+
+// НОВЫЙ МЕТОД
+private SendBotHeroesToUI(): void {
+    const heroData: Record<number, string> = {};
+    
+    for (let playerID = 0; playerID < DOTA_MAX_TEAM_PLAYERS; playerID++) {
+        if (!PlayerResource:IsValidPlayer(playerID)) continue;
+        
+        // Получаем имя выбранного героя (если есть)
+        const heroName = PlayerResource:GetSelectedHeroName(playerID);
+        if (heroName && heroName !== "") {
+            heroData[playerID] = heroName;
+            print(`📧 Player ${playerID}: ${heroName}`);
+        }
+    }
+    
+    // Отправляем на клиент
+    CustomGameEventManager:Send_ServerToAllClients("hero_selection_bot_heroes", {
+        heroes: heroData
+    });
+    
+    print(`✅ Sent hero data for ${Object.keys(heroData).length} players`);
+}
+```
+
+#### 4.3 Клиентская часть: Обновление UI (hero_selection.ts)
+
+```typescript
+interface BotHeroesEvent {
+    heroes: Record<number, string>; // playerID -> heroName
+}
+
+// В Initialize()
+function Initialize(): void {
+    $.Msg("✅ Hero selection UI loaded successfully");
+    
+    // НОВОЕ: Подписываемся на событие от сервера
+    GameEvents.Subscribe("hero_selection_bot_heroes", OnBotHeroesReceived);
+}
+
+// НОВЫЙ ОБРАБОТЧИК
+function OnBotHeroesReceived(event: BotHeroesEvent): void {
+    $.Msg("🔄 Received bot heroes from server");
+    
+    const heroes = event.heroes;
+    
+    // Обновляем каждый слот
+    for (let slotIndex = 0; slotIndex < 8; slotIndex++) {
+        const heroName = heroes[slotIndex];
+        
+        if (heroName) {
+            UpdatePickSlot(slotIndex, heroName);
+        }
+    }
+}
+
+// НОВАЯ ФУНКЦИЯ: Обновление слота с портретом героя
+function UpdatePickSlot(slotIndex: number, heroName: string): void {
+    const slot = $(`#PickSlot_${slotIndex}`);
+    if (!slot) {
+        $.Msg(`❌ Slot ${slotIndex} not found!`);
+        return;
+    }
+    
+    // Находим Image внутри слота
+    const avatarImage = slot.FindChildTraverse("PickSlotAvatar") as ImagePanel;
+    if (!avatarImage) {
+        $.Msg(`❌ Avatar image in slot ${slotIndex} not found!`);
+        return;
+    }
+    
+    // Заменяем Image на DOTAHeroImage через динамическое создание
+    const parent = avatarImage.GetParent();
+    if (!parent) return;
+    
+    avatarImage.DeleteAsync(0); // Удаляем старый Image
+    
+    // Создаем DOTAHeroImage (проверено в документации!)
+    const heroImage = $.CreatePanel("DOTAHeroImage", parent, `HeroImage_${slotIndex}`);
+    heroImage.AddClass("PickSlotAvatar");
+    heroImage.SetAttributeString("heroname", heroName);
+    heroImage.SetAttributeString("heroimagestyle", "portrait"); // 71x94 размер
+    
+    $.Msg(`  ✅ Slot ${slotIndex + 1}: ${heroName}`);
+}
+```
+
+#### 4.4 Типы событий (events.d.ts)
+
+Добавить типы для нового события:
+
+```typescript
+// В src/common/events.d.ts
+
+interface CustomGameEventDeclarations {
+    // ... существующие события
+    
+    // НОВОЕ
+    hero_selection_bot_heroes: {
+        heroes: Record<number, string>; // playerID -> heroName
+    };
+}
+```
+
+### ✅ Проверка Этапа 4:
+- [ ] XML: Все 8 слотов имеют ID (PickSlot_0 до PickSlot_7)
+- [ ] В консоли сервера: "📧 Player X: npc_dota_hero_..."
+- [ ] В консоли сервера: "✅ Sent hero data for 8 players"
+- [ ] В консоли клиента: "🔄 Received bot heroes from server"
+- [ ] В консоли клиента: "✅ Slot 1-8: npc_dota_hero_..."
+- [ ] В UI верхней панели отображаются портреты героев ботов (71x94)
+- [ ] Портреты в правильном стиле (не placeholder tstl.png)
+
+---
+
+## 🔧 ЭТАП 5 (СТАРЫЙ "Этап 3"): Нижняя панель с кнопкой "ВЫБРАТЬ"
 
 ### 🎯 Цель: Кнопка для подтверждения выбора
 
@@ -373,7 +941,9 @@ function OnSelectHeroClicked(): void {
 
 ---
 
-## ✅ Этап 4: Список героев (левая колонка)
+## СТАРЫЙ РАЗДЕЛ (см. новый ЭТАП 6 выше): Список героев (левая колонка)
+
+⚠️ **ЭТОТ РАЗДЕЛ ПЕРЕРАБОТАН И ОБЪЕДИНЕН С НИЖНЕЙ ПАНЕЛЬЮ В НОВЫЙ ЭТАП 6**
 
 ### 🎯 Цель: Скроллящийся список с иконками героев
 

@@ -9,6 +9,7 @@
 const ELECTRIC_FRAME_NUMBERS = Array.from({length: 31}, (_, i) => i + 1); // [1, 2, 3, ..., 31]
 let currentElectricFrameIndex = 0;
 const FRAME_DELAY = 0.04; // ~25 FPS
+let isElectricAnimationActive = false; // Флаг активности анимации
 
 // ============================================
 // АНИМАЦИЯ ВЗРЫВА НА КАРТОЧКАХ (34 кадра: 234-267)
@@ -25,6 +26,12 @@ const AVATAR_POSITION_X = "15px";   // Горизонталь (left)
 const AVATAR_POSITION_Y = "52px";  // Вертикаль (top)
 
 function PlayElectricAnimation(): void {
+    // КРИТИЧНО: Проверяем флаг активности для остановки рекурсии
+    if (!isElectricAnimationActive) {
+        $.Msg("⚡ Electric animation stopped.");
+        return;
+    }
+    
     const electricPanel = $("#ElectricEffect") as ImagePanel | null;
     if (!electricPanel) {
         return;
@@ -45,6 +52,12 @@ function PlayElectricAnimation(): void {
     
     // Планируем следующий кадр
     $.Schedule(FRAME_DELAY, PlayElectricAnimation);
+}
+
+// Остановка электрической анимации (предотвращает утечку памяти)
+function StopElectricAnimation(): void {
+    isElectricAnimationActive = false;
+    $.Msg("🛑 Electric animation explicitly stopped to prevent memory leak.");
 }
 
 // НЕ запускаем анимацию сразу - дождемся полной загрузки
@@ -406,9 +419,16 @@ $.Schedule(3, StartStatusUpdates);
 // Таймер автостарта
 let autoStartTime = 10000; // Автостарт через 10000 секунд
 let remainingTime = autoStartTime;
+let isTimerActive = false; // Флаг активности таймера
 
 // Обновление таймера каждую секунду
 function UpdateTimer(): void {
+    // КРИТИЧНО: Проверяем флаг активности для остановки рекурсии
+    if (!isTimerActive) {
+        $.Msg("⏱️ Timer stopped.");
+        return;
+    }
+    
     const timerText = $("#CircularTimerText") as LabelPanel | null;
     const timerContainer = $("#CircularTimerContainer");
     
@@ -438,10 +458,17 @@ function UpdateTimer(): void {
     }
 }
 
+// Остановка таймера (предотвращает утечку памяти)
+function StopTimer(): void {
+    isTimerActive = false;
+    $.Msg("🛑 Timer explicitly stopped to prevent memory leak.");
+}
+
 // Старт таймера
 function StartAutoStartTimer(seconds: number): void {
     autoStartTime = seconds;
     remainingTime = seconds;
+    isTimerActive = true; // Активируем таймер
     
     const timerContainer = $("#CircularTimerContainer");
     if (timerContainer) {
@@ -627,6 +654,7 @@ function RevealUI(): void {
     // 3. Электричество (через 0.5s) + запускаем анимацию
     $.Schedule(0.5, () => {
         if (electric) electric.AddClass("loaded");
+        isElectricAnimationActive = true; // Активируем анимацию
         PlayElectricAnimation(); // Запускаем покадровую анимацию
     });
     
@@ -823,13 +851,8 @@ $.Schedule(1.0, () => { ForceFullScreen(); BlockStandardPanels(); });
 // Даем небольшую задержку для полной загрузки DOM
 $.Schedule(0.3, CheckUIReady);
 
-// Автоматически распределяем локального игрока в команду при загрузке
-(function AutoAssignTeam() {
-    const localPlayerID = Game.GetLocalPlayerID();
-    
-    // Отправляем событие на сервер для распределения в команду
-    (GameEvents.SendCustomGameEventToServer as any)("auto_assign_team", { playerID: localPlayerID });
-})();
+// ℹ️ Распределение игроков по командам происходит автоматически на сервере (см. GameMode.ts)
+// 8 кастомных команд (CUSTOM_1 - CUSTOM_8), по 1 игроку в каждой
 
 // ============================================
 // АНИМАЦИЯ ВЫХОДА КАРТОЧЕК ПЕРЕД НАЧАЛОМ ИГРЫ
@@ -842,7 +865,11 @@ function HideCardsAndStartGame(): void {
         return; // Уже запущено
     }
     isGameStarting = true;
-    
+
+    // КРИТИЧНО: Останавливаем таймер сразу
+    StopTimer();
+    // ⚡ Электрическую анимацию НЕ останавливаем - она нужна пока карточки летят в портал!
+
     $.Msg("🚀 Начинаем анимацию выхода и запуск игры...");
     
     const allPlayerIDs = Game.GetAllPlayerIDs();
@@ -958,18 +985,25 @@ function HideCardsAndStartGame(): void {
     
     $.Msg(`  └ Полное время анимации: ${totalAnimationTime.toFixed(1)}s (с взрывами!)`);
     
-    // После завершения анимации - скрываем весь UI и запускаем игру
+    // После завершения анимации - показываем UI выбора героев
     $.Schedule(totalAnimationTime, () => {
-        $.Msg("✅ Анимация завершена, отправляем сигнал на сервер...");
+        $.Msg("✅ Анимация завершена, все карточки улетели в портал");
         
-        // Скрываем весь root panel
-        const root = $.GetContextPanel();
-        if (root) {
-            root.style.visibility = "collapse";
+        // ⚡ ТЕПЕРЬ останавливаем электрическую анимацию (все карточки уже улетели)
+        StopElectricAnimation();
+        $.Msg("🔌 Портал закрывается...");
+        
+        // Скрываем контейнер интро (ContentContainer)
+        const contentContainer = $("#ContentContainer");
+        if (contentContainer) {
+            contentContainer.style.visibility = "collapse";
+            contentContainer.style.opacity = "0";
         }
         
-        // Отправляем событие на сервер для начала игры
-        (GameEvents.SendCustomGameEventToServer as any)("setup_start_game", {});
+        // 🎮 Показываем UI выбора героев
+        $.Schedule(0.5, () => {
+            ShowHeroSelectionUI();
+        });
     });
 }
 
@@ -985,3 +1019,184 @@ GameEvents.Subscribe("setup_timer_update", (data: any) => {
 
 // Экспортируем функцию для использования в XML
 (globalThis as any).OnSetupStartClicked = OnSetupStartClicked;
+
+// ============================================
+// 🎮 ВЫБОР ГЕРОЕВ (интегрирован в CUSTOM_GAME_SETUP)
+// ============================================
+
+// Выбранный герой
+let selectedHero: string | null = null;
+
+// 🎯 ЭТАП 4: Данные игроков и их героев
+interface PlayerHeroData {
+    playerID: number;
+    heroName: string;
+    teamNumber: number;
+}
+
+let playersData: PlayerHeroData[] = [];
+
+// 🎨 Обновление слота с портретом героя (для ботов)
+function UpdatePickSlot(slotIndex: number, heroName: string): void {
+    const container = $(`#PickSlotHero_${slotIndex}`) as Panel | null;
+    if (!container) {
+        $.Msg(`⚠️ Container for slot ${slotIndex} not found`);
+        return;
+    }
+    
+    // Очищаем контейнер
+    container.RemoveAndDeleteChildren();
+    
+    // Создаем Image панель
+    const heroImage = $.CreatePanel("Image", container, `HeroImage_${slotIndex}`);
+    if (heroImage) {
+        const portraitPath = `s2r://panorama/images/heroes/${heroName}_png.vtex`;
+        heroImage.SetImage(portraitPath);
+        
+        // Стили
+        heroImage.style.width = "80px";
+        heroImage.style.height = "70px";
+        heroImage.style.borderRadius = "5px";
+        
+        $.Msg(`✅ Slot ${slotIndex}: ${heroName}`);
+        $.Msg(`   └ Portrait path: ${portraitPath}`);
+    } else {
+        $.Msg(`❌ Failed to create Image for slot ${slotIndex}`);
+    }
+}
+
+// 📡 Обработчик события с сервера о героях игроков
+GameEvents.Subscribe("hero_selection_players_data", (data: NetworkedData<HeroSelectionPlayersDataEvent>) => {
+    $.Msg("📥 === Received player heroes from server ===");
+    
+    // Преобразуем объект обратно в массив
+    const playersArray: PlayerHeroData[] = [];
+    for (const key in data.players) {
+        if (data.players.hasOwnProperty(key)) {
+            playersArray.push(data.players[key] as PlayerHeroData);
+        }
+    }
+    
+    playersData = playersArray;
+    $.Msg(`📊 Total players received: ${playersData.length}`);
+    
+    // Обновляем UI для каждого игрока
+    playersData.forEach((playerData, index) => {
+        $.Msg(`  └ Player ${playerData.playerID}: ${playerData.heroName} (team ${playerData.teamNumber})`);
+        
+        // Обновляем слот с индексом = playerID (0-7)
+        if (playerData.playerID >= 0 && playerData.playerID < 8) {
+            UpdatePickSlot(playerData.playerID, playerData.heroName);
+        }
+    });
+    
+    $.Msg("✅ All hero portraits updated");
+});
+
+// 🎨 Инициализация списка героев
+function InitializeHeroList(): void {
+    $.Msg("🎨 === Initializing hero list ===");
+    
+    // Список героев (хардкод для теста)
+    const heroes = [
+        { name: "npc_dota_hero_axe", displayName: "Axe" },
+        { name: "npc_dota_hero_pudge", displayName: "Pudge" },
+        { name: "npc_dota_hero_crystal_maiden", displayName: "Crystal Maiden" }
+    ];
+    
+    // Находим все карточки героев
+    const heroCards = $("#HeroListContainer")?.FindChildrenWithClassTraverse("HeroCard") || [];
+    
+    heroCards.forEach((card, index) => {
+        if (index >= heroes.length) return;
+        
+        const hero = heroes[index];
+        const heroName = hero.name;
+        
+        // Устанавливаем атрибут с именем героя
+        card.SetAttributeString("data-hero", heroName);
+        
+        // Находим изображение и устанавливаем портрет
+        const image = card.FindChildTraverse("HeroCardImage") as ImagePanel | null;
+        if (image) {
+            const portraitPath = `s2r://panorama/images/heroes/${heroName}_png.vtex`;
+            image.SetImage(portraitPath);
+        }
+        
+        // Добавляем обработчик клика
+        card.SetPanelEvent("onactivate", () => OnHeroCardClick(heroName));
+        
+        $.Msg(`  └ Hero ${index + 1}: ${hero.displayName} (${heroName})`);
+    });
+    
+    $.Msg("✅ Hero list initialized");
+}
+
+// 🖱️ Обработчик клика по карточке героя
+function OnHeroCardClick(heroName: string): void {
+    $.Msg(`🖱️ Clicked on hero: ${heroName}`);
+    
+    selectedHero = heroName;
+    
+    // Обновляем заглушку в центре
+    const placeholder = $("#CenterColumnPlaceholder") as LabelPanel | null;
+    if (placeholder) {
+        placeholder.text = `ВЫБРАН: ${heroName}`;
+    }
+    
+    // Показываем кнопку "ВЫБРАТЬ"
+    const buttonContainer = $("#SelectButtonContainer") as Panel | null;
+    if (buttonContainer) {
+        buttonContainer.style.visibility = "visible";
+    }
+}
+
+// 🎯 Обработчик кнопки "ВЫБРАТЬ"
+function OnSelectHeroButtonClick(): void {
+    if (!selectedHero) {
+        $.Msg("⚠️ No hero selected!");
+        return;
+    }
+    
+    $.Msg(`🎯 === Selecting hero: ${selectedHero} ===`);
+    
+    // Отправляем событие на сервер
+    GameEvents.SendCustomGameEventToServer("player_pick_hero", {
+        heroName: selectedHero
+    });
+    
+    $.Msg("📤 Sent hero selection to server");
+    
+    // Скрываем кнопку после выбора
+    const buttonContainer = $("#SelectButtonContainer") as Panel | null;
+    if (buttonContainer) {
+        buttonContainer.style.visibility = "collapse";
+    }
+}
+
+// Показываем UI выбора героев после интро
+function ShowHeroSelectionUI(): void {
+    $.Msg("🎮 === Showing Hero Selection UI ===");
+    
+    const heroSelectionContainer = $("#HeroSelectionContainer") as Panel | null;
+    if (!heroSelectionContainer) {
+        $.Msg("❌ HeroSelectionContainer not found!");
+        return;
+    }
+    
+    // Показываем контейнер выбора героев
+    heroSelectionContainer.style.visibility = "visible";
+    heroSelectionContainer.style.opacity = "1";
+    
+    // Инициализируем список героев
+    InitializeHeroList();
+    
+    // Привязываем кнопку "ВЫБРАТЬ"
+    const selectButton = $("#SelectHeroButton") as Button | null;
+    if (selectButton) {
+        selectButton.SetPanelEvent("onactivate", OnSelectHeroButtonClick);
+        $.Msg("✅ Select button initialized");
+    }
+    
+    $.Msg("✅ Hero Selection UI shown");
+}
